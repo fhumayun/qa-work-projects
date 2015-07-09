@@ -1,0 +1,158 @@
+  /csr/api/users:
+      post:
+          tags:
+          - csr
+          summary: Create new access point
+          description: ''
+          operationId: createDefaultUsers
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User / csr object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/csr'
+          responses:
+            '403':
+              description: Error creating user
+            '201':
+              description: User created
+      get:
+          tags:
+          - csr
+          summary: Get all csr users
+          description: ''
+          operationId: getUsers
+          produces:
+            - application/json
+          parameters:
+            - name: getUsers
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/csr'
+            '400':
+              description: Unable to get user
+      put:
+            tags:
+              - csr
+            summary: Update csr info using UID
+            description: ''
+            operationId: updateUser
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User csr object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/csr'
+            responses:
+              '400':
+                description: Error updating user
+              '200':
+                description: csr document updated
+  /csr/api/users/{:id}:
+      get:
+          tags:
+          - csr
+          summary: Get csr user by ID
+          description: ''
+          operationId: getUserById
+          produces:
+            - application/json
+          parameters:
+            - name: getUserById
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/csr'
+            '400':
+              description: Unable to get user
+
+      delete:
+          tags:
+            - csr
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteUser
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error updating user
+            '200':
+              description: user deleted
+  /login:
+      post:
+          tags:
+          - csr
+          summary: login user
+          description: ''
+          operationId: authenticate
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User / csr object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/csr'
+          responses:
+            '403':
+              description: Error logging in
+            '201':
+              description: User authenticated successfully
+  /logout:
+      post:
+          tags:
+          - csr
+          summary: logout user
+          description: ''
+          operationId: logout
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User / csr object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/csr'
+          responses:
+            '403':
+              description: Error logging out
+            '201':
+              description: successfully logged out

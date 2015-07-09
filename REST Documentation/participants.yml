@@ -1,0 +1,348 @@
+ /participant:
+    post:
+      tags:
+        - participant
+      summary: Request a new participant for a fidget
+      description: |
+        'Request a new participant for a fidget
+
+         - "loginId": email id for the participant,
+         - "fidgetDocId": fidgetID,
+         - "accessCode": access code for the participant to enroll against the fidget ID.
+
+         A participant is invited to join the team for a specific fidget. The make request
+         process involves providing the email address of the participant and an access-code.
+
+         The invitee (participant) will need to be provided with the access-code via a
+         separate channel out of groupcaretech.com by the account owner / primary.
+
+         This method
+           - creates a new participant, if the provided email-id is not in the system already.
+           - adds the fidget into the array, if the participant exists in the system.
+      operationId: makeRequest
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '403':
+          description: Error creating a new participant
+        '201':
+          description: Participant profile Created
+        '200':
+          description: Request sent to participant with new accesscode.
+    post:
+      tags:
+        - participant
+      summary: Registration of a participant
+      description: |
+        Registration of participant happens when a new participant gets added to the
+        system or an existing participant gets a request from a different fidget.
+
+         Validates the access code assigned for the participant, specific to the fidget,
+         - if the participant profile was already setup
+         - then force the user to authenticate and register,
+         - else allow the user to setup the profile.
+
+         Post Call:
+                 loginID {"fidgetDocId":
+                          "accessCode":}
+      operationId: verifyParticipant
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Error processing the request
+        '400':
+          description: Invalid use-case
+        '200':
+          description: New Participant
+        '200':
+          description: Validate existing participant
+    post:
+      tags:
+        - participant
+      summary: Confirm Current Participant Registration
+      description: |
+        User participant object that needs to be added 
+        - Post Call:
+                {"accessCode":
+                 "fidgetDocId":
+                 "password":}
+
+               @param req
+               @param res
+               @param next
+
+        - Link:
+              URL: /particpant/id
+      required: true
+      schema:
+        $ref: '#/definitions/participant'
+      operationId: confirmCurrentParticipantRegistration
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Error processing the request
+        '400':
+          description: Invalid user-case
+        '200':
+          description: Registration confirmed
+    post:
+      tags:
+        - participant
+      summary: Register New Participant
+      description: |
+        API calls for registering a new participant
+        - Post Call:
+            loginID
+                {"fidgetDocId":
+                 "accessCode":
+                 "password":}
+
+               @param req
+               @param res
+               @param next
+      operationId: confirmCurrentParticipantRegistration
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Unable to register new participant
+        '400':
+          description: Error processing the request
+        '200':
+          description: Registration Confirmed
+    post:
+      tags:
+        - participant
+      summary: Assign participant with a fidget
+      description: |
+        API calls to assign participant with a fidget
+        - Post Call:
+            participantID
+                {"fidgetDocId":
+                 "role"}
+      operationId: assignParticipant
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Participant does not exists
+        '400':
+          description: Error assigning participant with a fidget
+        '200':
+          description: Assigned a fidget with the given participant
+    post:
+      tags:
+        - participant
+      summary: Authenticate user
+      description: ''
+      operationId: doAuthenticate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '401':
+          description: Invalid Credentials
+    get:
+      tags:
+        - participant
+      summary: Get all participants
+      description: ''
+      operationId: getAllparticipants
+      produces:
+        - application/json
+      parameters:
+        - name: getAccByCrmId
+          in: query
+          description: Status values that need to be considered for filter
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/participant'
+        '400':
+          description: No participant exists
+    get:
+      tags:
+        - participant
+      summary: Get an participant by ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/participant'
+        '400':
+          description: participant does not exists
+    get:
+      tags:
+        - participant
+      summary: Get participants by their login ID
+      description: ''
+      operationId: getLoginId
+      produces:
+        - application/json
+      parameters:
+        - name: loginId
+          in: query
+          description: Status values that need to be considered for filter
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+        '400':
+          description: Login ID not used
+    get:
+      tags:
+        - participant
+      summary: Get participant info by status
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getStatus
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+      put:
+        tags:
+          - participant
+        summary: Update an participant info using UID
+        description: ''
+        operationId: updateAccById
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: User participant object that needs to be added 
+            required: true
+            schema:
+              $ref: '#/definitions/participant'
+        responses:
+          '200':
+            description: Document updated
+          '400':
+            description: Error processing the request
+      put:
+        tags:
+          - participant
+        summary: Change participant status
+        description: ''
+        operationId: changeStatus
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: User participant object that needs to be added 
+            required: true
+            schema:
+              $ref: '#/definitions/participant'
+        responses:
+          '400':
+            description: Error processing the request
+          '200':
+            description: Participant status changed
+          '200':
+            description: Insufficient staff strength
+    delete:
+      tags:
+        - participant
+      summary: Delete an account  profile
+      description: ''
+      operationId: deleteById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: header
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+        '200':
+          description: Document deleted

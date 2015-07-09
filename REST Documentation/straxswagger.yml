@@ -1,0 +1,2085 @@
+swagger: '2.0'
+info:
+  description: 'Documentation for the Strax MSA RESTful WebServices '
+  version: 1.0.0
+  title: Strax Swagger
+  contact:
+  email: sselvaraj@groupcaretech.com fhumayun@groupcaretech.com
+
+host: strax.co:8585
+basePath: /
+tags:
+  - name: accounts
+    description: Operations pertaining to Account Management APIs
+  - name: device
+    description: Operations about Device Management APIs
+  - name: csr
+    description: Operations pertaining to csr Management APIs
+  - name: accesspoints
+    description: Operations pertaining to configuring Access Points Management APIs
+  - name: zone
+    description: Operations pertaining to configuring Zone Management APIs
+  - name: instazones
+    description: Operations pertaining to configuring Instant Zone Management APIs
+  - name: participant
+    description: Operations pertaining to Participant Management APIs
+  - name: participantloc
+    description: Operations pertaining to Participant Location APIs
+  - name: authentication
+    description: Operations pertaining to User Authentication Mmanagement APIs
+  - name: fidgets
+    description: Operations pertaining to Fidget/Gear Mmanagement APIs
+  - name: fidgetloc
+    description: Operations pertaining to Fidget/Gear Location/Tracking APIs
+  - name: alarms
+    description: Operations pertaining to Alarms APIs
+  - name: events
+    description: Operations pertaining to Event APIs
+  - name: notifications
+    description: Operations pertaining to Notifications APIs
+  - name: notification-service
+    description: Operations pertaining to Notifications Service APIs
+  - name: users
+    description: Operations pertaining to CSR Management APIs
+  - name: usps
+    description: Operations pertaining to USPS Address Verification APIs
+  - name: notification
+    description: Operations pertaining to Notification Mmanagement APIs
+  - name: eventprocessor
+    description: Operations pertaining to Event Processor Service APIs
+  - name: crm
+    description: Operations pertaining to vTiger CRM APIs
+  - name: catch-all
+    description: Generic get-post-delete Operations
+    externalDocs:
+      description: Find out more
+      url: 'http://strax.com:8585'
+schemes:
+  - http
+paths:
+  /api/accounts/:
+    post:
+      tags:
+        - account
+      summary: Create a new account
+      description: ''
+      operationId: createAccount
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User account object that needs to be added to the store
+          required: true
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '403':
+          description: Error creating a new account
+    put:
+      tags:
+        - account
+      summary: Update an account info using UID
+      description: ''
+      operationId: updateAccById
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User account object that needs to be added to the store
+          required: true
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '400':
+          description: Error processing the request
+    get:
+      tags:
+        - account
+      summary: Get all accounts
+      description: ''
+      operationId: getAllAccounts
+      produces:
+        - application/json
+      parameters:
+        - name: getAccByCrmId
+          in: query
+          description: Status values that need to be considered for filter
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: No account exists
+  /api/accounts/:id:
+    get:
+      tags:
+        - account
+      summary: Get an account by ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: Account does not exists
+  /api/accounts/:id:
+    get:
+      tags:
+        - account
+      summary: Get an account by ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: Account does not exists
+    delete:
+      tags:
+        - account
+      summary: Delete an account profile
+      description: ''
+      operationId: deleteById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: header
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+        '200':
+          description: Document deleted
+  /api/accounts/getAccId:
+    get:
+      tags:
+        - account
+      summary: Get an account ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getAccId
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Document updated
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: Error processing the request
+  /api/accounts/getLoginId:
+    get:
+      tags:
+        - account
+      summary: Get an account Login ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getLoginId
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Document updated
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: Error processing the request
+  /api/accounts/authenticate:
+    post:
+      tags:
+        - account
+      summary: authenticate account
+      description: ''
+      operationId: doAuthenticate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User account object that needs to be added to the store
+          required: true
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '403':
+          description: Error creating a new account
+  /api/fidgets/:
+      post:
+        tags:
+          - device
+        summary: Create a new device
+        description: ''
+        operationId: createFidget
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: Created device object
+            required: true
+            schema:
+              $ref: '#/definitions/device'
+        responses:
+          '403':
+            description: Error creating a new device profile
+      put:
+        tags:
+          - device
+        summary: Update a fidget info using UID
+        description: ''
+        operationId: updateById
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: User device object that needs to be added
+            required: true
+            schema:
+              $ref: '#/definitions/device'
+        responses:
+          '400':
+            description: Error processing the request
+          '200':
+            description: Device Document Updated
+  /api/fidgets/getAllFidgets:
+      get:
+        tags:
+          - device
+        summary: Get all devices
+        description: ''
+        operationId: getAllFidgets
+        produces:
+          - application/json
+        parameters:
+          - name: getAllFidgets
+            in: query
+            description: Status values that need to be considered for filter
+            type: integer
+            format: int64
+        responses:
+          '200':
+            description: successful operation
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/device'
+          '400':
+            description: No device exists
+          '200':
+            description: Returns Fidget ID
+  /api/fidgets/getById/:id:
+      get:
+        tags:
+          - device
+        summary: Get device by ID
+        description: ''
+        operationId: getById
+        produces:
+          - application/json
+        parameters:
+          - name: getById
+            in: query
+            description: Status values that need to be considered for filter
+            type: integer
+            format: int64
+        responses:
+          '200':
+            description: successful operation
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/device'
+          '400':
+            description: Device does not exists
+          '200':
+            description: Returns Fidget ID
+  /api/fidgets/getByGear/:id:
+      get:
+        tags:
+            - device
+        summary: Get device by Gear ID
+        description: ''
+        operationId: getByGearId
+        produces:
+            - application/json
+        parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+        responses:
+            '503':
+              description: Service Unavailable
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/device'
+  /api/fidgets/deleteById/:id:
+      delete:
+        tags:
+          - device
+        summary: Delete an device profile
+        description: ''
+        operationId: deleteById
+        produces:
+          - application/json
+        parameters:
+          - name: id
+            in: header
+            required: true
+            type: integer
+            format: int64
+        responses:
+          '400':
+            description: Error processing the request
+          '200':
+            description: Device document deleted
+  /api/fidgets/createZone/:id:
+      post:
+        tags:
+          - zone
+        summary: Create a new zone
+        description: ''
+        operationId: createZone
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: Create zone object
+            required: true
+            schema:
+              $ref: '#/definitions/zone'
+        responses:
+          '400':
+            description: Error processing the request
+          '200':
+            description: Device document updated
+  /api/fidgets/retrieveZone/:id/:zid:
+      get:
+        tags:
+          - zone
+        summary: Retrieve device zone
+        description: ''
+        operationId: retrieveZone
+        produces:
+          - application/json
+        parameters:
+          - name: getAllFidgets
+            in: query
+            description: Status values that need to be considered for filter
+            type: integer
+            format: int64
+        responses:
+          '200':
+            description: successful operation
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/zone'
+          '400':
+            description: Zone does not exists
+          '200':
+            description: Returns Fidget ID
+  /api/participant/:
+    post:
+      tags:
+        - participant
+      summary: Request a new participant for a fidget
+      description: |
+        'Request a new participant for a fidget
+
+         - "loginId": email id for the participant,
+         - "fidgetDocId": fidgetID,
+         - "accessCode": access code for the participant to enroll against the fidget ID.
+
+         A participant is invited to join the team for a specific fidget. The make request
+         process involves providing the email address of the participant and an access-code.
+
+         The invitee (participant) will need to be provided with the access-code via a
+         separate channel out of groupcaretech.com by the account owner / primary.
+
+         This method
+           - creates a new participant, if the provided email-id is not in the system already.
+           - adds the fidget into the array, if the participant exists in the system.
+      operationId: makeRequest
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '403':
+          description: Error creating a new participant
+        '201':
+          description: Participant profile Created
+        '200':
+          description: Request sent to participant with new accesscode.
+  /api/participant/verify/:id:
+    post:
+      tags:
+        - participant
+      summary: Registration of a participant
+      description: |
+        Registration of participant happens when a new participant gets added to the
+        system or an existing participant gets a request from a different fidget.
+
+         Validates the access code assigned for the participant, specific to the fidget,
+         - if the participant profile was already setup
+         - then force the user to authenticate and register,
+         - else allow the user to setup the profile.
+
+         Post Call:
+                 loginID {"fidgetDocId":
+                          "accessCode":}
+      operationId: verifyParticipant
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Error processing the request
+        '400':
+          description: Invalid use-case
+        '200':
+          description: New Participant
+        '200':
+          description: Validate existing participant
+  /api/participant/confim/:id:
+    post:
+      tags:
+        - participant
+      summary: Confirm Current Participant Registration
+      description: |
+        User participant object that needs to be added
+        - Post Call:
+                {"accessCode":
+                 "fidgetDocId":
+                 "password":}
+
+               @param req
+               @param res
+               @param next
+
+        - Link:
+              URL: /particpant/id
+      required: true
+      schema:
+        $ref: '#/definitions/participant'
+      operationId: confirmCurrentParticipantRegistration
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Error processing the request
+        '400':
+          description: Invalid user-case
+        '200':
+          description: Registration confirmed
+  /api/participant/register/:id:
+    post:
+      tags:
+        - participant
+      summary: Register New Participant
+      description: ''
+      operationId: registerNewParticipant
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Unable to register new participant
+        '400':
+          description: Error processing the request
+        '200':
+          description: Registration Confirmed
+  /api/participant/:id/assign:
+    post:
+      tags:
+        - participant
+      summary: Assign participant with a fidget
+      description: |
+        API calls to assign participant with a fidget
+        - Post Call:
+            participantID
+                {"fidgetDocId":
+                 "role"}
+      operationId: assignParticipant
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Participant does not exists
+        '400':
+          description: Error assigning participant with a fidget
+        '200':
+          description: Assigned a fidget with the given participant
+  /api/participant/doAuthenticate:
+    post:
+      tags:
+        - participant
+      summary: Authenticate user
+      description: ''
+      operationId: doAuthenticate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '401':
+          description: Invalid Credentials
+  /api/participant/register/:id:
+    post:
+      tags:
+        - participant
+      summary: Retrieve registration info
+      description: ''
+      operationId: retrieveRegInfo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User participant object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/participant'
+      responses:
+        '400':
+          description: Error processing the request
+  /api/participant/getAllParticipants:
+    get:
+      tags:
+        - participant
+      summary: Get all participants
+      description: ''
+      operationId: getAllparticipants
+      produces:
+        - application/json
+      parameters:
+        - name: getAccByCrmId
+          in: query
+          description: Status values that need to be considered for filter
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/participant'
+        '400':
+          description: No participant exists
+  /api/participant/getById/:id:
+    get:
+      tags:
+        - participant
+      summary: Get an participant by ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/participant'
+        '400':
+          description: participant does not exists
+  /api/participant/getLoginId:
+    get:
+      tags:
+        - participant
+      summary: Get participants by their login ID
+      description: ''
+      operationId: getLoginId
+      produces:
+        - application/json
+      parameters:
+        - name: loginId
+          in: query
+          description: Status values that need to be considered for filter
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+        '400':
+          description: Login ID not used
+  /api/participant/getStatus/:id:
+    get:
+      tags:
+        - participant
+      summary: Get participant info by status
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getStatus
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+  /api/participant/updateById/:id:
+    put:
+        tags:
+          - participant
+        summary: Update an participant info using UID
+        description: ''
+        operationId: updateAccById
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: User participant object that needs to be added
+            required: true
+            schema:
+              $ref: '#/definitions/participant'
+        responses:
+          '200':
+            description: Document updated
+          '400':
+            description: Error processing the request
+  /api/participant/changeStatus/:id:
+    put:
+        tags:
+          - participant
+        summary: Change participant status
+        description: ''
+        operationId: changeStatus
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: User participant object that needs to be added
+            required: true
+            schema:
+              $ref: '#/definitions/participant'
+        responses:
+          '400':
+            description: Error processing the request
+          '200':
+            description: Participant status changed
+          '200':
+            description: Insufficient staff strength
+  /api/participant/:id/location:
+    put:
+        tags:
+          - participant
+        summary: Sharing location status
+        description: ''
+        operationId: setLocationSharing
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: User participant object that needs to be added
+            required: true
+            schema:
+              $ref: '#/definitions/participant'
+        responses:
+          '400':
+            description: Error processing the request
+  /api/participant/deleteById/:id:
+    delete:
+      tags:
+        - participant
+      summary: Delete an account  profile
+      description: ''
+      operationId: deleteById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: header
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+        '200':
+          description: Document deleted
+  /authentication:
+      post:
+          tags:
+            - authentication
+          summary: Reset password
+          description: |
+            A user can request to reset the password using this API.
+            - Post Call:
+                  {"loginId": // user's email id
+                   "resetMethod" // how the reset code will be sent to the user.. email/sms/flashcall
+                   }
+
+                 @param req
+                 @param res
+                 @param next
+          operationId: createAccount
+          consumes:
+            - application/json
+          produces:
+            - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User account object that needs to be added to the store
+              required: true
+              schema:
+                $ref: '#/definitions/account'
+          responses:
+            '403':
+              description: Error creating new password reset request
+            '201':
+              description: Request processed successfully
+      post:
+          tags:
+            - authentication
+          summary: Create a new account
+          description: |
+            New password can be set by the user with a valid token from the reset-password schema
+            This API will get the below JSON to validate the token and set a new password.
+            - Post Call:
+                  {"loginId": // user's email id
+                   "resetCode": // code generated to send
+                   "newPassword":
+                   }
+
+                 @param req
+                 @param res
+                 @param next
+          operationId: pwdreset
+          consumes:
+            - application/json
+          produces:
+            - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User account object that needs to be added to the store
+              required: true
+              schema:
+                $ref: '#/definitions/account'
+          responses:
+            '400':
+              description: Error while getting participant profile
+            '200':
+              description: New password changed successfully
+  /fidgets:
+      post:
+          tags:
+          - fidgets
+          summary: Create new account/order
+          description: ''
+          operationId: createOrder
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User fidget object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/fidgets'
+          responses:
+            '403':
+              description: Error creating a new Order
+            '201':
+              description: New Order Created
+      get:
+          tags:
+          - fidgets
+          summary: Get all fidget orders
+          description: ''
+          operationId: getAllOrders
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/fidgets'
+            '400':
+              description: No Orders exists
+      get:
+          tags:
+          - fidgets
+          summary: Get an fidget order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getOrderById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/fidgets'
+            '400':
+              description: Order does not exists
+      put:
+            tags:
+              - fidgets
+            summary: Update fidget info using UID
+            description: ''
+            operationId: updateById
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User fidget object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/fidgets'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Order document updated
+      delete:
+          tags:
+            - fidgets
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Order document deleted
+  /alarms:
+      post:
+          tags:
+          - alarms
+          summary: Create new account/order
+          description: ''
+          operationId: createAlarm
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User alarms object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/alarms'
+          responses:
+            '403':
+              description: Error creating a new alarm
+            '201':
+              description: New Alarm Created
+      get:
+          tags:
+          - alarms
+          summary: Get all alarms orders
+          description: ''
+          operationId: getCurrentAlarms
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/alarms'
+            '400':
+              description: No Alarms
+      get:
+          tags:
+          - alarms
+          summary: Get an alarms order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getAlarmById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/alarms'
+            '400':
+              description: Alarm does not exists
+      put:
+            tags:
+              - alarms
+            summary: Update alarms info using UID
+            description: ''
+            operationId: updateById
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User alarms object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/alarms'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Alarm document updated
+      delete:
+          tags:
+            - alarms
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Alarm document deleted
+  /events:
+      post:
+          tags:
+          - events
+          summary: Create new account/Event
+          description: ''
+          operationId: createEvent
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User events object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/events'
+          responses:
+            '403':
+              description: Error creating a new Event
+            '201':
+              description: New Event Created
+      get:
+          tags:
+          - events
+          summary: Get all events Events
+          description: ''
+          operationId: getCurrentEvents
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/events'
+            '400':
+              description: No Events
+      get:
+          tags:
+          - events
+          summary: Get an  Event by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getEventById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/events'
+            '400':
+              description: No events for this alarm
+      get:
+          tags:
+          - events
+          summary: Get an  Event by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getEventsByAlarm
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/events'
+            '400':
+              description: Event does not exists
+      put:
+            tags:
+              - events
+            summary: Update events info using UID
+            description: ''
+            operationId: updateById
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User events object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/events'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Event document updated
+      delete:
+          tags:
+            - events
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Event document deleted
+  /notifications:
+      post:
+          tags:
+          - notifications
+          summary: Create new account/order
+          description: ''
+          operationId: createNotification
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User notifications object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/notifications'
+          responses:
+            '403':
+              description: Error creating a new Notification
+            '201':
+              description: New Notification Created
+      get:
+          tags:
+          - notifications
+          summary: Get all notifications orders
+          description: ''
+          operationId: getRecentNotificationsByFidget
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notifications'
+            '400':
+              description: No notifications
+      get:
+          tags:
+          - notifications
+          summary: Get an notifications order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getNotificationById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notifications'
+            '400':
+              description: Notification does not exists
+      put:
+            tags:
+              - notifications
+            summary: Update notifications info using UID
+            description: ''
+            operationId: updateById
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User notifications object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/notifications'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Notification document updated
+      delete:
+          tags:
+            - notifications
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Notification document deleted
+  /fidgetloc:
+        post:
+            tags:
+            - fidgetloc
+            summary: Create new fidget location
+            description: ''
+            operationId: createAlarm
+            consumes:
+            - application/json
+            produces:
+            - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User fidgetloc object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/fidgetloc'
+            responses:
+              '403':
+                description: Error posting location
+              '201':
+                description: Locations posted
+        get:
+          tags:
+          - fidgetloc
+          summary: Get last 100 fidget locations
+          description: ''
+          operationId: getCurrentfidgetloc
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/fidgetloc'
+            '400':
+              description: No fidgetloc
+        get:
+          tags:
+          - fidgetloc
+          summary: Get a fidget loc order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getAlarmById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/fidgetloc'
+            '400':
+              description: No Location Reported
+  /participantloc:
+      post:
+          tags:
+          - participantloc
+          summary: Create new participant location
+          description: ''
+          operationId: postLoc
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User participantloc object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/participantloc'
+          responses:
+            '403':
+              description: Error posting location
+            '201':
+              description: Locations posted
+      get:
+          tags:
+          - participantloc
+          summary: Get last 100 participant locations
+          description: ''
+          operationId: getLoc
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/participantloc'
+            '400':
+              description: No participantloc
+      get:
+          tags:
+          - participantloc
+          summary: Get a participant loc order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getLoc
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/participantloc'
+            '400':
+              description: No Location Reported
+  /instazones:
+      post:
+          tags:
+          - instazones
+          summary: Create new account/Event
+          description: ''
+          operationId: createInstaZone
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User instazones object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/instazones'
+          responses:
+            '403':
+              description: Error processing the request
+            '403':
+              description: Error creating a new insta-zone
+            '201':
+              description: New insta-zone created
+      get:
+          tags:
+          - instazones
+          summary: Get all instazones instazones
+          description: ''
+          operationId: getInstaZone
+          produces:
+            - application/json
+          parameters:
+            - name: getInstaZone
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/instazones'
+            '400':
+              description: No insta-zones
+      put:
+            tags:
+              - instazones
+            summary: Update instazones info using UID
+            description: ''
+            operationId: endInstaZone
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User instazones object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/instazones'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: insta-zone data
+  /accesspoints:
+      post:
+          tags:
+          - accesspoints
+          summary: Create new access point
+          description: ''
+          operationId: createAP
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User accesspoint object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/accesspoint'
+          responses:
+            '403':
+              description: Error creating a new access point
+            '201':
+              description: Access point created
+      get:
+          tags:
+          - accesspoints
+          summary: Get all accesspoint accesspoint
+          description: ''
+          operationId: getAP
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accesspoint'
+            '400':
+              description: Unable to get accesspoints
+      put:
+            tags:
+              - accesspoints
+            summary: Update accesspoint info using UID
+            description: ''
+            operationId: updateAP
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User accesspoint object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/accesspoint'
+            responses:
+              '400':
+                description: Error updating access points
+              '200':
+                description: accesspoint document updated
+      delete:
+          tags:
+            - accesspoints
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteAP
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error updating access points
+            '200':
+              description: Accesspoint deleted
+  /csr/api/users:
+      post:
+          tags:
+          - csr
+          summary: Create new access point
+          description: ''
+          operationId: createDefaultUsers
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User / csr object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/csr'
+          responses:
+            '403':
+              description: Error creating user
+            '201':
+              description: User created
+      get:
+          tags:
+          - csr
+          summary: Get all csr users
+          description: ''
+          operationId: getUsers
+          produces:
+            - application/json
+          parameters:
+            - name: getUsers
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/csr'
+            '400':
+              description: Unable to get user
+      put:
+            tags:
+              - csr
+            summary: Update csr info using UID
+            description: ''
+            operationId: updateUser
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User csr object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/csr'
+            responses:
+              '400':
+                description: Error updating user
+              '200':
+                description: csr document updated
+  /csr/api/users/{:id}:
+      get:
+          tags:
+          - csr
+          summary: Get csr user by ID
+          description: ''
+          operationId: getUserById
+          produces:
+            - application/json
+          parameters:
+            - name: getUserById
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/csr'
+            '400':
+              description: Unable to get user
+
+      delete:
+          tags:
+            - csr
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteUser
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error updating user
+            '200':
+              description: user deleted
+  /login:
+      post:
+          tags:
+          - csr
+          summary: login user
+          description: ''
+          operationId: authenticate
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User / csr object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/csr'
+          responses:
+            '403':
+              description: Error logging in
+            '201':
+              description: User authenticated successfully
+  /logout:
+      post:
+          tags:
+          - csr
+          summary: logout user
+          description: ''
+          operationId: logout
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User / csr object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/csr'
+          responses:
+            '403':
+              description: Error logging out
+            '201':
+              description: successfully logged out
+  /usps/api/address/addressVerify/{:id}:
+      get:
+          tags:
+          - usps
+          summary: Verify USPS address
+          description: ''
+          operationId: validateAddress
+          produces:
+            - application/json
+          parameters:
+            - name: validateAddress
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accesspoint'
+            '400':
+              description: Unable to verify address
+  /usps/api/address/mockUSPSApi:
+      get:
+          tags:
+          - usps
+          summary: Get mock address
+          description: ''
+          operationId: mockUSPSApi
+          produces:
+            - application/json
+          parameters:
+            - name: mockUSPSApi
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accesspoint'
+            '400':
+              description: Unable to get address
+  /notification/optin:
+      post:
+          tags:
+          - notification-services
+          summary: Create new account/order
+          description: ''
+          operationId: microservicegateway.post
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User notification-service object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/notification-services'
+          responses:
+            '403':
+              description: Error creating a new notification
+            '201':
+              description: Notification created
+      put:
+            tags:
+              - notification-service
+            summary: Update notification-service info using UID
+            description: ''
+            operationId: microservicegateway.put
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User notification-service object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/notification-services'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Notification Services updated
+  /notification/optin/:partId/:fidgetId:
+      get:
+          tags:
+          - notification-service
+          summary: Get all notification-service orders
+          description: ''
+          operationId: getAllOrders
+          produces:
+            - application/json
+          parameters:
+            - name: microservicegateway.get
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description: No Notifications
+  /notification/optin/fidget/:id:
+      get:
+          tags:
+          - notification-service
+          summary: Get an notification-service order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: microservicegateway.get
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description: No Notifications
+  /notification/participant/:id:
+      get:
+          tags:
+          - notification-service
+          summary: Get an notification-service order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: microservicegateway.get
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description: No Notifications
+  /notification/optin/:partId/:fidgetId:
+      delete:
+          tags:
+            - notification-service
+          summary: Delete an account profile
+          description: ''
+          operationId: microservicegateway.delete
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Notification removed
+  /api/*:
+      post:
+          tags:
+          - catch-all
+          summary: Create new account/order
+          description: ''
+          operationId: microservicegateway.post
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          responses:
+            '404':
+              description: Invalid POST request
+  /api/*:
+      get:
+          tags:
+          - catch-all
+          summary: Get an notification-service order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: microservicegateway.get
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description:Invalid GET request
+  /api/*:
+      delete:
+          tags:
+            - catch-all
+          summary: Delete an account profile
+          description: ''
+          operationId: microservicegateway.delete
+          produces:
+            - application/json
+          responses:
+            '400':
+              description: Invalid DELETE request
+definitions:
+  account:
+    properties:
+      createAccount:
+        description: Required URL parameter to create an account for a participant
+      updateAccById:
+        type: integer
+        description: Unique identifier representing a specific participant.
+      getAllAccounts:
+        description: Required URL parameter to GET all accounts.
+      getAccByCrmId:
+        type: integer
+        description: Unique identifier from CRM pertaining to the user.
+      getById:
+        type: integer
+        description: Unique identifier representing a specific participant ID.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

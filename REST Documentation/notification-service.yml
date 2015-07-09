@@ -1,0 +1,139 @@
+  /notification/optin:
+      post:
+          tags:
+          - notification-services
+          summary: Create new account/order
+          description: ''
+          operationId: microservicegateway.post
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User notification-service object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/notification-services'
+          responses:
+            '403':
+              description: Error creating a new notification
+            '201':
+              description: Notification created
+      put:
+            tags:
+              - notification-service
+            summary: Update notification-service info using UID
+            description: ''
+            operationId: microservicegateway.put
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User notification-service object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/notification-services'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Notification Services updated
+  /notification/optin/:partId/:fidgetId:
+      get:
+          tags:
+          - notification-service
+          summary: Get all notification-service orders
+          description: ''
+          operationId: getAllOrders
+          produces:
+            - application/json
+          parameters:
+            - name: microservicegateway.get
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description: No Notifications
+  /notification/optin/fidget/:id:
+      get:
+          tags:
+          - notification-service
+          summary: Get an notification-service order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: microservicegateway.get
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description: No Notifications
+  /notification/participant/:id:
+      get:
+          tags:
+          - notification-service
+          summary: Get an notification-service order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: microservicegateway.get
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notification-services'
+            '400':
+              description: No Notifications
+  /notification/optin/:partId/:fidgetId:
+      delete:
+          tags:
+            - notification-service
+          summary: Delete an account profile
+          description: ''
+          operationId: microservicegateway.delete
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Notification removed

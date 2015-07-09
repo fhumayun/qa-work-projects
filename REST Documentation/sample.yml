@@ -1,0 +1,75 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: SproutTrax API
+  description: RESTful API calls provided by the Strax MicroServices
+  version: "1.0.0"
+# the domain of the service
+host: strax.co
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /participants:
+    get:
+      summary: Get Participant Info
+      description: |
+            The purpose of this API is ...
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+      tags:
+        - participants
+      responses:
+        200:
+          description: A description about the caregivers
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Participant'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Participant:
+    properties:
+      participant_id:
+        type: string
+        description: Unique identifier representing a specific participant for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

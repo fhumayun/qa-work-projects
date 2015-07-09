@@ -1,0 +1,180 @@
+swagger: '2.0'
+info:
+  description: 'This is the Strax MSA RESTful WebServices Documentation'
+  version: 1.0.0
+  title: Strax Swagger
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: sselvaraj@groupcaretech.com,fhumayun@groupcaretech.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: strax.co:8585
+basePath: /v2
+tags:
+  - name: accounts
+    description: Operations pertaining to Account Management APIs
+  - name: device
+    description: Operations about Device Management APIs
+  - name: accounts
+    description: Operations pertaining to Account Management APIs
+  - name: zone
+    description: Operations pertaining to configuring Zone Management APIs
+  - name: participant
+    description: Operations pertaining to Participant Management APIs
+  - name: authentication
+    description: Operations pertaining to User Authentication Mmanagement APIs
+  - name: fidgets
+    description: Operations pertaining to Fidget/Gear Mmanagement APIs
+  - name: alarms
+    description: Operations pertaining to Alarms, Events & Notifications APIs
+  - name: users
+    description: Operations pertaining to CSR Management APIs
+  - name: usps
+    description: Operations pertaining to USPS Address Verification APIs
+  - name: notification
+    description: Operations pertaining to Notification Mmanagement APIs
+  - name: eventprocessor
+    description: Operations pertaining to Event Processor Service APIs
+  - name: crm
+    description: Operations pertaining to vTiger CRM APIs
+  - name: catch-all
+    description: Generic get-post-delete Operations
+    externalDocs:
+      description: Find out more
+      url: 'http://strax.com:8585'
+schemes:
+  - http
+paths:
+  /account:
+    post:
+      tags:
+        - account
+      summary: Create a new account
+      description: ''
+      operationId: createAccount
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User account object that needs to be added to the store
+          required: true
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '403':
+          description: Error creating a new account
+    put:
+      tags:
+        - account
+      summary: Update an account info using UID
+      description: ''
+      operationId: updateAccById
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User account object that needs to be added to the store
+          required: true
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '400':
+          description: Error processing the request
+    get:
+      tags:
+        - account
+      summary: Get all accounts
+      description: ''
+      operationId: getAllAccounts
+      produces:
+        - application/json
+      parameters:
+        - name: getAccByCrmId
+          in: query
+          description: Status values that need to be considered for filter
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: No account exists
+    get:
+      tags:
+        - account
+      summary: Get an account by ID
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: getById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/account'
+        '400':
+          description: Account does not exists
+    delete:
+      tags:
+        - account
+      summary: Delete an account profile
+      description: ''
+      operationId: deleteById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: header
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Error processing the request
+        '200':
+          description: Document deleted
+definitions:
+  account:
+    properties:
+      createAccount:
+        description: Required URL parameter to create an account for a participant
+      updateAccById:
+        type: integer
+        description: Unique identifier representing a specific participant.
+      getAllAccounts:
+        description: Required URL parameter to GET all accounts.
+      getAccByCrmId:
+        type: integer
+        description: Unique identifier from CRM pertaining to the user.
+      getById:
+        type: integer
+        description: Unique identifier representing a specific participant ID.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

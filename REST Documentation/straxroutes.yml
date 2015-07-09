@@ -1,0 +1,198 @@
+   //**// Account management APIs
+    var rr = '/api/accounts/';
+    app.post(rr, acc.createAccount);
+
+    app.get(rr, acc.getAllAccounts);
+    app.get(rr + 'getAccByCrmId', acc.getAccByCrmId);
+
+    app.put(rr, acc.updateAccById);
+    app.delete(rr + ':id', acc.deleteById);
+
+
+    //**// Device management APIs
+    rr = '/api/fidgets/';
+    app.post(rr, fidget.createFidget);
+    // app.post(rr + 'doAuthenticate', fidget.doAuthenticate)  // TODO: possibly use Tim's service.
+
+    app.get(rr + 'getAllFidgets', fidget.getAllFidgets);
+    app.get(rr + 'getById/:id', fidget.getById);
+    app.get(rr + 'getByGear/:id', fidget.getByGearId);
+    // app.get(rr + 'getByAccId', fidget.getAccId) // TODO: yet to be defined.
+
+    app.put(rr + 'updateById/:id', fidget.updateById);
+    app.delete(rr + 'deleteById/:id', fidget.deleteById);
+
+    //**// Configure zone
+    app.post(rr + 'createZone/:id', fidget.createZone);
+    app.get(rr + 'retrieveZone/:id/:zid', fidget.retrieveZone);
+
+    //**// Participant management APIs
+    rr = '/api/participant/';
+    app.post(rr + 'request', participant.makeRequest);
+    app.post(rr + ':id/assign', participant.assignParticipant);
+    app.post(rr + 'verify/:id', participant.verifyParticipant);
+    app.post(rr + 'confirm/:id', participant.confirmCurrentParticipantRegistration);
+    app.post(rr + 'register/:id', participant.registerNewParticipant);
+    app.post(rr + 'doAuthenticate', participant.doAuthenticate);  // TODO: possibly use Tim's service.
+
+    app.get(rr + 'register/:id', participant.retrieveRegInfo);
+
+    app.get(rr + 'getAllParticipants', participant.getAllParticipants);
+    app.get(rr + 'getById/:id', participant.getById);
+    app.get(rr + 'getLoginId', participant.getLoginId);
+    app.get(rr + 'getStatus/:id', participant.getStatus);
+
+    app.put(rr + 'updateById/:id', participant.updateById);
+    app.put(rr + 'changeStatus/:id', participant.changeStatus);
+    app.put(rr + ':id/location', participant.setLocationSharing);
+    app.delete(rr + 'deleteById/:id', participant.deleteById);
+
+    // API for Password reset
+    rr = '/api/password/';
+    app.post(rr + 'reset', pwdreset.reset);
+    app.post(rr + 'validate', pwdreset.validate);
+
+    //**// Schedule management APIs
+    rr = '/api/schedule/';
+    app.post(rr + 'createSchedule/:id', schedule.createSchedule);
+    app.put(rr + 'addExceptionDates/:id/:zid', schedule.addExceptionDates);
+    app.get(rr + 'getAllSchedules/:id', schedule.getAllSchedules);
+    app.get(rr + 'getActiveSchedules/:id', schedule.getActiveSchedules);
+    app.get(rr + 'getActiveSchedules/:id/:zid', schedule.getActiveSchedules);
+    app.get(rr + 'checkCurrentSchedule/:id/', schedule.checkCurrentSchedule);
+    app.delete(rr + 'deleteSchedule/:id/:zid', schedule.deleteSchedule);
+
+    //**// Fidget's gear management APIs
+    rr = '/api/gears/';
+    app.post(rr, gear.createDevice);
+    app.get(rr + '', gear.getDevices);
+    app.get(rr + ':id', gear.getDevices);
+    app.get(rr + 'sid/:sid', gear.getDevices);
+    app.get(rr + 'forFidget/:id', gear.getFidgetDevices);
+    app.put(rr + ':id', gear.updateById);
+    app.put(rr + 'sid/:id', gear.updateBySId);
+
+    //**// Fidget's gear management APIs
+    rr = '/api/order/';
+    app.post(rr, order.createOrder);
+    app.get(rr, order.getAllOrders);
+    app.get(rr + ':id', order.getOrderById);
+    app.get(rr + 'account/:id', order.getOrderByAccId);
+    app.put(rr + ':id', order.updateById);
+    app.delete(rr + ':id', order.deleteById);
+
+    //**// Alarms, Events & Notifications
+
+    rr = '/api/alarms/';
+    app.post(rr, alarm.createAlarm);
+    app.get(rr + ':id', alarm.getCurrentAlarms);
+    app.get(rr + 'getById/:id', alarm.getAlarmById);
+    app.put(rr + ':id', alarm.updateById);
+    app.delete(rr + ':id', alarm.deleteById);
+
+    rr = '/api/events/';
+    app.post(rr, event.createEvent);
+    app.get(rr + ':id', event.getCurrentEvents);
+    app.get(rr + 'getById/:id', event.getEventById);
+    app.get(rr + ':id/:aid', event.getEventsByAlarm);
+    app.put(rr + ':id', event.updateById);
+    app.delete(rr + ':id', event.deleteById);
+
+    rr = '/api/notifications/';
+    app.post(rr, notification.createNotification);
+    app.get(rr + ':id', notification.getNotificationById);
+    app.get(rr + 'fidget/:id', notification.getRecentNotificationsByFidget);
+    app.put(rr + ':id', notification.updateById);
+    app.delete(rr + ':id', notification.deleteById);
+
+    rr = '/api/fidgetLoc/';
+    app.post(rr + ':id', fidgetLoc.postLoc);
+    app.get(rr + ':id', fidgetLoc.getLoc);
+    app.get(rr + ':id/:num', fidgetLoc.getLoc);
+
+    rr = '/api/participantLoc/';
+    app.post(rr + ':id', participantLoc.postLoc);
+    app.get(rr + ':id', participantLoc.getLoc);
+    app.get(rr + ':id/:num', fidgetLoc.getLoc);
+
+    rr = '/api/instazones/';
+    app.post(rr, instazones.createInstaZone);
+    app.get(rr + ':id', instazones.getInstaZone);
+    app.put(rr + ':id', instazones.endInstaZone);
+
+    rr = '/api/accesspoints/';
+    app.post(rr, accessPoint.createAP);
+    app.get(rr, accessPoint.getAP);
+    app.get(rr + ':id', accessPoint.getAP);
+    app.put(rr + ':id', accessPoint.updateAP);
+    app.delete(rr + ':id', accessPoint.deleteAP);
+
+    // API for users. These are CSRs
+    app.get('/api/users/:id', users.getUserById);
+    app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
+    app.post('/api/users', auth.requiresRole('admin'), users.createUser);
+    app.put('/api/users', users.updateUser);
+    app.delete('/api/users/:id', auth.requiresRole('admin'), users.deleteUser);
+    app.get('/partials/*', function (req, res) {
+        res.render('../../public/app/' + req.params[0]);
+    });
+
+    // API for USPS Address verification
+    rr = '/api/address/';
+    app.get(rr + 'addressVerify/:id', acc.validateAddress)
+    app.get(rr + 'mockUSPSApi/', utils.mockUSPSApi)
+
+    app.post('/login', auth.authenticate);
+
+    app.post('/logout', function (req, res) {
+        req.logout();
+        res.end();
+    })
+
+    // API for Notification Service
+    rr = '/notification/';
+    app.post(rr + 'optin', microservicegateway.post);
+    app.put(rr + 'optin', microservicegateway.put);
+    app.get(rr + 'optin/:partId/:fidgetId', microservicegateway.get);
+    app.get(rr + 'optin/fidget/:id', microservicegateway.get);
+    app.get(rr + 'optin/participant/:id', microservicegateway.get);
+    app.delete(rr + 'optin/:partId/:fidgetId', microservicegateway.delete);
+
+
+    // API for Event Processor Service
+    rr = '/eventprocessor/';
+    app.get(rr + 'events/high/:fidgetId', microservicegateway.get);
+    app.get(rr + 'events/noncritical/:fidgetId', microservicegateway.get);
+    app.get(rr + 'geos/:fidgetId', microservicegateway.get);
+
+    // API for Event Processor Service
+    rr = '/ier/';
+    app.get(rr + 'incident/messages/cleared', microservicegateway.get);
+    app.get(rr + 'incident/messages/resolved', microservicegateway.get);
+    app.get(rr + 'incident/:fidgetId', microservicegateway.get);
+    app.post(rr + 'incident', microservicegateway.post);
+
+    // API for CRM Service
+    rr = '/crm/';
+    app.post(rr + 'leads', microservicegateway.post);
+
+    // users
+    // app.post('/user', utils.body('email password name'), utils.validPass, u.create)
+    // app.post('/:role(client|admin)/login', utils.body('email password'), utils.deauth, u.login)
+    // app.post('/user/logout', utils.deauth, u.logout)
+    // app.put('/user/password', utils.auth, utils.validPass, u.password)
+    // app.get('/user/auth', u.auth)
+    // app.get('/:role(client|trainer|admin)s', utils.admin, u.list)
+    // app.get('/user/:uid([0-9a-f]+)', utils.admin, u.show)
+    // app.delete('/user', utils.body('password'), utils.auth, u.delete)
+
+    // catch-all
+    app.get('/api/*', function (req, res) {
+        res.status(404).json({error: 'Invalid GET request'})
+    });
+    app.post('/api/*', function (req, res) {
+        res.status(404).json({error: 'Invalid POST request'})
+    });
+    app.delete('/api/*', function (req, res) {
+        res.status(404).json({error: 'Invalid DELETE request'})
+    });
