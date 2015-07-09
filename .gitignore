@@ -1,0 +1,72 @@
+<<<<<<< HEAD
+# https://git-scm.com/docs/gitignore
+# https://help.github.com/articles/ignoring-files
+# Example .gitignore files: https://github.com/github/gitignore
+/bower_components/
+/node_modules/
+=======
+__MACOSX
+.DS_Store
+
+.project
+.settings
+.classpath
+.sass-cache/
+
+# OS generated files #
+######################
+*/.DS_Store
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+/group-care/group-care-security/group-care-ssl/group-care-ssl-bouncycastle-impl/target/
+/group-care/group-care-security/group-care-ssl/group-care-ssl-interface/target/
+/group-care/group-care-kafka/group-care-kafka-client/target/
+/group-care/group-care-mqtt/group-care-mqtt-client/group-care-mqtt-client-interface/target/
+/group-care/group-care-kafka/group-care-kafka-mqttbridge/target/
+/group-care/group-care-mqtt/group-care-mqtt-client/group-care-mqtt-client-paho-impl/target/
+/group-care/group-care-common/group-care-common-service/target/
+/group-care/group-care-common/group-care-common-utilities/target/
+/group-care/group-care-data-layer/group-care-data-model-common/target/
+/group-care/group-care-data-layer/group-care-data-model-service/target/
+/group-care/group-care-data-layer/group-care-mongodb-client/target/
+/group-care/group-care-kafka/group-care-kafka-services/group-care-kafka-service-common/target/
+/group-care/group-care-simulation/group-care-simulation-tracker/target/
+/group-care/group-care-message-layer/target/
+/group-care/group-care-message-layer/group-care-message-layer-protocol-buffers/target/
+/group-care/group-care-kafka/group-care-kafka-publisher/target/
+/group-care/group-care-message-layer/group-care-message-layer-protocolbuffers/target/
+/group-care/group-care-kafka/group-care-kafka-services/group-care-kafka-service-notification/target/
+/group-care/group-care-kafka/group-care-kafka-services/group-care-kafka-service-ier/target/
+/group-care/group-care-test/group-care-test-proxies/target/
+/group-care/group-care-notification-mechanisms/group-care-notification-interface/target/
+/group-care/group-care-data-layer/group-care-mongodb-config-tool/target/
+/group-care/group-care-data-layer/group-care-data-model-account/target/
+/group-care/group-care-data-layer/group-care-data-model-geojson/target/
+/group-care/group-care-geo/group-care-google-maps-integration/target/
+/group-care/group-care-geo/group-care-geo-interface/target/
+/group-care/group-care-geo/group-care-distance-calc-haversine/target/
+/group-care/group-care-notification-mechanisms/group-care-notification-mock/target/
+/group-care/group-care-notification-mechanisms/group-care-notification-sms/target/
+/group-care/group-care-test/group-care-test-mockups/target/
+/group-care/group-care-notification-mechanisms/group-care-notification-email/target/
+/group-care/group-care-traxpack/target/
+>>>>>>> origin/master

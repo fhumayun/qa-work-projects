@@ -1,0 +1,70 @@
+  /instazones:
+      post:
+          tags:
+          - instazones
+          summary: Create new account/Event
+          description: ''
+          operationId: createInstaZone
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User instazones object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/instazones'
+          responses:
+            '403':
+              description: Error processing the request
+            '403':
+              description: Error creating a new insta-zone
+            '201':
+              description: New insta-zone created
+      get:
+          tags:
+          - instazones
+          summary: Get all instazones instazones
+          description: ''
+          operationId: getInstaZone
+          produces:
+            - application/json
+          parameters:
+            - name: getInstaZone
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/instazones'
+            '400':
+              description: No instazones
+      put:
+            tags:
+              - instazones
+            summary: Update instazones info using UID
+            description: ''
+            operationId: endInstaZone
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User instazones object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/instazones'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: insta-zone data

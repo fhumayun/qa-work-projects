@@ -1,0 +1,87 @@
+  /accesspoints:
+      post:
+          tags:
+          - accesspoints
+          summary: Create new access point
+          description: ''
+          operationId: createAP
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User accesspoint object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/accesspoint'
+          responses:
+            '403':
+              description: Error creating a new access point
+            '201':
+              description: Access point created
+      get:
+          tags:
+          - accesspoints
+          summary: Get all accesspoint accesspoint
+          description: ''
+          operationId: getAP
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accesspoint'
+            '400':
+              description: Unable to get accesspoints
+      put:
+            tags:
+              - accesspoints
+            summary: Update accesspoint info using UID
+            description: ''
+            operationId: updateAP
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User accesspoint object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/accesspoint'
+            responses:
+              '400':
+                description: Error updating access points
+              '200':
+                description: accesspoint document updated
+      delete:
+          tags:
+            - accesspoints
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteAP
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error updating access points
+            '200':
+              description: Accesspoint deleted
