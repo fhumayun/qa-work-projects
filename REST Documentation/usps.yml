@@ -1,0 +1,48 @@
+  /usps/api/address/addressVerify/{:id}:
+      get:
+          tags:
+          - usps
+          summary: Verify USPS address
+          description: ''
+          operationId: validateAddress
+          produces:
+            - application/json
+          parameters:
+            - name: validateAddress
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accesspoint'
+            '400':
+              description: Unable to verify address
+  /usps/api/address/mockUSPSApi:
+      get:
+          tags:
+          - usps
+          summary: Get mock address
+          description: ''
+          operationId: mockUSPSApi
+          produces:
+            - application/json
+          parameters:
+            - name: mockUSPSApi
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accesspoint'
+            '400':
+              description: Unable to get address

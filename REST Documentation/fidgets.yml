@@ -1,0 +1,111 @@
+  /fidget:
+      post:
+          tags:
+          - fidgets
+          summary: Create new account/order
+          description: ''
+          operationId: createOrder
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User fidget object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/fidgets'
+          responses:
+            '403':
+              description: Error creating a new Order
+            '201':
+              description: New Order Created
+      get:
+          tags:
+          - fidget
+          summary: Get all fidget orders
+          description: ''
+          operationId: getAllOrders
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/fidgets'
+            '400':
+              description: No Orders exists
+      get:
+          tags:
+          - fidget
+          summary: Get an fidget order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getOrderById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/fidgets'
+            '400':
+              description: Order does not exists
+      put:
+            tags:
+              - fidget
+            summary: Update fidget info using UID
+            description: ''
+            operationId: updateById
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User fidget object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/fidgets'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Order document updated
+      delete:
+          tags:
+            - fidget
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Order document deleted

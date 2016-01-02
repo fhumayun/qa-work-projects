@@ -1,0 +1,111 @@
+  /notifications:
+      post:
+          tags:
+          - notifications
+          summary: Create new account/order
+          description: ''
+          operationId: createNotification
+          consumes:
+          - application/json
+          produces:
+          - application/json
+          parameters:
+            - in: body
+              name: body
+              description: User notifications object that needs to be added
+              required: true
+              schema:
+                $ref: '#/definitions/notifications'
+          responses:
+            '403':
+              description: Error creating a new Notification
+            '201':
+              description: New Notification Created
+      get:
+          tags:
+          - notifications
+          summary: Get all notifications orders
+          description: ''
+          operationId: getRecentNotificationsByFidget
+          produces:
+            - application/json
+          parameters:
+            - name: getAccByCrmId
+              in: query
+              description: Status values that need to be considered for filter
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notifications'
+            '400':
+              description: No notifications
+      get:
+          tags:
+          - notifications
+          summary: Get an notifications order by ID
+          description: Multiple status values can be provided with comma seperated strings
+          operationId: getNotificationById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: query
+              description: Status values that need to be considered for filter
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '200':
+              description: successful operation
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/notifications'
+            '400':
+              description: Notification does not exists
+      put:
+            tags:
+              - notifications
+            summary: Update notifications info using UID
+            description: ''
+            operationId: updateById
+            consumes:
+              - application/json
+            produces:
+              - application/json
+            parameters:
+              - in: body
+                name: body
+                description: User notifications object that needs to be added
+                required: true
+                schema:
+                  $ref: '#/definitions/notifications'
+            responses:
+              '400':
+                description: Error processing the request
+              '200':
+                description: Notification document updated
+      delete:
+          tags:
+            - notifications
+          summary: Delete an account profile
+          description: ''
+          operationId: deleteById
+          produces:
+            - application/json
+          parameters:
+            - name: id
+              in: header
+              required: true
+              type: integer
+              format: int64
+          responses:
+            '400':
+              description: Error processing the request
+            '200':
+              description: Notification document deleted

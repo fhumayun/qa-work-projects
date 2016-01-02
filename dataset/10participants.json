@@ -1,0 +1,271 @@
+[{
+  "Id": 1,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Nichols",
+    "firstName": "Sharon",
+    "password": "fW99Zm3",
+    "loginId": "snichols0@ihg.com",
+    "createdOn": "2015-01-30T13:59:29Z",
+    "isLocShared": false,
+    "_id": "0000000000000000000000010"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": true,
+    "roles": [{
+      "type": "PRIMARY"
+    }],
+    "_id": "0000000000000000000000100",
+    "fidgetDocId": "0000000000000000000000200"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000001000"
+  }]
+}, {
+  "Id": 2,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Myers",
+    "firstName": "Deborah",
+    "password": "htn3pLgHv",
+    "loginId": "dmyers0@free.fr",
+    "createdOn": "2015-01-24T07:09:15Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000020"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": true,
+    "roles": [{
+      "type": "BACKUP"
+    }],
+    "_id": "0000000000000000000000200",
+    "fidgetDocId": "0000000000000000000000400"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000002000"
+  }]
+}, {
+  "Id": 3,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Roberts",
+    "firstName": "Sean",
+    "password": "q2lKVCD1jyM",
+    "loginId": "sroberts0@discuz.net",
+    "createdOn": "2015-01-07T11:29:13Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000030"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": false,
+    "roles": [{
+      "type": "BACKUP"
+    }],
+    "_id": "0000000000000000000000300",
+    "fidgetDocId": "0000000000000000000000600"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000003000"
+  }]
+}, {
+  "Id": 4,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Gilbert",
+    "firstName": "Lisa",
+    "password": "tErxOB2j",
+    "loginId": "lgilbert0@youku.com",
+    "createdOn": "2014-08-11T19:01:31Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000040"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": false,
+    "roles": [{
+      "type": "BACKUP"
+    }],
+    "_id": "0000000000000000000000400",
+    "fidgetDocId": "0000000000000000000000800"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000004000"
+  }]
+}, {
+  "Id": 5,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Cruz",
+    "firstName": "Earl",
+    "password": "qMV8XZOf",
+    "loginId": "ecruz0@bravesites.com",
+    "createdOn": "2014-06-28T05:40:05Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000050"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": false,
+    "roles": [{
+      "type": "PRIMARY"
+    }],
+    "_id": "0000000000000000000000500",
+    "fidgetDocId": "0000000000000000000001000"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000005000"
+  }]
+}, {
+  "Id": 6,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Johnson",
+    "firstName": "Johnny",
+    "password": "EnYPzjTyuk",
+    "loginId": "jjohnson0@amazon.co.uk",
+    "createdOn": "2014-08-24T07:50:17Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000060"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": true,
+    "roles": [{
+      "type": "BACKUP"
+    }],
+    "_id": "0000000000000000000000600",
+    "fidgetDocId": "0000000000000000000001200"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000006000"
+  }]
+}, {
+  "Id": 7,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Mills",
+    "firstName": "Beverly",
+    "password": "uEkPq1",
+    "loginId": "bmills0@geocities.com",
+    "createdOn": "2014-06-16T03:35:20Z",
+    "isLocShared": false,
+    "_id": "0000000000000000000000070"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": true,
+    "roles": [{
+      "type": "PRIMARY"
+    }],
+    "_id": "0000000000000000000000700",
+    "fidgetDocId": "0000000000000000000001400"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000007000"
+  }]
+}, {
+  "Id": 8,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Crawford",
+    "firstName": "Edward",
+    "password": "lQZlrmI",
+    "loginId": "ecrawford0@360.cn",
+    "createdOn": "2014-09-16T21:51:56Z",
+    "isLocShared": false,
+    "_id": "0000000000000000000000080"
+  }],
+  "isOnline": true,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": true,
+    "roles": [{
+      "type": "PRIMARY"
+    }],
+    "_id": "0000000000000000000000800",
+    "fidgetDocId": "0000000000000000000001600"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000008000"
+  }]
+}, {
+  "Id": 9,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Wright",
+    "firstName": "Alan",
+    "password": "6lBjfX",
+    "loginId": "awright0@1688.com",
+    "createdOn": "2015-01-04T15:47:09Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000090"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": true,
+    "roles": [{
+      "type": "BACKUP"
+    }],
+    "_id": "0000000000000000000000900",
+    "fidgetDocId": "0000000000000000000001800"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000009000"
+  }]
+}, {
+  "Id": 10,
+  "participants": [{
+    "pnum": 1,
+    "lastName": "Lawson",
+    "firstName": "Kathleen",
+    "password": "jTMIhv6R1A",
+    "loginId": "klawson0@ibm.com",
+    "createdOn": "2015-03-19T02:27:07Z",
+    "isLocShared": true,
+    "_id": "0000000000000000000000100"
+  }],
+  "isOnline": false,
+  "fidgets": [{
+    "fnum": 1,
+    "dnum": 1,
+    "dutyStatus": false,
+    "roles": [{
+      "type": "PRIMARY"
+    }],
+    "_id": "0000000000000000000001000",
+    "fidgetDocId": "0000000000000000000002000"
+  }],
+  "contactAddress": [{
+    "cnum": 1,
+    "_id": "0000000000000000000010000"
+  }]
+}]
