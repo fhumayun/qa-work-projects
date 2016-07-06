@@ -1,0 +1,926 @@
+{
+  "defectsList" : [ {
+    "title" : "Product defects",
+    "status" : "FAILED",
+    "defects" : [ {
+      "uid" : "f277338d7b4e254",
+      "failure" : {
+        "message" : "Not createdTypeError: Cannot read property 'status' of undefined",
+        "stackTrace" : "Error: Not createdTypeError: Cannot read property 'status' of undefined\n    at Test.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_fidget.steps.js:50:30)\n    at Test.assert (/opt/workdir/node_modules/supertest/lib/test.js:156:6)\n    at assert (/opt/workdir/node_modules/supertest/lib/test.js:127:12)\n    at /opt/workdir/node_modules/supertest/lib/test.js:124:5\n    at Test.Request.callback (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:687:12)\n    at ClientRequest.<anonymous> (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:639:10)\n    at ClientRequest.EventEmitter.emit (events.js:95:17)\n    at Socket.socketErrorListener (http.js:1547:9)\n    at Socket.EventEmitter.emit (events.js:95:17)\n    at net.js:441:14"
+      },
+      "testCases" : [ {
+        "uid" : "2530ae9914b243d4",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467834354313,
+          "stop" : 1467834354323,
+          "duration" : 10
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "8ad4b83c8ac16031",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467839045113,
+          "stop" : 1467839045130,
+          "duration" : 17
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "1503099d0cc0dea3",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467834463604,
+          "stop" : 1467834463617,
+          "duration" : 13
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "cc5bff8fef87f935",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467834502809,
+          "stop" : 1467834502824,
+          "duration" : 15
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "73c62877f7f19295",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467832253737,
+          "stop" : 1467832253745,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "6474e17cba555f9b",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467840838058,
+          "stop" : 1467840838074,
+          "duration" : 16
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "d67c9ba7d9fc305c",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467833467098,
+          "stop" : 1467833467105,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "77033ffe802c12d8",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467831577855,
+          "stop" : 1467831577867,
+          "duration" : 12
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "6dfe36fbee359041",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467834793562,
+          "stop" : 1467834793569,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "426a7cf638e75db0",
+        "name" : "As an admin I should be able to create a new Fidget",
+        "title" : "As an admin I should be able to create a new Fidget",
+        "time" : {
+          "start" : 1467834843152,
+          "stop" : 1467834843160,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      } ]
+    }, {
+      "uid" : "2734ba2afe16e69e",
+      "failure" : {
+        "message" : "Not updatedTypeError: Cannot read property 'status' of undefined",
+        "stackTrace" : "Error: Not updatedTypeError: Cannot read property 'status' of undefined\n    at Test.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_fidget.steps.js:96:30)\n    at Test.assert (/opt/workdir/node_modules/supertest/lib/test.js:156:6)\n    at assert (/opt/workdir/node_modules/supertest/lib/test.js:127:12)\n    at /opt/workdir/node_modules/supertest/lib/test.js:124:5\n    at Test.Request.callback (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:687:12)\n    at ClientRequest.<anonymous> (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:639:10)\n    at ClientRequest.EventEmitter.emit (events.js:95:17)\n    at Socket.socketErrorListener (http.js:1547:9)\n    at Socket.EventEmitter.emit (events.js:95:17)\n    at net.js:441:14"
+      },
+      "testCases" : [ {
+        "uid" : "94353fea52095445",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467834354328,
+          "stop" : 1467834354354,
+          "duration" : 26
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "f9fa0866ad712e06",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467839045139,
+          "stop" : 1467839045168,
+          "duration" : 29
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "d491d497a3d6b472",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467834463621,
+          "stop" : 1467834463644,
+          "duration" : 23
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "724d4f74425f3116",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467834502826,
+          "stop" : 1467834502845,
+          "duration" : 19
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "dfa6961528304180",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467832253747,
+          "stop" : 1467832253763,
+          "duration" : 16
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "c1802f812d38615c",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467840838081,
+          "stop" : 1467840838102,
+          "duration" : 21
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "2511eafc3621593c",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467833467109,
+          "stop" : 1467833467130,
+          "duration" : 21
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "501cbe352a7a8867",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467831577869,
+          "stop" : 1467831577888,
+          "duration" : 19
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "d185a7fc483137ad",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467834793575,
+          "stop" : 1467834793605,
+          "duration" : 30
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "d88832d0de172f22",
+        "name" : "As an admin I should be able to update an existing Fidget",
+        "title" : "As an admin I should be able to update an existing Fidget",
+        "time" : {
+          "start" : 1467834843161,
+          "stop" : 1467834843184,
+          "duration" : 23
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      } ]
+    }, {
+      "uid" : "33cd15cd5ccdbf40",
+      "failure" : {
+        "message" : "Missing Fidget id. Could not GET.",
+        "stackTrace" : "Error: Missing Fidget id. Could not GET.\n    at World.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_fidget.steps.js:130:18)\n    at process._tickCallback (node.js:415:13)"
+      },
+      "testCases" : [ {
+        "uid" : "5613f6e3c94196e",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467834354355,
+          "stop" : 1467834354359,
+          "duration" : 4
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "31d7cecd23872e86",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467839045172,
+          "stop" : 1467839045188,
+          "duration" : 16
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "3dbca4ef94c2445",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467834463645,
+          "stop" : 1467834463650,
+          "duration" : 5
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "47e355dad49b9629",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467834502849,
+          "stop" : 1467834502855,
+          "duration" : 6
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "165f10e822825c66",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467832253768,
+          "stop" : 1467832253775,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "59f0a0856e6c815e",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467840838103,
+          "stop" : 1467840838110,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "6959c59161fa4a9c",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467833467131,
+          "stop" : 1467833467137,
+          "duration" : 6
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "3020fa3db8f14d19",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467831577889,
+          "stop" : 1467831577897,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "e20bd4007beb079d",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467834793608,
+          "stop" : 1467834793614,
+          "duration" : 6
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "32bf46b9ae61b1fe",
+        "name" : "As an admin I should be able to look up a Fidget by id",
+        "title" : "As an admin I should be able to look up a Fidget by id",
+        "time" : {
+          "start" : 1467834843185,
+          "stop" : 1467834843192,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      } ]
+    }, {
+      "uid" : "62c621c781597202",
+      "failure" : {
+        "message" : "Missing Fidget id. Could not DELETE.",
+        "stackTrace" : "Error: Missing Fidget id. Could not DELETE.\n    at World.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_fidget.steps.js:177:18)\n    at process._tickCallback (node.js:415:13)"
+      },
+      "testCases" : [ {
+        "uid" : "eefcd9c5d76ea48d",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467834354360,
+          "stop" : 1467834354372,
+          "duration" : 12
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "bd11b9a2ff11e151",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467839045190,
+          "stop" : 1467839045201,
+          "duration" : 11
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "adc5659040a5824f",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467834463653,
+          "stop" : 1467834463667,
+          "duration" : 14
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "ff9ad246fc49c58b",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467834502857,
+          "stop" : 1467834502866,
+          "duration" : 9
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "9ba64af039bb7e52",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467832253776,
+          "stop" : 1467832253788,
+          "duration" : 12
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "3fd985ddaa4e4cc3",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467840838114,
+          "stop" : 1467840838126,
+          "duration" : 12
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "2391c7c8209b8c5e",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467833467138,
+          "stop" : 1467833467149,
+          "duration" : 11
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "c0030d2bb1303d51",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467831577899,
+          "stop" : 1467831577912,
+          "duration" : 13
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "9754da0fa3c097bc",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467834793616,
+          "stop" : 1467834793624,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "d9919d0d3bd3913f",
+        "name" : "As an admin I should be able to delete decommissioned Fidgets",
+        "title" : "As an admin I should be able to delete decommissioned Fidgets",
+        "time" : {
+          "start" : 1467834843194,
+          "stop" : 1467834843202,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      } ]
+    }, {
+      "uid" : "419ac1400090042c",
+      "failure" : {
+        "message" : "Error: TypeError: Cannot read property 'status' of undefined",
+        "stackTrace" : "Error: Error: TypeError: Cannot read property 'status' of undefined\n    at Test.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_event.steps.js:38:30)\n    at Test.assert (/opt/workdir/node_modules/supertest/lib/test.js:156:6)\n    at assert (/opt/workdir/node_modules/supertest/lib/test.js:127:12)\n    at /opt/workdir/node_modules/supertest/lib/test.js:124:5\n    at Test.Request.callback (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:687:12)\n    at ClientRequest.<anonymous> (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:639:10)\n    at ClientRequest.EventEmitter.emit (events.js:95:17)\n    at Socket.socketErrorListener (http.js:1547:9)\n    at Socket.EventEmitter.emit (events.js:95:17)\n    at net.js:441:14"
+      },
+      "testCases" : [ {
+        "uid" : "134fe9fe3185077e",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467834502722,
+          "stop" : 1467834502753,
+          "duration" : 31
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "30c109d4a11ff3c8",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467834502756,
+          "stop" : 1467834502776,
+          "duration" : 20
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "82e1036a3811f9f5",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467834502777,
+          "stop" : 1467834502791,
+          "duration" : 14
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "f66f6457121979e6",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467834502794,
+          "stop" : 1467834502802,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "b611f9a2a4636869",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467834463511,
+          "stop" : 1467834463547,
+          "duration" : 36
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "288876f7c5b72e44",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467834463557,
+          "stop" : 1467834463576,
+          "duration" : 19
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "e75985a75d8969d4",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467834463578,
+          "stop" : 1467834463588,
+          "duration" : 10
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "f5a2974e3fa48a6a",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467834463589,
+          "stop" : 1467834463597,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "c60fe6218b2b299b",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467840837901,
+          "stop" : 1467840837968,
+          "duration" : 67
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "4f6e9abd9ff4e0ba",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467840837975,
+          "stop" : 1467840837992,
+          "duration" : 17
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "810cba64dd5dd285",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467840837995,
+          "stop" : 1467840838013,
+          "duration" : 18
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "f57310e2ab98a7d",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467840838014,
+          "stop" : 1467840838028,
+          "duration" : 14
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "1b865b915ce03f59",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467834354249,
+          "stop" : 1467834354268,
+          "duration" : 19
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "c9aab8692b0d522e",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467834354270,
+          "stop" : 1467834354277,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "c3e2f5135a3e955b",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467834354278,
+          "stop" : 1467834354286,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "999062f337a01ccf",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467834354287,
+          "stop" : 1467834354300,
+          "duration" : 13
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "f8c79f35b12f85a1",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467831577760,
+          "stop" : 1467831577792,
+          "duration" : 32
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "88782d840a35c791",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467831577794,
+          "stop" : 1467831577809,
+          "duration" : 15
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "3d440adbdee24d99",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467831577809,
+          "stop" : 1467831577822,
+          "duration" : 13
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "8425a1a3fdcbad68",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467831577824,
+          "stop" : 1467831577841,
+          "duration" : 17
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "5b4170e057ed9e2e",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467839044970,
+          "stop" : 1467839045030,
+          "duration" : 60
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "d8760c5663d106fa",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467839045033,
+          "stop" : 1467839045043,
+          "duration" : 10
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "5aa155dd0f1f5ef",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467839045045,
+          "stop" : 1467839045059,
+          "duration" : 14
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "233725aaccb89beb",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467839045069,
+          "stop" : 1467839045089,
+          "duration" : 20
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "a6d38f08c4a196ba",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467834843061,
+          "stop" : 1467834843090,
+          "duration" : 29
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "e49a11032ca82bf4",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467834843094,
+          "stop" : 1467834843107,
+          "duration" : 13
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "595945abd16ee1cc",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467834843113,
+          "stop" : 1467834843119,
+          "duration" : 6
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "a7d8aed4719744ac",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467834843121,
+          "stop" : 1467834843133,
+          "duration" : 12
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "6f7baeb71ab9bbf8",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467834793457,
+          "stop" : 1467834793490,
+          "duration" : 33
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "9b4ff59ffb28a212",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467834793495,
+          "stop" : 1467834793513,
+          "duration" : 18
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "16a751d08fbcb522",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467834793513,
+          "stop" : 1467834793525,
+          "duration" : 12
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "893638bd542054a8",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467834793526,
+          "stop" : 1467834793550,
+          "duration" : 24
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "1715b3879b4b8286",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467833466948,
+          "stop" : 1467833467004,
+          "duration" : 56
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "8e50be46200420f6",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467833467015,
+          "stop" : 1467833467035,
+          "duration" : 20
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "163a4586e9cc82",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467833467037,
+          "stop" : 1467833467058,
+          "duration" : 21
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "bf103c40c55021d6",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467833467061,
+          "stop" : 1467833467083,
+          "duration" : 22
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "ab63b5f52beb2384",
+        "name" : "As a PIC I should be able to create a new event",
+        "title" : "As a PIC I should be able to create a new event",
+        "time" : {
+          "start" : 1467832253645,
+          "stop" : 1467832253665,
+          "duration" : 20
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "6fb517d196d250d",
+        "name" : "As a PIC I should be able to update the event",
+        "title" : "As a PIC I should be able to update the event",
+        "time" : {
+          "start" : 1467832253667,
+          "stop" : 1467832253693,
+          "duration" : 26
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "734b9237bcca53f6",
+        "name" : "As a PIC I should be able to read the event data",
+        "title" : "As a PIC I should be able to read the event data",
+        "time" : {
+          "start" : 1467832253693,
+          "stop" : 1467832253701,
+          "duration" : 8
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      }, {
+        "uid" : "657d3c51b1d02773",
+        "name" : "As a PIC I should be able to delete an event when it is over",
+        "title" : "As a PIC I should be able to delete an event when it is over",
+        "time" : {
+          "start" : 1467832253706,
+          "stop" : 1467832253721,
+          "duration" : 15
+        },
+        "severity" : "NORMAL",
+        "status" : "FAILED"
+      } ]
+    } ]
+  }, {
+    "title" : "Test defects",
+    "status" : "BROKEN",
+    "defects" : [ ]
+  } ]
+}

@@ -1,0 +1,125 @@
+{
+  "uid" : "1b865b915ce03f59",
+  "name" : "As a PIC I should be able to create a new event",
+  "title" : "As a PIC I should be able to create a new event",
+  "time" : {
+    "start" : 1467834354249,
+    "stop" : 1467834354268,
+    "duration" : 19
+  },
+  "summary" : {
+    "attachments" : 0,
+    "steps" : 5
+  },
+  "failure" : {
+    "message" : "Error: TypeError: Cannot read property 'status' of undefined",
+    "stackTrace" : "Error: Error: TypeError: Cannot read property 'status' of undefined\n    at Test.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_event.steps.js:38:30)\n    at Test.assert (/opt/workdir/node_modules/supertest/lib/test.js:156:6)\n    at assert (/opt/workdir/node_modules/supertest/lib/test.js:127:12)\n    at /opt/workdir/node_modules/supertest/lib/test.js:124:5\n    at Test.Request.callback (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:687:12)\n    at ClientRequest.<anonymous> (/opt/workdir/node_modules/supertest/node_modules/superagent/lib/node/index.js:639:10)\n    at ClientRequest.EventEmitter.emit (events.js:95:17)\n    at Socket.socketErrorListener (http.js:1547:9)\n    at Socket.EventEmitter.emit (events.js:95:17)\n    at net.js:441:14"
+  },
+  "description" : {
+    "value" : "",
+    "type" : "TEXT"
+  },
+  "severity" : "NORMAL",
+  "status" : "FAILED",
+  "testId" : null,
+  "suite" : {
+    "uid" : "860b976633b61cd7",
+    "name" : "Create an event using the SRM",
+    "title" : "Create an event using the SRM"
+  },
+  "steps" : [ {
+    "name" : "The PIC is logged in",
+    "title" : "The PIC is logged in",
+    "time" : {
+      "start" : 1467834354250,
+      "stop" : 1467834354261,
+      "duration" : 11
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "FAILED",
+    "attachments" : [ ],
+    "steps" : [ ]
+  }, {
+    "name" : "The PIC assigns a UAS",
+    "title" : "The PIC assigns a UAS",
+    "time" : {
+      "start" : 1467834354261,
+      "stop" : 1467834354262,
+      "duration" : 1
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "PENDING",
+    "attachments" : [ ],
+    "steps" : [ ]
+  }, {
+    "name" : "The PIC assigns team members",
+    "title" : "The PIC assigns team members",
+    "time" : {
+      "start" : 1467834354263,
+      "stop" : 1467834354264,
+      "duration" : 1
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "PENDING",
+    "attachments" : [ ],
+    "steps" : [ ]
+  }, {
+    "name" : "The PIC creates a new event",
+    "title" : "The PIC creates a new event",
+    "time" : {
+      "start" : 1467834354264,
+      "stop" : 1467834354266,
+      "duration" : 2
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "PENDING",
+    "attachments" : [ ],
+    "steps" : [ ]
+  }, {
+    "name" : "A new event should be created",
+    "title" : "A new event should be created",
+    "time" : {
+      "start" : 1467834354266,
+      "stop" : 1467834354267,
+      "duration" : 1
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "PENDING",
+    "attachments" : [ ],
+    "steps" : [ ]
+  } ],
+  "attachments" : [ ],
+  "issues" : [ ],
+  "labels" : [ {
+    "name" : "story",
+    "value" : ""
+  }, {
+    "name" : "severity",
+    "value" : ""
+  }, {
+    "name" : "feature",
+    "value" : ""
+  }, {
+    "name" : "suite-name",
+    "value" : "Create an event using the SRM"
+  }, {
+    "name" : "suite-title",
+    "value" : "Create an event using the SRM"
+  } ],
+  "parameters" : [ ]
+}

@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  sprouttest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sprouttest:0.1
+    volumes:
+    - ${PWD}:/opt/workdir
+    network_mode: "host"

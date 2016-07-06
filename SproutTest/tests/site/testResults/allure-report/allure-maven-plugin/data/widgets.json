@@ -1,0 +1,86 @@
+{
+  "hash" : "9ae4a52f46fbba0c959575303f697deb73e72d63",
+  "data" : [ {
+    "statistic" : {
+      "total" : 80,
+      "passed" : 0,
+      "pending" : 0,
+      "canceled" : 0,
+      "failed" : 80,
+      "broken" : 0
+    },
+    "time" : {
+      "start" : 1467831577760,
+      "stop" : 1467840838126,
+      "duration" : 9260366
+    },
+    "name" : "total",
+    "type" : "TOTAL"
+  }, {
+    "name" : "defects",
+    "type" : "DEFECTS",
+    "data" : [ {
+      "count" : 40,
+      "message" : "Error: TypeError: Cannot read property 'status' of undefined",
+      "status" : "FAILED"
+    }, {
+      "count" : 10,
+      "message" : "Not createdTypeError: Cannot read property 'status' of undefined",
+      "status" : "FAILED"
+    }, {
+      "count" : 10,
+      "message" : "Not updatedTypeError: Cannot read property 'status' of undefined",
+      "status" : "FAILED"
+    }, {
+      "count" : 10,
+      "message" : "Missing Fidget id. Could not GET.",
+      "status" : "FAILED"
+    }, {
+      "count" : 10,
+      "message" : "Missing Fidget id. Could not DELETE.",
+      "status" : "FAILED"
+    } ]
+  }, {
+    "name" : "xunit",
+    "type" : "TITLE_STATISTICS",
+    "data" : [ {
+      "title" : "Create an event using the SRM",
+      "statistic" : {
+        "total" : 40,
+        "passed" : 0,
+        "pending" : 0,
+        "canceled" : 0,
+        "failed" : 40,
+        "broken" : 0
+      }
+    }, {
+      "title" : "Create, update, and read fidgets",
+      "statistic" : {
+        "total" : 40,
+        "passed" : 0,
+        "pending" : 0,
+        "canceled" : 0,
+        "failed" : 40,
+        "broken" : 0
+      }
+    } ]
+  }, {
+    "name" : "behaviors",
+    "type" : "TITLE_STATISTICS",
+    "data" : [ {
+      "title" : "",
+      "statistic" : {
+        "total" : 80,
+        "passed" : 0,
+        "pending" : 0,
+        "canceled" : 0,
+        "failed" : 80,
+        "broken" : 0
+      }
+    } ]
+  }, {
+    "name" : "environment",
+    "type" : "KEY_VALUE",
+    "data" : [ ]
+  } ]
+}

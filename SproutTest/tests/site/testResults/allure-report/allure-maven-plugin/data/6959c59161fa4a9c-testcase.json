@@ -1,0 +1,95 @@
+{
+  "uid" : "6959c59161fa4a9c",
+  "name" : "As an admin I should be able to look up a Fidget by id",
+  "title" : "As an admin I should be able to look up a Fidget by id",
+  "time" : {
+    "start" : 1467833467131,
+    "stop" : 1467833467137,
+    "duration" : 6
+  },
+  "summary" : {
+    "attachments" : 0,
+    "steps" : 3
+  },
+  "failure" : {
+    "message" : "Missing Fidget id. Could not GET.",
+    "stackTrace" : "Error: Missing Fidget id. Could not GET.\n    at World.<anonymous> (/opt/workdir/tests/features/step_definitions/CRUD_fidget.steps.js:130:18)\n    at process._tickCallback (node.js:415:13)"
+  },
+  "description" : {
+    "value" : "",
+    "type" : "TEXT"
+  },
+  "severity" : "NORMAL",
+  "status" : "FAILED",
+  "testId" : null,
+  "suite" : {
+    "uid" : "64f4c788d5c6d937",
+    "name" : "Create, update, and read fidgets",
+    "title" : "Create, update, and read fidgets"
+  },
+  "steps" : [ {
+    "name" : "I need to look up a Fidget and have the id",
+    "title" : "I need to look up a Fidget and have the id",
+    "time" : {
+      "start" : 1467833467132,
+      "stop" : 1467833467135,
+      "duration" : 3
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "FAILED",
+    "attachments" : [ ],
+    "steps" : [ ]
+  }, {
+    "name" : "I look the Fidget up",
+    "title" : "I look the Fidget up",
+    "time" : {
+      "start" : 1467833467135,
+      "stop" : 1467833467136,
+      "duration" : 1
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "PENDING",
+    "attachments" : [ ],
+    "steps" : [ ]
+  }, {
+    "name" : "I should get the Fidget profile back",
+    "title" : "I should get the Fidget profile back",
+    "time" : {
+      "start" : 1467833467136,
+      "stop" : 1467833467137,
+      "duration" : 1
+    },
+    "summary" : {
+      "attachments" : 0,
+      "steps" : 0
+    },
+    "status" : "PENDING",
+    "attachments" : [ ],
+    "steps" : [ ]
+  } ],
+  "attachments" : [ ],
+  "issues" : [ ],
+  "labels" : [ {
+    "name" : "story",
+    "value" : ""
+  }, {
+    "name" : "severity",
+    "value" : ""
+  }, {
+    "name" : "feature",
+    "value" : ""
+  }, {
+    "name" : "suite-name",
+    "value" : "Create, update, and read fidgets"
+  }, {
+    "name" : "suite-title",
+    "value" : "Create, update, and read fidgets"
+  } ],
+  "parameters" : [ ]
+}
