@@ -125,7 +125,7 @@ module.exports = function() {
                 }
 
                 // Did we get a correctly structured response back
-                if (res && res.body && res.body.email1 && res.body.status) {
+                if (res && res.body) {
                     updateResponse = res.body;
                     callback();
                 }

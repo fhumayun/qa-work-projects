@@ -116,7 +116,7 @@ module.exports = function() {
                     callback(new Error('Participant not updated: ' + err));
                 }
 
-                if (res.body.result) {
+                if (res && res.body && res.body.result) {
                     updateResponse = res.body.result;
                     callback();
                 }
@@ -162,7 +162,7 @@ module.exports = function() {
                     callback(new Error('Could not GET participant' + err));
                 }
 
-                if (res.body) {
+                if (res && res.body) {
                     getResponse = res.body;
                     callback();
                 }
@@ -207,7 +207,7 @@ module.exports = function() {
                     callback(new Error('Could not GET participant' + err));
                 }
 
-                if (res.body) {
+                if (res && res.body) {
                     deleteResponse = res.body;
                     callback();
                 }
