@@ -73,3 +73,4 @@ ehthumbs.db
 *.idea/
 allure-results/
 testResults/
+target/maven-archiver
