@@ -1,7 +1,7 @@
 Tests readme file
 -----------------
 
-$ cd /path/to/project/SproutTrax/tests
+$ cd /path/to/project/Kaizen/tests
 
 run
 $ cucumberjs

@@ -1,9 +1,9 @@
-PROJECT_NAME ?= SproutTest
+PROJECT_NAME ?= Kaizen
 ORG_NAME ?= dr.strax.co:5000
-IMAGE_NAME ?= sprouttest
+IMAGE_NAME ?= kaizen
 VERSION ?= 0.1
 
-DOCKERUP := $(shell docker inspect -f {{.State.Running}} tester_sprouttest_1)
+DOCKERUP := $(shell docker inspect -f {{.State.Running}} tester_kaizen_1)
 
 deploy:
 	$(info Shutting down existing docker container...)
@@ -13,7 +13,7 @@ else
 	$(info Docker container not running, skipping shut-down process...)
 endif
 
-	$(info Bringing SproutTest container up...)
+	$(info Bringing Kaizen container up...)
 	docker-compose build
 	docker-compose -p tester -f ./docker-compose.yml up
 

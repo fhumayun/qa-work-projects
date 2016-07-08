@@ -71,6 +71,7 @@ ehthumbs.db
 # Test artifacts #
 ##################
 *.idea/
+node_modules/
 allure-results/
 testResults/
 maven-archiver/

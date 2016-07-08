@@ -11,6 +11,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ## Execute
 COPY tests/pom.xml /opt/workdir/tests
 RUN apt-get -qq update && apt-get install -y \
-        docker.io nodejs npm maven=3.3.9-3
+        git nodejs npm maven=3.3.9-3
 
 CMD [ "./_testrunner.sh" ]
