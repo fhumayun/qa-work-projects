@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  kaizen:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kaizen:0.1
+    volumes:
+    - ${PWD}:/opt/workdir
+    network_mode: "host"

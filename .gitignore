@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # https://git-scm.com/docs/gitignore
 # https://help.github.com/articles/ignoring-files
 # Example .gitignore files: https://github.com/github/gitignore
@@ -16,14 +15,13 @@ __MACOSX
 # OS generated files #
 ######################
 */.DS_Store
-.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
 Icon?
 ehthumbs.db
-Thumbs.db
+[Tt]humbs.db
 
 # Packages #
 ############
@@ -69,4 +67,11 @@ Thumbs.db
 /group-care/group-care-test/group-care-test-mockups/target/
 /group-care/group-care-notification-mechanisms/group-care-notification-email/target/
 /group-care/group-care-traxpack/target/
->>>>>>> origin/master
+
+# Test artifacts #
+##################
+*.idea/
+node_modules/
+allure-results/
+testResults/
+maven-archiver/
