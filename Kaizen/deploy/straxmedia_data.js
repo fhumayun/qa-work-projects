@@ -18,9 +18,10 @@ var userdata =
     ];
 
 
-conn = new Mongo();
+var conn = new Mongo();
 
 var db = conn.getDB("test_straxmedia");
+
 db.dropDatabase();
 
 db.accounts.insert( userdata );
