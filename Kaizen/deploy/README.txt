@@ -1,6 +1,4 @@
 QA baseline data README
 
-- To fill mongo with baseline test data run these commands
-$ mongo sproutdb_data.js
-$ mongo strax_data.js
-$ mongo straxmedia_data.js
+- To fill mongo with baseline test data make sure you have ROOT privs and run
+$ mongorestore -u <USER> -p <PWD>
