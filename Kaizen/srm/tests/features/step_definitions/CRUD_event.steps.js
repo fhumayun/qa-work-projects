@@ -6,10 +6,10 @@ var assert = require('assert'),
 module.exports = function() {
 
     // Variables
-    var url = "localhost:8080";
+    var url = process.env.TESTURL + ":" + process.env.TESTPORT;
     var userCredentials = {
-        "loginId": "sheriff@pbso.org",
-        "password": "Gr0upCa5e"
+        "username": "jshanahan@eagleeyeintelligence.com",
+        "password": "eei"
     };
     var updatedEventInfo = {};
     var accountId;
@@ -34,6 +34,7 @@ module.exports = function() {
             .expect(200)
             .expect('Content-Type', /json/)
             .end(function(err, res) {
+		document.write("URL attempted: " + url);
                 if (err) {
                     callback(new Error('Error: ' + err));
                 }

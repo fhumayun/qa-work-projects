@@ -6,7 +6,7 @@ var assert = require('assert'),
 module.exports = function() {
 
     // Variables
-    var url = "localhost:8080";
+    var url = process.env.TESTURL + ":" + process.env.TESTPORT;
     var fidgetData = {};
     var updatedFidgetData = {};
     var fidgetId;

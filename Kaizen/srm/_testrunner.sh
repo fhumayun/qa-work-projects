@@ -19,6 +19,6 @@ cd tests
 
 ./cuke.sh
 
-./maven.sh
+#./maven.sh
 
 echo '[INFO] _testrunner.sh finished...'
