@@ -5,6 +5,8 @@ VERSION ?= 0.1
 
 DOCKERUP := $(shell docker inspect -f {{.State.Running}} tester_kaizen_1)
 
+PHONY: deploy
+
 deploy:
 	$(info Shutting down existing docker container...)
 ifeq ($(DOCKERUP), true) 
