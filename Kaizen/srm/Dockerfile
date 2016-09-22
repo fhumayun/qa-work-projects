@@ -7,11 +7,18 @@ MAINTAINER GroupCare Technologies LLC. <support@groupcaretech.com>
 EXPOSE 8080
 WORKDIR /opt/workdir
 
-ENV DEBIAN_FRONTEND noninteractive  # Make the container realize its running headless
-ENV TESTURL "https://eedemo.strax.co"      # URL the tests will point to for the api
-ENV TESTPORT "8080"                  # Port where the tests will point
-ENV MONGOHOST "localhost"           # Mongo host name
-ENV MONGOPORT "27017"               # Mongo port
+# Make the container realize its running headless
+ENV DEBIAN_FRONTEND noninteractive
+
+# URL the tests will point to for the api
+# Include port if needed Ex eedev.strax.co:8080
+ENV TESTURL "https://api-dev.strax.co"
+
+# Mongo host name
+ENV MONGOHOST "localhost"
+
+# Mongo port
+ENV MONGOPORT "27017"
 
 ## Execute
 COPY tests/pom.xml /opt/workdir/tests

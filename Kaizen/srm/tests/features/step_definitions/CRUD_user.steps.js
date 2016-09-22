@@ -6,7 +6,7 @@ var assert = require('assert'),
 module.exports = function() {
 
     // Variables
-    var url = process.env.TESTURL + ":" + process.env.TESTPORT;
+    var url = process.env.TESTURL;
     var accountData = {};
     var accountId;
     var updatedAccountData = {};
