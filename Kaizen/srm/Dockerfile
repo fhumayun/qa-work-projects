@@ -12,7 +12,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # URL the tests will point to for the api
 # Include port if needed Ex eedev.strax.co:8080
-ENV TESTURL "https://api-dev.strax.co"
+#ENV TESTURL "https://api-dev.strax.co"
+ENV TESTURL "https://eedemo.strax.co:8080"
 
 # Mongo host name
 ENV MONGOHOST "localhost"

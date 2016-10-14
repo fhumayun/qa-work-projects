@@ -1,7 +1,9 @@
 'use strict';
 
 var assert = require('assert'),
-    request = require('supertest');
+    request = require('request'),
+    chai = require('chai'),
+    chaiHttp = require('chai-http');
 
 module.exports = function() {
 
@@ -20,31 +22,23 @@ module.exports = function() {
     var getResponse;
     var deleteResponse;
 
+    // Make Chai use its own addon for HTTP calls
+    chai.use(chaiHttp);
 
     /*****************************************
      * Scenario: Create
      *****************************************/
 
     // Given
-    this.Given(/^The PIC is logged in$/, function (callback) {
+    this.Given(/^The PIC is logged in$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .post('/api/participant/doAuthenticate')
             .send(userCredentials)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                if (err) callback('>>> ' + err);
 
-                if (res && res.body && res.body._id && res.body.token) {
-                    accountId = res.body._id;
-                    loginToken = res.body.token;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -77,27 +71,23 @@ module.exports = function() {
     });
 
     // And create the cluster/event
-    this.When(/^The PIC creates a new event$/, function (callback) {
+    this.When(/^The PIC creates a new event$/, {timeout: 30000}, function (callback) {
 
         clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
         clusterData.accountDocId = accountId;
 
-        request(url)
+        // ---------------------- chai-http -ify this call
+        chai.request(url)
             .post('/api/clusters')
             .send(clusterData)
-            .expect(201)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                if (err) callback('>>> ' + err);
+                var resText = JSON.parse(res.text);
+                clusterId = resText._id;
+                //console.log('>>> res.status: ' + JSON.stringify(res.status)); // EXPECT
+                //console.log('>>> res.text._id: ' + resText._id); // EXPECT
 
-                if (res && res.body && res.body._id) {
-                    clusterId = res.body._id;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
