@@ -1,7 +1,10 @@
 'use strict';
 
-var assert = require('assert'),
-    request = require('supertest');
+var assert = require('assert')
+var request = require('supertest');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var expect = chai.expect;
 
 module.exports = function() {
 
@@ -14,6 +17,8 @@ module.exports = function() {
     var getResponse;
     var deleteResponse;
 
+    // Make Chai use its own addon for HTTP calls
+    chai.use(chaiHttp);
 
     /*****************************************
      * Scenario: Create
@@ -38,24 +43,18 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I create a new fidget$/, function (callback) {
+    this.When(/^I create a new fidget$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .post('/api/fidgets')
             .send(fidgetData)
-            .expect(201)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Not created' + err));
-                }
+                expect(res).to.have.status(201);
+                if (err) callback('>>> ' + err);
+                var postRes = JSON.parse(res.text);
+                fidgetId = JSON.stringify(postRes._id).replace(/\W/g, '');
 
-                if (res && res.body && res.body._id) {
-                    fidgetId = res.body._id;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -76,6 +75,7 @@ module.exports = function() {
 
     // Given
     this.Given(/^I have new Fidget information$/, function (callback) {
+
         updatedFidgetData = {
             "type": "eagleeye"
         };
@@ -84,24 +84,16 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I update the Fidget$/, function (callback) {
+    this.When(/^I update the Fidget$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .put('/api/fidgets/' + fidgetId)
             .send(updatedFidgetData)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Not updated' + err));
-                }
+                expect(res).to.have.status(200);
+                if (err) callback('>>> ' + err);
 
-                if (res && res.body && res.body.result) {
-                    updateResponse = res.body.result;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -109,7 +101,7 @@ module.exports = function() {
     // Then
     this.Then(/^I should see the updated Fidget$/, function (callback) {
 
-        if (updateResponse == true) {
+        if (updateResponse.length > 0) {
             callback();
         }
 
@@ -131,23 +123,18 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I look the Fidget up$/, function (callback) {
+    this.When(/^I look the Fidget up$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .get('/api/fidgets/' + fidgetId)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Not created' + err));
-                }
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+                getResponse = JSON.parse(res.text);
 
-                if (res && res.body && res.body) {
-                    getResponse = res.body;
-                    callback();
-                }
+                if (err) callback('>>> ' + err);
 
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -178,23 +165,19 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I delete the Fidget$/, function (callback) {
+    this.When(/^I delete the Fidget$/, {timeout: 30000}, function (callback) {
 
-        request(url)
-            .delete('/api/fidgets/' + fidgetId)
-            .expect(200)
-            .expect('Content-Type', /json/)
+        console.log('>>> DEL url: ' + url + '/api/fidgets/' + fidgetId);
+        chai.request(url)
+            .del('/api/fidgets/' + fidgetId)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Not deleted' + err));
-                }
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+                deleteResponse = JSON.parse(res.text);
 
-                if (res && res.body && res.body) {
-                    deleteResponse = res.body;
-                    callback();
-                }
+                if (err) callback('>>> ' + err);
 
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -202,7 +185,7 @@ module.exports = function() {
     // Then
     this.Then(/^I should no longer be able to use the Fidget$/, function (callback) {
 
-        if (deleteResponse.result == true) {
+        if (deleteResponse.length > 0) {
             callback();
         }
 

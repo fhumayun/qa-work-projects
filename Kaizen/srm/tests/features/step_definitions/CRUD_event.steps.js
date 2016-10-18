@@ -37,6 +37,9 @@ module.exports = function() {
             .post('/api/participant/doAuthenticate')
             .send(userCredentials)
             .end(function(err, res) {
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+
                 if (err) callback('>>> ' + err);
 
                 callback();
@@ -82,9 +85,11 @@ module.exports = function() {
             .send(clusterData)
             .end(function(err, res) {
                 expect(res).to.have.status(201);
+                expect(res.text).to.be.a('string');
+
                 if (err) callback('>>> ' + err);
                 var resText = JSON.parse(res.text);
-                clusterId = resText._id;
+                clusterId = resText._id.replace(/\W/g, '');
 
                 callback();
             });
@@ -123,9 +128,10 @@ module.exports = function() {
             .send(newEventInfo)
             .end(function(err, res) {
                 expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+
                 if (err) callback('>>> ' + err);
-                //console.log('>>> UPDATE res: ' + JSON.stringify(res));
-                var updatedResponse = JSON.parse(res.text);
+                updatedResponse = JSON.parse(res.text);
 
                 callback();
             });
