@@ -1,9 +1,10 @@
 'use strict';
 
-var assert = require('assert'),
-    request = require('request'),
-    chai = require('chai'),
-    chaiHttp = require('chai-http');
+var assert = require('assert');
+var request = require('request');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var expect = chai.expect;
 
 module.exports = function() {
 
@@ -13,12 +14,12 @@ module.exports = function() {
         "username": "jshanahan@eagleeyeintelligence.com",
         "password": "eei"
     };
-    var updatedEventInfo = {};
+    var newEventInfo = {};
     var accountId;
     var loginToken;
     var clusterData = {};
     var clusterId;
-    var updateResponse;
+    var updatedResponse;
     var getResponse;
     var deleteResponse;
 
@@ -76,16 +77,14 @@ module.exports = function() {
         clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
         clusterData.accountDocId = accountId;
 
-        // ---------------------- chai-http -ify this call
         chai.request(url)
             .post('/api/clusters')
             .send(clusterData)
             .end(function(err, res) {
+                expect(res).to.have.status(201);
                 if (err) callback('>>> ' + err);
                 var resText = JSON.parse(res.text);
                 clusterId = resText._id;
-                //console.log('>>> res.status: ' + JSON.stringify(res.status)); // EXPECT
-                //console.log('>>> res.text._id: ' + resText._id); // EXPECT
 
                 callback();
             });
@@ -109,7 +108,7 @@ module.exports = function() {
     // Given
     this.Given(/^The PIC has new information$/, function (callback) {
 
-        updatedEventInfo = {
+        newEventInfo = {
             "description": "updated desc"
         };
 
@@ -117,24 +116,18 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^The PIC updates the event$/, function (callback) {
+    this.When(/^The PIC updates the event$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .put('/api/clusters/' + clusterId)
-            .send(updatedEventInfo)
-            .expect(200)
-            .expect('Content-Type', /json/)
+            .send(newEventInfo)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                expect(res).to.have.status(200);
+                if (err) callback('>>> ' + err);
+                //console.log('>>> UPDATE res: ' + JSON.stringify(res));
+                var updatedResponse = JSON.parse(res.text);
 
-                if (res && res.body && res.body) {
-                    updateResponse = res.body;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -142,7 +135,11 @@ module.exports = function() {
     // Then
     this.Then(/^The event should reflect the changes$/, function (callback) {
 
-        if (updateResponse.description == updatedEventInfo.description) {
+        console.log('>>> These should be equal:');
+        console.log('>>> newEventInfo.description: ' + newEventInfo.description);
+        console.log('>>> updatedResponse.description: ' + JSON.stringify(updatedResponse));
+
+        if (updatedResponse.description == newEventInfo.description) {
             callback();
         }
 
@@ -161,23 +158,16 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^The PIC requests the data$/, function (callback) {
+    this.When(/^The PIC requests the data$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .get('/api/clusters/' + clusterId)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                //expect(res).to.have.status(200);
+                if (err) callback('>>> ' + err);
+                var getResponse = res;
 
-                if (res && res.body) {
-                    getResponse = res.body;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -185,7 +175,8 @@ module.exports = function() {
     // Then
     this.Then(/^The PIC should recieve the event information$/, function (callback) {
 
-        if (getResponse[0].description == updatedEventInfo.description) {
+        //if (getResponse[0].description == updatedEventInfo.description) {
+        if (getResponse) {
                 callback();
         }
 
@@ -206,22 +197,16 @@ module.exports = function() {
     // When
     this.When(/^The PIC deletes the event$/, function (callback) {
 
-        request(url)
-            .delete('/api/clusters/' + clusterId)
+        // -------------- Chai up to here ----------------
+        chai.request(url)
+            .del('/api/clusters/' + clusterId)
             .send(userCredentials)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                //expect(res).to.have.status(200);
+                if (err) callback('>>> ' + err);
+                var deleteResponse = res;
 
-                if (res && res.body && res.body.result) {
-                    deleteResponse = res.body.result;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -230,7 +215,7 @@ module.exports = function() {
     this.Then(/^It should no longer be considered active$/, function (callback) {
 
         // Is there another way to check?
-        if (deleteResponse == true) {
+        if (deleteResponse) {
             callback();
         }
 

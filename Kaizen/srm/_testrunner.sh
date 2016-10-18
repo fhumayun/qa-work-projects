@@ -20,5 +20,6 @@ cd tests
 ./cuke.sh
 
 #./maven.sh
+echo '[INFO] -- Skipping Maven...';
 
 echo '[INFO] _testrunner.sh finished...'
