@@ -91,7 +91,10 @@ module.exports = function() {
             .send(updatedFidgetData)
             .end(function(err, res) {
                 expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
                 if (err) callback('>>> ' + err);
+
+                updateResponse = JSON.parse(res.text);
 
                 callback();
             });
@@ -101,11 +104,11 @@ module.exports = function() {
     // Then
     this.Then(/^I should see the updated Fidget$/, function (callback) {
 
-        if (updateResponse.length > 0) {
+        if (updateResponse) {
             callback();
         }
 
-        callback(new Error('Fidget type was not updated'));
+        callback(new Error('Fidget was not updated'));
     });
 
     /*****************************************
@@ -167,7 +170,6 @@ module.exports = function() {
     // When
     this.When(/^I delete the Fidget$/, {timeout: 30000}, function (callback) {
 
-        console.log('>>> DEL url: ' + url + '/api/fidgets/' + fidgetId);
         chai.request(url)
             .del('/api/fidgets/' + fidgetId)
             .end(function(err, res) {

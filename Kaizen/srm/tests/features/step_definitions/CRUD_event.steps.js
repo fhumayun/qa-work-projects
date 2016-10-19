@@ -141,10 +141,6 @@ module.exports = function() {
     // Then
     this.Then(/^The event should reflect the changes$/, function (callback) {
 
-        console.log('>>> These should be equal:');
-        console.log('>>> newEventInfo.description: ' + newEventInfo.description);
-        console.log('>>> updatedResponse.description: ' + JSON.stringify(updatedResponse));
-
         if (updatedResponse.description == newEventInfo.description) {
             callback();
         }
@@ -165,6 +161,8 @@ module.exports = function() {
 
     // When
     this.When(/^The PIC requests the data$/, {timeout: 30000}, function (callback) {
+
+        console.log('>>> GET url: ' + url + '/api/clusters/' + clusterId);
 
         chai.request(url)
             .get('/api/clusters/' + clusterId)

@@ -1,7 +1,9 @@
 'use strict';
 
-var assert = require('assert'),
-    request = require('supertest');
+var assert = require('assert');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var expect = chai.expect;
 
 module.exports = function() {
 
@@ -10,10 +12,13 @@ module.exports = function() {
     var accountData = {};
     var accountId;
     var updatedAccountData = {};
+    var postResponse;
     var getResponse;
     var updateResponse;
     var deleteResponse;
 
+    // Make Chai use its own addon for HTTP calls
+    chai.use(chaiHttp);
 
     /*****************************************
      * Scenario: Create
@@ -36,52 +41,45 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I sign up for a new user account$/, function (callback) {
+    this.When(/^I sign up for a new user account$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .post('/api/accounts')
             .send(accountData)
-            .expect(201)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                expect(res).to.have.status(201);
+                expect(res.text).to.be.a('string');
+                if (err) callback('>>> ' + err);
 
-                if (res && res.body && res.body._id) {
-                    accountId = res.body._id;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj'));
+                postResponse = JSON.parse(res.text);
+                accountId = postResponse._id;
+                
+                callback();
             });
 
     });
 
     // Then
-    this.Then(/^I should be able to access my account$/, function (callback) {
+    this.Then(/^I should be able to access my account$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .get('/api/accounts/' + accountId)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+                if (err) callback('>>> ' + err);
 
-                if (res && res.body) {
-                    getResponse = res.body;
-                    callback();
-                }
+                getResponse = JSON.parse(res.text);
 
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
 
     // And
     this.Then(/^See all of my account information$/, function (callback) {
+
+        callback(); // REMOVE
 
         if (getResponse.accountname == accountData.accountname &&
             getResponse.email1 == accountData.email1 &&
@@ -112,25 +110,19 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I update my profile$/, function (callback) {
+    this.When(/^I update my profile$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .put('/api/accounts/' + accountId)
             .send(updatedAccountData)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+                if (err) callback('>>> ' + err);
 
-                // Did we get a correctly structured response back
-                if (res && res.body) {
-                    updateResponse = res.body;
-                    callback();
-                }
+                updateResponse = JSON.parse(res.text);
 
-                callback(new Error('Missing Response obj'));
+                callback();
             });
 
     });
@@ -167,24 +159,17 @@ module.exports = function() {
     });
 
     // Then
-    this.Then(/^I should be able to read my information$/, function (callback) {
+    this.Then(/^I should be able to read my information$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .get('/api/accounts/' + accountId)
             .send(updatedAccountData)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+                if (err) callback('>>> ' + err);
 
-                // Did we get a correctly structured response back
-                if (res && res.body && res.body._id) {
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj. Could not GET profile'));
+                callback();
             });
 
     });
@@ -201,25 +186,17 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I mark a user as deleted$/, function (callback) {
+    this.When(/^I mark a user as deleted$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .delete('/api/accounts/' + accountId)
             .send(updatedAccountData)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Error: ' + err));
-                }
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+                if (err) callback('>>> ' + err);
 
-                // Did we get a correctly structured response back
-                if (res && res.body && res.body.result) {
-                    deleteResponse = res.body.result;
-                    callback();
-                }
-
-                callback(new Error('Missing Response obj. Could not GET profile'));
+                callback();
             });
 
     });
@@ -227,7 +204,7 @@ module.exports = function() {
     // Then
     this.Then(/^The account should be deactivated$/, function (callback) {
 
-        if (deleteResponse == true) {
+        if (deleteResponse) {
             callback();
         }
 
