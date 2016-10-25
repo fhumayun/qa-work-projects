@@ -79,7 +79,7 @@ module.exports = function() {
                 participantId = postResponse._id;
 
                 if (err) return callback('>>> ' + err);
-                else callback();
+                else return callback();
             });
 
     });
@@ -90,7 +90,7 @@ module.exports = function() {
         if (participantId) {
             return callback();
         } else {
-            callback(new Error('Invalid participant ID after creation'));
+            return callback(new Error('Invalid participant ID after creation'));
         }
 
     });
@@ -122,7 +122,7 @@ module.exports = function() {
               updateResponse = JSON.parse(res.text);
 
               if (err) return callback('>>> ' + err);
-              else callback();
+              else return callback();
             });
 
     });
@@ -133,8 +133,9 @@ module.exports = function() {
         if (updateResponse) {
             return callback();
         } else {
-            callback(new Error('Did not recieve update successful reponse'));
+            return callback(new Error('Did not recieve update successful reponse'));
         }
+
     });
 
     /*****************************************
@@ -147,8 +148,9 @@ module.exports = function() {
         if (participantId) {
             return callback();
         } else {
-            callback(new Error('Could not GET: Missing participant id'));
+            return callback(new Error('Could not GET: Missing participant id'));
         }
+
     });
 
     // When
@@ -157,13 +159,14 @@ module.exports = function() {
         chai.request(url)
             .get('/api/participant/' + participantId)
             .end(function(err, res) {
+              expect(err).to.be.null;
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
 
               getResponse = JSON.parse(res.text);
 
               if (err) return callback('>>> ' + err);
-              else callback();
+              else return callback();
             });
 
     });
@@ -174,8 +177,9 @@ module.exports = function() {
         if (getResponse[0]._id == participantId) {
             return callback();
         } else {
-            callback(new Error('Could not GET participant profile'));
+            return callback(new Error('Could not GET participant profile'));
         }
+
     });
 
     /*****************************************
@@ -188,7 +192,7 @@ module.exports = function() {
         if (participantId) {
             return callback();
         } else {
-            callback(new Error('Could not DELETE: Missing participant id'));
+            return callback(new Error('Could not DELETE: Missing participant id'));
         }
 
     });
@@ -199,13 +203,14 @@ module.exports = function() {
         chai.request(url)
             .delete('/api/participant/' + participantId)
             .end(function(err, res) {
+              expect(err).to.be.null;
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
 
               deleteResponse = JSON.parse(res.text);
 
               if (err) return callback('>>> ' + err);
-              else callback();
+              else return callback();
             });
 
     });
@@ -216,7 +221,7 @@ module.exports = function() {
         if (deleteResponse) {
             return callback();
         } else {
-            callback(new Error('Could not successfully DELETE participant'));
+            return callback(new Error('Could not successfully DELETE participant'));
         }
 
     });

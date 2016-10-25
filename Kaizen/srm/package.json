@@ -5,16 +5,11 @@
   "dependencies": {
     "allure-js-commons": "^1.2.0",
     "async": "^2.0.0",
-    "body-parser": "~1.15.1",
-    "cookie-parser": "~1.4.3",
-    "cucumber": "^1.0.0",
+    "cucumber": "1.3.1",
     "cucumberjs-allure-reporter": "git+https://github.com/shanahanjrs/cucumberjs-allure-reporter.git",
     "debug": "~2.2.0",
-    "ejs": "~2.4.1",
-    "express": "~4.13.4",
     "mongodb": "^2.2.4",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
     "chai": "~3.5.0",
     "chai-http": "~3.0.0"
   }

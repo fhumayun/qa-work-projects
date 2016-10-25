@@ -57,7 +57,7 @@ module.exports = function() {
                 fidgetId = JSON.stringify(postRes._id).replace(/\W/g, '');
 
                 if (err) return callback('>>> ' + err);
-                else callback();
+                else return callback();
             });
 
     });
@@ -100,7 +100,7 @@ module.exports = function() {
                 updateResponse = JSON.parse(res.text);
 
                 if (err) return callback('>>> ' + err);
-                else callback();
+                else return callback();
             });
 
     });
@@ -128,6 +128,7 @@ module.exports = function() {
         } else {
             return callback(new Error('Missing Fidget id. Could not GET.'));
         }
+
     });
 
     // When
@@ -141,7 +142,7 @@ module.exports = function() {
                 getResponse = JSON.parse(res.text);
 
                 if (err) return callback('>>> ' + err);
-                else callback();
+                else return callback();
             });
 
     });
@@ -184,7 +185,7 @@ module.exports = function() {
                 deleteResponse = JSON.parse(res.text);
 
                 if (err) return callback('>>> ' + err);
-                else callback();
+                else return callback();
             });
 
     });
@@ -197,6 +198,7 @@ module.exports = function() {
         } else {
             return callback(new Error('Could not DELETE Fidget'));
         }
+
     });
 
 };

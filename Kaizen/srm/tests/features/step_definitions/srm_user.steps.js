@@ -44,21 +44,20 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I sign up for a new user account$/, {timeout: 30000}, function (callback) {
+    this.When(/^I sign up for a new user account$/, {timeout: 30000}, function () {
 
         chai.request(url)
             .post('/api/accounts')
             .send(accountData)
             .end(function(err, res) {
+                expect(err).to.be.null;
                 expect(res).to.have.status(201);
                 expect(res.text).to.be.a('string');
 
                 postResponse = JSON.parse(res.text);
                 accountId = postResponse._id;
-
-                if (err) return callback('>>> ' + err);
-                else callback();
             });
+
     });
 
     // Then
@@ -67,14 +66,19 @@ module.exports = function() {
         chai.request(url)
             .get('/api/accounts/' + accountId)
             .end(function(err, res) {
+                expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
 
-                getResponse = JSON.parse(res.text);
+                if (err) {
+                    return callback('>>> ' + err);
+                } else {
+                    getResponse = JSON.parse(res.text);
+                    return callback();
+                }
 
-                if (err) return callback('>>> ' + err);
-                else callback();
             });
+
     });
 
     // And
@@ -106,20 +110,20 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I update my profile$/, {timeout: 30000}, function (callback) {
+    this.When(/^I update my profile$/, {timeout: 30000}, function () {
 
         chai.request(url)
             .put('/api/accounts/' + accountId)
             .send(updatedAccountData)
             .end(function(err, res) {
+                expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
 
                 updateResponse = JSON.parse(res.text);
 
-                if (err) return callback('>>> ' + err);
-                else callback();
             });
+
     });
 
     // Then
@@ -155,18 +159,17 @@ module.exports = function() {
     });
 
     // Then
-    this.Then(/^I should be able to read my information$/, {timeout: 30000}, function (callback) {
+    this.Then(/^I should be able to read my information$/, {timeout: 30000}, function () {
 
         chai.request(url)
             .get('/api/accounts/' + accountId)
             .send(updatedAccountData)
             .end(function(err, res) {
+                expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-
-                if (err) return callback('>>> ' + err);
-                else callback();
             });
+
     });
 
     /*****************************************
@@ -181,17 +184,15 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I mark a user as deleted$/, {timeout: 30000}, function (callback) {
+    this.When(/^I mark a user as deleted$/, {timeout: 30000}, function () {
 
         chai.request(url)
             .delete('/api/accounts/' + accountId)
             .send(updatedAccountData)
             .end(function(err, res) {
+                expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-
-                if (err) return callback('>>> ' + err);
-                else callback();
             });
 
     });
@@ -202,7 +203,7 @@ module.exports = function() {
         if (deleteResponse) {
             return callback();
         } else {
-            callback(new Error('Could not delete account'));
+            return callback(new Error('Could not delete account'));
         }
     });
 

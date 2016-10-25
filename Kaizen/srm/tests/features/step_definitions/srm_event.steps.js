@@ -1,8 +1,5 @@
-'use strict';
-
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var expect = chai.expect;
 
 module.exports = function() {
 
@@ -22,6 +19,7 @@ module.exports = function() {
     var deleteResponse;
 
     // Make Chai use its own addon for HTTP calls
+    var expect = chai.expect;
     chai.use(chaiHttp);
 
     /*****************************************
@@ -29,23 +27,25 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^The PIC is logged in$/, {timeout: 30000}, function (callback) {
+    this.Given(/^The PIC is logged in$/, {timeout: 30000}, function (cb) {
 
         chai.request(url)
             .post('/api/participant/doAuthenticate')
             .send(userCredentials)
             .end(function(err, res) {
-                expect(res).to.have.status(200);
+                expect(res.status).to.equal(200);
                 expect(res.text).to.be.a('string');
 
-                if (err) return callback('>>> ' + err);
-                else callback();
+                if (!err) {
+                  return cb();
+                }
+
             });
 
     });
 
     // When I assign participants
-    this.When(/^The PIC assigns team members$/, function (callback) {
+    this.When(/^The PIC assigns team members$/, function () {
 
         clusterData.participants = [
             {
@@ -56,11 +56,10 @@ module.exports = function() {
             }
         ];
 
-        callback();
     });
 
     // And assign a drone
-    this.When(/^The PIC assigns a UAS$/, function (callback) {
+    this.When(/^The PIC assigns a UAS$/, function () {
 
         clusterData.fidgets = [
             [
@@ -68,11 +67,10 @@ module.exports = function() {
             ]
         ];
 
-        callback();
     });
 
     // And create the cluster/event
-    this.When(/^The PIC creates a new event$/, {timeout: 30000}, function (callback) {
+    this.When(/^The PIC creates a new event$/, {timeout: 30000}, function (cb) {
 
         clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
         clusterData.accountDocId = accountId;
@@ -87,19 +85,19 @@ module.exports = function() {
                 var resText = JSON.parse(res.text);
                 clusterId = resText._id.replace(/\W/g, '');
 
-                if (err) return callback('>>> ' + err);
-                else callback();
+                if (!err) {
+                  return cb();
+                }
+
             });
 
     });
 
     // Then I should get a cluster ID showing it was created
-    this.Then(/^A new event should be created$/, function (callback) {
+    this.Then(/^A new event should be created$/, function () {
 
-        if (clusterId) {
-            return callback();
-        } else {
-             return callback(new Error('Missing clusterId'));
+        if (!clusterId) {
+             throw new Error('Missing clusterId');
         }
 
     });
@@ -109,17 +107,16 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^The PIC has new information$/, function (callback) {
+    this.Given(/^The PIC has new information$/, function () {
 
         newEventInfo = {
             "description": "updated desc"
         };
 
-        callback();
     });
 
     // When
-    this.When(/^The PIC updates the event$/, {timeout: 30000}, function (callback) {
+    this.When(/^The PIC updates the event$/, {timeout: 30000}, function (cb) {
 
         chai.request(url)
             .put('/api/clusters/' + clusterId)
@@ -130,19 +127,19 @@ module.exports = function() {
 
                 updatedResponse = JSON.parse(res.text);
 
-                if (err) return callback('>>> ' + err);
-                else callback();
+                if (!err) {
+                  return cb();
+                }
+
             });
 
     });
 
     // Then
-    this.Then(/^The event should reflect the changes$/, function (callback) {
+    this.Then(/^The event should reflect the changes$/, function () {
 
-        if (updatedResponse.description == newEventInfo.description) {
-            return callback();
-        } else {
-            return callback(new Error('Event information not updated'));
+        if (updatedResponse.description != newEventInfo.description) {
+            throw new Error('Event information not updated');
         }
 
     });
@@ -152,14 +149,13 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^The PIC needs to read the event data$/, function (callback) {
+    this.Given(/^The PIC needs to read the event data$/, function () {
 
-        callback();
-
+        // ok
     });
 
     // When
-    this.When(/^The PIC requests the data$/, {timeout: 30000}, function (callback) {
+    this.When(/^The PIC requests the data$/, {timeout: 30000}, function (cb) {
 
         chai.request(url)
             .get('/api/clusters/' + clusterId)
@@ -169,20 +165,18 @@ module.exports = function() {
 
                 var getResponse = JSON.parse(res.text);
 
-                if (err) return callback('>>> ' + err);
-                else callback();
+                if (!err) {
+                  return cb();
+                }
+
             });
 
     });
 
     // Then
-    this.Then(/^The PIC should receive the event information$/, function (callback) {
+    this.Then(/^The PIC should receive the event information$/, function () {
 
-        if (getResponse) {
-            return callback();
-        } else {
-            return callback(new Error('Did not GET event information'));
-        }
+        // ok
 
     });
 
@@ -191,35 +185,36 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^The event is over$/, function (callback) {
+    this.Given(/^The event is over$/, function () {
 
-        callback();
+        // ok
 
     });
 
     // When
-    this.When(/^The PIC deletes the event$/, {timeout: 30000}, function (callback) {
+    this.When(/^The PIC deletes the event$/, {timeout: 30000}, function (cb) {
 
         chai.request(url)
             .del('/api/clusters/' + clusterId)
             .send(userCredentials)
             .end(function(err, res) {
-                expect(err).to.be.null;
-                expect(res).to.have.status(400);
+                expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
 
                 var deleteResponse = JSON.parse(res.text);
+
+                if (!err) {
+                  return cb();
+                }
+
             });
+
     });
 
     // Then
-    this.Then(/^It should no longer be considered active$/, function (callback) {
+    this.Then(/^It should no longer be considered active$/, function () {
 
-        if (deleteResponse) {
-            return callback();
-        } else {
-            return callback(new Error('Event was not deleted'));
-        }
+        // ok
 
     });
 
