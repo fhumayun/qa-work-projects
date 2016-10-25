@@ -1,18 +1,27 @@
 'use strict';
 
-var assert = require('assert'),
-    request = require('supertest');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var expect = chai.expect;
 
 module.exports = function() {
 
     // Variables
     var url = process.env.TESTURL;
+    var userCredentials = {
+        "username": "jshanahan@eagleeyeintelligence.com",
+        "password": "eei"
+    };
     var participantData = {};
     var updatedParticipantData = {};
     var participantId;
+    var postResponse;
     var updateResponse;
     var getResponse;
     var deleteResponse;
+
+    // Make Chai use its own addon for HTTP calls
+    chai.use(chaiHttp);
 
     /*****************************************
      * Scenario: Create
@@ -53,28 +62,24 @@ module.exports = function() {
             "__v" : 0.0
         };
 
-        callback();
+        return callback();
     });
 
     // When
-    this.When(/^I create a new participant$/, function (callback) {
+    this.When(/^I create a new participant$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .post('/api/participant')
             .send(participantData)
-            .expect(201)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Not created - Does this Participant already exist?: ' + err));
-                }
+                expect(res).to.have.status(201);
+                expect(res.text).to.be.a('string');
 
-                if (res && res.body && res.body._id) {
-                    participantId = res.body._id;
-                    callback();
-                }
+                postResponse = JSON.parse(res.text);
+                participantId = postResponse._id;
 
-                callback(new Error('Missing Response obj'));
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -82,11 +87,12 @@ module.exports = function() {
     // Then
     this.Then(/^I should get a creation successful response$/, function (callback) {
 
-        if (participantId != null) {
-            callback();
+        if (participantId) {
+            return callback();
+        } else {
+            callback(new Error('Invalid participant ID after creation'));
         }
 
-        callback(new Error('Invalid participant ID after creation'));
     });
 
     /*****************************************
@@ -100,28 +106,23 @@ module.exports = function() {
             "phoneType": "iPhone"
         };
 
-        callback();
+        return callback();
     });
 
     // When
-    this.When(/^I update the data$/, function (callback) {
+    this.When(/^I update the data$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .put('/api/participant/' + participantId)
             .send(updatedParticipantData)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Participant not updated: ' + err));
-                }
+              expect(res).to.have.status(200);
+              expect(res.text).to.be.a('string');
 
-                if (res && res.body && res.body.result) {
-                    updateResponse = res.body.result;
-                    callback();
-                }
+              updateResponse = JSON.parse(res.text);
 
-                callback(new Error('Missing Response obj'));
+              if (err) return callback('>>> ' + err);
+              else callback();
             });
 
     });
@@ -129,11 +130,11 @@ module.exports = function() {
     // Then
     this.Then(/^I should get an update successful response$/, function (callback) {
 
-        if (updateResponse == true) {
-            callback();
+        if (updateResponse) {
+            return callback();
+        } else {
+            callback(new Error('Did not recieve update successful reponse'));
         }
-
-        callback(new Error('Did not recieve update successful reponse'));
     });
 
     /*****************************************
@@ -144,30 +145,25 @@ module.exports = function() {
     this.Given(/^I need to look up a participant$/, function (callback) {
 
         if (participantId) {
-            callback();
+            return callback();
+        } else {
+            callback(new Error('Could not GET: Missing participant id'));
         }
-
-        callback(new Error('Missing participant id'));
     });
 
     // When
-    this.When(/^I look up a participant by id$/, function (callback) {
+    this.When(/^I look up a participant by id$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .get('/api/participant/' + participantId)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Could not GET participant' + err));
-                }
+              expect(res).to.have.status(200);
+              expect(res.text).to.be.a('string');
 
-                if (res && res.body) {
-                    getResponse = res.body;
-                    callback();
-                }
+              getResponse = JSON.parse(res.text);
 
-                callback(new Error('Missing Response obj'));
+              if (err) return callback('>>> ' + err);
+              else callback();
             });
 
     });
@@ -176,10 +172,10 @@ module.exports = function() {
     this.Then(/^I should get the participant profile back$/, function (callback) {
 
         if (getResponse[0]._id == participantId) {
-            callback();
+            return callback();
+        } else {
+            callback(new Error('Could not GET participant profile'));
         }
-
-        callback(new Error('Could not GET participant profile'));
     });
 
     /*****************************************
@@ -188,42 +184,41 @@ module.exports = function() {
 
     // Given
     this.Given(/^I need to delete a participant and I have the id$/, function (callback) {
+
         if (participantId) {
-            callback();
+            return callback();
+        } else {
+            callback(new Error('Could not DELETE: Missing participant id'));
         }
 
-        callback(new Error('Missing participant id'));
     });
 
     // When
-    this.When(/^I delete a participant$/, function (callback) {
+    this.When(/^I delete a participant$/, {timeout: 30000}, function (callback) {
 
-        request(url)
+        chai.request(url)
             .delete('/api/participant/' + participantId)
-            .expect(200)
-            .expect('Content-Type', /json/)
             .end(function(err, res) {
-                if (err) {
-                    callback(new Error('Could not GET participant' + err));
-                }
+              expect(res).to.have.status(200);
+              expect(res.text).to.be.a('string');
 
-                if (res && res.body) {
-                    deleteResponse = res.body;
-                    callback();
-                }
+              deleteResponse = JSON.parse(res.text);
 
-                callback(new Error('Missing Response obj'));
+              if (err) return callback('>>> ' + err);
+              else callback();
             });
 
     });
 
     // Then
     this.Then(/^I should get a deletion successful response$/, function (callback) {
-        if (deleteResponse.result == true) {
-            callback();
+
+        if (deleteResponse) {
+            return callback();
+        } else {
+            callback(new Error('Could not successfully DELETE participant'));
         }
 
-        callback(new Error('Could not successfully DELETE participant'));
     });
 
 };

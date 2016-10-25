@@ -11,7 +11,9 @@ npm install -g cucumber
 if [[ $? -ne 0 ]]; then echo '[ERROR] "npm install -g cucumber" finished with errors...'; fi
 
 # link nodejs executable to node
-ln -s /usr/bin/nodejs /usr/bin/node > /dev/null
+if [ ! -f /usr/bin/node ]; then
+    ln -s /usr/bin/nodejs /usr/bin/node > /dev/null
+fi
 
 # Go to tests dir and execute the runner.
 # This will call cuke and maven

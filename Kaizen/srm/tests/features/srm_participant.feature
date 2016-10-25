@@ -1,5 +1,5 @@
 @participant @happy
-Feature: Create, update, and read participants
+Feature: Create, update, and manage Participants
   As an admin
   I should be able to create, update, and read participants in the system
 

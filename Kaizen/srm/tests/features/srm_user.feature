@@ -1,5 +1,5 @@
 @user @happy
-Feature: Create, update, and read user account
+Feature: Create, update, and manage Users
   As a customer
   I want to create a new user account
   Update my information

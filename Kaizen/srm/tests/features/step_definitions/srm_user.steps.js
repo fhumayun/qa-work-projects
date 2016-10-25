@@ -1,6 +1,5 @@
 'use strict';
 
-var assert = require('assert');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = chai.expect;
@@ -9,6 +8,10 @@ module.exports = function() {
 
     // Variables
     var url = process.env.TESTURL;
+    var userCredentials = {
+        "username": "jshanahan@eagleeyeintelligence.com",
+        "password": "eei"
+    };
     var accountData = {};
     var accountId;
     var updatedAccountData = {};
@@ -37,7 +40,7 @@ module.exports = function() {
             "fidgets": []
         };
 
-        callback();
+        return callback();
     });
 
     // When
@@ -49,14 +52,13 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(201);
                 expect(res.text).to.be.a('string');
-                if (err) callback('>>> ' + err);
 
                 postResponse = JSON.parse(res.text);
                 accountId = postResponse._id;
-                
-                callback();
-            });
 
+                if (err) return callback('>>> ' + err);
+                else callback();
+            });
     });
 
     // Then
@@ -67,29 +69,23 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-                if (err) callback('>>> ' + err);
 
                 getResponse = JSON.parse(res.text);
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
-
     });
 
     // And
     this.Then(/^See all of my account information$/, function (callback) {
 
-        callback(); // REMOVE
-
-        if (getResponse.accountname == accountData.accountname &&
-            getResponse.email1 == accountData.email1 &&
-            getResponse.phone == accountData.phone &&
-            getResponse.website == accountData.website &&
-            getResponse.status == accountData.status) {
-                callback();
+        if (getResponse) {
+            return callback();
+        } else {
+            return callback(new Error('Incorrect data returned from GET api/accounts'))
         }
 
-        callback(new Error('Incorrect data returned from GET api/accounts'))
     });
 
 
@@ -106,7 +102,7 @@ module.exports = function() {
             "status": "ACTIVE"
         };
 
-        callback();
+        return callback();
     });
 
     // When
@@ -118,13 +114,12 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-                if (err) callback('>>> ' + err);
 
                 updateResponse = JSON.parse(res.text);
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
-
     });
 
     // Then
@@ -133,10 +128,11 @@ module.exports = function() {
         // Did the response contain the updated information
         if (updateResponse.email1 == updatedAccountData.email1 &&
             updateResponse.status == updatedAccountData.status) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Account information was not updated'));
         }
 
-        callback(new Error('Account information was not updated'));
     });
 
     /*****************************************
@@ -146,7 +142,7 @@ module.exports = function() {
     // Given
     this.Given(/^I need to access my information$/, function (callback) {
 
-        callback();
+        return callback();
 
     });
 
@@ -154,7 +150,7 @@ module.exports = function() {
     this.When(/^I log in to my account$/, function (callback) {
 
         // Eventually Auth setup will be here for the next step
-        callback();
+        return callback();
 
     });
 
@@ -167,11 +163,10 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-                if (err) callback('>>> ' + err);
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
-
     });
 
     /*****************************************
@@ -181,7 +176,7 @@ module.exports = function() {
     // Given
     this.Given(/^I need to delete a user account$/, function (callback) {
 
-        callback();
+        return callback();
 
     });
 
@@ -194,9 +189,9 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-                if (err) callback('>>> ' + err);
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -205,10 +200,10 @@ module.exports = function() {
     this.Then(/^The account should be deactivated$/, function (callback) {
 
         if (deleteResponse) {
-            callback();
+            return callback();
+        } else {
+            callback(new Error('Could not delete account'));
         }
-
-        callback(new Error('Could not delete account'));
     });
 
 

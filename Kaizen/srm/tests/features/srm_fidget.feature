@@ -1,5 +1,5 @@
 @fidget @happy
-Feature: Create, update, and read fidgets
+Feature: Create, update, and manage fidgets
   As an admin
   I should be able to create, update, and read fidgets in the system
 

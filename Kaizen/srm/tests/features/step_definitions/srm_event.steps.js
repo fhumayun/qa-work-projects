@@ -1,7 +1,5 @@
 'use strict';
 
-var assert = require('assert');
-var request = require('request');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = chai.expect;
@@ -40,9 +38,8 @@ module.exports = function() {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
 
-                if (err) callback('>>> ' + err);
-
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -87,11 +84,11 @@ module.exports = function() {
                 expect(res).to.have.status(201);
                 expect(res.text).to.be.a('string');
 
-                if (err) callback('>>> ' + err);
                 var resText = JSON.parse(res.text);
                 clusterId = resText._id.replace(/\W/g, '');
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -100,10 +97,11 @@ module.exports = function() {
     this.Then(/^A new event should be created$/, function (callback) {
 
         if (clusterId) {
-            callback();
+            return callback();
+        } else {
+             return callback(new Error('Missing clusterId'));
         }
 
-        callback(new Error('Missing clusterId'));
     });
 
     /*****************************************
@@ -130,10 +128,10 @@ module.exports = function() {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
 
-                if (err) callback('>>> ' + err);
                 updatedResponse = JSON.parse(res.text);
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -142,10 +140,11 @@ module.exports = function() {
     this.Then(/^The event should reflect the changes$/, function (callback) {
 
         if (updatedResponse.description == newEventInfo.description) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Event information not updated'));
         }
 
-        callback(new Error('Event information not updated'));
     });
 
     /*****************************************
@@ -162,29 +161,29 @@ module.exports = function() {
     // When
     this.When(/^The PIC requests the data$/, {timeout: 30000}, function (callback) {
 
-        console.log('>>> GET url: ' + url + '/api/clusters/' + clusterId);
-
         chai.request(url)
             .get('/api/clusters/' + clusterId)
             .end(function(err, res) {
-                //expect(res).to.have.status(200);
-                if (err) callback('>>> ' + err);
-                var getResponse = res;
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
 
-                callback();
+                var getResponse = JSON.parse(res.text);
+
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
 
     // Then
-    this.Then(/^The PIC should recieve the event information$/, function (callback) {
+    this.Then(/^The PIC should receive the event information$/, function (callback) {
 
-        //if (getResponse[0].description == updatedEventInfo.description) {
         if (getResponse) {
-                callback();
+            return callback();
+        } else {
+            return callback(new Error('Did not GET event information'));
         }
 
-        callback(new Error('Did not GET event information'));
     });
 
     /*****************************************
@@ -199,31 +198,29 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^The PIC deletes the event$/, function (callback) {
+    this.When(/^The PIC deletes the event$/, {timeout: 30000}, function (callback) {
 
-        // -------------- Chai up to here ----------------
         chai.request(url)
             .del('/api/clusters/' + clusterId)
             .send(userCredentials)
             .end(function(err, res) {
-                //expect(res).to.have.status(200);
-                if (err) callback('>>> ' + err);
-                var deleteResponse = res;
+                expect(err).to.be.null;
+                expect(res).to.have.status(400);
+                expect(res.text).to.be.a('string');
 
-                callback();
+                var deleteResponse = JSON.parse(res.text);
             });
-
     });
 
     // Then
     this.Then(/^It should no longer be considered active$/, function (callback) {
 
-        // Is there another way to check?
         if (deleteResponse) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Event was not deleted'));
         }
 
-        callback(new Error('Event was not deleted'));
     });
 
 };

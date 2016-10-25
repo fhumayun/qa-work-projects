@@ -1,20 +1,21 @@
-# Kaizen
-
-![Kaizen Logo](http://i.imgur.com/9Z1BFWs.png)
-
-###### Kaizen - [kahy-zen] A business philosophy or system that is based on making positive changes on a regular basis, as to improve productivity.
-
+SRM cucumberjs scripts
 ---
 
-Kaizen is a Nodejs project that utilizes Cucumber and Allure to test the EagleEye SRM/SAC API and generate reports. Over time The Kaizen Project will evolve to encompass many other aspects of testing, quality assurance, and continuous improvement.
-When run Kaizen will bring itself up inside a Docker container running Ubuntu 16.04 and begin running its tests.
-First it will run Cucumber, a tool which runs BDD tests against our API and then generates Junit XML output. After the 
-XML is generated it will be parsed by Allure which is a Maven plugin. Allure will take the results and generate a report in HTML.
+These cuke scripts are built to be automatically run against the StraxRM api endpoints for user, event, and device management.
+This will simulate a user interface call to the Strax engine and intelligently determine the latest status of our code based on the response received.
+The results are then stored, and depending on the outcome our automated build process will either continue to the next step or stop the assembly line and alert us of a potential risk.
 
+To run: `./entrypoint.sh`
 
-## Running Kaizen:
-- https://slimwiki.com/gct/running-kaizen-tests
-./rundockertests.sh
+XML results: `/path/to/application/tests/target/allure-results/<UUID>-testsuite.xml`
 
-## Kaizen, under the hood
-- https://slimwiki.com/gct/srm-test-code
+Then maven.sh will generate an html report with the results.
+
+You can see the results of this locally by then calling:
+```
+$ cd site/testResults
+$ mv allure-reports/ allure-report/
+$ rm allure-maven-plugin/img/tests_passed.jpg
+$ cp ../../img/thumbs_up.jpg allure-report/allure-maven-plugin/img/tests_passed.jpg
+$ allure report open
+```

@@ -2,6 +2,7 @@ version: '2'
 
 services:
   kaizen:
+    image: dr.strax.co:5000/kaizen:0.1
     build:
       context: .
       dockerfile: Dockerfile

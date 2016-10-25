@@ -1,7 +1,5 @@
 'use strict';
 
-var assert = require('assert')
-var request = require('supertest');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = chai.expect;
@@ -10,6 +8,10 @@ module.exports = function() {
 
     // Variables
     var url = process.env.TESTURL;
+    var userCredentials = {
+        "username": "jshanahan@eagleeyeintelligence.com",
+        "password": "eei"
+    };
     var fidgetData = {};
     var updatedFidgetData = {};
     var fidgetId;
@@ -39,7 +41,7 @@ module.exports = function() {
             "__v" : 0
         };
 
-        callback();
+        return callback();
     });
 
     // When
@@ -50,11 +52,12 @@ module.exports = function() {
             .send(fidgetData)
             .end(function(err, res) {
                 expect(res).to.have.status(201);
-                if (err) callback('>>> ' + err);
+
                 var postRes = JSON.parse(res.text);
                 fidgetId = JSON.stringify(postRes._id).replace(/\W/g, '');
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -63,10 +66,11 @@ module.exports = function() {
     this.Then(/^I should get a fidget creation successful response$/, function (callback) {
 
         if (fidgetId.length > 0) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Fidget could not be created'));
         }
 
-        callback(new Error('Fidget could not be created'));
     });
 
     /*****************************************
@@ -80,7 +84,7 @@ module.exports = function() {
             "type": "eagleeye"
         };
 
-        callback();
+        return callback();
     });
 
     // When
@@ -92,11 +96,11 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-                if (err) callback('>>> ' + err);
 
                 updateResponse = JSON.parse(res.text);
 
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -105,10 +109,11 @@ module.exports = function() {
     this.Then(/^I should see the updated Fidget$/, function (callback) {
 
         if (updateResponse) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Fidget was not updated'));
         }
 
-        callback(new Error('Fidget was not updated'));
     });
 
     /*****************************************
@@ -119,10 +124,10 @@ module.exports = function() {
     this.Given(/^I need to look up a Fidget and have the id$/, function (callback) {
 
         if (fidgetId) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Missing Fidget id. Could not GET.'));
         }
-
-        callback(new Error('Missing Fidget id. Could not GET.'));
     });
 
     // When
@@ -135,9 +140,8 @@ module.exports = function() {
                 expect(res.text).to.be.a('string');
                 getResponse = JSON.parse(res.text);
 
-                if (err) callback('>>> ' + err);
-
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -147,10 +151,11 @@ module.exports = function() {
 
         // Validate fidget data
         if (getResponse[0]._id == fidgetId) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Could not GET Fidget profile'));
         }
 
-        callback(new Error('Could not GET Fidget profile'));
     });
 
     /*****************************************
@@ -161,10 +166,10 @@ module.exports = function() {
     this.Given(/^I need to delete a decommissioned Fidget and have the id$/, function (callback) {
 
         if (fidgetId) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Missing Fidget id. Could not DELETE.'));
         }
-
-        callback(new Error('Missing Fidget id. Could not DELETE.'));
     });
 
     // When
@@ -175,11 +180,11 @@ module.exports = function() {
             .end(function(err, res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
+
                 deleteResponse = JSON.parse(res.text);
 
-                if (err) callback('>>> ' + err);
-
-                callback();
+                if (err) return callback('>>> ' + err);
+                else callback();
             });
 
     });
@@ -188,10 +193,10 @@ module.exports = function() {
     this.Then(/^I should no longer be able to use the Fidget$/, function (callback) {
 
         if (deleteResponse.length > 0) {
-            callback();
+            return callback();
+        } else {
+            return callback(new Error('Could not DELETE Fidget'));
         }
-
-        callback(new Error('Could not DELETE Fidget'));
     });
 
 };

@@ -1,5 +1,5 @@
 @event @happy
-Feature: Create an event using the SRM
+Feature: Create, update, and manage Events
   As a PIC
   I want to create a new event using the SRM
 
@@ -21,7 +21,7 @@ Feature: Create an event using the SRM
   Scenario: As a PIC I should be able to read the event data
     Given The PIC needs to read the event data
     When The PIC requests the data
-    Then The PIC should recieve the event information
+    Then The PIC should receive the event information
 
   @delete
   Scenario: As a PIC I should be able to delete an event when it is over
