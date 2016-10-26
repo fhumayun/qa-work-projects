@@ -29,17 +29,21 @@ module.exports = function() {
     // Given
     this.Given(/^The PIC is logged in$/, {timeout: 30000}, function (cb) {
 
+        // chai.request(url)
+        //     .post('/api/participant/doAuthenticate')
+        //     .send(userCredentials)
+        //     .end(function(err, res) {
+        //         expect(res.status).to.eventually.equal(404);
+        //     });
         chai.request(url)
             .post('/api/participant/doAuthenticate')
             .send(userCredentials)
-            .end(function(err, res) {
-                expect(res.status).to.equal(200);
-                expect(res.text).to.be.a('string');
-
-                if (!err) {
-                  return cb();
-                }
-
+            .then(function(res) {
+                expect(res).to.have.status(200);
+                cb();
+            })
+            .catch(function(err) {
+              return cb(err);
             });
 
     });
@@ -75,20 +79,27 @@ module.exports = function() {
         clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
         clusterData.accountDocId = accountId;
 
+        // chai.request(url)
+        //     .post('/api/clusters')
+        //     .send(clusterData)
+        //     .end(function(err, res) {
+        //         expect(res.status).to.eventually.equal(401);
+        //
+        //         var resText = JSON.parse(res.text);
+        //         clusterId = resText._id.replace(/\W/g, '');
+        //     });
         chai.request(url)
             .post('/api/clusters')
             .send(clusterData)
-            .end(function(err, res) {
+            .then(function(res) {
                 expect(res).to.have.status(201);
-                expect(res.text).to.be.a('string');
 
                 var resText = JSON.parse(res.text);
                 clusterId = resText._id.replace(/\W/g, '');
-
-                if (!err) {
-                  return cb();
-                }
-
+                cb();
+            })
+            .catch(function(err) {
+                return cb(err);
             });
 
     });
@@ -118,19 +129,23 @@ module.exports = function() {
     // When
     this.When(/^The PIC updates the event$/, {timeout: 30000}, function (cb) {
 
+        // chai.request(url)
+        //     .put('/api/clusters/' + clusterId)
+        //     .send(newEventInfo)
+        //     .end(function(err, res) {
+        //         expect(res.status).to.eventually.equal(404);
+        //         updatedResponse = JSON.parse(res.text);
+        //     });
         chai.request(url)
             .put('/api/clusters/' + clusterId)
             .send(newEventInfo)
-            .end(function(err, res) {
+            .then(function(res) {
                 expect(res).to.have.status(200);
-                expect(res.text).to.be.a('string');
-
                 updatedResponse = JSON.parse(res.text);
-
-                if (!err) {
-                  return cb();
-                }
-
+                cb();
+            })
+            .catch(function(err) {
+                return cb(err);
             });
 
     });
@@ -150,34 +165,34 @@ module.exports = function() {
 
     // Given
     this.Given(/^The PIC needs to read the event data$/, function () {
-
         // ok
     });
 
     // When
     this.When(/^The PIC requests the data$/, {timeout: 30000}, function (cb) {
 
+        // chai.request(url)
+        //     .get('/api/clusters/' + clusterId)
+        //     .end(function(err, res) {
+        //         expect(res.status).to.eventually.equal(404);
+        //         var getResponse = JSON.parse(res.text);
+        //     });
         chai.request(url)
             .get('/api/clusters/' + clusterId)
-            .end(function(err, res) {
+            .then(function(res) {
                 expect(res).to.have.status(200);
-                expect(res.text).to.be.a('string');
-
                 var getResponse = JSON.parse(res.text);
-
-                if (!err) {
-                  return cb();
-                }
-
+                cb();
+            })
+            .catch(function(err) {
+                return cb(err);
             });
 
     });
 
     // Then
     this.Then(/^The PIC should receive the event information$/, function () {
-
         // ok
-
     });
 
     /*****************************************
@@ -186,36 +201,32 @@ module.exports = function() {
 
     // Given
     this.Given(/^The event is over$/, function () {
-
         // ok
-
     });
 
     // When
     this.When(/^The PIC deletes the event$/, {timeout: 30000}, function (cb) {
 
+        // chai.request(url)
+        //     .del('/api/clusters/' + clusterId)
+        //     .end(function(err, res) {
+        //         expect(res.status).to.eventually.equal(404);
+        //     });
         chai.request(url)
             .del('/api/clusters/' + clusterId)
-            .send(userCredentials)
-            .end(function(err, res) {
+            .then(function(err, res) {
                 expect(res).to.have.status(200);
-                expect(res.text).to.be.a('string');
-
-                var deleteResponse = JSON.parse(res.text);
-
-                if (!err) {
-                  return cb();
-                }
-
-            });
+                cb();
+            })
+            .catch(function(err){
+                return cb(err);
+            })
 
     });
 
     // Then
     this.Then(/^It should no longer be considered active$/, function () {
-
         // ok
-
     });
 
 };
