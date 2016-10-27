@@ -1,3 +1,5 @@
+'use strict';
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
@@ -92,9 +94,8 @@ module.exports = function() {
     // Then I should get a cluster ID showing it was created
     this.Then(/^A new event should be created$/, function () {
 
-        if (!clusterId) {
+        if (!clusterId)
              throw new Error('Missing clusterId');
-        }
 
     });
 
@@ -131,9 +132,8 @@ module.exports = function() {
     // Then
     this.Then(/^The event should reflect the changes$/, function () {
 
-        if (updatedResponse.description != newEventInfo.description) {
+        if (updatedResponse.description != newEventInfo.description)
             throw new Error('Event information not updated');
-        }
 
     });
 
@@ -181,7 +181,7 @@ module.exports = function() {
 
         chai.request(url)
             .del('/api/clusters/' + clusterId)
-            .then(function(err, res) {
+            .then(function(res) {
                 expect(res).to.have.status(200);
                 return done();
             })
