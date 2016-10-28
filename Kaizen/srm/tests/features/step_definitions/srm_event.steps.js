@@ -2,6 +2,7 @@
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+var sleep = require('sleep');
 
 module.exports = function() {
 
@@ -31,6 +32,8 @@ module.exports = function() {
     // Given
     this.Given(/^The PIC is logged in$/, {timeout: 30000}, function (done) {
 
+      sleep.sleep(3);
+
         chai.request(url)
             .post('/api/participant/doAuthenticate')
             .send(userCredentials)
@@ -47,6 +50,8 @@ module.exports = function() {
     // When I assign participants
     this.When(/^The PIC assigns team members$/, function () {
 
+      sleep.usleep(500);
+
         clusterData.participants = [
             {
                 "participantDocId": "5730f7237364d60e002d0e0f"
@@ -61,6 +66,8 @@ module.exports = function() {
     // And assign a drone
     this.When(/^The PIC assigns a UAS$/, function () {
 
+      sleep.usleep(500);
+
         clusterData.fidgets = [
             [
                 "5735d5f5b651fcb00042fc4c"
@@ -74,6 +81,8 @@ module.exports = function() {
 
         clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
         clusterData.accountDocId = accountId;
+
+        sleep.sleep(3);
 
         chai.request(url)
             .post('/api/clusters')
@@ -94,6 +103,8 @@ module.exports = function() {
     // Then I should get a cluster ID showing it was created
     this.Then(/^A new event should be created$/, function () {
 
+      sleep.usleep(500);
+
         if (!clusterId)
              throw new Error('Missing clusterId');
 
@@ -106,6 +117,8 @@ module.exports = function() {
     // Given
     this.Given(/^The PIC has new information$/, function () {
 
+      sleep.usleep(500);
+
         newEventInfo = {
             "description": "updated desc"
         };
@@ -114,6 +127,8 @@ module.exports = function() {
 
     // When
     this.When(/^The PIC updates the event$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .put('/api/clusters/' + clusterId)
@@ -132,6 +147,8 @@ module.exports = function() {
     // Then
     this.Then(/^The event should reflect the changes$/, function () {
 
+      sleep.usleep(500);
+
         if (updatedResponse.description != newEventInfo.description)
             throw new Error('Event information not updated');
 
@@ -143,11 +160,16 @@ module.exports = function() {
 
     // Given
     this.Given(/^The PIC needs to read the event data$/, function () {
-        // ok
+
+      sleep.usleep(500);
+      // ok
+
     });
 
     // When
     this.When(/^The PIC requests the data$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .get('/api/clusters/' + clusterId)
@@ -164,7 +186,10 @@ module.exports = function() {
 
     // Then
     this.Then(/^The PIC should receive the event information$/, function () {
-        // ok
+
+      sleep.usleep(500);
+      // ok
+
     });
 
     /*****************************************
@@ -173,11 +198,16 @@ module.exports = function() {
 
     // Given
     this.Given(/^The event is over$/, function () {
-        // ok
+
+      sleep.usleep(500);
+      // ok
+
     });
 
     // When
     this.When(/^The PIC deletes the event$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .del('/api/clusters/' + clusterId)
@@ -193,7 +223,10 @@ module.exports = function() {
 
     // Then
     this.Then(/^It should no longer be considered active$/, function () {
-        // ok
+
+      sleep.usleep(500);
+      // ok
+
     });
 
 };

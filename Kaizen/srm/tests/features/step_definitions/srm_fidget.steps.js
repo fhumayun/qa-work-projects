@@ -2,6 +2,7 @@
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+var sleep = require('sleep');
 
 module.exports = function() {
 
@@ -29,6 +30,8 @@ module.exports = function() {
     // Given
     this.Given(/^I have all the required fidget information$/, function () {
 
+      sleep.usleep(500);
+
         fidgetData = {
             "profile" : "5741f57f56d61f0d0074925e",
             "type" : "safetrax - update me",
@@ -45,6 +48,8 @@ module.exports = function() {
 
     // When
     this.When(/^I create a new fidget$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .post('/api/fidgets')
@@ -64,6 +69,8 @@ module.exports = function() {
     // Then
     this.Then(/^I should get a fidget creation successful response$/, function () {
 
+      sleep.usleep(500);
+
         if (!fidgetId)
             throw new Error('Fidget creation unsuccessfull');
 
@@ -76,6 +83,8 @@ module.exports = function() {
     // Given
     this.Given(/^I have new Fidget information$/, function () {
 
+      sleep.usleep(500);
+
         updatedFidgetData = {
             "type": "eagleeye"
         };
@@ -84,6 +93,8 @@ module.exports = function() {
 
     // When
     this.When(/^I update the Fidget$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .put('/api/fidgets/' + fidgetId)
@@ -103,6 +114,8 @@ module.exports = function() {
     // Then
     this.Then(/^I should see the updated Fidget$/, function () {
 
+      sleep.usleep(500);
+
         if (!updateResponse)
             throw new Error('Fidget was not updated');
 
@@ -115,6 +128,8 @@ module.exports = function() {
     // Given
     this.Given(/^I need to look up a Fidget and have the id$/, function () {
 
+      sleep.usleep(500);
+
         if (!fidgetId)
             throw new Error('Missing Fidget id. Could not GET.');
 
@@ -122,6 +137,8 @@ module.exports = function() {
 
     // When
     this.When(/^I look the Fidget up$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .get('/api/fidgets/' + fidgetId)
@@ -140,6 +157,8 @@ module.exports = function() {
     // Then
     this.Then(/^I should get the Fidget profile back$/, function () {
 
+      sleep.usleep(500);
+
         if (getResponse[0]._id != fidgetId)
             throw new Error('Could not GET Fidget profile');
 
@@ -152,6 +171,8 @@ module.exports = function() {
     // Given
     this.Given(/^I need to delete a decommissioned Fidget and have the id$/, function () {
 
+      sleep.usleep(500);
+
         if (!fidgetId)
             throw new Error('Missing Fidget id. Could not DELETE.');
 
@@ -159,6 +180,8 @@ module.exports = function() {
 
     // When
     this.When(/^I delete the Fidget$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .del('/api/fidgets/' + fidgetId)
@@ -176,6 +199,8 @@ module.exports = function() {
 
     // Then
     this.Then(/^I should no longer be able to use the Fidget$/, function () {
+
+      sleep.usleep(500);
 
         if (!deleteResponse)
             throw new Error('Could not DELETE Fidget');

@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var expect = chai.expect;
+var sleep = require('sleep');
 
 module.exports = function() {
 
@@ -15,12 +15,12 @@ module.exports = function() {
     var accountData = {};
     var accountId;
     var updatedAccountData = {};
-    var postResponse;
     var getResponse;
     var updateResponse;
     var deleteResponse;
 
     // Make Chai use its own addon for HTTP calls
+    var expect = chai.expect;
     chai.use(chaiHttp);
 
     /*****************************************
@@ -28,7 +28,9 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^I have all the required information$/, function (callback) {
+    this.Given(/^I have all the required information$/, function () {
+
+      sleep.usleep(500);
 
         accountData = {
             "accountname": "Jshanahan automated test account",
@@ -40,55 +42,54 @@ module.exports = function() {
             "fidgets": []
         };
 
-        return callback();
     });
 
     // When
-    this.When(/^I sign up for a new user account$/, {timeout: 30000}, function () {
+    this.When(/^I sign up for a new user account$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .post('/api/accounts')
             .send(accountData)
-            .end(function(err, res) {
-                expect(err).to.be.null;
+            .then(function(res) {
                 expect(res).to.have.status(201);
                 expect(res.text).to.be.a('string');
-
-                postResponse = JSON.parse(res.text);
-                accountId = postResponse._id;
-            });
+                var postRes = JSON.parse(res.text);
+                accountId = postRes._id;
+                return done();
+            })
+            .catch(function(err) {
+                return done(err);
+            })
 
     });
 
     // Then
-    this.Then(/^I should be able to access my account$/, {timeout: 30000}, function (callback) {
+    this.Then(/^I should be able to access my account$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .get('/api/accounts/' + accountId)
-            .end(function(err, res) {
-                expect(err).to.be.null;
+            .then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-
-                if (err) {
-                    return callback('>>> ' + err);
-                } else {
-                    getResponse = JSON.parse(res.text);
-                    return callback();
-                }
-
-            });
+                return done();
+            })
+            .catch(function(err) {
+                return done(err);
+            })
 
     });
 
     // And
-    this.Then(/^See all of my account information$/, function (callback) {
+    this.Then(/^See all of my account information$/, function () {
 
-        if (getResponse) {
-            return callback();
-        } else {
-            return callback(new Error('Incorrect data returned from GET api/accounts'))
-        }
+      sleep.usleep(500);
+
+        if (!getResponse)
+            throw new Error('Incorrect data returned from GET api/accounts');
 
     });
 
@@ -99,43 +100,46 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^I need to update my information$/, function (callback) {
+    this.Given(/^I need to update my information$/, function () {
+
+      sleep.usleep(500);
 
         updatedAccountData = {
             "email1": "jshanahan@eagleeyeintelligence.com",
             "status": "ACTIVE"
         };
 
-        return callback();
     });
 
     // When
-    this.When(/^I update my profile$/, {timeout: 30000}, function () {
+    this.When(/^I update my profile$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .put('/api/accounts/' + accountId)
             .send(updatedAccountData)
-            .end(function(err, res) {
-                expect(err).to.be.null;
+            .then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-
                 updateResponse = JSON.parse(res.text);
-
-            });
+                return done();
+            })
+            .catch(function(err) {
+                return done(err);
+            })
 
     });
 
     // Then
-    this.Then(/^I will have new information$/, function (callback) {
+    this.Then(/^I will have new information$/, function () {
+
+      sleep.usleep(500);
 
         // Did the response contain the updated information
-        if (updateResponse.email1 == updatedAccountData.email1 &&
-            updateResponse.status == updatedAccountData.status) {
-            return callback();
-        } else {
-            return callback(new Error('Account information was not updated'));
-        }
+        if (updateResponse.email1 != updatedAccountData.email1 ||
+            updateResponse.status != updatedAccountData.status)
+            throw new Error('Account information was not updated');
 
     });
 
@@ -144,31 +148,37 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^I need to access my information$/, function (callback) {
+    this.Given(/^I need to access my information$/, function () {
 
-        return callback();
+      sleep.usleep(500);
+        // ok
 
     });
 
     // When
-    this.When(/^I log in to my account$/, function (callback) {
+    this.When(/^I log in to my account$/, function () {
 
+      sleep.usleep(500);
         // Eventually Auth setup will be here for the next step
-        return callback();
 
     });
 
     // Then
-    this.Then(/^I should be able to read my information$/, {timeout: 30000}, function () {
+    this.Then(/^I should be able to read my information$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .get('/api/accounts/' + accountId)
             .send(updatedAccountData)
-            .end(function(err, res) {
-                expect(err).to.be.null;
+            .then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-            });
+                return done();
+            })
+            .catch(function(err) {
+                return done(err);
+            })
 
     });
 
@@ -177,34 +187,39 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^I need to delete a user account$/, function (callback) {
+    this.Given(/^I need to delete a user account$/, function () {
 
-        return callback();
+        sleep.usleep(500);
+        // ok
 
     });
 
     // When
-    this.When(/^I mark a user as deleted$/, {timeout: 30000}, function () {
+    this.When(/^I mark a user as deleted$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .delete('/api/accounts/' + accountId)
             .send(updatedAccountData)
-            .end(function(err, res) {
-                expect(err).to.be.null;
+            .then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-            });
+                return done();
+            })
+            .catch(function(err) {
+                return done(err);
+            })
 
     });
 
     // Then
-    this.Then(/^The account should be deactivated$/, function (callback) {
+    this.Then(/^The account should be deactivated$/, function () {
 
-        if (deleteResponse) {
-            return callback();
-        } else {
-            return callback(new Error('Could not delete account'));
-        }
+      sleep.usleep(500);
+        if (!deleteResponse)
+            throw new Error('Could not delete account');
+
     });
 
 

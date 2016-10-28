@@ -2,6 +2,7 @@
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+var sleep = require('sleep');
 
 module.exports = function() {
 
@@ -29,6 +30,8 @@ module.exports = function() {
 
     // Given
     this.Given(/^I have all the required participant information$/, function () {
+
+      sleep.usleep(500);
 
         participantData = {
             "loginId" : "qa@qa.qa",
@@ -67,13 +70,14 @@ module.exports = function() {
     // When
     this.When(/^I create a new participant$/, {timeout: 30000}, function (done) {
 
+      sleep.sleep(3);
+
         chai.request(url)
             .post('/api/participant')
             .send(participantData)
             .then(function(res) {
                 expect(res).to.have.status(201);
                 expect(res.text).to.be.a('string');
-
                 postResponse = JSON.parse(res.text);
                 participantId = postResponse._id;
                 return done();
@@ -87,6 +91,8 @@ module.exports = function() {
     // Then
     this.Then(/^I should get a creation successful response$/, function () {
 
+      sleep.usleep(500);
+
         if (!participantId)
             throw new Error('Invalid participant ID after creation');
 
@@ -99,6 +105,8 @@ module.exports = function() {
     // Given
     this.Given(/^I have new participant data$/, function () {
 
+      sleep.usleep(500);
+
         updatedParticipantData = {
             "phoneType": "iPhone"
         };
@@ -107,6 +115,8 @@ module.exports = function() {
 
     // When
     this.When(/^I update the data$/, {timeout: 30000}, function (done) {
+
+      sleep.sleep(3);
 
         chai.request(url)
             .put('/api/participant/' + participantId)
@@ -127,6 +137,8 @@ module.exports = function() {
     // Then
     this.Then(/^I should get an update successful response$/, function () {
 
+      sleep.usleep(500);
+
         if (!updateResponse)
             throw new Error('Did not recieve update successful reponse');
 
@@ -139,7 +151,9 @@ module.exports = function() {
     // Given
     this.Given(/^I need to look up a participant$/, function () {
 
-        if (!participantId) {
+      sleep.usleep(500);
+
+        if (!participantId)
             throw new Error('Could not GET: Missing participant id');
 
     });
@@ -147,10 +161,11 @@ module.exports = function() {
     // When
     this.When(/^I look up a participant by id$/, {timeout: 30000}, function (done) {
 
+      sleep.sleep(3);
+
         chai.request(url)
             .get('/api/participant/' + participantId)
             .then(function(res) {
-              expect(err).to.be.null;
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
 
@@ -166,6 +181,8 @@ module.exports = function() {
     // Then
     this.Then(/^I should get the participant profile back$/, function () {
 
+      sleep.usleep(500);
+
         if (getResponse[0]._id != participantId)
             throw new Error('Could not GET participant profile');
 
@@ -178,6 +195,8 @@ module.exports = function() {
     // Given
     this.Given(/^I need to delete a participant and I have the id$/, function () {
 
+      sleep.usleep(500);
+
         if (participantId)
             throw new Error('Could not DELETE: Missing participant id');
 
@@ -186,10 +205,11 @@ module.exports = function() {
     // When
     this.When(/^I delete a participant$/, {timeout: 30000}, function (done) {
 
+      sleep.sleep(3);
+
         chai.request(url)
             .delete('/api/participant/' + participantId)
             .then(function(res) {
-              expect(err).to.be.null;
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
               deleteResponse = JSON.parse(res.text);
@@ -203,6 +223,8 @@ module.exports = function() {
 
     // Then
     this.Then(/^I should get a deletion successful response$/, function () {
+
+      sleep.usleep(500);
 
         if (!deleteResponse)
             throw new Error('Could not successfully DELETE participant');
