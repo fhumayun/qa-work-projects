@@ -3,6 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var sleep = require('sleep');
+var Oz = require('oz');
 
 module.exports = function() {
 
@@ -20,6 +21,22 @@ module.exports = function() {
     var updatedResponse;
     var getResponse;
     var deleteResponse;
+
+    // Oz Variables
+    var authHeader;
+    var token;
+    var appTicketExp;
+    var appTicketApp;
+    var appTicketScope;
+    var appTicketKey;
+    var appTicketAlgorithm;
+    var appTicketId;
+    var rsvp;
+    var appTicket;
+    const ID_SERVER = "https://id-dev.strax.co/";
+    const VALIDATE = "oz/validate";
+    const USERNAME = "jshanahan@eagleeyeintelligence.com";
+    const PASSWORD = "eei"
 
     // Make Chai use its own addon for HTTP calls
     var expect = chai.expect;
@@ -39,10 +56,15 @@ module.exports = function() {
             .send(userCredentials)
             .then(function(res) {
                 expect(res).to.have.status(200);
+
+                var loginRes = JSON.parse(res.text);
+                appTicket = loginRes.appTicket;
+                // console.log('>>> res: ' + JSON.stringify(appTicket));
+
                 return done();
             })
             .catch(function(err) {
-              return done(err);
+                return done(err);
             });
 
     });
@@ -81,11 +103,13 @@ module.exports = function() {
 
         clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
         clusterData.accountDocId = accountId;
+        authHeader = Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field;
 
         sleep.sleep(3);
 
         chai.request(url)
             .post('/api/clusters')
+            .set("Authorization", authHeader)
             .send(clusterData)
             .then(function(res) {
                 expect(res).to.have.status(201);
@@ -128,10 +152,13 @@ module.exports = function() {
     // When
     this.When(/^The PIC updates the event$/, {timeout: 30000}, function (done) {
 
+      authHeader = Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field;
+
       sleep.sleep(3);
 
         chai.request(url)
             .put('/api/clusters/' + clusterId)
+            .set("Authorization", authHeader)
             .send(newEventInfo)
             .then(function(res) {
                 expect(res).to.have.status(200);
@@ -169,10 +196,13 @@ module.exports = function() {
     // When
     this.When(/^The PIC requests the data$/, {timeout: 30000}, function (done) {
 
+      authHeader = Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field;
+
       sleep.sleep(3);
 
         chai.request(url)
             .get('/api/clusters/' + clusterId)
+            .set("Authorization", authHeader)
             .then(function(res) {
                 expect(res).to.have.status(200);
                 var getResponse = JSON.parse(res.text);
@@ -207,10 +237,13 @@ module.exports = function() {
     // When
     this.When(/^The PIC deletes the event$/, {timeout: 30000}, function (done) {
 
+      authHeader = Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field;
+
       sleep.sleep(3);
 
         chai.request(url)
             .del('/api/clusters/' + clusterId)
+            .set("Authorization", authHeader)
             .then(function(res) {
                 expect(res).to.have.status(200);
                 return done();
