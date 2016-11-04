@@ -2,8 +2,8 @@
 
 echo '[INFO] Running cuke.sh...'
 
-#cucumberjs --tags @participant
-cucumberjs --tags @event
+cucumberjs --tags @participant
+#cucumberjs --tags @event
 #cucumberjs --tags @user
 #cucumberjs --tags @fidget
 # cucumberjs

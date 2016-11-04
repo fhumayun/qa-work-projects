@@ -13,7 +13,8 @@ Feature: Create, update, and manage Users
 
   @update
   Scenario: As an existing customer I should be able to update my account information
-    Given I need to update my information
+    Given The Customer is logged in
+    And I need to update my information
     When I update my profile
     Then I will have new information
 

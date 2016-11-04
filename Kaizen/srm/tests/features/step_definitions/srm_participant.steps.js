@@ -3,6 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var sleep = require('sleep');
+var Oz = require('oz');
 
 module.exports = function() {
 
@@ -20,6 +21,16 @@ module.exports = function() {
     var getResponse;
     var deleteResponse;
 
+    // Oz Variables
+    var authHeader;
+    var token;
+    var rsvp;
+    var appTicket;
+    const ID_SERVER = "https://id-dev.strax.co/";
+    const VALIDATE = "oz/validate";
+    const USERNAME = "jshanahan@eagleeyeintelligence.com";
+    const PASSWORD = "eei"
+
     // Make Chai use its own addon for HTTP calls
     var expect = chai.expect;
     chai.use(chaiHttp);
@@ -28,7 +39,28 @@ module.exports = function() {
      * Scenario: Create
      *****************************************/
 
-    // Given
+     // Given
+    this.Given(/^The Admin is logged in$/, {timeout:30000}, function (done) {
+
+      sleep.sleep(3);
+
+        chai.request(url)
+            .post('/api/participant/doAuthenticate')
+            .send(userCredentials)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+
+                var loginRes = JSON.parse(res.text);
+                appTicket = loginRes.appTicket;
+
+                return done();
+            })
+            .catch(function(err) {
+                return done(err);
+            });
+    });
+
+    // And
     this.Given(/^I have all the required participant information$/, function () {
 
       sleep.usleep(500);
@@ -74,6 +106,7 @@ module.exports = function() {
 
         chai.request(url)
             .post('/api/participant')
+            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .send(participantData)
             .then(function(res) {
                 expect(res).to.have.status(201);
@@ -120,6 +153,7 @@ module.exports = function() {
 
         chai.request(url)
             .put('/api/participant/' + participantId)
+            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .send(updatedParticipantData)
             .then(function(res) {
               expect(res).to.have.status(200);
@@ -165,6 +199,7 @@ module.exports = function() {
 
         chai.request(url)
             .get('/api/participant/' + participantId)
+            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .then(function(res) {
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
@@ -197,8 +232,8 @@ module.exports = function() {
 
       sleep.usleep(500);
 
-        if (participantId)
-            throw new Error('Could not DELETE: Missing participant id');
+      if (!participantId)
+          throw new Error('Could not DELETE: Missing participant id');
 
     });
 
@@ -209,6 +244,7 @@ module.exports = function() {
 
         chai.request(url)
             .delete('/api/participant/' + participantId)
+            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .then(function(res) {
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');

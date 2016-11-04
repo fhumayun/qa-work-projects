@@ -3,6 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var sleep = require('sleep');
+var Oz = require('oz');
 
 module.exports = function() {
 
@@ -18,6 +19,16 @@ module.exports = function() {
     var getResponse;
     var updateResponse;
     var deleteResponse;
+
+    // Oz Variables
+    var authHeader;
+    var token;
+    var rsvp;
+    var appTicket;
+    const ID_SERVER = "https://id-dev.strax.co/";
+    const VALIDATE = "oz/validate";
+    const USERNAME = "jshanahan@eagleeyeintelligence.com";
+    const PASSWORD = "eei"
 
     // Make Chai use its own addon for HTTP calls
     var expect = chai.expect;

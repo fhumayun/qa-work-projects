@@ -13,6 +13,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Include port if needed Ex eedev.strax.co:8080
 ENV TESTURL "https://api-dev.strax.co"
 #ENV TESTURL "https://eedemo.strax.co:8080"
+#ENV TESTURL "https://qa-api.strax.co"
 
 ## Execute
 COPY tests/pom.xml /opt/workdir/tests

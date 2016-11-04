@@ -3,6 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var sleep = require('sleep');
+var Oz = require('oz');
 
 module.exports = function() {
 
