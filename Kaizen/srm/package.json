@@ -12,7 +12,7 @@
     "morgan": "~1.7.0",
     "chai": "~3.5.0",
     "chai-http": "~3.0.0",
-    "sleep": "latest",
+    "sleep": "5.0.0",
     "oz": "4.0.4"
   }
 }
