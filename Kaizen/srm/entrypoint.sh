@@ -1,9 +1,11 @@
 #!/bin/bash
+echo '[INFO] _testrunner.sh started...'
 
-# Env
-PWD=`pwd`
+# Go to tests dir and execute the runner.
+cd tests
 
-# Setup
+./cuke.sh
+#./maven.sh
+echo '[INFO] -- Skipping Maven...'
 
-# Execution
-make deploy
+echo '[INFO] _testrunner.sh finished...'

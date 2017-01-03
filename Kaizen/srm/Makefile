@@ -1,21 +1,27 @@
 USER = strax
 PROJECTNAME = kaizen
 ORGNAME = dr.strax.co:5000
-IMAGENAME = kaizen
-VERSION = 0.1
+IMAGENAME = cucumber_srm
+VERSION = latest
 
 DOCKERUP := $(shell docker inspect -f {{.State.Running}} tester_kaizen_1)
 
-.PHONY: deploy release
+.PHONY: build latest deploy
 
-release:
-	$(info make release)
+build:
+	$(info make build)
+	$(info Building Kaizen docker image...)
+	docker build .
+	$(info Removing image...)
+
+latest:
+	$(info make latest)
 	$(info Building Kaizen docker image...)
 	docker build --rm -q -t $(ORGNAME)/$(IMAGENAME):$(VERSION) -f Dockerfile .
 	$(info Pushing image...)
 	docker push $(ORGNAME)/$(IMAGENAME)
 	$(info Removing image...)
-	docker rmi -f `docker images -q $(ORGNAME)/$(IMAGENAME):0.1`
+	docker rmi -f `docker images -q $(ORGNAME)/$(IMAGENAME):latest`
 
 deploy:
 	$(info make deploy)

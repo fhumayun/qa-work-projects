@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:zesty
 
 ## Meta
 MAINTAINER John Shanahan <jshanahan@eagleeyeintelligence.com>
@@ -16,9 +16,20 @@ ENV TESTURL "https://api-dev.strax.co"
 #ENV TESTURL "https://qa-api.strax.co"
 
 ## Execute
-COPY tests/pom.xml /opt/workdir/tests
-RUN apt-get -qq update && apt-get install -y \
-        git nodejs npm
-#        git nodejs npm maven=3.3.9-3
+COPY tests/ /opt/workdir/tests/
+COPY package.json /opt/workdir
+COPY entrypoint.sh /opt/workdir
 
-CMD [ "./_testrunner.sh" ]
+# Install dependancies
+RUN apt-get update && apt-get install -y nodejs npm
+        # maven=3.3.9-3
+
+# Link nodejs to node
+RUN ln -s /usr/bin/nodejs /usr/bin/node > /dev/null && ln -s /usr/bin/nodejs /usr/local/bin/node > /dev/null
+
+# Update npm and install packages
+RUN npm install
+RUN npm install -g cucumber@1.3.1
+
+# Main
+CMD [ "./entrypoint.sh" ]
