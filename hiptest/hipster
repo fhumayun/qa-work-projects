@@ -1,0 +1,87 @@
+#!/bin/bash
+echo 'Hipster starting...'
+
+## Vars
+#################################################
+ACTION=''
+SECRET='273730123703101995735229758875341984472061189673391643695'
+LANG='javascript'
+FW='cucumber'
+TESTID='58961'
+CONFIG="$(pwd)/hiptest.conf"
+HIPTESTPUBLISHEROPTIONS='-v'
+PUSHFORMAT='junit'
+CURLBEFORESTATS='./passfailbefore.json'
+CURLAFTERSTATS='./passfailafter.json'
+PASSEDCOUNTBEFORE=""
+FAILEDCOUNTBEFORE=""
+PASSEDCOUNTAFTER=""
+FAILEDCOUNTAFTER=""
+
+## Funcs
+#################################################
+function download {
+    # Grab the tests from Hiptest
+    hiptest-publisher --config-file=${CONFIG} --test-run-id=$TESTID ${HIPTESTPUBLISHEROPTIONS}
+
+    echo '' > results.xml
+}
+
+function runtests {
+    # Check for feature dir first
+    if [[ ! -d "./features" ]]; then
+        echo '[ERROR] Missing features/ try running `./hipster --download` first...'
+        exit
+    fi
+
+    # Run cuke
+    cucumberjs -f json | cucumber-junit > results.xml
+
+    # Compare passes/fails after pushing this run...
+}
+
+function upload {
+    # First grab pass/fail stats for this test run
+    curl -XGET -o ${CURLBEFORESTATS} "https://hiptest.net/publication/${SECRET}/test_runs/${TESTID}/test_results"
+
+    # Store pass and fail rates
+    PASSEDCOUNTBEFORE=$(cat ${CURLBEFORESTATS} | jq '.passed_count')
+    FAILEDCOUNTBEFORE=$(cat ${CURLBEFORESTATS} | jq '.failed_count')
+
+    # Use Hiptest Publisher to push the results back up
+    echo 'Pushing test results back to Hiptest...'
+    hiptest-publisher --config-file=${CONFIG} --test-run-id=$TESTID --push-format=${PUSHFORMAT} --push=results.xml ${HIPTESTPUBLISHEROPTIONS}
+
+    # Now the results are pushed compare the passes/fails
+    curl -XGET -o ${CURLAFTERSTATS} "https://hiptest.net/publication/${SECRET}/test_runs/${TESTID}/test_results"
+
+    # Store new pass and fail rates
+    PASSEDCOUNTAFTER=$(cat ${CURLAFTERSTATS} | jq '.passed_count')
+    FAILEDCOUNTAFTER=$(cat ${CURLAFTERSTATS} | jq '.failed_count')
+}
+
+## Main
+#################################################
+case $1 in
+    "--download")
+        echo '[INFO] Downloading...'
+        download
+        ;;
+    "--run-tests")
+        echo '[INFO] Running cucumber tests...'
+        runtests
+        ;;
+    "--upload")
+        echo '[INFO] Uploading...'
+        upload
+        ;;
+    *)
+        echo '[ERROR] Argument needed...'
+        echo 'Usage:'
+        echo '    --download, --run-tests, --upload'
+        exit
+esac
+
+## Clean
+###############################################
+echo '[INFO] finished...'

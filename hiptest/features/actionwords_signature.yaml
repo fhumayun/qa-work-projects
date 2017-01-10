@@ -1,0 +1,97 @@
+---
+- name: the PIC is logged in
+  uid: 3718fe18-f1b6-4ab4-8010-16ae8a7c640f
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: When
+  uid: 86b291ec-2e6c-4ff6-b8c7-5ef8ab4eef30
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC updates the event
+  uid: 1057430f-0b93-41b6-8c1b-08d8b85d8c85
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the event should reflect the changes
+  uid: c7a8cd19-4a9d-4fc4-af16-9563be591838
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC assigns a UAS
+  uid: d12ac1f6-609c-4133-8f6e-a3aea8751658
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC assigns team members
+  uid: fec72167-bf8b-412b-9b33-39de1dd15ec5
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC creates a new event
+  uid: 0de342eb-8465-42d8-a207-76e02dd2f532
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: a new event should be created
+  uid: 7f0dab99-1d65-4210-96b0-b26a6fa7d408
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC needs to read the event data
+  uid: 732dfb7c-71ee-4739-8721-b79203f4b5b5
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC requests the data
+  uid: 99e2fbd7-8690-46ab-883a-02fdaf335432
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC should receive the event information
+  uid: 5376c7b2-f80f-419f-b83c-426bf360d67e
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the event is over
+  uid: 80af4b5c-a549-4568-87f0-2cadbba99197
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the PIC deletes the event
+  uid: 6749ea3a-21c7-4fe1-ad2a-cc0de9f8ff28
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: it should no longer be considered active
+  uid: 022c28f5-f7fb-452e-b5ba-8c6a8df091c5
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: a user successfully logs into the SRM
+  uid: b01b3c4a-f54f-4e5d-91cf-445ccb3b3e2f
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the SRM UI correctly loads
+  uid: b567ca8c-6e50-4ff4-afe4-e9afceb17ce9
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the Pre-Mission tab is selected
+  uid: 868b614c-7c9b-4fd2-bb11-2879c1d9e604
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the Create Mission button is pressed
+  uid: 8f3bd4c5-51cc-445d-8325-6d31667ccab6
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: Then
+  uid: e53641d7-9003-46dd-80f5-53a1e1c85714
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: the user should be able to enter the Mission Name
+  uid: cbd1b20a-3486-4315-b3ea-d5d039504acc
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: add a Mission Address
+  uid: 38bb9240-7d06-4190-bb70-7e4cd30285c0
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: provide a Mission Plan Description
+  uid: 9bef1c42-8ccd-4974-93b3-b216ae8fb6a7
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: press Create Mission to save the result for later use
+  uid: 3a410c72-8c8f-4107-9502-97c2377010e5
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e
+- name: pick a Mission Type
+  uid: 14b7f667-ec07-40bd-a7ec-37ec41c0da74
+  parameters: []
+  body_hash: d41d8cd98f00b204e9800998ecf8427e

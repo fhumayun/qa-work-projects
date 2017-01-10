@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)" tests="9" failures="1" skipped="8">
+        <properties>
+            <property name="@JIRA-STX-168" value="true">
+            </property>
+            <property name="URI" value="/Users/jshanahan/Prog/hiptest/features/PrePlanning.feature">
+            </property>
+        </properties>
+        <testcase name="Given a user successfully logs into the SRM" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)" time="0.000286149">
+            <failure message="Error: asdf">Error: asdf
+    at Object.exports.Actionwords.aUserSuccessfullyLogsIntoTheSRM (/Users/jshanahan/Prog/hiptest/features/actionwords.js:58:15)
+    at World.&lt;anonymous&gt; (/Users/jshanahan/Prog/hiptest/features/step_definitions.js:26:26)
+    at nextTickCallbackWith0Args (node.js:420:9)
+    at process._tickCallback (node.js:349:13)
+    at Function.Module.runMain (module.js:443:11)</failure>
+        </testcase>
+        <testcase name="And the SRM UI correctly loads" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="When the Pre-Mission tab is selected" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="And the Create Mission button is pressed" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="Then the user should be able to enter the Mission Name" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="And pick a Mission Type" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="And add a Mission Address" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="And provide a Mission Plan Description" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="And press Create Mission to save the result for later use" classname="preplanning;create-preplan-layout-(uid:8465eb57-a6d2-4053-9f2b-c8ac7014702e)">
+            <skipped message="">
+            </skipped>
+        </testcase>
+    </testsuite>
+</testsuites>
