@@ -5,7 +5,7 @@ These cuke scripts are built to be automatically run against the StraxRM api end
 This will simulate a user interface call to the Strax engine and intelligently determine the latest status of our code based on the response received.
 The results are then stored, and depending on the outcome our automated build process will either continue to the next step or stop the assembly line and alert us of a potential risk.
 
-To run: `./entrypoint.sh`
+To run: `./entrypoint.sh` <sub>This will be deprecated. Use OpsDeck when complete</sub>
 
 XML results: `/path/to/application/tests/target/allure-results/<UUID>-testsuite.xml`
 

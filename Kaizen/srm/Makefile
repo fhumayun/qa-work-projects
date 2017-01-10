@@ -17,7 +17,7 @@ build:
 latest:
 	$(info make latest)
 	$(info Building Kaizen docker image...)
-	docker build --rm -q -t $(ORGNAME)/$(IMAGENAME):$(VERSION) -f Dockerfile .
+	docker build --rm -t $(ORGNAME)/$(IMAGENAME):$(VERSION) -f Dockerfile .
 	$(info Pushing image...)
 	docker push $(ORGNAME)/$(IMAGENAME)
 	$(info Removing image...)
@@ -34,11 +34,6 @@ else
 endif
 
   # when dockerized/OpsDeck:
-	# $(info Updating and running Kaizen...)
-	# docker pull $(ORGNAME)/$(IMAGENAME):$(VERSION)
-	# docker-compose -p $(PROJECTNAME) -f docker-compose.yml up
-
-	# when local:
-	$(info Bringing Kaizen container up...)
-	docker-compose build
-	docker-compose -f ./docker-compose.yml up
+	$(info Updating and running Kaizen...)
+	docker pull $(ORGNAME)/$(IMAGENAME):$(VERSION)
+	docker run $(ORGNAME)/$(IMAGENAME):$(VERSION)

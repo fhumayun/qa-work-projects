@@ -1,11 +1,11 @@
 #!/bin/bash
-echo '[INFO] _testrunner.sh started...'
+echo '[INFO] entrypoint.sh started...'
 
 # Go to tests dir and execute the runner.
 cd tests
 
 ./cuke.sh
 #./maven.sh
-echo '[INFO] -- Skipping Maven...'
+echo '[INFO] Skipping Maven...'
 
-echo '[INFO] _testrunner.sh finished...'
+echo '[INFO] entrypoint.sh finished...'

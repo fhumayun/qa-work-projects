@@ -26,4 +26,5 @@ mv allure-reports/ allure-report/
 
 # Replace the stock Allure image with a custom thumbs-up photo
 cp ../../img/thumbs_up.jpg allure-report/allure-maven-plugin/img/tests_passed.jpg
-# allure report open
+
+echo '[INFO] Maven completed. Use `allure report open` to view results...'
