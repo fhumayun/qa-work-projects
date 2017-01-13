@@ -10,7 +10,7 @@ module.exports = function() {
     // Variables
     var url = process.env.TESTURL;
     var userCredentials = {
-        "username": "jshanahan@eagleeyeintelligence.com",
+        "username": "john@ee.io",
         "password": "eei"
     };
     var fidgetData = {};

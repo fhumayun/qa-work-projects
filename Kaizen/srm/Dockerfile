@@ -9,9 +9,10 @@ WORKDIR /opt/workdir
 # Make the container realize its running headless
 ENV DEBIAN_FRONTEND noninteractive
 
-# URL the tests will point to for the api
-# Include port if needed Ex eedev.strax.co:8080
-# ENV TESTURL "https://api-dev.strax.co"
+# Version the container
+ENV VERSION 0.1
+
+# URL the tests will point to for the api - *Include port if needed Ex eedemo.strax.co:8080
 # ENV TESTURL "https://eedemo.strax.co:8080"
 ENV TESTURL "https://qa-api.strax.co"
 

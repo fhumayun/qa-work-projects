@@ -62,8 +62,8 @@ curl -vs -g -o ${FILENAME} -X POST -H "Content-Type: application/json" -H "Autho
 }' ${URL} 2> /dev/null
 
 # This could probably be better...
-#    cat ${FILENAME} | jq -M '.issues|.[0]|.fields|.customfield_10020' | tr -d '\"' | tee ${FILENAME}
-cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
+cat ${FILENAME} | jq -M '.issues|.[0]|.fields|.customfield_10020' | tr -d '\"' | tee ${FILENAME}
+#cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
 BRANCHNAME=$(cat ${FILENAME})
 
 ## Verify the correct name
@@ -109,6 +109,7 @@ do
         #git push origin --delete ${BRANCHNAME}
         ;;
     create)
+        git checkout origin/develop
         git checkout -b ${BRANCHNAME}
         git push origin ${BRANCHNAME}
         ;;

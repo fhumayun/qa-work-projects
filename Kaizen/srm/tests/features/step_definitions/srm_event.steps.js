@@ -10,7 +10,7 @@ module.exports = function() {
     // Variables
     var url = process.env.TESTURL;
     var userCredentials = {
-        "username": "jshanahan@eagleeyeintelligence.com",
+        "username": "john@ee.io",
         "password": "eei"
     };
     var newEventInfo = {};
@@ -29,7 +29,7 @@ module.exports = function() {
     var appTicket;
     const ID_SERVER = "https://id-dev.strax.co/";
     const VALIDATE = "oz/validate";
-    const USERNAME = "jshanahan@eagleeyeintelligence.com";
+    const USERNAME = "john@ee.io";
     const PASSWORD = "eei"
 
     // Make Chai use its own addon for HTTP calls
