@@ -1,0 +1,70 @@
+---
+- hosts: all
+  vars:
+    tmp_folder: "{{ lookup('env','TMP_FOLDER') }}"
+  tasks:
+  - command: curl https://get.docker.com/ -o {{ tmp_folder}}/getdocker.sh
+    name: ensure docker installation script is present
+  - command: bash {{ tmp_folder}}/getdocker.sh
+    sudo: yes
+    name: ensure docker is installed
+  - command: bash -c "apt-get install docker-engine=1.12.0-0~`lsb_release -cs`"
+    sudo: yes
+    when: ansible_distribution == 'Ubuntu'
+    name: ensure docker is locked with exact version
+  - command: apt-mark hold docker-engine
+    sudo: yes
+    when: ansible_distribution == 'Ubuntu'
+    name: ensure prevent updgrading docker on sys upgrade
+  - yum: name=docker-engine-1.12.0 state=latest
+    sudo: yes
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+    name: ensure docker is locked with exact version
+  - lineinfile: dest=/etc/yum.conf line='exclude=docker-engine*'
+    sudo: yes
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+    name: ensure prevent updgrading docker on sys upgrade
+  - user: createhome=yes generate_ssh_key=yes groups=docker name=blazemeter state=present
+    sudo: yes
+    name: ensure blazemeter user exists
+  - template: src=docker.conf dest=/etc/init.d/docker.conf
+    name: ensure docker is configured
+    sudo: yes
+  - command: systemctl daemon-reload
+    sudo: yes
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - command: service docker restart
+    sudo: yes
+    name: ensure docker reloaded new configuration
+  - package: name={{ item }} state=present
+    sudo: yes
+    with_items:
+    - supervisor
+    - python
+    - python-pip
+    - logrotate
+    - bzip2
+    - unzip
+    - jq
+  - apt: name={{ item }} state=latest
+    sudo: yes
+    with_items:
+    - python-dev
+    - apparmor
+    when: ansible_distribution == 'Ubuntu'
+  - yum: name={{ item }} state=latest
+    sudo: yes
+    with_items:
+    - libffi-devel
+    - openssl-devel
+    - python-devel
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - unarchive: src={{ tmp_folder}}/agent.tar.bz2 dest=/home/blazemeter copy=false
+    name: ensure agent tarball is unarchived
+    sudo: yes
+  - file: path=/var/log/blazemeter state=directory owner=blazemeter
+    sudo: yes
+    name: ensure blazemeter log directory is present
+  - file: path=/etc/blazemeter state=directory owner=blazemeter
+    sudo: yes
+    name: ensure blazemeter configuration directory is present
