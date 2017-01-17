@@ -9,8 +9,8 @@ WORKDIR="/tmp"
 ACTION=""
 BRANCHNAME=""
 GITACCOUNT="https://github.com/groupcaretech"
-#REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
-REPOSITORIES=( "qa" )
+REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
+#REPOSITORIES=( "qa" )
 
 ## Setup
 ###############################################
@@ -37,6 +37,8 @@ getLatestRelease () {
     ## Verify the correct name
     ###############################################
     read -p "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
+
+    rm ${FILENAME}
 
     case $yn in
         [Yy]* )
@@ -107,17 +109,16 @@ do
     rm -rf ${repo}
     git clone ${GITACCOUNT}/${repo}
     cd ${repo}
+    git fetch
 
     case $ACTION in
     delete)
         git push origin --delete ${BRANCHNAME}
         ;;
     rename)
-        echo 'Rename not yet implemented...'
         git checkout --track origin/${OLDNAME}
         git checkout -b ${NEWNAME}
         git push origin ${NEWNAME}
-        git checkout --track origin/${OLDNAME}
         git push origin --delete ${OLDNAME}
         ;;
     create)
@@ -130,10 +131,6 @@ do
     cd /tmp
     rm -rf ${repo}
 done
-
-## Clean
-###############################################
-rm ${FILENAME}
 
 ## Notify via Slack that the new branches are ready
 ###############################################
