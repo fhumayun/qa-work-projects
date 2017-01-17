@@ -7,116 +7,128 @@ URL="https://eagleeyeintel.atlassian.net/rest/api/2/search"
 FILENAME=jirareleasename.txt
 WORKDIR="/tmp"
 ACTION=""
-ENVIRONMENTS=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
-#ENVIRONMENTS=( "sacplayback" )
+BRANCHNAME=""
+GITACCOUNT="https://github.com/groupcaretech"
+#REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
+REPOSITORIES=( "qa" )
 
 ## Setup
 ###############################################
 cd ${WORKDIR}
 
+## Library
+###############################################
+getLatestRelease () {
+    curl -vs -g -o ${FILENAME} -X POST -H "Content-Type: application/json" -H "Authorization: Basic Zmh1bWF5dW5AZ3JvdXBjYXJldGVjaC5jb206Y2FyZXRlYW0=" -H "Cache-Control: no-cache" \
+     -d '{
+    "jql": "project = STX AND Type = Release",
+    "startAt": 0,
+    "maxResults": 1,
+    "fields": [
+            "customfield_10020"
+        ]
+    }' ${URL} 2> /dev/null
+
+    # This could probably be better...
+    cat ${FILENAME} | jq -M '.issues|.[0]|.fields|.customfield_10020' | tr -d '\"' | tee ${FILENAME}
+    #cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
+    BRANCHNAME=$(cat ${FILENAME})
+
+    ## Verify the correct name
+    ###############################################
+    read -p "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
+
+    case $yn in
+        [Yy]* )
+            ;;
+        [Qq]* )
+            echo 'Quitting...'
+            exit
+            ;;
+        [Nn]* )
+            read -p "[$] Enter the new name: " BRANCHNAME
+            ;;
+        *)
+            ;;
+    esac
+}
+
+usage () {
+    echo 'Usage ./gitbranching.sh [command] [args...]'
+    echo '    --delete [optional branch name]'
+    echo '    --rename [old branch name] [new branch name]'
+    echo '    --create [optional branch name]'
+    exit
+}
+
 ## Figure out what action to take
 ###############################################
 case $1 in
     "--delete")
-        # delete (delete)
-        echo '[INFO] Deleting...'
         ACTION="delete"
-        ;;
-    "--safe-delete")
-        # safe delete (merge/delete)
-        echo '[INFO] Safe-deleting...'
-        ACTION="safedelete"
+        echo '[INFO] Deleting...'
+        if [[ -n "$2" ]]; then
+            BRANCHNAME="$2"
+        else
+            getLatestRelease
+        fi
         ;;
     "--rename")
-        # rename branch (copy/delete)
+        ACTION="rename"
         echo '[INFO] Renaming...'
-        if [[ -z "$2" ]]; then
-            echo 'The rename action requires a new branch name be specified...'
+        if [[ -z "$2" || -z "$3" ]]; then
+            echo 'The rename action requires you specify the old branch name and a new branch name...'
             exit
         fi
-        NEWNAME="$2"
-        ACTION="rename"
+        OLDNAME="$2"
+        NEWNAME="$3"
         ;;
     "--create")
         # create new branch
-        echo '[INFO] Creating...'
         ACTION="create"
+        echo '[INFO] Creating...'
+        if [[ -n "$2" ]]; then
+            BRANCHNAME="$2"
+        else
+            getLatestRelease
+        fi
         ;;
     *)
-        # no arg
         echo '[ERROR] Argument needed...'
-        echo '--delete, --safe-delete, --rename, --create'
-        exit
-esac
-
-## Call Jira to get newest Release name
-###############################################
-curl -vs -g -o ${FILENAME} -X POST -H "Content-Type: application/json" -H "Authorization: Basic Zmh1bWF5dW5AZ3JvdXBjYXJldGVjaC5jb206Y2FyZXRlYW0=" -H "Cache-Control: no-cache" \
- -d '{
-"jql": "project = STX AND Type = Release",
-"startAt": 0,
-"maxResults": 1,
-"fields": [
-        "customfield_10020"
-    ]
-}' ${URL} 2> /dev/null
-
-# This could probably be better...
-cat ${FILENAME} | jq -M '.issues|.[0]|.fields|.customfield_10020' | tr -d '\"' | tee ${FILENAME}
-#cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
-BRANCHNAME=$(cat ${FILENAME})
-
-## Verify the correct name
-###############################################
-read -p "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
-
-case $yn in
-    [Yy]* )
-        ;;
-    [Qq]* )
-        echo 'Quitting...'
-        exit
-        ;;
-    [Nn]* )
-        read -p "[$] Enter the new name: " BRANCHNAME
-        ;;
-    *)
-        ;;
+        usage
 esac
 
 ## Get git repos
 ###############################################
 
-for env in "${ENVIRONMENTS[@]}"
+for repo in "${REPOSITORIES[@]}"
 do
     cd /tmp
-    rm -rf ${env}
-    git clone https://github.com/groupcaretech/${env}
-    cd ${env}
+    rm -rf ${repo}
+    git clone ${GITACCOUNT}/${repo}
+    cd ${repo}
 
     case $ACTION in
     delete)
         git push origin --delete ${BRANCHNAME}
         ;;
-    safedelete)
-        # merge first
-        echo 'Safe-delete not yet implemented...'
-        #git push origin --delete ${BRANCHNAME}
-        ;;
     rename)
-        # copy / delete
         echo 'Rename not yet implemented...'
-        #git push origin --delete ${BRANCHNAME}
+        git checkout --track origin/${OLDNAME}
+        git checkout -b ${NEWNAME}
+        git push origin ${NEWNAME}
+        git checkout --track origin/${OLDNAME}
+        git push origin --delete ${OLDNAME}
         ;;
     create)
-        git checkout origin/develop
+        git checkout --track origin/develop
         git checkout -b ${BRANCHNAME}
         git push origin ${BRANCHNAME}
         ;;
     esac
 
     cd /tmp
-    rm -rf ${env}
+    rm -rf ${repo}
 done
 
 ## Clean
@@ -126,5 +138,6 @@ rm ${FILENAME}
 ## Notify via Slack that the new branches are ready
 ###############################################
 if [[ $ACTION == "create" ]]; then
-    echo "🌳 \`New git branch [${BRANCHNAME}] created for strax, srm, api, sac, pb, id, media.\`" | slackcat -c engineering --stream --plain > /dev/null &
+    echo "Creation done"
+    #echo "🌳 \`New git branch [${BRANCHNAME}] created for strax, srm, api, sac, pb, id, media.\`" | slackcat -c engineering --stream --plain > /dev/null &
 fi
