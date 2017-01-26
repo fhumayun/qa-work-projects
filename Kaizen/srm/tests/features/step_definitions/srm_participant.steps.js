@@ -8,7 +8,7 @@ var Oz = require('oz');
 module.exports = function() {
 
     // Variables
-    var url = process.env.TESTURL;
+    var url = process.env.TESTURL || "https://uat-api.strax.co";
     var userCredentials = {
         "username": "john@ee.io",
         "password": "eei"
@@ -26,9 +26,9 @@ module.exports = function() {
     var token;
     var rsvp;
     var appTicket;
-    const ID_SERVER = "https://id-dev.strax.co/";
+    const ID_SERVER = "https://uat-id.strax.co/";
     const VALIDATE = "oz/validate";
-    const USERNAME = "jshanahan@eagleeyeintelligence.com";
+    const USERNAME = "john@ee.io";
     const PASSWORD = "eei"
 
     // Make Chai use its own addon for HTTP calls
@@ -40,11 +40,9 @@ module.exports = function() {
      *****************************************/
 
      // Given
-    this.Given(/^The Admin is logged in$/, {timeout:30000}, function (done) {
+    this.Given(/^The Admin is logged in$/, {timeout:30000}, function () {
 
-      sleep.sleep(3);
-
-        chai.request(url)
+        return chai.request(url)
             .post('/api/participant/doAuthenticate')
             .send(userCredentials)
             .then(function(res) {
@@ -52,18 +50,14 @@ module.exports = function() {
 
                 var loginRes = JSON.parse(res.text);
                 appTicket = loginRes.appTicket;
-
-                return done();
             })
             .catch(function(err) {
-                return done(err);
+                throw err;
             });
     });
 
     // And
     this.Given(/^I have all the required participant information$/, function () {
-
-      sleep.usleep(500);
 
         participantData = {
             "loginId" : "qa@qa.qa",
@@ -100,11 +94,9 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I create a new participant$/, {timeout: 30000}, function (done) {
+    this.When(/^I create a new participant$/, {timeout: 30000}, function () {
 
-      sleep.sleep(3);
-
-        chai.request(url)
+        return chai.request(url)
             .post('/api/participant')
             .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .send(participantData)
@@ -113,18 +105,15 @@ module.exports = function() {
                 expect(res.text).to.be.a('string');
                 postResponse = JSON.parse(res.text);
                 participantId = postResponse._id;
-                return done();
             })
             .catch(function(err) {
-                return done(err);
+                throw err;
             });
 
     });
 
     // Then
     this.Then(/^I should get a creation successful response$/, function () {
-
-      sleep.usleep(500);
 
         if (!participantId)
             throw new Error('Invalid participant ID after creation');
@@ -138,8 +127,6 @@ module.exports = function() {
     // Given
     this.Given(/^I have new participant data$/, function () {
 
-      sleep.usleep(500);
-
         updatedParticipantData = {
             "phoneType": "iPhone"
         };
@@ -147,11 +134,9 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I update the data$/, {timeout: 30000}, function (done) {
+    this.When(/^I update the data$/, {timeout: 30000}, function () {
 
-      sleep.sleep(3);
-
-        chai.request(url)
+        return chai.request(url)
             .put('/api/participant/' + participantId)
             .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .send(updatedParticipantData)
@@ -160,18 +145,15 @@ module.exports = function() {
               expect(res.text).to.be.a('string');
 
               updateResponse = JSON.parse(res.text);
-              return done();
             })
             .catch(function(err) {
-                return done(err);
+                throw err;
             });
 
     });
 
     // Then
     this.Then(/^I should get an update successful response$/, function () {
-
-      sleep.usleep(500);
 
         if (!updateResponse)
             throw new Error('Did not recieve update successful reponse');
@@ -185,19 +167,15 @@ module.exports = function() {
     // Given
     this.Given(/^I need to look up a participant$/, function () {
 
-      sleep.usleep(500);
-
         if (!participantId)
             throw new Error('Could not GET: Missing participant id');
 
     });
 
     // When
-    this.When(/^I look up a participant by id$/, {timeout: 30000}, function (done) {
+    this.When(/^I look up a participant by id$/, {timeout: 30000}, function () {
 
-      sleep.sleep(3);
-
-        chai.request(url)
+        return chai.request(url)
             .get('/api/participant/' + participantId)
             .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .then(function(res) {
@@ -205,18 +183,15 @@ module.exports = function() {
               expect(res.text).to.be.a('string');
 
               getResponse = JSON.parse(res.text);
-              return done();
             })
             .catch(function(err) {
-                return done(err);
+                throw err;
             })
 
     });
 
     // Then
     this.Then(/^I should get the participant profile back$/, function () {
-
-      sleep.usleep(500);
 
         if (getResponse[0]._id != participantId)
             throw new Error('Could not GET participant profile');
@@ -230,37 +205,30 @@ module.exports = function() {
     // Given
     this.Given(/^I need to delete a participant and I have the id$/, function () {
 
-      sleep.usleep(500);
-
       if (!participantId)
           throw new Error('Could not DELETE: Missing participant id');
 
     });
 
     // When
-    this.When(/^I delete a participant$/, {timeout: 30000}, function (done) {
+    this.When(/^I delete a participant$/, {timeout: 30000}, function () {
 
-      sleep.sleep(3);
-
-        chai.request(url)
+        return chai.request(url)
             .delete('/api/participant/' + participantId)
             .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
             .then(function(res) {
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
               deleteResponse = JSON.parse(res.text);
-              return done();
             })
             .catch(function(err) {
-                return done(err);
+                throw err;
             });
 
     });
 
     // Then
     this.Then(/^I should get a deletion successful response$/, function () {
-
-      sleep.usleep(500);
 
         if (!deleteResponse)
             throw new Error('Could not successfully DELETE participant');

@@ -9,8 +9,8 @@ WORKDIR="/tmp"
 ACTION=""
 BRANCHNAME=""
 GITACCOUNT="https://github.com/groupcaretech"
-REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
-#REPOSITORIES=( "qa" )
+#REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
+REPOSITORIES=( "qa" )
 
 ## Setup
 ###############################################
@@ -19,26 +19,28 @@ cd ${WORKDIR}
 ## Library
 ###############################################
 getLatestRelease () {
-    curl -vs -g -o ${FILENAME} -X POST -H "Content-Type: application/json" -H "Authorization: Basic Zmh1bWF5dW5AZ3JvdXBjYXJldGVjaC5jb206Y2FyZXRlYW0=" -H "Cache-Control: no-cache" \
-     -d '{
-    "jql": "project = STX AND Type = Release",
-    "startAt": 0,
-    "maxResults": 1,
-    "fields": [
-            "customfield_10020"
-        ]
-    }' ${URL} 2> /dev/null
 
-    # This could probably be better...
+    # Try the latest Jira release as the branch name
+    curl -vs -g -o ${FILENAME} -X POST \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Basic Zmh1bWF5dW5AZ3JvdXBjYXJldGVjaC5jb206Y2FyZXRlYW0=" \
+        -H "Cache-Control: no-cache" \
+        -d '{
+        "jql": "project = STX AND Type = Release",
+        "startAt": 0,
+        "maxResults": 1,
+        "fields": [
+                "customfield_10020"
+            ]
+        }' ${URL} 2> /dev/null
+
     cat ${FILENAME} | jq -M '.issues|.[0]|.fields|.customfield_10020' | tr -d '\"' | tee ${FILENAME}
     #cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
     BRANCHNAME=$(cat ${FILENAME})
+    rm ${FILENAME}
 
     ## Verify the correct name
-    ###############################################
     read -p "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
-
-    rm ${FILENAME}
 
     case $yn in
         [Yy]* )
@@ -60,6 +62,7 @@ usage () {
     echo '    --delete [optional branch name]'
     echo '    --rename [old branch name] [new branch name]'
     echo '    --create [optional branch name]'
+    echo '    --merge [repository name] [branch name]'
     exit
 }
 
@@ -95,6 +98,17 @@ case $1 in
             getLatestRelease
         fi
         ;;
+    "--merge")
+        # merge branch into master
+        ACTION="merge"
+        echo '[INFO] Merging...'
+        if [[ -z "$2" || -z "$3" ]]; then
+            echo 'The merge action requires you specify the repo name and branch name...'
+            exit
+        fi
+        REPOSITORIES=( "$2" )
+        BRANCHNAME="$3"
+        ;;
     *)
         echo '[ERROR] Argument needed...'
         usage
@@ -126,10 +140,14 @@ do
         git checkout -b ${BRANCHNAME}
         git push origin ${BRANCHNAME}
         ;;
+    merge)
+        # Only merges into master for now
+        git merge origin/${BRANCHNAME} -m "This is an automatic merge bot"
+        git push
     esac
 
-    cd /tmp
-    rm -rf ${repo}
+    #cd /tmp
+    #rm -rf ${repo}
 done
 
 ## Notify via Slack that the new branches are ready
