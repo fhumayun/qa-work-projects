@@ -22,14 +22,10 @@ module.exports = function() {
     var deleteResponse;
 
     // Oz Variables
-    var authHeader;
-    var token;
-    var rsvp;
     var appTicket;
     const ID_SERVER = "https://uat-id.strax.co/";
     const VALIDATE = "oz/validate";
-    const USERNAME = "john@ee.io";
-    const PASSWORD = "eei"
+    var AUTHORIZATION;
 
     // Make Chai use its own addon for HTTP calls
     var expect = chai.expect;
@@ -40,24 +36,7 @@ module.exports = function() {
      *****************************************/
 
      // Given
-    this.Given(/^The Admin is logged in$/, {timeout:30000}, function () {
-
-        return chai.request(url)
-            .post('/api/participant/doAuthenticate')
-            .send(userCredentials)
-            .then(function(res) {
-                expect(res).to.have.status(200);
-
-                var loginRes = JSON.parse(res.text);
-                appTicket = loginRes.appTicket;
-            })
-            .catch(function(err) {
-                throw err;
-            });
-    });
-
-    // And
-    this.Given(/^I have all the required participant information$/, function () {
+    this.Given(/^The Admin is logged in and has the required participant information$/, function () {
 
         participantData = {
             "loginId" : "qa@qa.qa",
@@ -91,14 +70,28 @@ module.exports = function() {
             "__v" : 0.0
         };
 
+        return chai.request(url)
+            .post('/api/participant/doAuthenticate')
+            .send(userCredentials)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+
+                var loginRes = JSON.parse(res.text);
+                appTicket = loginRes.appTicket;
+
+                AUTHORIZATION = Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field;
+            })
+            .catch(function(err) {
+                throw err;
+            });
     });
 
     // When
-    this.When(/^I create a new participant$/, {timeout: 30000}, function () {
+    this.When(/^I create a new participant$/, function () {
 
         return chai.request(url)
             .post('/api/participant')
-            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
+            .set("Authorization", AUTHORIZATION)
             .send(participantData)
             .then(function(res) {
                 expect(res).to.have.status(201);
@@ -134,11 +127,11 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I update the data$/, {timeout: 30000}, function () {
+    this.When(/^I update the data$/, function () {
 
         return chai.request(url)
             .put('/api/participant/' + participantId)
-            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
+            .set("Authorization", AUTHORIZATION)
             .send(updatedParticipantData)
             .then(function(res) {
               expect(res).to.have.status(200);
@@ -173,11 +166,11 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I look up a participant by id$/, {timeout: 30000}, function () {
+    this.When(/^I look up a participant by id$/, function () {
 
         return chai.request(url)
             .get('/api/participant/' + participantId)
-            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
+            .set("Authorization", AUTHORIZATION)
             .then(function(res) {
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');
@@ -211,11 +204,11 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I delete a participant$/, {timeout: 30000}, function () {
+    this.When(/^I delete a participant$/, function () {
 
         return chai.request(url)
             .delete('/api/participant/' + participantId)
-            .set("Authorization", Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field)
+            .set("Authorization", AUTHORIZATION)
             .then(function(res) {
               expect(res).to.have.status(200);
               expect(res.text).to.be.a('string');

@@ -6,15 +6,14 @@ Feature: Create, update, and manage Users
   and view it at will
 
   @create
-  Scenario: As a new customer I would like to sign up for an account
-    Given I have all the required information
-    When I sign up for a new user account
-    Then I should be able to access my account
+  Scenario: As an administrator i would like to create a new user account
+    Given The Admin is logged in and has all the required user information
+    When I create a new user account
+    Then I should recieve an Account Created message
 
   @update
   Scenario: As an existing customer I should be able to update my account information
-    Given The Customer is logged in
-    And I need to update my information
+    Given I need to update my information
     When I update my profile
     Then I will have new information
 

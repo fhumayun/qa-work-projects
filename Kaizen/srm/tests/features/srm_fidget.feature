@@ -5,8 +5,7 @@ Feature: Create, update, and manage fidgets
 
   @create
   Scenario: As an admin I should be able to create a new Fidget
-    Given The Admin is logged in
-    And I have all the required fidget information
+    Given The Admin is logged in and has the required fidget information
     When I create a new fidget
     Then I should get a fidget creation successful response
 

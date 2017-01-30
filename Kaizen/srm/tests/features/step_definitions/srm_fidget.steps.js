@@ -8,7 +8,7 @@ var Oz = require('oz');
 module.exports = function() {
 
     // Variables
-    var url = process.env.TESTURL;
+    var url = process.env.TESTURL || "https://uat-api.strax.co";
     var userCredentials = {
         "username": "john@ee.io",
         "password": "eei"
@@ -21,14 +21,10 @@ module.exports = function() {
     var deleteResponse;
 
     // Oz Variables
-    var authHeader;
-    var token;
-    var rsvp;
     var appTicket;
     const ID_SERVER = "https://uat-id.strax.co/";
     const VALIDATE = "oz/validate";
-    const USERNAME = "john@ee.io";
-    const PASSWORD = "eei";
+    var AUTHORIZATION;
 
     // Make Chai use its own addon for HTTP calls
     var expect = chai.expect;
@@ -38,8 +34,9 @@ module.exports = function() {
      * Scenario: Create
      *****************************************/
 
+
     // Given
-    this.Given(/^I have all the required fidget information$/, function () {
+    this.Given(/^The Admin is logged in and has the required fidget information$/, function () {
 
         fidgetData = {
             "profile" : "5741f57f56d61f0d0074925e",
@@ -53,13 +50,29 @@ module.exports = function() {
             "__v" : 0
         };
 
+        return chai.request(url)
+            .post('/api/participant/doAuthenticate')
+            .send(userCredentials)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+
+                var loginRes = JSON.parse(res.text);
+                appTicket = loginRes.appTicket;
+
+                AUTHORIZATION = Oz.client.header(ID_SERVER + VALIDATE, 'POST', appTicket, null).field;
+            })
+            .catch(function(err) {
+                throw err;
+            });
+
     });
 
     // When
-    this.When(/^I create a new fidget$/, {timeout: 30000}, function () {
+    this.When(/^I create a new fidget$/, function () {
 
         return chai.request(url)
             .post('/api/fidgets')
+            .set("Authorization", AUTHORIZATION)
             .send(fidgetData)
             .then(function(res) {
                 expect(res).to.have.status(201);
@@ -94,10 +107,11 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I update the Fidget$/, {timeout: 30000}, function () {
+    this.When(/^I update the Fidget$/, function () {
 
         return chai.request(url)
             .put('/api/fidgets/' + fidgetId)
+            .set("Authorization", AUTHORIZATION)
             .send(updatedFidgetData)
             .then(function(res) {
                 expect(res).to.have.status(200);
@@ -131,10 +145,11 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I look the Fidget up$/, {timeout: 30000}, function () {
+    this.When(/^I look the Fidget up$/, function () {
 
         return chai.request(url)
             .get('/api/fidgets/' + fidgetId)
+            .set("Authorization", AUTHORIZATION)
             .then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
@@ -167,10 +182,11 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I delete the Fidget$/, {timeout: 30000}, function () {
+    this.When(/^I delete the Fidget$/, function () {
 
         return chai.request(url)
             .del('/api/fidgets/' + fidgetId)
+            .set("Authorization", AUTHORIZATION)
             .then(function(res) {
                 expect(res).to.have.status(400);
                 expect(res.text).to.be.a('string');

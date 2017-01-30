@@ -5,8 +5,7 @@ Feature: Create, update, and manage Participants
 
   @create
   Scenario: As an admin I should be able to create a new participant
-    Given The Admin is logged in
-    And I have all the required participant information
+    Given The Admin is logged in and has the required participant information
     When I create a new participant
     Then I should get a creation successful response
 
