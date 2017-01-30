@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# todo: Add ssh command to start storm topo
+# todo: Do any other containers/services need to be started via ssh?
+
 echo '================================================'
 echo "$0"
 echo '================================================'
