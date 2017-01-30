@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DRUSER="strax"
-DRPASS="Gr0upCa5e"
+DRPASS="eei"
 REGISTRY="dr.strax.co:5000"
 REPOSITORY=$1
 
