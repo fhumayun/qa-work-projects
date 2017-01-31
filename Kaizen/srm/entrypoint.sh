@@ -5,7 +5,7 @@ echo '[INFO] entrypoint.sh started...'
 cd tests
 
 ./cuke.sh
-#./maven.sh
-echo '[INFO] Skipping Maven...'
+./maven.sh
+#echo '[INFO] Skipping Maven...'
 
 echo '[INFO] entrypoint.sh finished...'
