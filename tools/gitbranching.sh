@@ -9,8 +9,8 @@ WORKDIR="/tmp"
 ACTION=""
 BRANCHNAME=""
 GITACCOUNT="https://github.com/groupcaretech"
-#REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
-REPOSITORIES=( "qa" )
+REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
+#REPOSITORIES=( "qa" )
 
 ## Setup
 ###############################################
@@ -136,7 +136,6 @@ do
         git push origin --delete ${OLDNAME}
         ;;
     create)
-        git checkout --track origin/develop
         git checkout -b ${BRANCHNAME}
         git push origin ${BRANCHNAME}
         ;;
