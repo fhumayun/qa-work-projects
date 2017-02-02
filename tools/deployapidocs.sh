@@ -40,6 +40,6 @@ if [[ $(docker ps -a | grep apidocs | wc -l | xargs) > 0 ]]; then
 fi
 
 echo "Starting docker container..."
-docker run --name apidocs -v /tmp/api/apidoc:/usr/share/nginx/html:ro -p 3270:80 -P -d nginx
+docker run --name apidocs --restart always -v /tmp/api/apidoc:/usr/share/nginx/html:ro -p 3270:80 -P -d nginx
 
 echo "Done..."
