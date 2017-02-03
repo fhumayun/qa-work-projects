@@ -12,56 +12,29 @@ reset=$(tput sgr0)
 dim=$(tput dim)
 bold=$(tput bold)
 
-# Capture directory passed as argument.
-# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Would this work? Instead of having to provide an arg, use it or use pwd if not specified...
-# workdir=$( [[ -n "$1" ]] && echo "$1" || echo $(pwd) )
-# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Capture directory passed as argument.
 workdir=$(dirname "$1")
-echo "Setting workdir to: ${workdir}..."
 jiraflag=$2
 
-# Common Variables
-export Prefix="STX"
-export GitHead=$(git rev-list master HEAD --count $workdir)
-FixName(){
-	export GitRepoName=$(basename $(git remote show -n origin | grep Fetch | cut -d: -f2- | tr '[:lower:]' '[:upper:]' ))
-	if [ "$GitRepoName" == "STRAXID" ]; then
-		export GitRepoName="ID"
-    fi
-	if [ "$GitRepoName" == "STRAXMEDIA" ]; then
-		export GitRepoName="MEDIA"
-    fi
-	if [ "$GitRepoName" == "SACPLAYBACK" ]; then
-		export GitRepoName="PB"
-    fi
-	if [ "$GitRepoName" == "EAGLEEYESAC" ]; then
-		export GitRepoName="SAC"
+# Version Override feature
+override(){
+	rule ${bold}${red}=${reset}
+	filePattern="[0-9].[0-9]"
+	tmpDir="tmp"
+	overrideFile="/$tmpDir/$filePattern"
+	if [ ! -f ${overrideFile} ]
+	then
+		echo "${bold}${white}Using Default Branch version: ${bold}${green}$GitNewRelease ${reset}"
+	else
+		newBranchVersion=$(echo /tmp/[0-9].[0-9] | cut -d'/' -f3)
+		echo "${bold}${yellow}Branch Version Override Detected:${reset} ${bold}${green}$newBranchVersion${reset}"
+		# Extract version digits
+		# export Major=$(echo ${overrideFile}| cut -d'.' -f1)
+		# export Minor=$(echo ${overrideFile}| cut -d'.' -f1)
+		export GitNewRelease=$newBranchVersion
 	fi
-	if [ "$GitRepoName" == "STRAXRM" ]; then
-		export GitRepoName="SRM"
-	fi
-	if [ "$GitRepoName" == "SPROUTTRAX" ]; then
-		export GitRepoName="API"
-	fi
-	echo $GitRepoName
+	rule ${bold}${red}=${reset}
 }
-export GitNewRelease=$(basename $(git branch -a | grep "remotes" | grep "v[0-9].*" | awk -F "/" '{ print $3 }' | cut -dv -f2- | tr -d '\r' | tail -1))
-export BuildDateTime=$(date +"%Y%m%d.%H%M")
-export BuildDate=$(date +%F)
-export FileToSearch="Dockerfile"
-export SearchTerm="VERSION"
-export GitNameFixed=$(FixName)
-export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})"
-
-# Inert Variables
-export Major=0
-export Minor=$PT_IT
-
-# Inert feature: Get current sprint iteration from pivotal tracker
-export TOKEN='996c058ea4864d8ba211a5f445285230'
-export PROJECT_ID=1202356
-PT_IT=$(curl -sS -X GET -H "X-TrackerToken: $TOKEN" "https://www.pivotaltracker.com/services/v5/projects/$PROJECT_ID/iterations?limit=1&scope=current" | grep '"number"' | awk -F":" {'print $2'} | cut -d, -f1-1 | sed -e 's/^[[:space:]]*//')
 
 # Print a horizontal rule
 rule() {
@@ -74,11 +47,13 @@ rulem ()  {
 	printf -v _hr "%*s" $(tput cols) && echo -en ${_hr// /${2--}} && echo -e "\r\033[2C$1"
 }
 
+
+
 # Making a Help feature
 
 help() {
 	rule ${bold}${red}=${reset}
-	echo "${bold}${yellow}usage: First argument (required) $(basename $0) path of Strax Repo"
+	echo "${bold}${yellow}usage: First argument (required) $(basename $0) path of Strax Repo${reset}"
 	echo "${bold}${green}Second argument to send version number to Jira${reset}"
 	echo "${bold}${blue}example: $(basename $0) . 1${reset}"
     rule ${bold}${red}=${reset}
@@ -111,6 +86,50 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
+# Common Variables
+export Prefix="STX"
+export GitHead=$(git rev-list master HEAD --count $workdir)
+
+function FixName {
+	export GitRepoName=$(basename $(git remote show -n origin | grep Fetch | cut -d: -f2- | tr '[:lower:]' '[:upper:]' ))
+	if [ "$GitRepoName" == "STRAXID" ]; then
+		export GitRepoName="ID"
+    fi
+	if [ "$GitRepoName" == "STRAXMEDIA" ]; then
+		export GitRepoName="MEDIA"
+    fi
+	if [ "$GitRepoName" == "SACPLAYBACK" ]; then
+		export GitRepoName="PB"
+    fi
+	if [ "$GitRepoName" == "EAGLEEYESAC" ]; then
+		export GitRepoName="SAC"
+	fi
+	if [ "$GitRepoName" == "STRAXRM" ]; then
+		export GitRepoName="SRM"
+	fi
+	if [ "$GitRepoName" == "SPROUTTRAX" ]; then
+		export GitRepoName="API"
+	fi
+	echo $GitRepoName
+}
+
+export GitNewRelease=$(basename $(git branch -a | grep "remotes" | grep "v[0-9].*" | awk -F "/" '{ print $3 }' | cut -dv -f2- | tr -d '\r' | tail -1))
+override
+export BuildDateTime=$(date +"%Y%m%d.%H%M")
+export BuildDate=$(date +%F)
+export FileToSearch="Dockerfile"
+export SearchTerm="VERSION"
+export GitNameFixed=$(FixName)
+export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})"
+
+# Inert Variables
+export Major=0
+export Minor=$PT_IT
+
+# Inert feature: Get current sprint iteration from pivotal tracker
+export TOKEN='996c058ea4864d8ba211a5f445285230'
+export PROJECT_ID=1202356
+PT_IT=$(curl -sS -X GET -H "X-TrackerToken: $TOKEN" "https://www.pivotaltracker.com/services/v5/projects/$PROJECT_ID/iterations?limit=1&scope=current" | grep '"number"' | awk -F":" {'print $2'} | cut -d, -f1-1 | sed -e 's/^[[:space:]]*//')
 
 echo "Current Sprint Number:${blue} $PT_IT ${reset}"
 echo "Git Head Counter: ${blue} $GitHead ${reset}"
