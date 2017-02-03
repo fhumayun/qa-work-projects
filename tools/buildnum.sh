@@ -60,7 +60,7 @@ help() {
 }
 
 function escape_slashes {
-    sed 's/\//\\\//g'
+    sed 's/\//\\\//g' 
 }
 
 function change_line {
@@ -89,30 +89,28 @@ fi
 # Common Variables
 export Prefix="STX"
 export GitHead=$(git rev-list master HEAD --count $workdir)
-
-function FixName {
+FixName(){
 	export GitRepoName=$(basename $(git remote show -n origin | grep Fetch | cut -d: -f2- | tr '[:lower:]' '[:upper:]' ))
-	if [ "$GitRepoName" == "STRAXID" ]; then
+	if [ "$GitRepoName" == "STRAXID" ]; then 
 		export GitRepoName="ID"
     fi
-	if [ "$GitRepoName" == "STRAXMEDIA" ]; then
+	if [ "$GitRepoName" == "STRAXMEDIA" ]; then 
 		export GitRepoName="MEDIA"
     fi
-	if [ "$GitRepoName" == "SACPLAYBACK" ]; then
+	if [ "$GitRepoName" == "SACPLAYBACK" ]; then 
 		export GitRepoName="PB"
     fi
-	if [ "$GitRepoName" == "EAGLEEYESAC" ]; then
+	if [ "$GitRepoName" == "EAGLEEYESAC" ]; then 
 		export GitRepoName="SAC"
 	fi
-	if [ "$GitRepoName" == "STRAXRM" ]; then
+	if [ "$GitRepoName" == "STRAXRM" ]; then 
 		export GitRepoName="SRM"
 	fi
-	if [ "$GitRepoName" == "SPROUTTRAX" ]; then
+	if [ "$GitRepoName" == "SPROUTTRAX" ]; then 
 		export GitRepoName="API"
 	fi
 	echo $GitRepoName
 }
-
 export GitNewRelease=$(basename $(git branch -a | grep "remotes" | grep "v[0-9].*" | awk -F "/" '{ print $3 }' | cut -dv -f2- | tr -d '\r' | tail -1))
 override
 export BuildDateTime=$(date +"%Y%m%d.%H%M")
@@ -158,7 +156,7 @@ if [ -f $workdir/$FileToSearch ]; then
    		echo "${bold}${red}FAIL!!${reset} $SearchTerm not found in $FileToSearch"
 		exit
 	fi
-
+	
 	if [[ -z ${jiraflag} && ${jiraflag} == "" ]]; then
 		echo "${bold}${red}** Not Sending Build Number to Jira **${reset}"
 	else
