@@ -11,8 +11,11 @@ fi
 # Deps
 npm i
 
-# Cuke
-npm i -g cucumber
+echo "Checking cucumber installed..."
+if [[ $(npm list -g 2>/dev/null | grep cucumber | wc -l | xargs) < 1 ]]; then
+    echo "Please install cucumber (npm install -g cucumber)..."
+    exit 1
+fi
 
 # Go to tests dir and execute the runner.
 cd tests
