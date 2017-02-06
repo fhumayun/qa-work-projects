@@ -40,7 +40,7 @@ module.exports = function() {
 
         fidgetData = {
             "profile" : "5741f57f56d61f0d0074925e",
-            "type" : "safetrax - update me",
+            "type" : "safetrax",
             "feedId" : "5748ad74870c41330225038c",
             "accountDocId" : "000000000000000000000002",
             "gears" : [],
@@ -188,7 +188,7 @@ module.exports = function() {
             .del('/api/fidgets/' + fidgetId)
             .set("Authorization", AUTHORIZATION)
             .then(function(res) {
-                expect(res).to.have.status(400);
+                expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
                 deleteResponse = JSON.parse(res.text);
             })
