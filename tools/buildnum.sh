@@ -88,7 +88,10 @@ fi
 
 # Common Variables
 export Prefix="STX"
-export GitHead=$(git rev-list master HEAD --count $workdir)
+
+# Get git commit count
+export GitHead=$(git rev-list master HEAD --count)
+
 FixName(){
 	export GitRepoName=$(basename $(git remote show -n origin | grep Fetch | cut -d: -f2- | tr '[:lower:]' '[:upper:]' ))
 	if [ "$GitRepoName" == "STRAXID" ]; then 
