@@ -12,7 +12,7 @@ fi
 npm i
 
 # Cuke
-npm i -g cucumberjs
+npm i -g cucumber
 
 # Go to tests dir and execute the runner.
 cd tests
