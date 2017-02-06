@@ -8,7 +8,7 @@ var Oz = require('oz');
 module.exports = function() {
 
     // Variables
-    var url = process.env.TESTURL || "https://uat-api.strax.co";
+    var url = process.env.TESTURL || "https://qa-api.strax.co";
     var userCredentials = {
         "username": "john@ee.io",
         "password": "eei"
@@ -23,7 +23,7 @@ module.exports = function() {
 
     // Oz Variables
     var appTicket;
-    const ID_SERVER = "https://uat-id.strax.co/";
+    const ID_SERVER = "https://qa-id.strax.co/";
     const VALIDATE = "oz/validate";
     var AUTHORIZATION;
 
