@@ -69,7 +69,7 @@ usage () {
 ## Figure out what action to take
 ###############################################
 case $1 in
-    "--delete")
+    "--delete"|"delete")
         ACTION="delete"
         echo '[INFO] Deleting...'
         if [[ -n "$2" ]]; then
@@ -78,7 +78,7 @@ case $1 in
             getLatestRelease
         fi
         ;;
-    "--rename")
+    "--rename"|"rename")
         ACTION="rename"
         echo '[INFO] Renaming...'
         if [[ -z "$2" || -z "$3" ]]; then
@@ -88,7 +88,7 @@ case $1 in
         OLDNAME="$2"
         NEWNAME="$3"
         ;;
-    "--create")
+    "--create"|"create")
         # create new branch
         ACTION="create"
         echo '[INFO] Creating...'
@@ -98,7 +98,7 @@ case $1 in
             getLatestRelease
         fi
         ;;
-    "--merge")
+    "--merge"|"merge")
         # merge branch into master
         ACTION="merge"
         echo '[INFO] Merging...'
