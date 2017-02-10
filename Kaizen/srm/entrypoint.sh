@@ -20,8 +20,14 @@ fi
 # Go to tests dir and execute the runner.
 cd tests
 
+# Run cucumber tests
 ./cuke.sh
-./maven.sh
-#echo '[INFO] Skipping Maven...'
+CUCUMBEREXITCODE=$?
+
+# Upload results to TestRail
+./testrailupload.sh ${CUCUMBEREXITCODE}
+
+# Run maven
+#./maven.sh
 
 echo '[INFO] entrypoint.sh finished...'

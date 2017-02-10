@@ -203,6 +203,8 @@ module.exports = function() {
 
         if (!deleteResponse)
             throw new Error('Could not DELETE Fidget');
+        //if (deleteResponse)
+         //   throw new Error('Could not DELETE Fidget');
 
     });
 
