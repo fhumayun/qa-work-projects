@@ -67,6 +67,17 @@ curl -o /dev/null -# -X POST -H "Authorization: ${AUTHORIZATION}" \
     "elapsed":"2m"
 }' "https://eei.testrail.com/index.php?/api/v2/add_result_for_case/${TESTRUNID}/${TESTCASEID}="
 
-echo "Cleaning up..."
+echo "Cleaning up tmp file..."
 rm ${TMPOUTPUTFILE}
+
+# --- Close and archive the test run on TestRail
+
+echo "Sending Close command to TestRail to archive automation results..."
+curl -o /dev/null -# -X POST -H "Authorization: ${AUTHORIZATION}" \
+	-H "Content-Type: application/json" \
+	-H "Cache-Control: no-cache" \
+"https://eei.testrail.com/index.php?/api/v2/close_run/${TESTRUNID}"
+
+# --- Fin
+
 echo "Done..."
