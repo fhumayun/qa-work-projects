@@ -201,10 +201,10 @@ module.exports = function() {
     // Then
     this.Then(/^I should no longer be able to use the Fidget$/, function () {
 
-        if (!deleteResponse)
-            throw new Error('Could not DELETE Fidget');
-        //if (deleteResponse)
+        //if (!deleteResponse)
          //   throw new Error('Could not DELETE Fidget');
+        if (deleteResponse)
+            throw new Error('Could not DELETE Fidget');
 
     });
 
