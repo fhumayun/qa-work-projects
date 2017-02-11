@@ -30,4 +30,7 @@ CUCUMBEREXITCODE=$?
 # Run maven
 #./maven.sh
 
+# Add code here to make a tarball with the maven results or Junit xml and upload somewhere
+# ./archiveresults.sh
+
 echo '[INFO] entrypoint.sh finished...'
