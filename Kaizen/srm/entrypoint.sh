@@ -4,7 +4,7 @@ echo '[INFO] entrypoint.sh started...'
 # Make sure req's are installed
 echo "Checking node installed..."
 if [[ $(which node | wc -l | xargs) < 1 ]]; then
-    echo "Please install 'node' and try again..."
+    echo "Please install 'node' or symlink node->nodejs and try again..."
     exit 1
 fi
 
@@ -21,16 +21,16 @@ fi
 cd tests
 
 # Run cucumber tests
-./cuke.sh
-CUCUMBEREXITCODE=$?
+# todo Cuke needs to output results as json into jsonoutput.json for testrailupload.py to work
+#./cuke.sh
+#CUCUMBEREXITCODE=$?
+CUCUMBEREXITCODE=1
 
 # Upload results to TestRail
-./testrailupload.sh ${CUCUMBEREXITCODE}
-
-# Run maven
-#./maven.sh
-
+# todo Execute maven.sh first and then upload it to Dropbox or S3 and include the public link in testrailupload.py...
 # Add code here to make a tarball with the maven results or Junit xml and upload somewhere
+# ./maven.sh
 # ./archiveresults.sh
+./testrailupload.py ${CUCUMBEREXITCODE}
 
 echo '[INFO] entrypoint.sh finished...'

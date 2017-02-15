@@ -4,9 +4,9 @@ echo '[INFO] Running cuke.sh...'
 
 #cucumberjs --tags @participant
 #cucumberjs --tags @event
-#cucumberjs --tags @user
+cucumberjs --tags @user
 #cucumberjs --tags @fidget
-cucumberjs
+#cucumberjs
 
 CUKE_EXIT_CODE=$?
 

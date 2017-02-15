@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+#### *!* Deprecated, use testrailupload.py instead
+#### *!* Deprecated, use testrailupload.py instead
+#### *!* Deprecated, use testrailupload.py instead
+
+
 # Takes parameters:
 #     int: 0 pass, >0 failed
 # Uploads test run results to Test Rail
@@ -29,13 +35,14 @@ TMPOUTPUTFILE="/tmp/$(uuidgen)"
 echo "Created tmp file: ${TMPOUTPUTFILE}..."
 
 # --- Create a test run w no results yet
-
-TESTCASEID=6232
+#TESTCASEID=6232
+TESTCASEID=8379
 AUTHORIZATION="Basic anNoYW5haGFuQGVhZ2xlZXllaW50ZWxsaWdlbmNlLmNvbTpEZXZudWxsOTkq"
 PROJECTID=1
 SUITEID=1
 NAME="Automated Cucumber&Selenium CI tests"
 ASSIGNEDTOID=1
+STEPRESULTS=$(../python_modules/parsejsonoutput.py)
 
 echo "Creating new TestRail run..."
 
@@ -53,25 +60,29 @@ curl -o ${TMPOUTPUTFILE} -# -X POST -H "Authorization: ${AUTHORIZATION}" \
 # Grab test run id:
 TESTRUNID=$(cat ${TMPOUTPUTFILE} | jq '.id' | xargs)
 
-# --- Add results to test run
+if [[ "${TESTRUNID}" == null ]]; then
+    echo 'No test run id, something went wrong creating new test run...'
+    exit 1
+fi
 
+# --- Add results to test run
 echo "Adding results to new test run: ${TESTRUNID}..."
 
-curl -o /dev/null -# -X POST -H "Authorization: ${AUTHORIZATION}" \
+curl -o ${TMPOUTPUTFILE} -# -vv -H "Authorization: ${AUTHORIZATION}" \
 	-H "Content-Type: application/json" \
 	-H "Cache-Control: no-cache" \
 	-d '{
     "status_id": "'"${STATUSID}"'",
     "comment": "'"${COMMENT}"'",
     "version":"1.1",
-    "elapsed":"2m"
+    "elapsed":"2m",
+    "custom_step_results": '"${STEPRESULTS}"'
 }' "https://eei.testrail.com/index.php?/api/v2/add_result_for_case/${TESTRUNID}/${TESTCASEID}="
 
 echo "Cleaning up tmp file..."
-rm ${TMPOUTPUTFILE}
+#rm ${TMPOUTPUTFILE}
 
 # --- Close and archive the test run on TestRail
-
 echo "Sending Close command to TestRail to archive automation results..."
 curl -o /dev/null -# -X POST -H "Authorization: ${AUTHORIZATION}" \
 	-H "Content-Type: application/json" \
@@ -79,5 +90,4 @@ curl -o /dev/null -# -X POST -H "Authorization: ${AUTHORIZATION}" \
 "https://eei.testrail.com/index.php?/api/v2/close_run/${TESTRUNID}"
 
 # --- Fin
-
 echo "Done..."
