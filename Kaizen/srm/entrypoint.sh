@@ -1,36 +1,63 @@
 #!/bin/bash
+
+echo '-------------------------------'
 echo '[INFO] entrypoint.sh started...'
+echo '-------------------------------'
+
+# Vars
+jsonoutputfile=jsonoutput.json
+xmloutputfile=../target/allure-results/$(uuidgen)-testsuite.xml
+workdir=tests
 
 # Make sure req's are installed
-echo "Checking node installed..."
+echo 'Checking node installed...'
 if [[ $(which node | wc -l | xargs) < 1 ]]; then
-    echo "Please install 'node' or symlink node->nodejs and try again..."
+    echo 'Please install 'node' or symlink node->nodejs and try again...'
     exit 1
 fi
 
 # Deps
 npm i
 
-echo "Checking cucumber installed..."
+echo 'Checking cucumber installed...'
 if [[ $(npm list -g 2>/dev/null | grep cucumber | wc -l | xargs) < 1 ]]; then
-    echo "Please install cucumber (npm install -g cucumber)..."
+    echo 'Please install cucumber (npm install -g cucumber)...'
     exit 1
 fi
 
 # Go to tests dir and execute the runner.
-cd tests
+echo '[INFO] Changing to work dir...'
+cd ${workdir}
 
 # Run cucumber tests
-# todo Cuke needs to output results as json into jsonoutput.json for testrailupload.py to work
-#./cuke.sh
-#CUCUMBEREXITCODE=$?
-CUCUMBEREXITCODE=1
+echo '[INFO] Running CucumberJS...'
+
+#cucumberjs --tags @participant --format=json > ${jsonoutputfile}
+#cucumberjs --tags @event --format=json       > ${jsonoutputfile}
+#cucumberjs --tags @user --format=json        > ${jsonoutputfile}
+#cucumberjs --tags @fidget --format=json      > ${jsonoutputfile}
+cucumberjs --format=json                      > ${jsonoutputfile}
+
+# Retain cucumber's exit code for testrailuploader
+CUCUMBEREXITCODE=$?
+
+echo '[INFO] CucumberJS Finished...'
+
+# Convert json to junit xml for maven
+echo '[INFO] Converting JSON to Junit XML...'
+cat ${jsonoutputfile} | ./../node_modules/cucumber-junit/bin/cucumber-junit > ${xmloutputfile}
+
+# Run maven to generate Allure report
+./maven.sh
+
+# Archive maven report in Dropbox or S3
+# ./archiveresults.sh
 
 # Upload results to TestRail
-# todo Execute maven.sh first and then upload it to Dropbox or S3 and include the public link in testrailupload.py...
-# Add code here to make a tarball with the maven results or Junit xml and upload somewhere
-# ./maven.sh
-# ./archiveresults.sh
 ./testrailupload.py ${CUCUMBEREXITCODE}
+
+# Clean up files
+rm ${jsonoutputfile}
+rm ${xmloutputfile}
 
 echo '[INFO] entrypoint.sh finished...'

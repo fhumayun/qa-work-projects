@@ -9,18 +9,18 @@ import json
 # Takes parameters:
 #     int: 0 pass, >0 failed
 # Uploads test run results to Test Rail
-cuke_exit_code = int(sys.argv[1]) if len(sys.argv) > 1 else sys.exit('No exit code specified...')
+cuke_exit_code = int(sys.argv[1]) if len(sys.argv) > 1 else sys.exit('[ERROR] No exit code specified...')
 project_id = 1
 suite_id = 1
 suite_name = "Automated Cucumber&Selenium CI tests"
 assignedto_id = 1
 new_test_run_id = 0
-
-tmp_ouput_file = "/tmp/{}".format(uuid.uuid4())
-print("Created tmp output file: {}".format(tmp_ouput_file))
-
 testcase_id = 8379
 authorization = ("jshanahan@eagleeyeintelligence.com", "mytestrailpassword")
+
+tmp_ouput_file = "/tmp/{}".format(uuid.uuid4())
+
+debug = False
 
 # Set the comment text for when we push the results
 # *!* Bash pass is 0 but fail is >0
@@ -38,7 +38,8 @@ def _generate_step_results(json_filename="jsonoutput.json"):
     """ Opens the cucumberjs json results file and returns a json string
     correctly formatted for the TestRail api
     """
-    print('Func: _generate_step_results...')
+    if debug:
+        print('[DEBUG] Func: _generate_step_results...')
 
     testrail_format = {"custom_step_results": []}    # Json format that TestRail requires
     step_counter = 1
@@ -73,7 +74,9 @@ def _generate_step_results(json_filename="jsonoutput.json"):
 
 def create_new_test_run():
     """ Create a new test run """
-    print('Func: create_new_test_run...')
+    if debug:
+        print('[DEBUG] Func: create_new_test_run...')
+
     new_test_run_url = "https://eei.testrail.com/index.php?/api/v2/add_run/{0}=".format(project_id)
 
     new_test_run_json = {
@@ -87,7 +90,7 @@ def create_new_test_run():
     new_test_run = requests.post(new_test_run_url, auth=authorization, json=new_test_run_json)
 
     if str(new_test_run.status_code) != '200':
-        print('new_test_run: non 200 status code... ' + str(new_test_run.status_code))
+        print('[ERROR] new_test_run: non 200 status code... ' + str(new_test_run.status_code))
         print(str(new_test_run.json()))
         sys.exit(1)
 
@@ -97,13 +100,16 @@ def create_new_test_run():
 
 def upload_test_run_results():
     """ Upload test run results """
-    print('Func: upload_test_run_results...')
+    if debug:
+        print('[DEBUG] Func: upload_test_run_results...')
 
     if new_test_run_id == 0:
-        print('new_test_run: id could not be found... ' + str(new_test_run_id))
+        print('[ERROR] new_test_run: id could not be found... ' + str(new_test_run_id))
         sys.exit(1)
 
-    print('Adding results to new test run: ID: {0}...'.format(new_test_run_id))
+    if debug:
+        print('[DEBUG] Adding results to new test run: ID: {0}...'.format(new_test_run_id))
+
     upload_results_url = "https://eei.testrail.com/index.php?/api/v2/add_result_for_case/{0}/{1}=".format(new_test_run_id, testcase_id)
 
     upload_results_json = {
@@ -117,21 +123,22 @@ def upload_test_run_results():
     update_results = requests.post(upload_results_url, auth=authorization, json=upload_results_json)
 
     if str(update_results.status_code) != '200':
-        print('update_results: non 200 status code... ' + str(update_results.status_code))
+        print('[ERROR] update_results: non 200 status code... ' + str(update_results.status_code))
         print(str(update_results.json()))
         sys.exit(1)
 
 
 def close_test_rail_run():
     """ Close test run """
-    print('Func: close_test_rail_run...')
+    if debug:
+        print('[DEBUG] Func: close_test_rail_run...')
 
     close_test_run_url = "https://eei.testrail.com/index.php?/api/v2/close_run/{0}".format(new_test_run_id)
 
     close_test_run = requests.post(close_test_run_url, auth=authorization, json='[]')
 
     if str(close_test_run.status_code) != '200':
-        print('close_test_run: non 200 status code... ' + str(close_test_run.status_code))
+        print('[ERROR] close_test_run: non 200 status code... ' + str(close_test_run.status_code))
         print(str(close_test_run.json()))
         sys.exit(1)
 
@@ -139,7 +146,7 @@ def close_test_rail_run():
 custom_step_results = _generate_step_results()
 
 if custom_step_results == '':
-    print('Json output file contains no JSON...')
+    print('[ERROR] Json output file contains no JSON...')
     sys.exit(1)
 
 create_new_test_run()
@@ -148,4 +155,4 @@ close_test_rail_run()
 
 # Fin
 # todo Clean up tmp file
-print('Done...')
+print('[INFO] Done...')

@@ -4,10 +4,11 @@
   "private": true,
   "dependencies": {
     "allure-js-commons": "1.2.1",
-    "async": "^2.1.4",
+    "async": "2.1.4",
     "chai": "3.5.0",
     "chai-http": "3.0.0",
     "cucumberjs-allure-reporter": "1.0.3",
+    "cucumber-junit": "1.6.0",
     "debug": "2.6.0",
     "mongodb": "2.2.19",
     "morgan": "1.7.0",
