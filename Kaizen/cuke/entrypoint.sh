@@ -9,14 +9,13 @@ jsonoutputfile=jsonoutput.json
 xmloutputfile=../target/allure-results/$(uuidgen)-testsuite.xml
 workdir=tests
 
-# Make sure req's are installed
+# Deps
 echo 'Checking node installed...'
 if [[ $(which node | wc -l | xargs) < 1 ]]; then
     echo 'Please install 'node' or symlink node->nodejs and try again...'
     exit 1
 fi
 
-# Deps
 npm i
 
 echo 'Checking cucumber installed...'
@@ -50,7 +49,7 @@ cat ${jsonoutputfile} | ./../node_modules/cucumber-junit/bin/cucumber-junit > ${
 # Run maven to generate Allure report
 ./maven.sh
 
-# Archive maven report in Dropbox or S3
+# Archive maven report in Dropbox under <dropbox>/AllureReports
 # ./archiveresults.sh
 
 # Upload results to TestRail
