@@ -14,7 +14,7 @@ REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "strax
 
 ## Setup
 ###############################################
-cd ${WORKDIR}
+cd "${WORKDIR}" || exit
 
 ## Library
 ###############################################
@@ -34,13 +34,13 @@ getLatestRelease () {
             ]
         }' ${URL} 2> /dev/null
 
-    cat ${FILENAME} | jq -M '.issues|.[0]|.fields|.customfield_10020' | tr -d '\"' | tee ${FILENAME}
+    jq -M '.issues|.[0]|.fields|.customfield_10020' "${FILENAME}" | tr -d '\"' | tee ${FILENAME}
     #cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
     BRANCHNAME=$(cat ${FILENAME})
     rm ${FILENAME}
 
     ## Verify the correct name
-    read -p "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
+    read -p -r "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
 
     case $yn in
         [Yy]* )
@@ -50,7 +50,7 @@ getLatestRelease () {
             exit
             ;;
         [Nn]* )
-            read -p "[$] Enter the new name: " BRANCHNAME
+            read -p -r "[$] Enter the new name: " BRANCHNAME
             ;;
         *)
             ;;
@@ -119,29 +119,29 @@ esac
 
 for repo in "${REPOSITORIES[@]}"
 do
-    cd /tmp
-    rm -rf ${repo}
-    git clone ${GITACCOUNT}/${repo}
-    cd ${repo}
+    cd /tmp || exit
+    rm -rf "${repo}"
+    git clone "${GITACCOUNT}"/"${repo}"
+    cd "${repo}" || exit
     git fetch
 
     case $ACTION in
     delete)
-        git push origin --delete ${BRANCHNAME}
+        git push origin --delete "${BRANCHNAME}"
         ;;
     rename)
-        git checkout --track origin/${OLDNAME}
-        git checkout -b ${NEWNAME}
-        git push origin ${NEWNAME}
-        git push origin --delete ${OLDNAME}
+        git checkout --track origin/"${OLDNAME}"
+        git checkout -b "${NEWNAME}"
+        git push origin "${NEWNAME}"
+        git push origin --delete "${OLDNAME}"
         ;;
     create)
-        git checkout -b ${BRANCHNAME}
-        git push origin ${BRANCHNAME}
+        git checkout -b "${BRANCHNAME}"
+        git push origin "${BRANCHNAME}"
         ;;
     merge)
         # Only merges into master for now
-        git merge origin/${BRANCHNAME} -m "This is an automatic merge bot"
+        git merge origin/"${BRANCHNAME}" -m "This is an automatic merge bot"
         git push
     esac
 
