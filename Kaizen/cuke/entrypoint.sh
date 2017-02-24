@@ -11,22 +11,22 @@ workdir=tests
 
 # Deps
 echo 'Checking node installed...'
-if [[ $(which node | wc -l | xargs) < 1 ]]; then
-    echo 'Please install 'node' or symlink node->nodejs and try again...'
+if [[ $(which node | grep -c 'not found') -gt 0 ]]; then
+    echo 'Please install "node" or symlink node->nodejs and try again...'
     exit 1
 fi
 
 npm i
 
 echo 'Checking cucumber installed...'
-if [[ $(npm list -g 2>/dev/null | grep cucumber | wc -l | xargs) < 1 ]]; then
+if [[ $(npm list -g 2>/dev/null | grep -c cucumber) -lt 1 ]]; then
     echo 'Please install cucumber (npm install -g cucumber)...'
     exit 1
 fi
 
 # Go to tests dir and execute the runner.
 echo '[INFO] Changing to work dir...'
-cd ${workdir}
+cd "${workdir}" || exit
 
 # Run cucumber tests
 echo '[INFO] Running CucumberJS...'
@@ -44,7 +44,7 @@ echo '[INFO] CucumberJS Finished...'
 
 # Convert json to junit xml for maven
 echo '[INFO] Converting JSON to Junit XML...'
-cat ${jsonoutputfile} | ./../node_modules/cucumber-junit/bin/cucumber-junit > ${xmloutputfile}
+cat "${jsonoutputfile}" | ./../node_modules/cucumber-junit/bin/cucumber-junit > "${xmloutputfile}"
 
 # Run maven to generate Allure report
 ./maven.sh
@@ -56,7 +56,7 @@ cat ${jsonoutputfile} | ./../node_modules/cucumber-junit/bin/cucumber-junit > ${
 ./testrailupload.py ${CUCUMBEREXITCODE}
 
 # Clean up files
-rm ${jsonoutputfile}
-rm ${xmloutputfile}
+rm "${jsonoutputfile}"
+rm "${xmloutputfile}"
 
 echo '[INFO] entrypoint.sh finished...'
