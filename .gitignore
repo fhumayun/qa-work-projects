@@ -76,3 +76,5 @@ allure-results/
 testResults/
 maven-archiver/
 jsonoutput.json
+
+.rollback

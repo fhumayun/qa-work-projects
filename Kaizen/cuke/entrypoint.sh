@@ -50,7 +50,7 @@ cat "${jsonoutputfile}" | ./../node_modules/cucumber-junit/bin/cucumber-junit > 
 ./maven.sh
 
 # Archive maven report in Dropbox under <dropbox>/AllureReports
-# ./archiveresults.sh
+./archiveresults.sh
 
 # Upload results to TestRail
 ./testrailupload.py ${CUCUMBEREXITCODE}
