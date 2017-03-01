@@ -1,13 +1,16 @@
 #!/bin/bash
+set +x
 
 echo '[INFO] archiveresults.sh started...'
 
 # Vars
-tarballfilename="allure-maven-$(date +%s).tar.gz"
+EPOCH=$(date +%s)
+FILENAME="allure-maven-${EPOCH}.tar.gz"
 
 # Tar maven output
 cd site/testResults/allure-report || exit
-tar -czvf "${tarballfilename}" allure-maven-plugin/
+
+tar -czvf "${FILENAME}" allure-maven-plugin/
 
 # Use dropbox uploader to put it in the correct place
-dropbox_uploader.sh "${tarballfilename}" "AllureReports/"
+dropbox_uploader.sh upload "${FILENAME}" AllureReports/

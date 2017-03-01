@@ -6,7 +6,7 @@ echo '-------------------------------'
 
 # Vars
 jsonoutputfile=jsonoutput.json
-xmloutputfile=../target/allure-results/$(uuidgen)-testsuite.xml
+xmloutputfile="target/allure-results/$(uuidgen)-testsuite.xml"
 workdir=tests
 
 # Deps
@@ -35,7 +35,7 @@ echo '[INFO] Running CucumberJS...'
 #cucumberjs --tags @event --format=json       > ${jsonoutputfile}
 #cucumberjs --tags @user --format=json        > ${jsonoutputfile}
 #cucumberjs --tags @fidget --format=json      > ${jsonoutputfile}
-cucumberjs --format=json                      > ${jsonoutputfile}
+cucumberjs --format=json                      > "${jsonoutputfile}"
 
 # Retain cucumber's exit code for testrailuploader
 CUCUMBEREXITCODE=$?
@@ -45,6 +45,7 @@ echo '[INFO] CucumberJS Finished...'
 # Convert json to junit xml for maven
 echo '[INFO] Converting JSON to Junit XML...'
 cat "${jsonoutputfile}" | ./../node_modules/cucumber-junit/bin/cucumber-junit > "${xmloutputfile}"
+
 
 # Run maven to generate Allure report
 ./maven.sh
