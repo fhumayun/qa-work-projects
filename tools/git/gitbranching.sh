@@ -1,23 +1,20 @@
 #!/bin/bash
 echo "[INFO] Starting up $0"
 
-## Vars
-###############################################
-URL="https://eagleeyeintel.atlassian.net/rest/api/2/search"
+# --- Vars
+url="https://eagleeyeintel.atlassian.net/rest/api/2/search"
 FILENAME=jirareleasename.txt
 WORKDIR="/tmp"
 ACTION=""
-BRANCHNAME=""
+branchname=""
 GITACCOUNT="https://github.com/groupcaretech"
 REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
 #REPOSITORIES=( "qa" )
 
-## Setup
-###############################################
+# --- Setup
 cd "${WORKDIR}" || exit
 
-## Library
-###############################################
+# --- Library
 getLatestRelease () {
 
     # Try the latest Jira release as the branch name
@@ -32,15 +29,15 @@ getLatestRelease () {
         "fields": [
                 "customfield_10020"
             ]
-        }' ${URL} 2> /dev/null
+        }' ${url} 2> /dev/null
 
     jq -M '.issues|.[0]|.fields|.customfield_10020' "${FILENAME}" | tr -d '\"' | tee ${FILENAME}
     #cat ${FILENAME} | tr , '\n' |grep 'customfield_10020' | cut -d'"' -f 6 | tee ${FILENAME}
-    BRANCHNAME=$(cat ${FILENAME})
+    branchname=$(cat ${FILENAME})
     rm ${FILENAME}
 
     ## Verify the correct name
-    read -p -r "[$] Is ${BRANCHNAME} the correct name? (ynq) " yn
+    read -p -r "[$] Is ${branchname} the correct name? (ynq) " yn
 
     case $yn in
         [Yy]* )
@@ -50,7 +47,7 @@ getLatestRelease () {
             exit
             ;;
         [Nn]* )
-            read -p -r "[$] Enter the new name: " BRANCHNAME
+            read -p -r "[$] Enter the new name: " branchname
             ;;
         *)
             ;;
@@ -66,14 +63,13 @@ usage () {
     exit
 }
 
-## Figure out what action to take
-###############################################
+# --- Figure out what action to take
 case $1 in
     "--delete"|"delete")
         ACTION="delete"
         echo '[INFO] Deleting...'
         if [[ -n "$2" ]]; then
-            BRANCHNAME="$2"
+            branchname="$2"
         else
             getLatestRelease
         fi
@@ -93,7 +89,7 @@ case $1 in
         ACTION="create"
         echo '[INFO] Creating...'
         if [[ -n "$2" ]]; then
-            BRANCHNAME="$2"
+            branchname="$2"
         else
             getLatestRelease
         fi
@@ -102,21 +98,20 @@ case $1 in
         # merge branch into master
         ACTION="merge"
         echo '[INFO] Merging...'
-        if [[ -z "$2" || -z "$3" ]]; then
-            echo 'The merge action requires you specify the repo name and branch name...'
+        if [[ -z "$2" || -z "$3" || -z "$4" ]]; then
+            echo 'The merge action requires you specify the source branch, destination branch, and repo name...'
             exit
         fi
-        REPOSITORIES=( "$2" )
-        BRANCHNAME="$3"
+        sourcebranch="$2"
+        destingationrepo="$3"
+        branchname="$4"
         ;;
     *)
         echo '[ERROR] Argument needed...'
         usage
 esac
 
-## Get git repos
-###############################################
-
+# --- Main
 for repo in "${REPOSITORIES[@]}"
 do
     cd /tmp || exit
@@ -127,7 +122,7 @@ do
 
     case $ACTION in
     delete)
-        git push origin --delete "${BRANCHNAME}"
+        git push origin --delete "${branchname}"
         ;;
     rename)
         git checkout --track origin/"${OLDNAME}"
@@ -136,12 +131,12 @@ do
         git push origin --delete "${OLDNAME}"
         ;;
     create)
-        git checkout -b "${BRANCHNAME}"
-        git push origin "${BRANCHNAME}"
+        git checkout -b "${branchname}"
+        git push origin "${branchname}"
         ;;
     merge)
         # Only merges into master for now
-        git merge origin/"${BRANCHNAME}" -m "This is an automatic merge bot"
+        git merge origin/"${branchname}" -m "This is an automatic merge bot"
         git push
     esac
 
@@ -149,9 +144,8 @@ do
     #rm -rf ${repo}
 done
 
-## Notify via Slack that the new branches are ready
-###############################################
+# --- Notify via Slack that the new branches are ready
 if [[ $ACTION == "create" ]]; then
     echo "Creation done"
-    #echo "🌳 \`New git branch [${BRANCHNAME}] created for strax, srm, api, sac, pb, id, media.\`" | slackcat -c engineering --stream --plain > /dev/null &
+    #echo "🌳 \`New git branch [${branchname}] created for strax, srm, api, sac, pb, id, media.\`" | slackcat -c engineering --stream --plain > /dev/null &
 fi
