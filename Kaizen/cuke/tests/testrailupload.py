@@ -142,17 +142,21 @@ def close_test_rail_run():
         print(str(close_test_run.json()))
         sys.exit(1)
 
-# Start
-custom_step_results = _generate_step_results()
+def main():
+    custom_step_results = _generate_step_results()
 
-if custom_step_results == '':
-    print('[ERROR] Json output file contains no JSON...')
-    sys.exit(1)
+    if custom_step_results == '':
+        print('[ERROR] Json output file contains no JSON...')
+        sys.exit(1)
 
-create_new_test_run()
-upload_test_run_results()
-close_test_rail_run()
+    create_new_test_run()
+    upload_test_run_results()
+    close_test_rail_run()
 
-# Fin
-# todo Clean up tmp file
-print('[INFO] Done...')
+    # Fin
+    # todo Clean up tmp file
+    print('[INFO] Done...')
+
+
+if __name__ == "__main__":
+    main()
