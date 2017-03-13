@@ -7,7 +7,4 @@ export A_ENVIRONMENT=https://a.blazemeter.com
 export AGENT_FILES_URL=https://s3.amazonaws.com/blazemeter/install/ship-agent/stable
 export AEGIR_ENABLED=1
 
-
-
-
 sudo curl "${AGENT_FILES_URL}"/HarborInstall.sh | bash 2>&1 | tee -a /tmp/ship_install.log

@@ -8,21 +8,19 @@ var Oz = require('oz');
 module.exports = function() {
 
     // Variables
-    var url = process.env.TESTURL || "https://uat-api.strax.co";
+    var url = process.env.TESTURL || "https://qa-api.strax.co";
     var userCredentials = {
         "username": "john@ee.io",
         "password": "eei"
     };
-    var fidgetData = {};
-    var updatedFidgetData = {};
-    var fidgetId;
+    var accountData = {};
+    var accountId;
+    var updatedAccountData = {};
     var updateResponse;
-    var getResponse;
-    var deleteResponse;
 
     // Oz Variables
     var appTicket;
-    const ID_SERVER = "https://uat-id.strax.co/";
+    const ID_SERVER = "https://qa-id.strax.co/";
     const VALIDATE = "oz/validate";
     var AUTHORIZATION;
 
@@ -34,20 +32,17 @@ module.exports = function() {
      * Scenario: Create
      *****************************************/
 
-
     // Given
-    this.Given(/^The Admin is logged in and has the required fidget information$/, function () {
+    this.Given(/^The Admin is logged in and has all the required user information$/, function () {
 
-        fidgetData = {
-            "profile" : "5741f57f56d61f0d0074925e",
-            "type" : "safetrax - update me",
-            "feedId" : "5748ad74870c41330225038c",
-            "accountDocId" : "000000000000000000000002",
-            "gears" : [],
-            "zones" : [],
-            "vehicleInfo" : [],
-            "photo" : [],
-            "__v" : 0
+        accountData = {
+            "accountname": "Jshanahan automated test account",
+            "email1": "test@test.com",
+            "phone": 8675309,
+            "website": "ci.strax.co",
+            "password": "asdf",
+            "status": "SUSPENDED",
+            "fidgets": []
         };
 
         return chai.request(url)
@@ -68,51 +63,53 @@ module.exports = function() {
     });
 
     // When
-    this.When(/^I create a new fidget$/, function () {
+    this.When(/^I create a new user account$/, function () {
 
         return chai.request(url)
-            .post('/api/fidgets')
+            .post('/api/accounts')
             .set("Authorization", AUTHORIZATION)
-            .send(fidgetData)
+            .send(accountData)
             .then(function(res) {
                 expect(res).to.have.status(201);
+                expect(res.text).to.be.a('string');
                 var postRes = JSON.parse(res.text);
-                fidgetId = JSON.stringify(postRes._id).replace(/\W/g, '');
+                accountId = postRes._id;
             })
             .catch(function(err) {
                 throw err;
-            });
+            })
 
     });
 
     // Then
-    this.Then(/^I should get a fidget creation successful response$/, function () {
+    this.Then(/^I should recieve an Account Created message$/, function () {
 
-        if (!fidgetId)
-            throw new Error('Fidget creation unsuccessfull');
+        // ok
 
     });
+
 
     /*****************************************
      * Scenario: Update
      *****************************************/
 
     // Given
-    this.Given(/^I have new Fidget information$/, function () {
+    this.Given(/^I need to update my information$/, function () {
 
-        updatedFidgetData = {
-            "type": "eagleeye"
+        updatedAccountData = {
+            "email1": "jshanahan@eagleeyeintelligence.com",
+            "status": "ACTIVE"
         };
 
     });
 
     // When
-    this.When(/^I update the Fidget$/, function () {
+    this.When(/^I update my profile$/, function () {
 
         return chai.request(url)
-            .put('/api/fidgets/' + fidgetId)
+            .put('/api/accounts/' + accountId)
             .set("Authorization", AUTHORIZATION)
-            .send(updatedFidgetData)
+            .send(updatedAccountData)
             .then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
@@ -120,15 +117,17 @@ module.exports = function() {
             })
             .catch(function(err) {
                 throw err;
-            });
+            })
 
     });
 
     // Then
-    this.Then(/^I should see the updated Fidget$/, function () {
+    this.Then(/^I will have new information$/, function () {
 
-        if (!updateResponse)
-            throw new Error('Fidget was not updated');
+        // Did the response contain the updated information
+        if (updateResponse.email1 != updatedAccountData.email1 ||
+            updateResponse.status != updatedAccountData.status)
+            throw new Error('Account information was not updated');
 
     });
 
@@ -137,35 +136,33 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^I need to look up a Fidget and have the id$/, function () {
+    this.Given(/^I need to access my information$/, function () {
 
-        if (!fidgetId)
-            throw new Error('Missing Fidget id. Could not GET.');
+        // ok
 
     });
 
     // When
-    this.When(/^I look the Fidget up$/, function () {
+    this.When(/^I log in to my account$/, function () {
 
-        return chai.request(url)
-            .get('/api/fidgets/' + fidgetId)
-            .set("Authorization", AUTHORIZATION)
-            .then(function(res) {
-                expect(res).to.have.status(200);
-                expect(res.text).to.be.a('string');
-                getResponse = JSON.parse(res.text);
-            })
-            .catch(function(err) {
-                throw err;
-            })
+        // ok
 
     });
 
     // Then
-    this.Then(/^I should get the Fidget profile back$/, function () {
+    this.Then(/^I should be able to read my information$/, function () {
 
-        if (getResponse[0]._id != fidgetId)
-            throw new Error('Could not GET Fidget profile');
+        return chai.request(url)
+            .get('/api/accounts/' + accountId)
+            .set("Authorization", AUTHORIZATION)
+            .send(updatedAccountData)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+                expect(res.text).to.be.a('string');
+            })
+            .catch(function(err) {
+                throw err;
+            })
 
     });
 
@@ -174,36 +171,35 @@ module.exports = function() {
      *****************************************/
 
     // Given
-    this.Given(/^I need to delete a decommissioned Fidget and have the id$/, function () {
+    this.Given(/^I need to delete a user account$/, function () {
 
-        if (!fidgetId)
-            throw new Error('Missing Fidget id. Could not DELETE.');
+        // ok
 
     });
 
     // When
-    this.When(/^I delete the Fidget$/, function () {
+    this.When(/^I mark a user as deleted$/, function () {
 
         return chai.request(url)
-            .del('/api/fidgets/' + fidgetId)
+            .delete('/api/accounts/' + accountId)
             .set("Authorization", AUTHORIZATION)
+            .send(updatedAccountData)
             .then(function(res) {
-                expect(res).to.have.status(400);
+                expect(res).to.have.status(200);
                 expect(res.text).to.be.a('string');
-                deleteResponse = JSON.parse(res.text);
             })
             .catch(function(err) {
                 throw err;
-            });
+            })
 
     });
 
     // Then
-    this.Then(/^I should no longer be able to use the Fidget$/, function () {
+    this.Then(/^The account should be deactivated$/, function () {
 
-        if (!deleteResponse)
-            throw new Error('Could not DELETE Fidget');
+        // ok
 
     });
+
 
 };

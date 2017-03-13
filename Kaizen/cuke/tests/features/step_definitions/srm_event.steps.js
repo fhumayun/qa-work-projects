@@ -8,20 +8,20 @@ var Oz = require('oz');
 module.exports = function() {
 
     // Variables
-    var url = process.env.TESTURL || "https://uat-api.strax.co";
+    var url = process.env.TESTURL || "https://qa-api.strax.co";
     var userCredentials = {
         "username": "john@ee.io",
         "password": "eei"
     };
     var newEventInfo = {};
-    var accountId;
     var clusterData = {};
     var clusterId;
     var updatedResponse;
+    var date = new Date();
 
     // Oz Variables
     var appTicket;
-    const ID_SERVER = "https://uat-id.strax.co/";
+    const ID_SERVER = "https://qa-id.strax.co/";
     const VALIDATE = "oz/validate";
     var AUTHORIZATION;
 
@@ -70,6 +70,11 @@ module.exports = function() {
     // And assign a drone
     this.When(/^The PIC assigns a UAS$/, function () {
 
+        clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
+        clusterData.incident = "qa automated test " + date.getMilliseconds();
+        clusterData.accountDocId = "000000000000000000000002";
+        clusterData.uasAssigned = false;
+
         return clusterData.fidgets = [
             [
                 "5735d5f5b651fcb00042fc4c"
@@ -80,9 +85,6 @@ module.exports = function() {
 
     // And create the cluster/event
     this.When(/^The PIC creates a new event$/, function () {
-
-        clusterData.referenceId = 'TESTCLUSTER'+(new Date).getTime();
-        clusterData.accountDocId = accountId;
 
         return chai.request(url)
             .post('/api/clusters')
@@ -165,7 +167,7 @@ module.exports = function() {
             .set("Authorization", AUTHORIZATION)
             .then(function(res) {
                 expect(res).to.have.status(200);
-                expect(res.text).to.be.text;
+                expect(res.text).to.be.a('string');
                 var getResponse = JSON.parse(res.text);
             })
             .catch(function(err) {
