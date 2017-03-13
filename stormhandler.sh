@@ -15,6 +15,12 @@ bold=$(tput bold)
 #Capture directory passed as argument.
 workdir=$(dirname "$1")
 
+# Script variables
+export BuildDateTime=$(date +"%Y%m%d.%H%M")
+export BuildDate=$(date +%F)
+export PomFile="pom.xml"
+export SearchTerm="VERSION"
+
 # Print a horizontal rule
 rule() {
 	printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}
@@ -52,7 +58,7 @@ function change_line {
 
 help() {
 	rule ${bold}${red}=${reset}
-	echo "${bold}${yellow}usage: First argument (required) instance name: e.g. QA, UAT, demo, PBSO${reset}"
+	echo "${bold}${yellow}StormTopper usage: First argument (required) instance name: e.g. QA, UAT, demo, PBSO${reset}"
     rule ${bold}${red}=${reset}
 }
 
@@ -62,7 +68,7 @@ if [ $# -lt 1 ]; then
 fi
 
 if [ $1 = "QA" ]; then
-	echo "${bold}${green}PATCHING ${reset} $FileToSearch found"
+	echo "${bold}${green}QA${reset} topology $FileToSearch found"
 	if grep -q ${SearchTerm} ${FileToSearch}; then
 		export DockerfileOldVersion=$( cat "$FileToSearch" | grep "$SearchTerm" )
    		echo "${bold}${green}PASS!!${reset} Version Info found in $FileToSearch"
