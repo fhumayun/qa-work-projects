@@ -100,7 +100,7 @@ FixName(){
     fi
     if [ "$GitRepoName" == "STRAX-APP" ]; then
         # Todo Fix this?
-        export GitRepoName="APP"
+        export GitRepoName="WAPP"
     fi
     echo ${GitRepoName}
 }
