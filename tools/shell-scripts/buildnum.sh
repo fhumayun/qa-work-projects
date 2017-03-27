@@ -36,7 +36,7 @@ rulem ()  {
 buildnum_help() {
     rule "${bold}${red}=${reset}"
     # Print usage
-    echo "Usage:  ./buildnum.sh <workdir> <jira>"
+    echo "Usage:  ./buildnum.sh <jira>"
     echo ""
     echo "Strax version number generator"
     echo ""
@@ -127,24 +127,21 @@ if [ "$1" == "help" ]; then
     exit 0
 fi
 
-# Capture work directory or use current dir if not specified
-if [[ -z "$1" ]]; then
-    workdir=$(pwd)
-else
-    workdir=$(dirname "$1")
-fi
-
 # Capture the "send version to jira" flag or default to "yes"
-if [[ -z "$2" ]]; then
-    jiraflag=1
+if [[ -z "$1" ]]; then
+    jiraflag=0
 else
-    jiraflag=$2
+    jiraflag=$1
 fi
 
 # Version generation vars
 export Prefix="STX"
 export GitHead=$(git rev-list master HEAD --count)
-export GitNewRelease=$(basename $(git branch -a | grep "remotes" | grep "v[0-9].*" | awk -F "/" '{ print $3 }' | cut -dv -f2- | tr -d '\r' | tail -1))
+export GitNewRelease=$(git branch -a | grep "remotes" | grep "${Prefix}-[0-9].*" | awk -F "/" '{ print $3 }' | cut -d- -f2- | tr -d '\r' | tail -1)
+if [ -z "$GitNewRelease" ]; then
+    echo 'GitNewRelease is blank. Exiting...'
+    exit 1
+fi
 override
 export BuildDateTime=$(date +"%Y%m%d.%H%M")
 export BuildDate=$(date +%F)

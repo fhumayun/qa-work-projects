@@ -6,7 +6,7 @@ echo '================================================'
 
 # buildnum.sh
 echo 'Copying buildnum.sh...'
-cp buildnum.sh /usr/local/bin
+cp shell-scripts/buildnum.sh /usr/local/bin
 chmod +x /usr/local/bin/buildnum.sh
 
 # dropbox_uploader.sh
