@@ -14,7 +14,7 @@
 override(){
     rule ${bold}${red}=${reset}
     filePattern="[0-9].[0-9]"
-    echo "File pattern: "${filePattern}
+    #echo "File pattern: "${filePattern}
     tmpDir="tmp"
     overrideFileSet="/$tmpDir/$filePattern"
     overrideFile=$(echo ${overrideFileSet})
