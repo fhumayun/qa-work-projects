@@ -1,23 +1,27 @@
 #!/bin/bash
 #Uncomment set -x command to display verbose debugging
-#set -x
+set -x
 # Last Updated: 3/10/17
 # - Fixed support for STX prefix in git branches
 # - Fixed problem with .git extension breaking repo naming feature
 # Last Updated: 3/30/17
 # - Fixed problem with buildnum no longer picking up override
+
+
 # --- Lib
 
 # Version Override feature
 override(){
     rule ${bold}${red}=${reset}
     filePattern="[0-9].[0-9]"
+    echo "File pattern: "${filePattern}
     tmpDir="tmp"
-    overrideFile="/$tmpDir/$filePattern"
+    overrideFileSet="/$tmpDir/$filePattern"
+    overrideFile=$(echo ${overrideFileSet})
     if [ ! -f "${overrideFile}" ]; then
         echo "${bold}Using Default Branch version: ${bold}${green}$GitNewRelease ${reset}"
     else
-        newBranchVersion=$(echo /tmp/[0-9].[0-9] | cut -d'/' -f3)
+        newBranchVersion=$(echo /${tmpDir}/${filePattern} | cut -d'/' -f3)
         echo "${bold}${yellow}Branch Version Override Detected:${reset} ${bold}${green}$newBranchVersion${reset}"
         export GitNewRelease=${newBranchVersion}
     fi
@@ -112,11 +116,7 @@ FixName(){
 }
 
 
-# --- Setup
-
-#set -x
-
-# Terminal colors
+# --- Setup Terminal colors
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 yellow=$(tput setaf 3)
@@ -160,7 +160,7 @@ export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameF
 # --- Main
 
 # Check Dockerfile exists
-if [ ! -f $(pwd)/${FileToSearch} ]; then
+if [[ ! -f $(pwd)/${FileToSearch} ]]; then
     echo "${bold}${red}FAIL!!${reset} $FileToSearch not found! Unable to Patch Build Number!"
     exit 1
 fi
