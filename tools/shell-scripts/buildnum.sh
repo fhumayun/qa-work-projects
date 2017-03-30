@@ -1,10 +1,16 @@
 #!/bin/bash
-
+#Uncomment set -x command to display verbose debugging
+#set -x
+# Last Updated: 3/10/17
+# - Fixed support for STX prefix in git branches
+# - Fixed problem with .git extension breaking repo naming feature
+# Last Updated: 3/30/17
+# - Fixed problem with buildnum no longer picking up override
 # --- Lib
 
 # Version Override feature
 override(){
-    rule "${bold}${red}=${reset}"
+    rule ${bold}${red}=${reset}
     filePattern="[0-9].[0-9]"
     tmpDir="tmp"
     overrideFile="/$tmpDir/$filePattern"
@@ -15,7 +21,7 @@ override(){
         echo "${bold}${yellow}Branch Version Override Detected:${reset} ${bold}${green}$newBranchVersion${reset}"
         export GitNewRelease=${newBranchVersion}
     fi
-    rule "${bold}${red}=${reset}"
+    rule ${bold}${red}=${reset}
 }
 
 
@@ -34,7 +40,7 @@ rulem ()  {
 
 # Buildnum help message
 buildnum_help() {
-    rule "${bold}${red}=${reset}"
+    rule ${bold}${red}=${reset}
     # Print usage
     echo "Usage:  ./buildnum.sh <jira>"
     echo ""
@@ -47,7 +53,7 @@ buildnum_help() {
     echo "${bold}${yellow}usage: First argument (required) $(basename $0) path of Strax Repo${reset}"
     echo "${bold}${green}Second argument to send version number to Jira${reset}"
     echo "${bold}${blue}example: $(basename $0) . 1${reset}"
-    rule "${bold}${red}=${reset}"
+    rule ${bold}${red}=${reset}
 }
 
 
