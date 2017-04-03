@@ -133,11 +133,18 @@ if [ "$1" == "help" ]; then
     exit 0
 fi
 
-# Capture the "send version to jira" flag or default to "yes"
+# leave this.
 if [[ -z "$1" ]]; then
+    workdir=0
+else
+    workdir=$1
+fi
+
+# Capture the "send version to jira" flag or default to "yes"
+if [[ -z "$2" ]]; then
     jiraflag=0
 else
-    jiraflag=$1
+    jiraflag=$2
 fi
 
 # Version generation vars
