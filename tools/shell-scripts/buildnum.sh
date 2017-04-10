@@ -11,7 +11,7 @@
 # --- Lib
 
 # Version Override feature
-override(){
+function override {
     rule ${bold}${red}=${reset}
     filePattern="[0-9].[0-9]"
     #echo "File pattern: "${filePattern}
@@ -30,20 +30,20 @@ override(){
 
 
 # Print a horizontal rule
-rule() {
+function rule {
     printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}
 }
 
 
 # Print horizontal ruler with message
-rulem ()  {
+function rulem {
     # Fill line with ruler character ($2, default "-"), reset cursor, move 2 cols right, print message
     printf -v _hr "%*s" $(tput cols) && echo -en ${_hr// /${2--}} && echo -e "\r\033[2C$1"
 }
 
 
 # Buildnum help message
-buildnum_help() {
+function buildnum_help {
     rule ${bold}${red}=${reset}
     # Print usage
     echo "Usage:  ./buildnum.sh <jira>"
@@ -64,6 +64,18 @@ buildnum_help() {
 # escape slashes
 function escape_slashes {
     sed 's/\//\\\//g'
+}
+
+
+# Get the name of the current git branch
+function GetBranchName {
+    git branch | grep \* | cut -d' ' -f 2
+}
+
+
+# Get the current iteration version from the current git branch
+function GetIterationFromBranch {
+    git branch | grep \* | cut -d' ' -f 2 | cut -d'-' -f 2
 }
 
 
@@ -88,7 +100,7 @@ function change_line {
 
 
 # Fix name
-FixName(){
+function FixName {
     export GitRepoName=$(basename $(git remote show -n origin | grep Fetch | cut -d: -f2- | tr '[:lower:]' '[:upper:]' ))
     if [ "$GitRepoName" == "STRAXID" ]; then
         export GitRepoName="ID"
@@ -161,6 +173,8 @@ export BuildDate=$(date +%F)
 export FileToSearch="Dockerfile"
 export SearchTerm="VERSION"
 export GitNameFixed=$(FixName)
+export GitCurrentBranch=$(GetBranchName)
+export GitReleaseFromBranch=$(GetIterationFromBranch)
 export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})"
 
 

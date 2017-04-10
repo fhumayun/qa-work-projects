@@ -3,18 +3,25 @@
 echo '================================================'
 echo "$0"
 echo '================================================'
+echo ''
 
-# buildnum.sh
-echo 'Copying buildnum.sh...'
+# Install buildnum.sh
+echo '[0] [INSTALL] buildnum.sh...'
 cp shell-scripts/buildnum.sh /usr/local/bin
 chmod +x /usr/local/bin/buildnum.sh
+if [[ $? -eq 0 ]]; then echo -e "✅"; else echo -e "❌"; fi
+echo ''
 
-# dropbox_uploader.sh
-echo 'Installing dropbox_uploader.sh...'
-curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /usr/local/bin/dropbox_uploader.sh
+# Install dropbox_uploader.sh
+echo '[1] [INSTALL] dropbox_uploader.sh...'
+curl -s -S "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /usr/local/bin/dropbox_uploader.sh
 chmod +x /usr/local/bin/dropbox_uploader.sh
+if [[ $? -eq 0 ]]; then echo -e "✅"; else echo -e "❌"; fi
+echo ''
 
 # add timestamps to history
-echo 'Run `sudo ./setup/historytimestamp.sh`'
+echo '[2] [WARNING] *!* This will NOT be automatically run *!*'
+echo "     \`---- Please manually run \`sudo $(pwd)/setup/historytimestamp.sh\`"
+echo ''
 
-echo 'Done...'
+echo '[DONE]'
