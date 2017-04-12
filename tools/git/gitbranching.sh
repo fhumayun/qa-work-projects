@@ -8,7 +8,7 @@ WORKDIR="/tmp"
 ACTION=""
 branchname=""
 GITACCOUNT="https://github.com/groupcaretech"
-REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
+REPOSITORIES=( "sprouttrax" "strax-app" "strax" "straxmedia" "straxid" )
 #REPOSITORIES=( "qa" )
 
 # --- Setup
@@ -79,20 +79,21 @@ case $1 in
         echo '[INFO] Renaming...'
         if [[ -z "$2" || -z "$3" ]]; then
             echo 'The rename action requires you specify the old branch name and a new branch name...'
-            exit
+            exit 1
         fi
         OLDNAME="$2"
         NEWNAME="$3"
         ;;
     "--create"|"create")
         # create new branch
-        ACTION="create"
         echo '[INFO] Creating...'
-        if [[ -n "$2" ]]; then
-            branchname="$2"
-        else
-            getLatestRelease
+        ACTION="create"
+        if [[ -z "$2" || -z "$3" ]]; then
+            echo 'The Create action requires you specify the Source branch name and a Destination branch name...'
+            exit 1
         fi
+        oldname="$2"
+        newname="$3"
         ;;
     "--merge"|"merge")
         # merge branch into master
@@ -131,8 +132,9 @@ do
         git push origin --delete "${OLDNAME}"
         ;;
     create)
-        git checkout -b "${branchname}"
-        git push origin "${branchname}"
+        git checkout --track remotes/origin/"${oldname}"
+        git checkout -b "${newname}"
+        git push origin "${newname}"
         ;;
     merge)
         # Only merges into master for now

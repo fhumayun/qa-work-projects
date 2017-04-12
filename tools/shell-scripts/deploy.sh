@@ -1,3 +1,5 @@
+#!/bin/bash
+
 start=`date +%s`
 export SRL="/var/log/strax-release-`date +"%Y-%m-%d--%I:%M-%P"`"
 USER=$(whiptail --title "(S)trax (D)eployment (T)ool 0.1" --menu "Choose who is doing the release" 15 60 4 \
