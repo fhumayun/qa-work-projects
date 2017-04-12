@@ -1,11 +1,20 @@
 #!/bin/bash
 #Uncomment set -x command to display verbose debugging
 #set -x
+# ---
 # Last Updated: 3/10/17
 # - Fixed support for STX prefix in git branches
 # - Fixed problem with .git extension breaking repo naming feature
+# ---
 # Last Updated: 3/30/17
 # - Fixed problem with buildnum no longer picking up override
+# ---
+# Last update 11/Apr/2017 - jrs
+# - Changed the way buildnum generates the Major/Minor. Based it off of the current git branch now.
+# - Ex STX-1.2 -> 1.2; STX-1.3 -> 1.3; STX-34.907 -> 34.907
+# - If you "touch /tmp/X.Y" your build will get overridden by "X.Y"
+# - if the current branch is "master" or "qa" it will get tagged with the NEWEST remote STX-X.Y branch.
+# - if the branch is "master" or "qa" and there is NO existing remote STX-X.Y branch it will get a 0.0 tag.
 
 
 # --- Lib
@@ -14,7 +23,6 @@
 function override {
     rule ${bold}${red}=${reset}
     filePattern="[0-9].[0-9]"
-    #echo "File pattern: "${filePattern}
     tmpDir="tmp"
     overrideFileSet="/$tmpDir/$filePattern"
     overrideFile=$(echo ${overrideFileSet})
@@ -52,7 +60,7 @@ function buildnum_help {
     echo ""
     echo "Options:"
     echo "  help - Print out help message"
-    echo "  <dir> - Specify directory other than self (default 'pwd')"
+    echo "  <dir> - Specify directory. -- Only remains for legacy reasons."
     echo "  <jira> - Specify whether to send new version number to jira or not (default yes)"
     echo "${bold}${yellow}usage: First argument (required) $(basename $0) path of Strax Repo${reset}"
     echo "${bold}${green}Second argument to send version number to Jira${reset}"
@@ -128,7 +136,9 @@ function FixName {
 }
 
 
-# --- Setup Terminal colors
+# --- Setup
+
+# Terminal colors
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 yellow=$(tput setaf 3)
@@ -137,7 +147,8 @@ reset=$(tput sgr0)
 dim=$(tput dim)
 bold=$(tput bold)
 
-# Grab command line args
+
+# --- Grab command line args
 
 # If help
 if [ "$1" == "help" ]; then
@@ -145,7 +156,7 @@ if [ "$1" == "help" ]; then
     exit 0
 fi
 
-# leave this.
+# leave this. Seriously.
 if [[ -z "$1" ]]; then
     workdir=0
 else
@@ -159,34 +170,51 @@ else
     jiraflag=$2
 fi
 
+
+# --- Generate the version number
+
 # Version generation vars
 export Prefix="STX"
 export GitHead=$(git rev-list master HEAD --count)
-export GitNewRelease=$(git branch -a | grep "remotes" | grep "${Prefix}-[0-9].*" | awk -F "/" '{ print $3 }' | cut -d- -f2- | tr -d '\r' | tail -1)
-if [ -z "$GitNewRelease" ]; then
-    echo 'GitNewRelease is blank. Exiting...'
-    exit 1
+
+# Figure out Major/Minor version
+export GitCurrentBranch=$(GetBranchName)
+
+if [[ $GitCurrentBranch == "master" || $GitCurrentBranch == "qa" ]]; then
+    # If master or qa branch then use the newest remote "STX" branch on github
+    export GitNewRelease=$(git branch -a | grep ${Prefix} | cut -d/ -f 3 | sort | tail -1 | cut -d\- -f 2)
+    if [ -z "$GitNewRelease" ]; then
+        # If no STX branch exists on github then tag 0.0 because i have no idea what to do here.
+        # TODO Figure out what to do here
+        export GitNewRelease="0.0"
+    fi
+else
+    # If not master or qa branch then use the current branch for major/minor:
+    # STX-1.2 -> 1.2
+    export GitNewRelease=$(GetIterationFromBranch)
 fi
+
+# Override the version number if we need to
 override
+
+# Build the rest of the version number
 export BuildDateTime=$(date +"%Y%m%d.%H%M")
 export BuildDate=$(date +%F)
 export FileToSearch="Dockerfile"
 export SearchTerm="VERSION"
 export GitNameFixed=$(FixName)
-export GitCurrentBranch=$(GetBranchName)
-export GitReleaseFromBranch=$(GetIterationFromBranch)
 export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})"
 
 
 # --- Main
 
-# Check Dockerfile exists
+# Check Dockerfile exists so we can patch it
 if [[ ! -f $(pwd)/${FileToSearch} ]]; then
     echo "${bold}${red}FAIL!!${reset} $FileToSearch not found! Unable to Patch Build Number!"
     exit 1
 fi
 
-# Check "VERSION" string is in Dockerfile
+# Check "VERSION" string is in Dockerfile -- This is what gets set during the build
 if ! grep -q ${SearchTerm} ${FileToSearch}; then
     echo "${bold}${red}FAIL!!${reset} $SearchTerm not found in $FileToSearch"
     exit 1
@@ -215,8 +243,7 @@ export DockerfileNewVersion=$( cat "$FileToSearch" | grep "$SearchTerm" )
 echo "Now: ${bold}${green} ${DockerfileNewVersion} ${reset}"
 
 
-# Do/dont sent new version to Jira releases page
-# Todo Should the "-z jiraflag && ..." be a "&&" or "||" ?
+# Send new version to Jira releases page
 if [[ -z ${jiraflag} && ${jiraflag} == "" ]]; then
     echo "${bold}${red}** Not Sending Build Number to Jira **${reset}"
 else
@@ -244,3 +271,4 @@ else
         CurlResponse=$(curl -s -g -X POST -H "$CurlType" -H "$CurlAuth" -H "$CurlCache" -d "$CurlDATA" "$CurlURL")
     fi
 fi
+
