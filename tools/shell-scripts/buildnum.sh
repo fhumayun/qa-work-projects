@@ -2,11 +2,11 @@
 #Uncomment set -x command to display verbose debugging
 #set -x
 # ---
-# Last Updated: 3/10/17
+# Last Updated: 3/10/17 - fh
 # - Fixed support for STX prefix in git branches
 # - Fixed problem with .git extension breaking repo naming feature
 # ---
-# Last Updated: 3/30/17
+# Last Updated: 3/30/17 - fh
 # - Fixed problem with buildnum no longer picking up override
 # ---
 # Last update 11/Apr/2017 - jrs
@@ -110,22 +110,22 @@ function change_line {
 # Fix name
 function FixName {
     export GitRepoName=$(basename $(git remote show -n origin | grep Fetch | cut -d: -f2- | tr '[:lower:]' '[:upper:]' ))
-    if [ "$GitRepoName" == "STRAXID" ]; then
+    if [ "$GitRepoName" == "STRAX-ID" ]; then
         export GitRepoName="ID"
     fi
-    if [ "$GitRepoName" == "STRAXMEDIA" ]; then
+    if [ "$GitRepoName" == "STRAXM-MEDIA" ]; then
         export GitRepoName="MEDIA"
     fi
-    if [ "$GitRepoName" == "SACPLAYBACK" ]; then
+    if [ "$GitRepoName" == "STRAX-PLAYBACK" ]; then
         export GitRepoName="PB"
     fi
-    if [ "$GitRepoName" == "EAGLEEYESAC" ]; then
+    if [ "$GitRepoName" == "STRAX-SAC" ]; then
         export GitRepoName="SAC"
     fi
-    if [ "$GitRepoName" == "STRAXRM" ]; then
+    if [ "$GitRepoName" == "STRAX-RM" ]; then
         export GitRepoName="SRM"
     fi
-    if [ "$GitRepoName" == "SPROUTTRAX" ]; then
+    if [ "$GitRepoName" == "STRAX-API" ]; then
         export GitRepoName="API"
     fi
     if [ "$GitRepoName" == "STRAX-APP" ]; then
@@ -210,13 +210,13 @@ export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameF
 
 # Check Dockerfile exists so we can patch it
 if [[ ! -f $(pwd)/${FileToSearch} ]]; then
-    echo "${bold}${red}FAIL!!${reset} $FileToSearch not found! Unable to Patch Build Number!"
+    echo "${bold}${red}FAIL!!${reset} ${FileToSearch} not found! Unable to Patch Build Number!"
     exit 1
 fi
 
 # Check "VERSION" string is in Dockerfile -- This is what gets set during the build
 if ! grep -q ${SearchTerm} ${FileToSearch}; then
-    echo "${bold}${red}FAIL!!${reset} $SearchTerm not found in $FileToSearch"
+    echo "${bold}${red}FAIL!!${reset} ${SearchTerm} not found in ${FileToSearch}"
     exit 1
 fi
 
@@ -235,11 +235,11 @@ echo "${dim}Loading Build Number:${reset}${bold}${yellow} $Prefix.$GitNewRelease
 rule ${bold}${green}=${reset}
 
 # Patch the VERSION variable in Dockerfile
-export DockerfileOldVersion=$( cat "$FileToSearch" | grep "$SearchTerm" )
-echo "${bold}${green}PASS!!${reset} Version Info found in $FileToSearch"
+export DockerfileOldVersion=$( cat "${FileToSearch}" | grep "${SearchTerm}" )
+echo "${bold}${green}PASS!!${reset} Version Info found in ${FileToSearch}"
 echo "Before: ${bold}${yellow} ${DockerfileOldVersion} ${reset}"
 change_line
-export DockerfileNewVersion=$( cat "$FileToSearch" | grep "$SearchTerm" )
+export DockerfileNewVersion=$( cat "${FileToSearch}" | grep "${SearchTerm}" )
 echo "Now: ${bold}${green} ${DockerfileNewVersion} ${reset}"
 
 
@@ -256,7 +256,7 @@ else
         VersionString="$Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate)"
         echo "VERSIONSTRING=${bold}${red} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate) ${reset}"
 
-        # Call Jira to create new Verion.
+        # Call Jira to create new Version.
         CurlURL="https://eagleeyeintel.atlassian.net/rest/api/2/version"
         CurlType="Content-Type: application/json"
         CurlAuth="Authorization: Basic Zmh1bWF5dW5AZ3JvdXBjYXJldGVjaC5jb206Y2FyZXRlYW0="
