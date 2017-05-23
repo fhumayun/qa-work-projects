@@ -77,5 +77,3 @@ source $ZSH/oh-my-zsh.sh
 toilet -f mono9 -F metal $(hostname)
 cowsay -f tux "You're on as $(whoami)"
 echo "$( date +"%Y-%m-%d %I:%M %P" | toilet -f term -F border --gay)"
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
