@@ -1,0 +1,8 @@
+utils\SouceUtils.class
+step_definitions\STRAXStepDefinition.class
+page_objects\AddNewEventPage.class
+page_objects\LoginPage.class
+utils\PropertiesFileReader.class
+page_objects\BaseClass.class
+test_runner\runCukesTest.class
+page_objects\DashboardPage.class
