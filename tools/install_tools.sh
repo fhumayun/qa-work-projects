@@ -5,7 +5,7 @@ echo ''
 
 # Install buildnum.sh
 echo '[0] [INSTALL] buildnum.sh...'
-sudo ln -s shell-scripts/buildnum.sh /usr/local/bin/buildnum.sh
+sudo ln -s shell-scripts/buildnum.sh /usr/local/bin/`
 sudo chmod +x /usr/local/bin/buildnum.sh
 if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
 echo ''
