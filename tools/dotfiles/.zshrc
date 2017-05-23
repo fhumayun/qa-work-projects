@@ -74,7 +74,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # Customize to your needs...
-toilet -f mono9 -F metal CI
+toilet -f mono9 -F metal $(hostname)
 cowsay -f tux "You're on as $(whoami)"
 echo "$( date +"%Y-%m-%d %I:%M %P" | toilet -f term -F border --gay)"
 export PATH="$HOME/.jenv/bin:$PATH"
