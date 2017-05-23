@@ -1,6 +1,6 @@
 #!/bin/bash
 #Uncomment set -x command to display verbose debugging
-#set -x
+set -x
 # ---
 # Last Updated: 3/10/17 - fh
 # - Fixed support for STX prefix in git branches
@@ -9,28 +9,36 @@
 # Last Updated: 3/30/17 - fh
 # - Fixed problem with buildnum no longer picking up override
 # ---
-# Last update 11/Apr/2017 - jrs
+# Last update 11/Apr/17 - jrs
 # - Changed the way buildnum generates the Major/Minor. Based it off of the current git branch now.
 # - Ex STX-1.2 -> 1.2; STX-1.3 -> 1.3; STX-34.907 -> 34.907
 # - If you "touch /tmp/X.Y" your build will get overridden by "X.Y"
 # - if the current branch is "master" or "qa" it will get tagged with the NEWEST remote STX-X.Y branch.
 # - if the branch is "master" or "qa" and there is NO existing remote STX-X.Y branch it will get a 0.0 tag.
+# ---
+# Last update 23/May/17 - fh
+#-  Shifted prefix to global var declaration at top of the script
+# - Corrected Repo renaming convention
+# - Corrected Override prefix to match new versioning convention
+# - Corrected Override logic to better find override file
 
-
-# --- Lib
+# --- Global Vars here
+export Prefix="STX"
 
 # Version Override feature
 function override {
     rule ${bold}${red}=${reset}
-    filePattern="[0-9].[0-9]"
+    #- filePattern="STX-?(?:.[0-9]{1}){1,3}"
+    filePattern="${Prefix}-*"
     tmpDir="tmp"
-    overrideFileSet="/$tmpDir/$filePattern"
-    overrideFile=$(echo ${overrideFileSet})
-    if [ ! -f "${overrideFile}" ]; then
+    overrideFileFind=$(ls /$tmpDir | grep ${filePattern})
+    overrideFileVersion=$(ls /$tmpDir | grep ${filePattern} | cut -d'-' -f2-)
+    overrideFile=$(echo ${overrideFileFind})
+    if [ ! -f /$tmpDir/${overrideFile} ]; then
         echo "${bold}Using Default Branch version: ${bold}${green}$GitNewRelease ${reset}"
     else
-        newBranchVersion=$(echo /${tmpDir}/${filePattern} | cut -d'/' -f3)
-        echo "${bold}${yellow}Branch Version Override Detected:${reset} ${bold}${green}$newBranchVersion${reset}"
+        newBranchVersion=${overrideFileVersion}
+        echo "${bold}${red}Branch Version Override Detected:${reset} ${bold}${green}$newBranchVersion${reset}"
         export GitNewRelease=${newBranchVersion}
     fi
     rule ${bold}${red}=${reset}
@@ -54,17 +62,18 @@ function rulem {
 function buildnum_help {
     rule ${bold}${red}=${reset}
     # Print usage
-    echo "Usage:  ./buildnum.sh <jira>"
+    echo "${bold}${blue}Usage:  ./buildnum.sh <set jira flag 1>${reset}"
     echo ""
-    echo "Strax version number generator"
+    echo "${bold}${blue}Strax version number generator${reset}"
     echo ""
-    echo "Options:"
+    echo "${bold}${yellow}Options:"
     echo "  help - Print out help message"
     echo "  <dir> - Specify directory. -- Only remains for legacy reasons."
-    echo "  <jira> - Specify whether to send new version number to jira or not (default yes)"
-    echo "${bold}${yellow}usage: First argument (required) $(basename $0) path of Strax Repo${reset}"
+    echo "  <jira> - Specify whether to send new version number to jira or not (default yes)${reset}"
+    echo ""
+    echo "${bold}${green}usage: First argument (required) $(basename $0) path of Strax Repo${reset}"
     echo "${bold}${green}Second argument to send version number to Jira${reset}"
-    echo "${bold}${blue}example: $(basename $0) . 1${reset}"
+    echo "${bold}${blue}example: $(basename $0) 1${reset}"
     rule ${bold}${red}=${reset}
 }
 
@@ -173,8 +182,7 @@ fi
 
 # --- Generate the version number
 
-# Version generation vars
-export Prefix="STX"
+# Git Version generation vars
 export GitHead=$(git rev-list master HEAD --count)
 
 # Figure out Major/Minor version
@@ -231,13 +239,13 @@ echo "Build Prop Version: ${yellow} $Prefix.$GitNewRelease.$GitHead.$GitNameFixe
 echo "Jira Version: ${yellow} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate) ${reset}"
 echo "$Prefix.$GitNewRelease.$GitHead.$GitNameFixed" >build.prop
 rule ${bold}${green}=${reset}
-echo "${dim}Loading Build Number:${reset}${bold}${yellow} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ${reset}${dim} in $FileToSearch ${reset}"
+echo "${dim}Loading Build Number:${reset} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ${reset}${dim} in $FileToSearch ${reset}"
 rule ${bold}${green}=${reset}
 
 # Patch the VERSION variable in Dockerfile
 export DockerfileOldVersion=$( cat "${FileToSearch}" | grep "${SearchTerm}" )
 echo "${bold}${green}PASS!!${reset} Version Info found in ${FileToSearch}"
-echo "Before: ${bold}${yellow} ${DockerfileOldVersion} ${reset}"
+echo "Before:  ${DockerfileOldVersion} ${reset}"
 change_line
 export DockerfileNewVersion=$( cat "${FileToSearch}" | grep "${SearchTerm}" )
 echo "Now: ${bold}${green} ${DockerfileNewVersion} ${reset}"
@@ -249,7 +257,7 @@ if [[ -z ${jiraflag} && ${jiraflag} == "" ]]; then
 else
     if [[ ${jiraflag} -eq 1 ]]; then
         rule ${bold}${red}=${reset}
-        echo "${bold}${blue} Sending Build Number:${reset}${bold}${yellow} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate) ${reset} to JIRA"
+        echo "${bold}${blue} Sending Build Number:${reset} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate) ${reset} to JIRA"
         rule ${bold}${red}=${reset}
 
         # Get develop branch sha1 to fork new branch from

@@ -9,7 +9,7 @@ WORKDIR="/tmp"
 ACTION=""
 BRANCHNAME=""
 GITACCOUNT="https://github.com/groupcaretech"
-REPOSITORIES=( "sprouttrax" "straxrm" "eagleeyesac" "sacplayback" "strax" "straxmedia" "straxid" )
+REPOSITORIES=( "strax-api" "strax-app" "strax" "strax-media" "strax-id" "strax-mobile" )
 #REPOSITORIES=( "qa" )
 
 ## Setup
