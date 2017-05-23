@@ -14,24 +14,27 @@ if [ -L ${ulbDirPath} ] ; then
    if [ -e ${ulbDirPath} ] ; then
       echo "✅ Good link"
    else
-      echo " ❌ Broken link"
-      sudo ln -s ${shelldir}/${ulbDirFile} ${ulbDir}
+      echo " ❌ : Broken link"
+      cd ${shelldir}
+      sudo ln -s ${ulbDirFile} ${ulbDir}
       sudo chmod +x ${ulbDirPath}
         if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
         echo ''
    fi
 elif [ -e ${ulbDirPath} ] ; then
-   echo " ❌ Not a link"
+   echo " ❌ : Not a link"
    echo "Replacing with symlink"
    sudo rm -f ${ulbDirPath}
-   sudo ln -s ${shelldir}/${ulbDirFile} ${ulbDir}
+   cd ${shelldir}
+   sudo ln -s ${ulbDirFile} ${ulbDir}
    sudo chmod +x ${ulbDirPath}
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
 else
-   echo " ❌ Missing"
+   echo " ❌ : Missing"
    echo "Adding buildnum symlink"
-   sudo ln -s ${shelldir}/${ulbDirFile} ${ulbDir}
+   cd ${shelldir}
+   sudo ln -s ${ulbDirFile} ${ulbDir}
    sudo chmod +x ${ulbDirPath}
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
