@@ -15,6 +15,7 @@ if [ -L ${ulbDirPath} ] ; then
       echo "✅ Good link"
    else
       echo " ❌ : Broken link"
+      sudo rm -f ${ulbDirPath}
       cd ${shelldir}
       sudo ln -s ${ulbDirFile} ${ulbDir}
       sudo chmod +x ${ulbDirPath}
