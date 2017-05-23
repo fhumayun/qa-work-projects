@@ -1,6 +1,6 @@
 #!/bin/bash
 #Uncomment set -x command to display verbose debugging
-set -x
+#set -x
 # ---
 # Last Updated: 3/10/17 - fh
 # - Fixed support for STX prefix in git branches
