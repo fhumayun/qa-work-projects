@@ -6,30 +6,32 @@ echo ''
 # Install buildnum.sh
 echo '[0] [INSTALL] buildnum.sh...'
 # Remove previous file copies and ensure symlink is establish instead
-currentDir="$(pwd)"
-shellDir="$currentDir/shell-scripts"
-ulbDir="/usr/local/bin"
-ulbDirFile="buildnum.sh"
-ulbDirPath="${ulbDir}/${ulbDirFile}"
+export currentDir="$(pwd)"
+export shellDir="$currentDir/shell-scripts"
+export ulbDir="/usr/local/bin"
+export ulbDirFile="buildnum.sh"
+export ulbDirPath="${ulbDir}/${ulbDirFile}"
+function SymLinker{
+        for ShellScripts in `find ${shellDir} -name "*.sh"`; 
+        do
+            ln -sf $ShellScripts ${ulbDir}
+        done
+}
 if [ -L ${ulbDirPath} ] ; then
    if [ -e ${ulbDirPath} ] ; then
       echo "✅ Good link"
    else
       echo " ❌ : Broken link"
       sudo rm -f ${ulbDirPath}
-      cd ${shellDir}
-      sudo ln -s ${ulbDirFile} ${ulbDir}
-      sudo chmod +x ${ulbDirPath}
-        if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
-        echo ''
+      SymLinker
+      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
+      echo ''
    fi
 elif [ -e ${ulbDirPath} ] ; then
    echo " ❌ : Not a link"
    echo "Replacing with symlink"
    sudo rm -f ${ulbDirPath}
-   cd ${shellDir}
-   sudo ln -s ${ulbDirFile} ${ulbDir}
-   sudo chmod +x ${ulbDirPath}
+   SymLinker
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
 else
