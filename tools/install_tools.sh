@@ -1,5 +1,6 @@
 #!/bin/bash
-
+scriptName="$(basename $0)"
+echo "This file was last modified on: " date -r $scriptName 
 echo "[START]"
 echo ''
 
@@ -13,7 +14,7 @@ export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
 export homeDir=$HOME
 export matchType=".sh"
-chmod g+rwx /usr/local/bin
+chmod g+rwx ${ulbDir}
 function SymLinker {
         for ShellScripts in `find ${shellDir} -name "$matchType" | cut -d'/' -f 2`;
         do
@@ -45,7 +46,7 @@ else
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
 fi
-
+exit
 # Install dropbox_uploader.sh
 echo '[1] [INSTALL] dropbox_uploader.sh...'
 sudo curl -s -S "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /usr/local/bin/dropbox_uploader.sh
