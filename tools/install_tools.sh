@@ -61,8 +61,8 @@ echo ''
 
 # Install dotfiles
 echo '[4] [INSTALL] zsh resource files...'
-sudo cp dotfiles/.zshrc ~/
-sudo cp dotfiles/.zprofile ~/
+sudo cp dotfiles/zshrc ~/.zshrc
+sudo cp dotfiles/zprofile ~/.zprofile
 if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
 echo ''
 
