@@ -24,6 +24,8 @@
 
 # --- Global Vars here
 export Prefix="STX"
+export CurrentDir="$(pwd)"
+export Match="ENV"
 
 # Version Override feature
 function override {
@@ -38,7 +40,7 @@ function override {
         echo "${bold}Using Default Branch version: ${bold}${green}$GitNewRelease ${reset}"
     else
         newBranchVersion=${overrideFileVersion}
-        echo "${bold}${red}Branch Version Override Detected:${reset} ${bold}${green}$newBranchVersion${reset}"
+        echo "${bold}${red}Branch Version Override Detected:${reset}${bold}${green}$newBranchVersion${reset}"
         export GitNewRelease=${newBranchVersion}
     fi
     rule ${bold}${red}=${reset}
@@ -97,7 +99,7 @@ function GetIterationFromBranch {
 
 
 # change line
-function change_line {
+function ChangeLine {
     if [ "$(uname)" == "Darwin" ]; then
         # Do something under Mac OS X platform
         local OLD_LINE_PATTERN=${SearchTerm}
@@ -115,6 +117,21 @@ function change_line {
     fi
 }
 
+# Add line
+function AddLine {
+    if [ "$(uname)" == "Darwin" ]; then
+        # Do something under Mac OS X platform
+        echo "❌ ${bold}${red}FAIL!!${reset} BuildNum cannot append on Mac OS X"
+        echo "Please add ENV VERSION ${bold}${blue}${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})${reset} manually in the ${FileToSearch}"
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        # Do something under GNU/Linux platform
+        sed -i .bak "/${MATCH_PATTERN}/aENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})" ${FileToSearch}
+    elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+        # Do something under Windows NT platform
+        echo "❌ ${bold}${red}FAIL!!${reset} $(basename) is not ready for Windows"
+    fi
+}
+
 
 # Fix name
 function FixName {
@@ -124,15 +141,6 @@ function FixName {
     fi
     if [ "$GitRepoName" == "STRAXM-MEDIA" ]; then
         export GitRepoName="MEDIA"
-    fi
-    if [ "$GitRepoName" == "STRAX-PLAYBACK" ]; then
-        export GitRepoName="PB"
-    fi
-    if [ "$GitRepoName" == "STRAX-SAC" ]; then
-        export GitRepoName="SAC"
-    fi
-    if [ "$GitRepoName" == "STRAX-RM" ]; then
-        export GitRepoName="SRM"
     fi
     if [ "$GitRepoName" == "STRAX-API" ]; then
         export GitRepoName="API"
@@ -213,21 +221,6 @@ export SearchTerm="VERSION"
 export GitNameFixed=$(FixName)
 export FriendlyVer="ENV VERSION ${Prefix}.${GitNewRelease}.${GitHead}.${GitNameFixed} (${BuildDate})"
 
-
-# --- Main
-
-# Check Dockerfile exists so we can patch it
-if [[ ! -f $(pwd)/${FileToSearch} ]]; then
-    echo "${bold}${red}FAIL!!${reset} ${FileToSearch} not found! Unable to Patch Build Number!"
-    exit 1
-fi
-
-# Check "VERSION" string is in Dockerfile -- This is what gets set during the build
-if ! grep -q ${SearchTerm} ${FileToSearch}; then
-    echo "${bold}${red}FAIL!!${reset} ${SearchTerm} not found in ${FileToSearch}"
-    exit 1
-fi
-
 # Print debug info
 echo "Git Head Counter: ${blue} $GitHead ${reset}"
 echo "Git Repo Name: ${blue} $GitNameFixed ${reset}"
@@ -242,22 +235,59 @@ rule ${bold}${green}=${reset}
 echo "${dim}Loading Build Number:${reset} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ${reset}${dim} in $FileToSearch ${reset}"
 rule ${bold}${green}=${reset}
 
-# Patch the VERSION variable in Dockerfile
-export DockerfileOldVersion=$( cat "${FileToSearch}" | grep "${SearchTerm}" )
-echo "${bold}${green}PASS!!${reset} Version Info found in ${FileToSearch}"
-echo "Before:  ${DockerfileOldVersion} ${reset}"
-change_line
-export DockerfileNewVersion=$( cat "${FileToSearch}" | grep "${SearchTerm}" )
-echo "Now: ${bold}${green} ${DockerfileNewVersion} ${reset}"
+ function PatchVersion {
+    # Patch the VERSION variable in Dockerfile
+    DockerFileLoc="${CurrentDir}/${FileToSearch}"
+    export DockerfileOldVersion=$( cat "${DockerFileLoc}" | grep "${SearchTerm}" )
+    echo "✅ ${bold}${green}PATCHING!!${reset}"
+    echo "Before:  ${DockerfileOldVersion} ${reset}"
+    ChangeLine
+    export DockerfileNewVersion=$( cat "${DockerFileLoc}" | grep "${SearchTerm}" )
+    echo "Now: ${bold}${green} ${DockerfileNewVersion} ${reset}"
+ }
+
+ function addVerString {
+    # Patch the VERSION variable in Dockerfile
+    DockerFileLoc="${CurrentDir}/${FileToSearch}"
+    Match="ENV"
+    echo "✅ ${bold}${green}ADDING!!${reset}"
+    AddLine
+    export DockerfileNewVersion=$( cat "${DockerFileLoc}" | grep "${SearchTerm}" )
+    echo "Now: ${bold}${green} ${DockerfileNewVersion} ${reset}"
+ }
+
+# --- Main
+if ! [[ "${GitNameFixed}" =~ ^(ID|MEDIA|API|WAPP)$ ]]; then
+    rule ${bold}${red}=${reset}
+    echo "❌ "  "${bold}${red}Not a valid Strax deployment build repo. No Versioning Done.${reset}"
+    rule ${bold}${red}=${reset}
+    exit
+else
+    # Check Dockerfile exists so we can patch it
+    if [[ ! -f $(pwd)/${FileToSearch} ]]; then
+        echo "❌ ${bold}${red}FAIL!!${reset} ${FileToSearch} not found! Unable to Patch Build Number!${reset}"
+        exit 1
+    else
+        echo "✅ ${bold}${green}PASS!!${reset} Located ${FileToSearch}"
+        # Check "VERSION" string is in Dockerfile -- This is what gets set during the build
+         if ! grep -q ${SearchTerm} ${FileToSearch}; then
+            echo "❌ ${bold}${red}FAIL!!${reset} ${SearchTerm} not found in ${FileToSearch}."
+            addVerString
+         else
+            echo "✅ ${bold}${green}PASS!!${reset} Updating VERSION string in ${FileToSearch}"
+            PatchVersion
+        fi
+    fi
+fi
 
 
 # Send new version to Jira releases page
 if [[ -z ${jiraflag} && ${jiraflag} == "" ]]; then
-    echo "${bold}${red}** Not Sending Build Number to Jira **${reset}"
+    echo "${bold}${red}❌ ** Not Sending Build Number to Jira **${reset}"
 else
     if [[ ${jiraflag} -eq 1 ]]; then
         rule ${bold}${red}=${reset}
-        echo "${bold}${blue} Sending Build Number:${reset} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate) ${reset} to JIRA"
+        echo "✅ ${bold}${blue} Sending Build Number:${reset} $Prefix.$GitNewRelease.$GitHead.$GitNameFixed ($BuildDate) ${reset} to JIRA"
         rule ${bold}${red}=${reset}
 
         # Get develop branch sha1 to fork new branch from
