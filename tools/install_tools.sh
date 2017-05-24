@@ -11,8 +11,8 @@ export shellDir="$currentDir/shell-scripts"
 export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
-function SymLinker{
-        for ShellScripts in `find ${shellDir} -name "*.sh"`; 
+function SymLinker {
+        for ShellScripts in `find ${shellDir} -name "*.sh"`;
         do
             ln -sf $ShellScripts ${ulbDir}
         done
