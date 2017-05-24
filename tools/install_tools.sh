@@ -11,10 +11,11 @@ export shellDir="$currentDir/shell-scripts"
 export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
+export homeDir=$HOME
 function SymLinker {
-        for ShellScripts in `find ${shellDir} -name "*.sh" | cut -d'/' -f 2`;
+        for ShellScripts in `find ${shellDir} -name "*" | cut -d'/' -f 2`;
         do
-            ln -sf $(pwd)$ShellScripts.sh ${ulbDir}
+            ln -sf $(pwd)$ShellScripts ${ulbDir}
         done
 }
 if [ -L ${ulbDirPath} ] ; then
@@ -61,8 +62,8 @@ echo ''
 
 # Install dotfiles
 echo '[4] [INSTALL] zsh resource files...'
-sudo cp dotfiles/zshrc ~/.zshrc
-sudo cp dotfiles/zprofile ~/.zprofile
+homeDir=$ulbDir
+SymLinker
 if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
 echo ''
 
