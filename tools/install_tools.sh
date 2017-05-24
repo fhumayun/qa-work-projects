@@ -12,9 +12,9 @@ export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
 function SymLinker {
-        for ShellScripts in `find ${shellDir} -name "*.sh"`;
+        for ShellScripts in `find ${shellDir} -name "*.sh" | cut -d'/' -f 2`;
         do
-            ln -sf $ShellScripts ${ulbDir}
+            ln -sf $(pwd)$ShellScripts.sh ${ulbDir}
         done
 }
 if [ -L ${ulbDirPath} ] ; then
