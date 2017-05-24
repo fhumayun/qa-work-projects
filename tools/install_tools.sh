@@ -13,6 +13,7 @@ export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
 export homeDir=$HOME
 export matchType=".sh"
+chmod g+rwx /usr/local/bin
 function SymLinker {
         for ShellScripts in `find ${shellDir} -name "$matchType" | cut -d'/' -f 2`;
         do
@@ -40,8 +41,7 @@ else
    echo " ❌ : Missing"
    echo "Adding buildnum symlink"
    cd ${shelldir}
-   sudo ln -s ${ulbDirFile} ${ulbDir}
-   sudo chmod +x ${ulbDirPath}
+   SymLinker
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
 fi

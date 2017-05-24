@@ -21,6 +21,8 @@
 # - Corrected Repo renaming convention
 # - Corrected Override prefix to match new versioning convention
 # - Corrected Override logic to better find override file
+# - Added more error handling
+# - Won't run on unsupported Repos
 
 # --- Global Vars here
 export Prefix="STX"
