@@ -1,6 +1,8 @@
 #!/bin/bash
+set -x
 scriptName="$(basename $0)"
-echo "This file was last modified on: " date -r $scriptName 
+lastModified=`date -r $scriptName`
+echo "This file was last modified on: $lastModified" 
 echo "[START]"
 echo ''
 
@@ -13,7 +15,7 @@ export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
 export homeDir=$HOME
-export matchType=".sh"
+export matchType="*"
 chmod g+rwx ${ulbDir}
 function SymLinker {
         for ShellScripts in `find ${shellDir} -name "$matchType" | cut -d'/' -f 2`;
