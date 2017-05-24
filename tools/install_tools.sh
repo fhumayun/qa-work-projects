@@ -12,8 +12,9 @@ export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
 export homeDir=$HOME
+export matchType=".sh"
 function SymLinker {
-        for ShellScripts in `find ${shellDir} -name "*" | cut -d'/' -f 2`;
+        for ShellScripts in `find ${shellDir} -name "$matchType" | cut -d'/' -f 2`;
         do
             ln -sf $(pwd)$ShellScripts ${ulbDir}
         done
@@ -63,6 +64,7 @@ echo ''
 # Install dotfiles
 echo '[4] [INSTALL] zsh resource files...'
 homeDir=$ulbDir
+matchType=".z*"
 SymLinker
 if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
 echo ''
