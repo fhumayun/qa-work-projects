@@ -18,7 +18,7 @@ export homeDir=$HOME
 export matchType="*"
 chmod g+rwx ${ulbDir}
 function SymLinker {
-        for ShellScripts in `find ${shellDir} -name "$matchType" | cut -d'/' -f 2`;
+        for ShellScripts in `find . -name "$matchType" | cut -d'/' -f 2`;
         do
             ln -sf $(pwd)$ShellScripts ${ulbDir}
         done
