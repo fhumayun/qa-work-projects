@@ -109,7 +109,7 @@ public class STRAXStepDefinition
 	}
 
 	@After
-	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException
+	public void tearDown(Scenario scenario) throws JSONException, IOException
 	{
 		driver.quit();
 		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
