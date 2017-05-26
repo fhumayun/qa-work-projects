@@ -29,4 +29,4 @@ Scenario Outline: Login with invalid credentials
 Examples: Invalid username/password combination
 	|username     |password|
 	|yogi@msys.com|eei123  |
-	|yogi		  |1234    |
+	|yogi123@msys.com		  |1234    |
