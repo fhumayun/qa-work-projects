@@ -32,8 +32,10 @@ public class runCukesTest {
         
         extent = Reporter.getExtentReport();
         extent.setSystemInfo("Environment", "Development/QA");
-        extentxReporter = new ExtentXReporter("localhost", 27017);
-        extent.attachReporter(extentxReporter);
+        
+        //****** ExtentX setup configuration for future use*****
+        //extentxReporter = new ExtentXReporter("localhost", 27017);
+        //extent.attachReporter(extentxReporter);
         
     }
 		

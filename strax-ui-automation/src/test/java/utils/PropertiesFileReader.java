@@ -15,7 +15,7 @@ public class PropertiesFileReader
 		{
 			Properties prop = new Properties();
 			// Gets a stream of properties file
-			inputStream = getClass().getClassLoader().getResourceAsStream("config\\config.properties");
+			inputStream = getClass().getClassLoader().getResourceAsStream("config/config.properties");
 			if (inputStream != null)
 			{
 				prop.load(inputStream);

@@ -3,21 +3,23 @@ package step_definitions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import utils.APIException;
 import utils.PropertiesFileReader;
 import utils.SouceUtils;
+import utils.TestrailResultUpload;
 import page_objects.DashboardPage;
 import page_objects.LoginPage;
 import cucumber.api.Scenario;
 import cucumber.api.java.*;
 import cucumber.api.java.en.*;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import org.json.JSONException;
 import org.junit.Assert;
+
 
 public class STRAXStepDefinition
 {
@@ -30,6 +32,7 @@ public class STRAXStepDefinition
 	public String jobName;
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
+	TestrailResultUpload testresult = new TestrailResultUpload();
 	
 	//reads Sauce username & access key from property file
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
@@ -56,6 +59,7 @@ public class STRAXStepDefinition
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
 		//driver = new RemoteWebDriver(new URL("http://192.168.101.32:4444/wd/hub"), capabilities);
 		sessionId = (((RemoteWebDriver) driver).getSessionId()).toString();
+		
 
 	}
 
@@ -108,11 +112,19 @@ public class STRAXStepDefinition
 	}
 
 	@After
-	public void tearDown(Scenario scenario) throws JSONException, IOException
+	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException
 	{
 		driver.quit();
 		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
 		System.out.println("SauceOnDemandSessionID=" + sessionId + "job-name=" + jobName);
+		//testresult.uploadResult(scenario);
+		System.out.println(scenario.getStatus()+"  yogi status");
+		System.out.println(scenario.getSourceTagNames()+ "  yogi tag names");
+	/*	for()
+		{
+		System.out.println(result+ " --list iterator");
+		}*/
+		
 	}
 
 }
