@@ -2,8 +2,6 @@ package step_definitions;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
-import utils.APIException;
 import utils.PropertiesFileReader;
 import utils.SouceUtils;
 import utils.TestrailResultUpload;
@@ -17,7 +15,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONException;
 import org.junit.Assert;
 
 
@@ -32,7 +29,7 @@ public class STRAXStepDefinition
 	public String jobName;
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	TestrailResultUpload testresult = new TestrailResultUpload();
+	//TestrailResultUpload testresult = new TestrailResultUpload();
 	
 	//reads Sauce username & access key from property file
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
