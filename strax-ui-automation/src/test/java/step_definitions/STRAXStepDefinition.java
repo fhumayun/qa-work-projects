@@ -4,7 +4,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import utils.PropertiesFileReader;
 import utils.SouceUtils;
-import utils.TestrailResultUpload;
 import page_objects.DashboardPage;
 import page_objects.LoginPage;
 import cucumber.api.Scenario;
