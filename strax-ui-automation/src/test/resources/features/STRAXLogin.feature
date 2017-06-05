@@ -1,5 +1,5 @@
 Feature: STRAX Login functionality 
-@C26453 @SRM @ignore
+@C26453 @SRM
 Scenario: Verify title bar reads STRAX(tm)
     Given The STRAX Application login page is open
     Then The title bar should contain STRAX
@@ -11,7 +11,7 @@ Scenario Outline: Verify footer information is correct
 Examples: footer string
 	|footerString|
 	|© EagleEye Intelligence - 2015/2017 - Customer/Technical Support: 561-894-9865|
-@C26457 @SRM @ignore
+@C26457 @SRM
 Scenario Outline: Login with valid credentials
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -20,7 +20,7 @@ Scenario Outline: Login with valid credentials
 Examples: valid username/password combination
 	|username     |password|
 	|yogi@msys.com|eei  |
-@C26458 @SRM @ignore
+@C26458 @SRM
 Scenario Outline: Login form rejects invalid credentials
     Given The STRAX Application login page is open
     When User Enters invalid "<username>" and "<password>"
@@ -29,7 +29,7 @@ Examples: Invalid username/password combination
 	|username     |password|
 	|yogi@msys.com|eei123  |
 	|yogi@invalid.com		  |eei    |
-@C26463 @SRM     @ignore
+@C26463 @SRM
 Scenario Outline: Login form rejects malformed/blank credentials
     Given The STRAX Application login page is open
     When User Enters invalid "<username>" and "<password>"
