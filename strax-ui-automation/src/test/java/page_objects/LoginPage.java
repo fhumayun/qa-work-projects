@@ -80,5 +80,18 @@ public class LoginPage extends BaseClass
 		String copyright = driver.findElement(By.xpath(prreader.getPropertyvalues("footerCopyright"))).getText();
 		return copyright;
 	}
+	public String getInvalidEmailError()
+	{
+		String invalidEmaail = driver.findElement(By.xpath(prreader.getPropertyvalues("invalidEmailError"))).getText();
+		return invalidEmaail;
+		
+	}
+	public String getInvalidPasswordError()
+	{
+		
+		String invalidPassword = driver.findElement(By.xpath(prreader.getPropertyvalues("invalidPasswordError"))).getText();
+		
+		return invalidPassword;
+	}
 
 }

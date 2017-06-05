@@ -18,7 +18,8 @@ import cucumber.api.junit.Cucumber;
 format = {"pretty", "html:target/cucumber"},
 plugin={"com.cucumber.listener.ExtentCucumberFormatter:output/report.html"},
 features = {"src/test/resources/features/STRAXLogin.feature"},
-glue = {"step_definitions"})
+glue = {"step_definitions"},
+tags = {"~@ignore"})
 public class runCukesTest {
 	static ExtentReports extent;
 	static ExtentXReporter extentxReporter;

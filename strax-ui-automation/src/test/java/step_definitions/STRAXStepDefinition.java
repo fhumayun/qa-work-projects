@@ -1,8 +1,13 @@
 package step_definitions;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import utils.APIException;
 import utils.PropertiesFileReader;
+import utils.TestrailResultUpload;
 import utils.SouceUtils;
 import page_objects.DashboardPage;
 import page_objects.LoginPage;
@@ -29,7 +34,7 @@ public class STRAXStepDefinition
 	public String jobName;
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	//TestrailResultUpload testresult = new TestrailResultUpload();
+	TestrailResultUpload testresult = new TestrailResultUpload();
 	
 	//reads Sauce username & access key from property file
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
@@ -107,20 +112,48 @@ public class STRAXStepDefinition
 		loginpage = new LoginPage(driver);
 		Assert.assertEquals("", "Unauthorized", loginpage.getLoginFailedError());
 	}
+	@Then("^The Login page should reject the credentials$")
+	public void The_Login_page_should_reject_the_credentials()
+	{
+		loginpage = new LoginPage(driver);
+		String malformedUserEmailError="Please enter a valid email address from your agency.";
+		String malformedUserPasswordError="You must enter a password.";
+		//Assert.assertEquals("", "You must enter a password.", loginpage.getInvalidPasswordError());
+		System.out.println(loginpage.getInvalidPasswordError());
+		Assert.assertTrue(malformedUserEmailError.equals(loginpage.getInvalidEmailError()) || malformedUserPasswordError.equals(loginpage.getInvalidPasswordError()));
+
+		
+	}
+	@When("^user navigates to useremail field using tab key and enters \"([^\"]*)\"$")
+	public void user_navigates_to_useremail_field_using_tab_key_and_enters(String userEmail)
+	{
+		driver.findElement(By.id(prreader.getPropertyvalues("userEmail"))).sendKeys(Keys.TAB);
+		driver.findElement(By.id(prreader.getPropertyvalues("userEmail"))).sendKeys(userEmail);
+				
+	}
+	@When("^user navigates to password field using tab key and enters \"([^\"]*)\"$")
+	public void user_navigates_to_password_field_using_tab_key_and_enters(String userPassword)
+	{
+		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).sendKeys(Keys.TAB);
+		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).sendKeys(userPassword);
+				
+	}
+	@When("^user hits Enter key$")
+	public void user_hits_enter_key()
+	{
+		driver.findElement(By.id(prreader.getPropertyvalues("loginButton"))).sendKeys(Keys.ENTER);
+						
+	}
+	
+	
 
 	@After
-	public void tearDown(Scenario scenario) throws JSONException, IOException
+	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException
 	{
 		driver.quit();
 		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
 		System.out.println("SauceOnDemandSessionID=" + sessionId + "job-name=" + jobName);
-		//testresult.uploadResult(scenario);
-		System.out.println(scenario.getStatus()+"  yogi status");
-		System.out.println(scenario.getSourceTagNames()+ "  yogi tag names");
-	/*	for()
-		{
-		System.out.println(result+ " --list iterator");
-		}*/
+		testresult.uploadResult(scenario);
 		
 	}
 
