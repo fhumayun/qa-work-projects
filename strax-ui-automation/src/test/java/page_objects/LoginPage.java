@@ -41,7 +41,15 @@ public class LoginPage extends BaseClass
 	{
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("userEmail"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("userEmail"))).sendKeys(UserName);
+		if(Password.isEmpty())
+		{
 		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).sendKeys(Password);
+		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).sendKeys(Keys.TAB);
+		}
+		else
+		{
+		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).sendKeys(Password);
+		}
 		driver.findElement(By.id(prreader.getPropertyvalues("loginButton"))).click();
 		return new DashboardPage(driver);
 
