@@ -11,6 +11,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 import cucumber.api.Scenario;
+import gherkin.formatter.model.ScenarioOutline;
 import utils.APIClient;
 import utils.APIException;
 
@@ -27,11 +28,11 @@ public class TestrailResultUpload {
 		List<String> testResultDetails = getTestCaseIDAndStatus(scenario);
 		String caseID = testResultDetails.get(0);
 		int statusID = Integer.parseInt(testResultDetails.get(1));
+		List<String> eachteststep = new ArrayList<String>();
 		data.put("status_id", statusID);
 		data.put("comment", "Automation framework executed [Test case - "+caseID+"](https://eei.testrail.com/index.php?/cases/view/"+caseID+")");
 		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/123/" + caseID + "", data);
-		System.out.println(caseID);
-
+		System.out.println(r);
 	}
 
 	public List<String> getTestCaseIDAndStatus(Scenario scenario) {
@@ -61,7 +62,7 @@ public class TestrailResultUpload {
 			status_id = "4";
 			break;
 		case "FAILED":
-			status_id = "5";
+			status_id = "4";
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid test result status " + scenario.getStatus());

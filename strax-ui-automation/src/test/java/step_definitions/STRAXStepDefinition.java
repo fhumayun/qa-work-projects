@@ -9,6 +9,7 @@ import utils.APIException;
 import utils.PropertiesFileReader;
 import utils.TestrailResultUpload;
 import utils.SouceUtils;
+import page_objects.CommonClass;
 import page_objects.DashboardPage;
 import page_objects.LoginPage;
 import cucumber.api.Scenario;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONException;
 import org.junit.Assert;
@@ -35,7 +37,7 @@ public class STRAXStepDefinition
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	TestrailResultUpload testresult = new TestrailResultUpload();
-	
+	CommonClass commonClass = new CommonClass(driver);
 	//reads Sauce username & access key from property file
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
 	public static final String ACCESS_KEY = prreader.getPropertyvalues("SauceAccessKey");
@@ -59,7 +61,7 @@ public class STRAXStepDefinition
 		driver = new RemoteWebDriver(new URL(URL), capabilities);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//driver = new RemoteWebDriver(new URL("http://192.168.101.32:4444/wd/hub"), capabilities);
+		//driver = new RemoteWebDriver(new URL("http://192.168.0.103:4444:4444/wd/hub"), capabilities);
 		sessionId = (((RemoteWebDriver) driver).getSessionId()).toString();
 		
 
@@ -144,8 +146,30 @@ public class STRAXStepDefinition
 		driver.findElement(By.id(prreader.getPropertyvalues("loginButton"))).sendKeys(Keys.ENTER);
 						
 	}
+	@Then("^The user should have access to these \"([^\"]*)\"$")
+	public void The_user_should_have_access_to_these(List<String> expectedMenu)
+	{
+		CommonClass cl = new CommonClass(driver);
+		List<String> actualMenu = cl.getMenuAccessList();
+		Assert.assertEquals("", expectedMenu, actualMenu);				
+	}
 	
 	
+	@Then("^The user should have access to account settings menu$")
+	public void The_user_should_have_access_to_account_settings()
+	{
+		CommonClass cl = new CommonClass(driver);
+		Assert.assertEquals(true, cl.isAccountSettingsAccessible());				
+	}
+	@Then("^The user should not have access to account settings menu$")
+	public void The_user_should_not_have_access_to_account_settings()
+	{
+		CommonClass cl = new CommonClass(driver);
+		Assert.assertEquals(false, cl.isAccountSettingsAccessible());
+		
+		
+		
+	}
 
 	@After
 	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException
