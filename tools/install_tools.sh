@@ -9,18 +9,19 @@ echo ''
 # Install buildnum.sh
 echo '[0] [INSTALL] buildnum.sh...'
 # Remove previous file copies and ensure symlink is establish instead
-export currentDir="$(pwd)"
-export shellDir="$currentDir/shell-scripts"
+export homeDir=$HOME
+export shellDir="$homeDir/qa/tools/shell-scripts"
+export dotDir="$homeDir/qa/tools/dotfiles"
 export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
-export homeDir=$HOME
 export matchType="*"
 chmod g+rwx ${ulbDir}
 function SymLinker {
-        for ShellScripts in `find . -name "$matchType" | cut -d'/' -f 2`;
-        do
-            ln -sf $(pwd)$ShellScripts ${ulbDir}
+        sudo chown -R ubuntu:ubuntu /usr/local/bin
+        for files in `find . -name "*" | cut -d'/' -f2`;
+        do 
+            ln -s $shellDir/$files /usr/local/bin;
         done
 }
 if [ -L ${ulbDirPath} ] ; then
@@ -66,9 +67,9 @@ echo ''
 
 # Install dotfiles
 echo '[4] [INSTALL] zsh resource files...'
-homeDir=$ulbDir
-matchType=".z*"
-SymLinker
+cd $dotDir
+cp zshrc ~/.zshrc
+cp zprofile ~/.zprofile
 if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
 echo ''
 
