@@ -18,10 +18,9 @@ export ulbDirPath="${ulbDir}/${ulbDirFile}"
 export matchType="*"
 sudo chown -R ubuntu:ubuntu ${ulbDir}
 sudo chmod g+rwx ${ulbDir}
-cd $shellDir
 function SymLinker {
-        
-        for files in $(find . -name "*" | cut -d'/' -f2);
+        cd $shellDir        
+        for files in $(ls);
         do 
             ln -s $shellDir/$files /usr/local/bin;
         done
