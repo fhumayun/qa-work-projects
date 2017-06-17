@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 scriptName="$(basename $0)"
 lastModified=`date -r $scriptName`
 echo "This file was last modified on: $lastModified" 
