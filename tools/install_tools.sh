@@ -21,7 +21,7 @@ sudo chmod g+rwx ${ulbDir}
 cd $shellDir
 function SymLinker {
         
-        for files in `find . -name "*" | cut -d'/' -f2`;
+        for files in $(find . -name "*" | cut -d'/' -f2);
         do 
             ln -s $shellDir/$files /usr/local/bin;
         done
