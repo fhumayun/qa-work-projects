@@ -75,7 +75,7 @@ echo ''
 
 # add timestamps to history
 echo '[2] [WARNING] *!* This will NOT be automatically run *!*'
-echo "     \`---- Please manually run \`sudo $(pwd)/setup/historytimestamp.sh\`"
+echo "     \`---- Please manually run \`historytimestamp.sh\`"
 echo ''
 
 echo '[INFO] If any other installations have to be added to this please email jshanahan@eagleeyeintelligence.com'
