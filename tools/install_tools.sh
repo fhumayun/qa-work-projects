@@ -50,7 +50,6 @@ else
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
 fi
-exit
 # Install dropbox_uploader.sh
 echo '[1] [INSTALL] dropbox_uploader.sh...'
 sudo curl -s -S "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /usr/local/bin/dropbox_uploader.sh
