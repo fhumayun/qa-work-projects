@@ -1,5 +1,10 @@
 #!/bin/bash
 #set -x
+
+# Setting Server Time Zone
+sudo timedatectl set-timezone America/New_York
+
+# Some handy details
 scriptName="$(basename $0)"
 lastModified=`date -r $scriptName`
 echo "This file was last modified on: $lastModified" 
