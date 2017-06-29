@@ -1,21 +1,20 @@
 package page_objects;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 import org.openqa.selenium.*;
-
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import utils.PropertiesFileReader;
 
-public class CommonClass extends BaseClass{
+public class CommonClass{
 	
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	
-	public CommonClass(WebDriver driver) {
-		super(driver);
+	RemoteWebDriver driver;
+	public CommonClass(RemoteWebDriver driver) {
+		this.driver = driver;
 		// TODO Auto-generated constructor stub
 	}
 

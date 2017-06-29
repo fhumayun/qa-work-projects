@@ -1,28 +1,27 @@
 package page_objects;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import page_objects.BaseClass;
 import page_objects.DashboardPage;
 import utils.PropertiesFileReader;
 
-public class LoginPage extends BaseClass
+public class LoginPage
 {
 
-	WebDriverWait wait = new WebDriverWait(driver, 10);
+	
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	private static String straxURL = prreader.getPropertyvalues("STRAXUrl");
-
-	public LoginPage(WebDriver driver)
+	RemoteWebDriver driver;
+	public LoginPage(RemoteWebDriver driver)
 	{
-		super(driver);
+		this.driver = driver;
+		
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/**
 	 * opens the STRAX login page
 	 */
@@ -40,6 +39,7 @@ public class LoginPage extends BaseClass
 	 */
 	public DashboardPage loginAsUser(String UserName, String Password)
 	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("userEmail"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("userEmail"))).sendKeys(UserName);
 		if(Password.isEmpty())
@@ -63,6 +63,7 @@ public class LoginPage extends BaseClass
 	 */
 	public String getLoginFailedError()
 	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		String errorMessage = "";
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("unauthorizedLogin"))));
 		errorMessage = driver.findElement(By.xpath(prreader.getPropertyvalues("unauthorizedLogin"))).getText();
@@ -87,6 +88,7 @@ public class LoginPage extends BaseClass
 	public String getFooterCopyrightInfo()
 	{
 		String copyright = driver.findElement(By.xpath(prreader.getPropertyvalues("footerCopyright"))).getText();
+		System.out.println("is it changed ..." +copyright);
 		return copyright;
 	}
 	public String getInvalidEmailError()

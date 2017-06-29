@@ -7,11 +7,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.simple.JSONObject;
-
 import cucumber.api.Scenario;
-import gherkin.formatter.model.ScenarioOutline;
 import utils.APIClient;
 import utils.APIException;
 
@@ -33,6 +30,8 @@ public class TestrailResultUpload {
 		data.put("comment", "Automation framework executed [Test case - "+caseID+"](https://eei.testrail.com/index.php?/cases/view/"+caseID+")");
 		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/123/" + caseID + "", data);
 		System.out.println(r);
+
+		
 	}
 
 	public List<String> getTestCaseIDAndStatus(Scenario scenario) {
