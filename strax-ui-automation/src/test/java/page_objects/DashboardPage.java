@@ -1,21 +1,20 @@
 package page_objects;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.PropertiesFileReader;
 
-public class DashboardPage extends BaseClass
+public class DashboardPage
 {
-	WebDriverWait wait = new WebDriverWait(driver, 10);
+	RemoteWebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	//private final By mainMenuButton = By.id("main-menu__button--open");
 
-	public DashboardPage(WebDriver driver)
+	public DashboardPage(RemoteWebDriver driver)
 	{
-		super(driver);
+		this.driver=driver;
 
 	}
 
@@ -26,7 +25,7 @@ public class DashboardPage extends BaseClass
 	 */
 	public boolean verifyDashboardNavigation()
 	{
-
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("mainMenuButton"))));
 		if (driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).isDisplayed())
 		{
@@ -37,5 +36,18 @@ public class DashboardPage extends BaseClass
 		}
 
 	}
+	public UsersPage navigateToUsersPage() throws InterruptedException
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("usersMenuLink"))));
+		//String s1 = driver.findElement(By.xpath(prreader.getPropertyvalues("usersMenuLink"))).getText();
+		//System.out.println("seee if it makes sense" +s1);
+		driver.findElement(By.id(prreader.getPropertyvalues("usersMenuLink"))).click();
+		return new UsersPage(driver);
+		
+	}
+	
+	
 
 }
