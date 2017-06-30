@@ -1,18 +1,13 @@
 package page_objects;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 public class BaseClass
 {
-	protected WebDriver driver;
-	public BaseClass(WebDriver driver)
-	{
-		this.driver=driver;
+	//pico container for dependency injection
+	public RemoteWebDriver driver;
 
-	}
-	
-	//// for future use....
 	
 
 }
