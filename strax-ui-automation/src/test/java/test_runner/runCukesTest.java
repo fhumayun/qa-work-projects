@@ -44,10 +44,10 @@ public class runCukesTest {
 	public static void setUp()
 	{
         //****** ExtentX Server setup configuration *****
-        ExtentProperties extentProperties = ExtentProperties.INSTANCE;
+       ExtentProperties extentProperties = ExtentProperties.INSTANCE;
         extentProperties.setReportPath("output/report.html");
-        extentProperties.setExtentXServerUrl("http://localhost:1337");
-        extentProperties.setProjectName("STRAX QAT");
+        //extentProperties.setExtentXServerUrl("http://localhost:1337");
+       // extentProperties.setProjectName("STRAX QAT");
 	}
 		
 	
