@@ -10,8 +10,6 @@ public class DashboardPage
 {
 	RemoteWebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	//private final By mainMenuButton = By.id("main-menu__button--open");
-
 	public DashboardPage(RemoteWebDriver driver)
 	{
 		this.driver=driver;
@@ -41,10 +39,18 @@ public class DashboardPage
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("usersMenuLink"))));
-		//String s1 = driver.findElement(By.xpath(prreader.getPropertyvalues("usersMenuLink"))).getText();
-		//System.out.println("seee if it makes sense" +s1);
 		driver.findElement(By.id(prreader.getPropertyvalues("usersMenuLink"))).click();
 		return new UsersPage(driver);
+		
+	}
+	public UASsPage navigateToUASsPage()
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("usersMenuLink"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("uasSMenuLink"))).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("listOfUASText"))));
+		return new UASsPage(driver);
 		
 	}
 	

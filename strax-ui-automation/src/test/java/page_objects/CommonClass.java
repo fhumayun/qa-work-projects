@@ -51,6 +51,28 @@ public class CommonClass{
 		
 	}
 	
+	public void selectDropdownOption(WebElement dropdown, String optionToSelect) throws InterruptedException
+	{
+		try{
+		dropdown.click();
+		List<WebElement> dropdownOptions = driver.findElements(By.tagName("md-option"));
+		for(WebElement option: dropdownOptions)
+		{
+			if((option.getText()).equals(optionToSelect))
+			{
+				option.click();
+				break;
+			}
+			Thread.sleep(1000);
+		}
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
+	}
+	
 
 
 }
