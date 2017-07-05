@@ -1,5 +1,10 @@
 #!/bin/bash
-set -x
+#set -x
+
+# Setting Server Time Zone
+sudo timedatectl set-timezone America/New_York
+
+# Some handy details
 scriptName="$(basename $0)"
 lastModified=`date -r $scriptName`
 echo "This file was last modified on: $lastModified" 
@@ -9,18 +14,20 @@ echo ''
 # Install buildnum.sh
 echo '[0] [INSTALL] buildnum.sh...'
 # Remove previous file copies and ensure symlink is establish instead
-export currentDir="$(pwd)"
-export shellDir="$currentDir/shell-scripts"
+export homeDir=$HOME
+export shellDir="$homeDir/qa/tools/shell-scripts"
+export dotDir="$homeDir/qa/tools/dotfiles"
 export ulbDir="/usr/local/bin"
 export ulbDirFile="buildnum.sh"
 export ulbDirPath="${ulbDir}/${ulbDirFile}"
-export homeDir=$HOME
 export matchType="*"
-chmod g+rwx ${ulbDir}
+sudo chown -R ubuntu:ubuntu ${ulbDir}
+sudo chmod g+rwx ${ulbDir}
 function SymLinker {
-        for ShellScripts in `find . -name "$matchType" | cut -d'/' -f 2`;
-        do
-            ln -sf $(pwd)$ShellScripts ${ulbDir}
+        cd $shellDir        
+        for files in $(ls);
+        do 
+            ln -s $shellDir/$files /usr/local/bin;
         done
 }
 if [ -L ${ulbDirPath} ] ; then
@@ -48,7 +55,6 @@ else
      if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
      echo ''
 fi
-exit
 # Install dropbox_uploader.sh
 echo '[1] [INSTALL] dropbox_uploader.sh...'
 sudo curl -s -S "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /usr/local/bin/dropbox_uploader.sh
@@ -66,15 +72,15 @@ echo ''
 
 # Install dotfiles
 echo '[4] [INSTALL] zsh resource files...'
-homeDir=$ulbDir
-matchType=".z*"
-SymLinker
+cd $dotDir
+sudo cp zshrc ~/.zshrc
+sudo cp zprofile ~/.zprofile
 if [[ $? -eq 0 ]]; then echo -e "[0] ✅"; else echo -e "[0] ❌"; fi
 echo ''
 
 # add timestamps to history
 echo '[2] [WARNING] *!* This will NOT be automatically run *!*'
-echo "     \`---- Please manually run \`sudo $(pwd)/setup/historytimestamp.sh\`"
+echo "     \`---- Please manually run \`historytimestamp.sh\`"
 echo ''
 
 echo '[INFO] If any other installations have to be added to this please email jshanahan@eagleeyeintelligence.com'

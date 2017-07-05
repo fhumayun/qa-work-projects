@@ -141,7 +141,7 @@ function FixName {
     if [ "$GitRepoName" == "STRAX-ID" ]; then
         export GitRepoName="ID"
     fi
-    if [ "$GitRepoName" == "STRAXM-MEDIA" ]; then
+    if [ "$GitRepoName" == "STRAX-MEDIA" ]; then
         export GitRepoName="MEDIA"
     fi
     if [ "$GitRepoName" == "STRAX-API" ]; then
