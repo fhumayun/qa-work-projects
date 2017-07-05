@@ -29,8 +29,7 @@ public class TestrailResultUpload {
 		data.put("status_id", statusID);
 		data.put("comment", "Automation framework executed [Test case - "+caseID+"](https://eei.testrail.com/index.php?/cases/view/"+caseID+")");
 		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/123/" + caseID + "", data);
-		System.out.println(r);
-
+		
 		
 	}
 
