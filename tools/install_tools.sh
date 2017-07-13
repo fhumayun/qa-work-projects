@@ -2,7 +2,8 @@
 #set -x
 
 # Setting Server Time Zone
-sudo timedatectl set-timezone America/New_York
+# sudo timedatectl set-timezone America/New_York
+sudo timedatectl set-timezone Etc/UTC
 
 # Some handy details
 scriptName="$(basename $0)"
