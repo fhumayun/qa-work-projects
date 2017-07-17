@@ -50,11 +50,11 @@ public class UsersPage {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(email);
 		Thread.sleep(3000);
-		List<WebElement> trList = driver.findElements(By.xpath("//tr[@class='md-row ng-scope']"));
+		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
 		for (WebElement tr : trList) {
 		WebElement td = tr.findElement(By.xpath("//td[1]"));
 			if ((td.getText()).equals(email)) {
-				tr.findElement(By.xpath("//td//*[contains(@id, 'participant__link--edit')]")).click();
+				tr.findElement(By.xpath(prreader.getPropertyvalues("participantEditLink"))).click();
 			} 
 
 		}
@@ -82,7 +82,7 @@ public class UsersPage {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(User);
 		Thread.sleep(3000);
-		List<WebElement> trList = driver.findElements(By.xpath("//tr[@class='md-row ng-scope']"));
+		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
 		boolean state = false;
 
 		for (WebElement tr : trList) {
@@ -133,12 +133,12 @@ public class UsersPage {
 			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(user);
 			Thread.sleep(3000);
-			List<WebElement> trList = driver.findElements(By.xpath("//tr[@class='md-row ng-scope']"));
+			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
 			for (WebElement tr : trList) {
 			WebElement td = tr.findElement(By.xpath("//td[1]"));
 				if ((td.getText()).equals(user)) {
-					tr.findElement(By.xpath("//td//*[contains(@id, 'participant__link--archive')]")).click();
-					wait.until(ExpectedConditions.elementToBeClickable(By.id("confirm-dialog__button--save"))).click();
+					tr.findElement(By.xpath(prreader.getPropertyvalues("participantArchiveLink"))).click();
+					wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("confirmArchiveButton")))).click();
 					Thread.sleep(2000);
 				} 
 
@@ -153,8 +153,8 @@ public class UsersPage {
 	{
 		String expected = "User saved!";
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[@class='md-toast-text ng-binding']")));
-		String actual = driver.findElement(By.xpath("//span[@class='md-toast-text ng-binding']")).getText();
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(prreader.getPropertyvalues("confirmationPopUp"))));
+		String actual = driver.findElement(By.xpath(prreader.getPropertyvalues("confirmationPopUp"))).getText();
 		if(actual.equals(expected))
 		{
 			return true;
@@ -167,8 +167,8 @@ public class UsersPage {
 	{
 		String expected = "User updated!";
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[@class='md-toast-text ng-binding']")));
-		String actual = driver.findElement(By.xpath("//span[@class='md-toast-text ng-binding']")).getText();
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(prreader.getPropertyvalues("confirmationPopUp"))));
+		String actual = driver.findElement(By.xpath(prreader.getPropertyvalues("confirmationPopUp"))).getText();
 		if(actual.equals(expected))
 		{
 			return true;

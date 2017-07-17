@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.PropertiesFileReader;
 
@@ -18,10 +20,14 @@ public class CommonClass{
 		// TODO Auto-generated constructor stub
 	}
 
-	public LoginPage logOut()
+	public LoginPage logOut() throws InterruptedException
 	{
+		WebDriverWait wait = new WebDriverWait(driver,15);
+		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("accountMenu"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("logoutButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("logoutButton"))).click();
 		return new LoginPage(driver);
 	}
@@ -55,6 +61,8 @@ public class CommonClass{
 	{
 		try{
 		dropdown.click();
+		//WebDriverWait wait = new WebDriverWait(driver,10);
+		//wait.until(ExpectedConditions.visi)
 		List<WebElement> dropdownOptions = driver.findElements(By.tagName("md-option"));
 		for(WebElement option: dropdownOptions)
 		{

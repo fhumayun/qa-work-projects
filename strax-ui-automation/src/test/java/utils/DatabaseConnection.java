@@ -17,10 +17,11 @@ import com.mongodb.client.MongoDatabase;
 
 public class DatabaseConnection { 
 	
-	String user="strax";
-			       // the user name
+	PropertiesFileReader prreader = new PropertiesFileReader();
+	String mongoDBServer = prreader.getPropertyvalues("mongoDBServer");
+	String user=prreader.getPropertyvalues("mongoDBUserName");// the user name	     
 	String database="admin";    // the name of the database in which the user is defined
-	String password="strax";    // the password as a character array
+	String password=prreader.getPropertyvalues("mongoDBPassword");    // the password as a character array
 	
 	public String mongodbOperation(String loginId)
 	{
@@ -29,7 +30,7 @@ public class DatabaseConnection {
 	try{
 
        MongoCredential credential = MongoCredential.createScramSha1Credential(user, database, password.toCharArray());
-       MongoClient mongoClient = new MongoClient(new ServerAddress("qa-msg.strax.co"), Arrays.asList(credential));
+       MongoClient mongoClient = new MongoClient(new ServerAddress(mongoDBServer), Arrays.asList(credential));
        MongoDatabase db =  mongoClient.getDatabase("sproutdb");
        BasicDBObject query = new BasicDBObject("loginId", loginId);
        FindIterable<Document> cursor;
@@ -47,6 +48,32 @@ public class DatabaseConnection {
 	return deletedLoginId;
 	
 	
+	}
+	
+	public String deleteEvent(String incident)
+	{
+		String deletedIncident="";
+		try{
+
+		       MongoCredential credential = MongoCredential.createScramSha1Credential(user, database, password.toCharArray());
+		       MongoClient mongoClient = new MongoClient(new ServerAddress(mongoDBServer), Arrays.asList(credential));
+		       MongoDatabase db =  mongoClient.getDatabase("sproutdb");
+		       BasicDBObject query = new BasicDBObject("incident", incident);
+		       FindIterable<Document> cursor;
+		       MongoCollection<Document> coll = db.getCollection("clusters");
+		       Document deleted = coll.findOneAndDelete(query);
+		      deletedIncident = deleted.getString("incident");
+		       System.out.println(deletedIncident);
+		       
+		       mongoClient.close();
+		       
+					
+		     }catch(Exception e){
+		        System.err.println( e );
+		     }
+			return deletedIncident;
+			
+		
 	}
 		
 	
