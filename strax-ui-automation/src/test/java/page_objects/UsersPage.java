@@ -50,7 +50,7 @@ public class UsersPage {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(email);
 		Thread.sleep(3000);
-		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantSearchList")));
+		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
 		for (WebElement tr : trList) {
 		WebElement td = tr.findElement(By.xpath("//td[1]"));
 			if ((td.getText()).equals(email)) {
@@ -82,7 +82,7 @@ public class UsersPage {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(User);
 		Thread.sleep(3000);
-		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantSearchList")));
+		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
 		boolean state = false;
 
 		for (WebElement tr : trList) {
@@ -133,7 +133,7 @@ public class UsersPage {
 			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(user);
 			Thread.sleep(3000);
-			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantSearchList")));
+			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
 			for (WebElement tr : trList) {
 			WebElement td = tr.findElement(By.xpath("//td[1]"));
 				if ((td.getText()).equals(user)) {
