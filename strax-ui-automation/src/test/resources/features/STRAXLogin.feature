@@ -3,7 +3,7 @@ Feature: STRAX Login functionality
 Scenario: Verify title bar reads STRAX(tm)
     Given The STRAX Application login page is open
     Then The title bar should contain STRAX
-@C26454 @SRM  @Login @ignore
+@C26454 @SRM  @Login
 Scenario Outline: Verify footer information is correct
     Given The STRAX Application login page is open
     Then The footer copyright should contain "<footerString>"
