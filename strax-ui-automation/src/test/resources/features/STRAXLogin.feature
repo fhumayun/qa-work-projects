@@ -1,9 +1,9 @@
 Feature: STRAX Login functionality 
-@C26453 @SRM @Login 
+@C26453 @SRM @Login @ignore
 Scenario: Verify title bar reads STRAX(tm)
     Given The STRAX Application login page is open
     Then The title bar should contain STRAX
-@C26454 @SRM  @Login 
+@C26454 @SRM  @Login @ignore
 Scenario Outline: Verify footer information is correct
     Given The STRAX Application login page is open
     Then The footer copyright should contain "<footerString>"
@@ -11,7 +11,7 @@ Scenario Outline: Verify footer information is correct
 Examples: footer string
 	|footerString|
 	|© EagleEye Intelligence - 2015/2017 - Customer/Technical Support: 561-894-9865|
-@C26457 @SRM @Login 
+@C26457 @SRM @Login @ignore
 Scenario Outline: Login with valid credentials
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -20,7 +20,7 @@ Scenario Outline: Login with valid credentials
 Examples: valid username/password combination
 	|username     |password|
 	|controller@ee.io|eei  |
-@C26458 @SRM @Login 
+@C26458 @SRM @Login @ignore
 Scenario Outline: Login form rejects invalid credentials
     Given The STRAX Application login page is open
     When User Enters invalid "<username>" and "<password>"
@@ -29,7 +29,7 @@ Examples: Invalid username/password combination
 	|username     |password|
 	|controller@ee.io|eei123  |
 	|controller@invalid.com		  |eei    |
-@C26463 @SRM @Login 
+@C26463 @SRM @Login @ignore
 Scenario Outline: Login form rejects malformed/blank credentials
     Given The STRAX Application login page is open
     When User Enters invalid "<username>" and "<password>"
@@ -40,7 +40,7 @@ Examples: malformed/blank username/password combination
 	||eei|
 	|controller@ee.io||
 	
-@C26460	@SRM @Login 
+@C26460	@SRM @Login @ignore
 Scenario Outline: Login form should respond to the Enter and Tab keys 
 	Given The STRAX Application login page is open
 	When user navigates to useremail field using tab key and enters "<useremail>"  
@@ -51,7 +51,7 @@ Examples: valid useremail & password
 	|useremail|password| 
 	|autobot@ee.io|eei|
 
-@C26465	@SRM  @Permissions 
+@C26465	@SRM  @Permissions @ignore
 Scenario Outline: Verify user permissions to menu items 
 	Given The STRAX Application login page is open
 	When User Enters Valid "<useremail>" and "<password>" 
@@ -62,7 +62,7 @@ Examples: valid useremail & password
 	|autobot@ee.io|eei|Events, Users, UASs, Trackers|
 	|user@ee.io|eei|Events|
 	|viewer@ee.io|eei|Events|
-@C26466 @SRM  @Permissions 
+@C26466 @SRM  @Permissions @ignore
 Scenario Outline: Verify user can access account settings menu option 
 	Given The STRAX Application login page is open
 	When User Enters Valid "<useremail>" and "<password>" 
@@ -71,7 +71,7 @@ Examples: valid useremail & password
 	|useremail|password|
 	|controller@ee.io|eei|
 	|autobot@ee.io|eei|
-@C26467 @SRM @Permissions 
+@C26467 @SRM @Permissions @ignore
 Scenario Outline: Verify user can not access account settings menu option 
 	Given The STRAX Application login page is open
 	When User Enters Valid "<useremail>" and "<password>" 
