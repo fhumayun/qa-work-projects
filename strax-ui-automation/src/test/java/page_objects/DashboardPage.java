@@ -46,6 +46,7 @@ public class DashboardPage
 	public UASsPage navigateToUASsPage()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("activeEventsLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("usersMenuLink"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("uasSMenuLink"))).click();
