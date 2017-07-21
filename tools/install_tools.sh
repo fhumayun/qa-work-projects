@@ -65,7 +65,7 @@ echo ''
 # Install oh-my-zsh 
 echo '[3] [INSTALL] zsh...'
 sudo apt-get install -y zsh toilet cowsay
-sudo sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+echo exit | sudo sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 sudo sed -i "s@/bin/bash@/usr/bin/zsh@" /etc/passwd
 if [[ $? -eq 0 ]]; then echo -e "[1] ✅"; else echo -e "[1] ❌"; fi
 echo ''
