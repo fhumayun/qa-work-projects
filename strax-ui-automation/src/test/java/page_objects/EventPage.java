@@ -28,6 +28,7 @@ public class EventPage extends BaseClass {
 	public void addNewEvent(String incident, String missionType, String stream, String address,String aptSuiteUnit,
 			String zipCode, String city, String state, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
 	{
+	
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
@@ -142,13 +143,16 @@ public class EventPage extends BaseClass {
 	
 	public boolean searchEvent(String incident) throws InterruptedException
 	{
+		boolean state = false;
+		try{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident);
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
-		boolean state = false;
+		
 
 		for (WebElement tr : trList) {
 
@@ -160,15 +164,25 @@ public class EventPage extends BaseClass {
 			}
 
 		}
+		
+		}
+		catch(org.openqa.selenium.StaleElementReferenceException ex)
+		{
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
+			
+		}
+		
 		return state;
 		
+		
 	}
-	public void joinActiveEvent(String incident)
+	public void joinActiveEvent(String incident) throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident);
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
 		for (WebElement tr : trList) {
@@ -210,8 +224,10 @@ public class EventPage extends BaseClass {
 	public void navigateToEventHistory()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		
 	}
 	public String deleteEventFromDB(String incident)
 	{

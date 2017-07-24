@@ -27,7 +27,9 @@ public class TestrailResultUpload {
 		int statusID = Integer.parseInt(testResultDetails.get(1));
 		List<String> eachteststep = new ArrayList<String>();
 		data.put("status_id", statusID);
-		data.put("comment", "Automation framework executed [Test case - "+caseID+"](https://eei.testrail.com/index.php?/cases/view/"+caseID+")");
+		data.put("comment", "Automation framework executed [Test case - "+caseID+"](https://eei.testrail.com/index.php?/cases/view/"+caseID+")\n "
+				+"Click on this link [SauceLabRecording](https://saucelabs.com/beta/dashboard/tests) to watch video recording of tests \n" + 
+				"Click on this link [BDD Report](http://ci.eagleeye.io:8080/view/Nightlies/job/QAT%201.2.1%20Selenium%20Strax%20App%20Nightlies/Extent_Report) to see detailed test results.");
 		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/123/" + caseID + "", data);
 		
 		

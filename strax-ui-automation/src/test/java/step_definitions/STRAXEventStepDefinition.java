@@ -55,7 +55,7 @@ public class STRAXEventStepDefinition {
 		Assert.assertEquals(true , eventPage.searchEvent(incident));
 	}
 	@When("^User clicks on the active event \"([^\"]*)\" link to join$")
-	public void User_clicks_on_the_active_event_link_to_join(String incident) {
+	public void User_clicks_on_the_active_event_link_to_join(String incident) throws InterruptedException {
 		EventPage eventPage = new EventPage(base.driver);
 		eventPage.joinActiveEvent(incident);
 	}
@@ -79,5 +79,34 @@ public class STRAXEventStepDefinition {
 		Assert.assertEquals(incident , eventPage.deleteEventFromDB(incident));
 		
 	}
+	@And("^User navigates to Event history tab$")
+	public void User_navigates_to_Event_history_tab() throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.navigateToEventHistory();
+		
+	}
+	@And("^User search and clicks on the event \"([^\"]*)\" link to playback$")
+	public void User_search_and_playback_event(String incident) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.joinActiveEvent(incident);
+		
+	}
+	@Then("^User should be able to playback \"([^\"]*)\" event$")
+	public void User_should_be_able_to_playback_that_event(String incident) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		Assert.assertEquals(true , eventPage.verifyJoinEventSuccess());
+		eventPage.closeMap();
+		eventPage.deleteEventFromDB(incident);
+		
+		
+	}
+	@Then("^User should be able to soft delete an active event \"([^\"]*)\" successfully$")
+	public void User_should_be_able_to_end_soft_delete_an_active_event_successfully(String incident) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.endActiveEvent();
+		eventPage.navigateToEventHistory();
+		Assert.assertEquals(true , eventPage.searchEvent(incident));	
+	}
+	
 
 }
