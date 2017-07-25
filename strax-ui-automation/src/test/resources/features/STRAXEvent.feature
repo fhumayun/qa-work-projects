@@ -106,7 +106,7 @@ Then User should be able to soft delete an active event "<incidentName>" success
 Examples:
 	|username     |password|incidentName|
 	|autobot@ee.io|eei|AutomationTestIncident2|
-@C44559 @SRM @Playback @Event
+@C44560 @SRM @Playback @Event
 Scenario Outline: Verify user can playback any historic event
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
