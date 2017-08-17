@@ -22,6 +22,7 @@ public class CommonClass{
 
 	public LoginPage logOut() throws InterruptedException
 	{
+		
 		WebDriverWait wait = new WebDriverWait(driver,15);
 		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();

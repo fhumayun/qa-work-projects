@@ -33,7 +33,7 @@ public class UsersPage {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantConfirmPasswordTxtBox"))).sendKeys(userpassword);
 		WebElement selectRole = driver.findElement(By.id(prreader.getPropertyvalues("participantRoleList")));
 		WebElement selectColor = driver.findElement(By.id(prreader.getPropertyvalues("participantColorList")));
-		WebElement selectDevice = driver.findElement(By.id(prreader.getPropertyvalues("participantDeviceList")));
+		//WebElement selectDevice = driver.findElement(By.id(prreader.getPropertyvalues("participantDeviceList")));
 		selectDropdownOption(selectRole, role);
 		selectDropdownOption(selectColor, color);
 		//selectDropdownOption(selectDevice, device);
@@ -48,12 +48,12 @@ public class UsersPage {
 	public void updateUser(String email, String fName, String lName,String role, String color,
 			String device) throws InterruptedException {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(email);
+		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(email.toLowerCase());
 		Thread.sleep(3000);
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantSearchList")));
 		for (WebElement tr : trList) {
 		WebElement td = tr.findElement(By.xpath("//td[1]"));
-			if ((td.getText()).equals(email)) {
+			if ((td.getText()).equals(email.toLowerCase())) {
 				tr.findElement(By.xpath(prreader.getPropertyvalues("participantEditLink"))).click();
 			} 
 
@@ -70,17 +70,17 @@ public class UsersPage {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantLastNameTxtBox"))).sendKeys(lName);
 		WebElement selectRole = driver.findElement(By.id(prreader.getPropertyvalues("participantRoleList")));
 		WebElement selectColor = driver.findElement(By.id(prreader.getPropertyvalues("participantColorList")));
-		WebElement selectDevice = driver.findElement(By.id(prreader.getPropertyvalues("participantDeviceList")));
+		//WebElement selectDevice = driver.findElement(By.id(prreader.getPropertyvalues("participantDeviceList")));
 		selectDropdownOption(selectRole, role);
 		selectDropdownOption(selectColor, color);
-		selectDropdownOption(selectDevice, device);
+		//selectDropdownOption(selectDevice, device);
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSaveButton"))).click();
 
 	}
 
 	public boolean searchUser(String User) throws InterruptedException {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(User);
+		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(User.toLowerCase());
 		Thread.sleep(3000);
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantSearchList")));
 		boolean state = false;
@@ -88,7 +88,7 @@ public class UsersPage {
 		for (WebElement tr : trList) {
 
 			WebElement td = tr.findElement(By.xpath("//td[1]"));
-			if ((td.getText()).equals(User)) {
+			if ((td.getText()).equals(User.toLowerCase())) {
 				state = true;
 			} else {
 				state = false;
@@ -115,9 +115,10 @@ public class UsersPage {
 			if((option.getText()).equals(optionToSelect))
 			{
 				option.click();
+				Thread.sleep(1000);
 				break;
 			}
-			Thread.sleep(1000);
+			
 		}
 		}
 		catch(Exception e)
@@ -131,12 +132,12 @@ public class UsersPage {
 
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
-			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(user);
+			driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(user.toLowerCase());
 			Thread.sleep(3000);
 			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("participantSearchList")));
 			for (WebElement tr : trList) {
 			WebElement td = tr.findElement(By.xpath("//td[1]"));
-				if ((td.getText()).equals(user)) {
+				if ((td.getText()).equals(user.toLowerCase())) {
 					tr.findElement(By.xpath(prreader.getPropertyvalues("participantArchiveLink"))).click();
 					wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("confirmArchiveButton")))).click();
 					Thread.sleep(2000);

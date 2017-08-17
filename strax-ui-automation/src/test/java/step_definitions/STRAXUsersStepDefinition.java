@@ -72,7 +72,6 @@ public class STRAXUsersStepDefinition {
 	@When("^Selects user to edit \"([^\"]*)\"$")
 	public void Selects_user_to_edit(String user) throws InterruptedException {
 		UsersPage uPage = new UsersPage(base.driver);
-		
 		//Assert.assertEquals(true, uPage.searchUser(user));
 
 	}

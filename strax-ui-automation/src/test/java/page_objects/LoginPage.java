@@ -1,7 +1,6 @@
 package page_objects;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,9 +12,9 @@ public class LoginPage
 
 	
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	//private static String straxURL = prreader.getPropertyvalues("STRAXUrl");
+	private static String straxURL = prreader.getPropertyvalues("STRAXUrl");
 	//*****reads the target application URL from Jenkin parameter****
-	private static String straxURL = System.getProperty("StraxUrl");
+	//private static String straxURL = System.getProperty("StraxUrl");
 	RemoteWebDriver driver;
 	public LoginPage(RemoteWebDriver driver)
 	{

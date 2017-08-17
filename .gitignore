@@ -3,6 +3,7 @@
 # Example .gitignore files: https://github.com/github/gitignore
 /bower_components/
 /node_modules/
+\strax-ui-automation\target\
 =======
 __MACOSX
 .DS_Store
@@ -11,6 +12,7 @@ __MACOSX
 .settings
 .classpath
 .sass-cache/
+*.class
 
 # OS generated files #
 ######################
@@ -35,6 +37,7 @@ ehthumbs.db
 *.rar
 *.tar
 *.zip
+*.class
 /group-care/group-care-security/group-care-ssl/group-care-ssl-bouncycastle-impl/target/
 /group-care/group-care-security/group-care-ssl/group-care-ssl-interface/target/
 /group-care/group-care-kafka/group-care-kafka-client/target/
@@ -78,3 +81,12 @@ maven-archiver/
 jsonoutput.json
 
 .rollback
+.metadata/
+.recommenders/
+
+strax-ui-automation/target/classes/META-INF/maven/ui-automation/strax/pom.properties
+strax-ui-automation/target/surefire-reports/TEST-test_runner.runCukesTest.xml
+strax-ui-automation/target/test-classes/utils/SouceUtils.class
+strax-ui-automation/target/
+strax-ui-automation/target/test-classes/utils/SouceUtils.class
+strax-ui-automation/target/test-classes/utils/*.class

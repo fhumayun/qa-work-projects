@@ -3,7 +3,6 @@ package page_objects;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,11 +24,10 @@ public class EventPage extends BaseClass {
 
 	}
 	
-	public void addNewEvent(String incident, String missionType, String stream, String address,String aptSuiteUnit,
-			String zipCode, String city, String state, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
+	public void addNewEvent(String incident, String missionType, String stream, String address, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
 	{
 	
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBox"))).sendKeys(incident);
@@ -38,10 +36,10 @@ public class EventPage extends BaseClass {
 		WebElement selectStream = driver.findElement(By.id(prreader.getPropertyvalues("StreamList")));
 		selectDropdownOption(selectStream, stream);
 		driver.findElement(By.id(prreader.getPropertyvalues("AddressTextBox"))).sendKeys(address);
-		driver.findElement(By.id(prreader.getPropertyvalues("AptSuiteUnitTextBox"))).sendKeys(aptSuiteUnit);
-		driver.findElement(By.id(prreader.getPropertyvalues("ZipCodeTextBox"))).sendKeys(String.valueOf(zipCode));
-		driver.findElement(By.id(prreader.getPropertyvalues("CityTextBox"))).sendKeys(city);
-		driver.findElement(By.id(prreader.getPropertyvalues("StateList"))).sendKeys(state);
+		//driver.findElement(By.id(prreader.getPropertyvalues("AptSuiteUnitTextBox"))).sendKeys(aptSuiteUnit);
+		//driver.findElement(By.id(prreader.getPropertyvalues("ZipCodeTextBox"))).sendKeys(String.valueOf(zipCode));
+		//driver.findElement(By.id(prreader.getPropertyvalues("CityTextBox"))).sendKeys(city);
+		//driver.findElement(By.id(prreader.getPropertyvalues("StateList"))).sendKeys(state);
 		driver.findElement(By.id(prreader.getPropertyvalues("LatitudeTextBox"))).sendKeys(latitude);
 		driver.findElement(By.id(prreader.getPropertyvalues("LongitudeTextBox"))).sendKeys(longitude);
 		driver.findElement(By.id(prreader.getPropertyvalues("DescriptionTextBox"))).sendKeys(description);
@@ -148,7 +146,7 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident.toLowerCase());
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
@@ -181,7 +179,7 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident.toLowerCase());
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
@@ -215,7 +213,10 @@ public class EventPage extends BaseClass {
 	}
 	public void endActiveEvent()
 	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		
@@ -229,6 +230,25 @@ public class EventPage extends BaseClass {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		
 	}
+	public void navigateToEventPlanTab() throws InterruptedException
+	{
+		try{
+		
+		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanTab"))).click();
+		}
+		catch(org.openqa.selenium.StaleElementReferenceException ex)
+		{
+			
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanTab"))).click();
+		}
+		
+	}
+	public void navigateToCreateNewEventPlan()
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("AddNewEventPlanButton"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("AddNewEventPlanButton"))).click();
+	}
 	public String deleteEventFromDB(String incident)
 	{
 		DatabaseConnection conn = new DatabaseConnection();
@@ -237,6 +257,103 @@ public class EventPage extends BaseClass {
 		return deletedEvent;
 		
 	}
+	public String deleteEventPlanFromDB(String eventPlan)
+	{
+		DatabaseConnection conn = new DatabaseConnection();
+		String deletedEventPlan = conn.deleteEventPlan(eventPlan);
+		
+		return deletedEventPlan;
+		
+	}
 	
+	public void addEventPlan(String incident, String missionType, String address, String latitude, String longitude, String description ) throws InterruptedException
+	{
 	
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventPlanLabel"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanNameTextBox"))).sendKeys(incident);
+		WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("EventPlanTypeList")));
+		selectDropdownOption(selectMissionType, missionType);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanAddressTextBox"))).sendKeys(address);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLatitudeTextBox"))).sendKeys(latitude);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLongitudeTextBox"))).sendKeys(longitude);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanDescriptionTextBox"))).sendKeys(description);
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton"))).click();
+	}
+	public boolean searchEventPlan(String incident) throws InterruptedException
+	{
+		boolean state = false;
+		try{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchButton"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchInputTextBox"))).sendKeys(incident);
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
+		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
+		
+
+		for (WebElement tr : trList) {
+
+			WebElement td = tr.findElement(By.xpath("//td[1]/a"));
+			if ((td.getText()).equals(incident)) {
+				state = true;
+			} else {
+				state = false;
+			}
+
+		}
+		
+		}
+		catch(org.openqa.selenium.StaleElementReferenceException ex)
+		{
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
+			
+		}
+		
+		return state;
+		
+		
+	}
+	
+	public void lockEventPlan(String eventPlan)
+	{
+		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanLockButton"))).click();
+	}
+	public void unlockEventPlan(String eventPlan)
+	{
+		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnlockButton"))).click();
+	}
+	public String getEventLockStatus(String eventPlan) throws InterruptedException
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.navigate().refresh();
+		searchEventPlan(eventPlan);
+		String status = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnlockButton"))).getText();
+		return status;
+		
+	}
+	public String getEventUnlockStatus(String eventPlan) throws InterruptedException
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.navigate().refresh();
+		searchEventPlan(eventPlan);
+		String status = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanLockButton"))).getText();
+		return status;
+		
+	}
+	
+	public void navigateToEditEventPlan()
+	{
+		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanEditButton"))).click();
+	}
+	public String getEventPlanErrorMessage()
+	{
+		String ErrorMessage = driver.findElement(By.xpath(prreader.getPropertyvalues("EventplanLockedErrorMessage"))).getText();
+		return ErrorMessage;
+		
+	}
 }
