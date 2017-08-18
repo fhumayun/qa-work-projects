@@ -213,10 +213,10 @@ public class EventPage extends BaseClass {
 	}
 	public void endActiveEvent()
 	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		
