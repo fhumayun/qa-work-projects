@@ -108,6 +108,18 @@ public class STRAXUsersStepDefinition {
 		Assert.assertEquals(user, deletedUser);
 
 	}
+	@And("User enters value for \"([^\"]*)\" field")
+	public void User_enters_value_for_password_field(String userpassword) {
+		UsersPage uPage = new UsersPage(base.driver);
+		uPage.addUser(userpassword);
+
+	}
+	@Then("^following \"([^\"]*)\" should be displayed")
+	public void following_error_should_be_displayed(String errorMessage) {
+		UsersPage uPage = new UsersPage(base.driver);
+		Assert.assertEquals(errorMessage, uPage.getErrorMessage());
+
+	}
 	
 
 }

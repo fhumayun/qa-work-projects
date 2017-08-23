@@ -57,4 +57,22 @@ Examples:
 	|username     |password|user|
 	|controller@ee.io|Password1@|automationtestuser1@ee.io|
 	|autobot@ee.io|Password1@|automationtestuser2@ee.io|
+@SRM @Password @C44631
+Scenario Outline: Verify password strength policy is enforced  
+    Given The STRAX Application login page is open
+	When User Enters Valid "<username>" and "<password>"
+	And User navigates to Users menu
+	And clicks on Add New User button
+	And User enters value for "<testPassword>" field
+    Then following "<errorMessage>" should be displayed
+Examples: 
+	|username     |password|testPassword|errorMessage|
+	|controller@ee.io|Password1@|eei|Password too short. Must be at least 8 characters long.|
+	|controller@ee.io|Password1@|password|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|controller@ee.io|Password1@|Password@|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|controller@ee.io|Password1@|Password1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|controller@ee.io|Password1@|P@SSWORD1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|controller@ee.io|Password1@|p@ssword1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|controller@ee.io|Password1@|P@$$WORD|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|controller@ee.io|Password1@|p@$$word|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
  

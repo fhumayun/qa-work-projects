@@ -178,6 +178,17 @@ public class UsersPage {
 		return false;
 		
 	}
+	//overloaded method to capture password strength policy errors
+	public void addUser(String userpassword) {
+		driver.findElement(By.id(prreader.getPropertyvalues("participantPasswordTxtBox"))).sendKeys(userpassword);
+		driver.findElement(By.id(prreader.getPropertyvalues("participantConfirmPasswordTxtBox"))).sendKeys(userpassword);
+		
+	}
+	
+	public String getErrorMessage(){
+		String msg = driver.findElement(By.xpath(prreader.getPropertyvalues("participantPasswordError"))).getText();
+		return msg;
+	}
 	
 	
 
