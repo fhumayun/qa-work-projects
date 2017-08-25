@@ -61,7 +61,7 @@ Scenario Outline: Verify user permissions to menu items
 	Then The user should have access to these "<menu>" 
 Examples: valid useremail & password
 	|useremail|password|menu|
-	|controller@ee.io|Password1@|Events, Users, UASs, Map Layers, Feeds|
+	|controller@ee.io|Password1@|Events, Users,Map Layers|
 	|autobot@ee.io|Password1@|Events, Users, UASs, Map Layers, Feeds|
 	|user@ee.io|Password1@|Events|
 	|viewer@ee.io|Password1@|Events|
