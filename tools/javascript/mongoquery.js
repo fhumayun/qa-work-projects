@@ -17,7 +17,7 @@ var server = tunnel(config, function (error, server) {
     if(error){
         console.log("SSH connection error: " + error);
     }
-    mongoose.connect('mongodb://localhost:27017/mydbname');
+    mongoose.connect('mongodb://msg:27017/strax');
 
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'DB connection error:'));
