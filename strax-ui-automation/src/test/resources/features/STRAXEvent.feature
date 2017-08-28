@@ -128,39 +128,15 @@ Examples:
 	|controller@ee.io|Password1@|AutomationTestEventPlan1|Search & Rescue|1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA|||Event Created By Automation Framework|
 	|autobot@ee.io|Password1@|AutomationTestEventPlan2|Search & Rescue|1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA|||Event Created By Automation Framework|
 	|user@ee.io|Password1@|AutomationTestEventPlan3|Search & Rescue|1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA|||Event Created By Automation Framework|
-@C44624 @SRM  @EventPlan @ignore
-Scenario Outline: Verify user can lock an event plan
+@arc @SRM  @EventPlan 
+Scenario Outline: Verify user can archive the event plan
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
 And User navigates to Event plan tab
-And User clicks on lock button to lock "<evenyPlan>" an event plan
-Then Event plan "<evenyPlan>" should get locked	
+And User clicks on archive button to archive "<eventPlan>" event plan
+Then event plan "<eventPlan>" should get deleted successfully	
 Examples:
-	|username     |password|evenyPlan|
-	|controller@ee.io|Password1@|AutomationTestEventPlan1|
-	|autobot@ee.io|Password1@|AutomationTestEventPlan2|
-	|user@ee.io|Password1@|AutomationTestEventPlan3|
-@C44625 @SRM  @EventPlan @ignore
-Scenario Outline: Verify user can not edit the locked event plan
-Given The STRAX Application login page is open
-When User Enters Valid "<username>" and "<password>"
-And User navigates to Event plan tab
-And User clicks on edit button to edit "<evenyPlan>" event plan
-Then event plan "<evenyPlan>" is locked error message should be disaplyed	
-Examples:
-	|username     |password|evenyPlan|
-	|controller@ee.io|Password1@|AutomationTestEventPlan1|
-	|autobot@ee.io|Password1@|AutomationTestEventPlan2|
-	|user@ee.io|Password1@|AutomationTestEventPlan3|
-@C44626 @SRM  @EventPlan @ignore
-Scenario Outline: Verify user can unlock an event plan
-Given The STRAX Application login page is open
-When User Enters Valid "<username>" and "<password>"
-And User navigates to Event plan tab
-And User clicks on unlock button to unlock "<evenyPlan>" an event plan
-Then Event plan "<evenyPlan>" should get unlocked	
-Examples:
-	|username     |password|evenyPlan|
+	|username     |password|eventPlan|
 	|controller@ee.io|Password1@|AutomationTestEventPlan1|
 	|autobot@ee.io|Password1@|AutomationTestEventPlan2|
 	|user@ee.io|Password1@|AutomationTestEventPlan3|

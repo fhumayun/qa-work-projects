@@ -211,10 +211,11 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("MapCloseButton")))).click();
 	}
-	public void endActiveEvent()
+	public void endActiveEvent() throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		Thread.sleep(2000);
 		driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
@@ -356,4 +357,14 @@ public class EventPage extends BaseClass {
 		return ErrorMessage;
 		
 	}
+
+	public void archiveEventPlan(String eventPlan) throws InterruptedException {
+	
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanArchiveButton"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanArchiveConfirmButton"))).click();
+			Thread.sleep(1000);
+			driver.navigate().refresh();
+		
+	}
+
 }

@@ -175,6 +175,24 @@ public class STRAXEventStepDefinition {
 		Assert.assertEquals("lock_open" , eventPage.getEventUnlockStatus(eventPlan));
 		eventPage.deleteEventPlanFromDB(eventPlan);
 	}
+	@And("^User clicks on archive button to archive \"([^\"]*)\" event plan$")
+	public void User_clicks_on_archive_button_to_archive_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.archiveEventPlan(eventPlan);
+				
+	}
+	@Then("^event plan \"([^\"]*)\" should get deleted successfully$")
+	public void event_plan_should_get_deleted_successfully(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		String deletedEventPlan = "";
+		deletedEventPlan = eventPage.deleteEventPlanFromDB(eventPlan);
+
+		Assert.assertEquals(eventPlan, deletedEventPlan);
+		
+		
+	}
+	
 	
 
 }
