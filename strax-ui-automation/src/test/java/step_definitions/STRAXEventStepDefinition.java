@@ -45,7 +45,7 @@ public class STRAXEventStepDefinition {
 	@And("^Enters valid values for the following fields and \"([^\"]*)\"$")
 	public void Enters_valid_values_for_the_following_fields(List<String> participantList, Map<String, String> tableData) throws InterruptedException{
 	EventPage eventPage = new EventPage(base.driver);
-		eventPage.addNewEvent(tableData.get("Incident"),tableData.get("MissionType"), tableData.get("Stream"),tableData.get("Address"), tableData.get("AptSuiteUnit"),tableData.get("ZipCode") , tableData.get("City"), tableData.get("State"), tableData.get("Latitude"), 
+		eventPage.addNewEvent(tableData.get("Incident"),tableData.get("MissionType"), tableData.get("Stream"),tableData.get("Address"), tableData.get("Latitude"), 
 				tableData.get("Longitude"), tableData.get("Description"), participantList);
 		
 	}
@@ -107,6 +107,92 @@ public class STRAXEventStepDefinition {
 		eventPage.navigateToEventHistory();
 		Assert.assertEquals(true , eventPage.searchEvent(incident));	
 	}
+	@And("^User navigates to Event plan tab$")
+	public void User_navigates_to_Event_plan_tab() throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.navigateToEventPlanTab();
+		
+	}
+	@And("^User clicks on add new event plan button to create a new event plan$")
+	public void User_clicks_on_add_new_event_plan_button_to_create_a_new_event_plan() throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.navigateToCreateNewEventPlan();
+		
+	}
+	@And("^Enters valid values for the following fields$")
+	public void Enters_valid_values_for_the_following_fields(Map<String, String> tableData) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.addEventPlan(tableData.get("Incident"),tableData.get("MissionType"),tableData.get("Address"),tableData.get("Latitude"), 
+				tableData.get("Longitude"), tableData.get("Description"));
+		
+	}
+	@Then("^A new event plan with name \"([^\"]*)\" should get created successfully$")
+	public void A_new_event_plan_should_get_created_successfully(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.navigateToEventPlanTab();
+		Assert.assertEquals(true , eventPage.searchEventPlan(eventPlan));
+		
+	}
+	@And("^User clicks on lock button to lock \"([^\"]*)\" an event plan$")
+	public void User_clicks_on_lock_button_to_lock_an_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.lockEventPlan(eventPlan);
+		
+	}
+	@Then("^Event plan \"([^\"]*)\" should get locked$")
+	public void Event_plan_should_get_locked(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		
+		Assert.assertEquals("lock" , eventPage.getEventLockStatus(eventPlan));
+		
+	}
+	@And("^User clicks on edit button to edit \"([^\"]*)\" event plan$")
+	public void User_clicks_on_edit_button_to_edit_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.navigateToEditEventPlan();
+		
+	}
+	@Then("^event plan \"([^\"]*)\" is locked error message should be disaplyed$")
+	public void event_plan_is_locked_error_message_should_be_disaplyed(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		
+		Assert.assertEquals("This event plan is locked!" , eventPage.getEventPlanErrorMessage());
+		
+	}
+	@And("^User clicks on unlock button to unlock \"([^\"]*)\" an event plan$")
+	public void User_clicks_on_lock_button_to_unlock_an_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.unlockEventPlan(eventPlan);
+		
+	}
+	@Then("^Event plan \"([^\"]*)\" should get unlocked$")
+	public void Event_plan_should_get_unlocked(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		
+		Assert.assertEquals("lock_open" , eventPage.getEventUnlockStatus(eventPlan));
+		eventPage.deleteEventPlanFromDB(eventPlan);
+	}
+	@And("^User clicks on archive button to archive \"([^\"]*)\" event plan$")
+	public void User_clicks_on_archive_button_to_archive_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.archiveEventPlan(eventPlan);
+				
+	}
+	@Then("^event plan \"([^\"]*)\" should get deleted successfully$")
+	public void event_plan_should_get_deleted_successfully(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		String deletedEventPlan = "";
+		deletedEventPlan = eventPage.deleteEventPlanFromDB(eventPlan);
+
+		Assert.assertEquals(eventPlan, deletedEventPlan);
+		
+		
+	}
+	
 	
 
 }

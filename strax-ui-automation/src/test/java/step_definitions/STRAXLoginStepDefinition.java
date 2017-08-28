@@ -44,10 +44,6 @@ public class STRAXLoginStepDefinition
 	
 	DashboardPage dashboardpage;
 	UsersPage uPage;
-	//RemoteWebDriver driver;
-	//DesiredCapabilities capabilities;
-	//public String jobName;
-	//public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	TestrailResultUpload testresult = new TestrailResultUpload();
 		//reads Sauce username & access key from property file
@@ -61,25 +57,7 @@ public class STRAXLoginStepDefinition
 	 * * @param scenario
 	 * @throws MalformedURLException
 	 */
-	/*@Before
-	public void setUp(Scenario scenario) throws MalformedURLException
-	{
-		capabilities = DesiredCapabilities.chrome();
-		capabilities.setCapability("browserName", prreader.getPropertyvalues("BrowserName"));
-		//capabilities.setCapability("platform", prreader.getPropertyvalues("Platform"));
-		//capabilities.setCapability("version",prreader.getPropertyvalues("Version"));
-		jobName = scenario.getName();
-		capabilities.setCapability("name", jobName);
-		//driver = new RemoteWebDriver(new URL(URL), capabilities);
-		
-		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		driver = new RemoteWebDriver(new URL(" http://192.168.101.32:4444/wd/hub"), capabilities);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		sessionId = (((RemoteWebDriver) driver).getSessionId()).toString();
-		
-
-	}*/
-
+	
 	@Given("^The STRAX Application login page is open$")
 	public void openLoginPage()
 	{
@@ -130,7 +108,7 @@ public class STRAXLoginStepDefinition
 	{
 		LoginPage loginpage = new LoginPage(base.driver);
 		loginpage = new LoginPage(base.driver);
-		Assert.assertEquals("", "Unauthorized", loginpage.getLoginFailedError());
+		Assert.assertEquals("", "Invalid Credentials", loginpage.getLoginFailedError());
 	}
 	@Then("^The Login page should reject the credentials$")
 	public void The_Login_page_should_reject_the_credentials()
@@ -189,16 +167,6 @@ public class STRAXLoginStepDefinition
 		
 		
 	}
-	
 
-/*	@After
-	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException
-	{
-		driver.quit();
-		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
-		System.out.println("SauceOnDemandSessionID=" + sessionId + "job-name=" + jobName);
-		//testresult.uploadResult(scenario);
-		
-	}*/
 
 }

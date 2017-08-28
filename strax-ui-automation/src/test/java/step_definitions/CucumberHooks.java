@@ -13,6 +13,7 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import page_objects.BaseClass;
+import page_objects.CommonClass;
 import utils.APIException;
 import utils.PropertiesFileReader;
 import utils.SouceUtils;
@@ -34,8 +35,6 @@ public class CucumberHooks extends BaseClass{
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	TestrailResultUpload testresult = new TestrailResultUpload();
-	//CommonClass commonClass = new CommonClass(driver);
-	//reads Sauce username & access key from property file
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
 	public static final String ACCESS_KEY = prreader.getPropertyvalues("SauceAccessKey");
 	public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
@@ -52,20 +51,20 @@ public class CucumberHooks extends BaseClass{
 		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 		
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capabilities);
-		base.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.32:4444/wd/hub"), capabilities);
+		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		base.driver.manage().window().maximize();
 		sessionId = (((RemoteWebDriver) base.driver).getSessionId()).toString();
-		
-		
+	
 
 	}
 	@After
-	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException
+	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException, InterruptedException
 	{
+		CommonClass cClass = new CommonClass(base.driver);
+		//cClass.logOut();
 		base.driver.quit();
 		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
-		//System.out.println("SauceOnDemandSessionID=" + sessionId + "job-name=" + jobName);
 		testresult.uploadResult(scenario);
 		
 	}
