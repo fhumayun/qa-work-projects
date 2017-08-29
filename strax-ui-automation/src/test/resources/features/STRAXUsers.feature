@@ -7,8 +7,8 @@ Scenario Outline: Verify user search
     Then User Should be able to search for a user "<userToSearch>"
 Examples: 
 	|username     |password|userToSearch|
-	|controller@ee.io|Password1@|controller@ee.io|
-	|autobot@ee.io|Password1@|autobot@ee.io|
+	|z-controller@ee.io|Password1@|z-controller@ee.io|
+	|z-autobot@ee.io|Password1@|z-autobot@ee.io|
  @SRM @Users @C44548 
 Scenario Outline: Verify add new user  
     Given The STRAX Application login page is open
@@ -26,8 +26,8 @@ Scenario Outline: Verify add new user
     Then Then User should get created successfully with email "<email>"
 Examples: valid user details
 	|username     |password|email|firstname|lastname|newpassword|role|color|device|
-	|controller@ee.io|Password1@  |automationtestuser1@ee.io|Automation|Tester|Password1@|User|Green|none|
-	|autobot@ee.io|Password1@|automationtestuser2@ee.io|Automation|Tester|Password1@|Controller|Green|none|
+	|z-controller@ee.io|Password1@  |z-automationtestuser1@ee.io|Z-Automation|Z-Tester|Password1@|User|Green|none|
+	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|Password1@|Controller|Green|none|
 @SRM @Users @C44549 
 Scenario Outline: Verify edit user  
     Given The STRAX Application login page is open
@@ -44,8 +44,8 @@ Scenario Outline: Verify edit user
     Then Then User should get updated successfully
 Examples: 
 	|username     |password|email|firstname|lastname|role|color|device|
-	|controller@ee.io|Password1@|automationtestuser1@ee.io|Automation|Tester|User|Green|QA1|
-	|autobot@ee.io|Password1@|automationtestuser2@ee.io|Automation|Tester|User|Green|hi|
+	|z-controller@ee.io|Password1@|z-automationtestuser1@ee.io|Z-Automation|Z-Tester|Z-User|Green|QA1|
+	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|Z-User|Green|hi|
 @SRM @Users @C44550 
 Scenario Outline: Verify archive user  
     Given The STRAX Application login page is open
@@ -55,8 +55,8 @@ Scenario Outline: Verify archive user
     Then Then User "<user>" should get archived successfully
 Examples: 
 	|username     |password|user|
-	|controller@ee.io|Password1@|automationtestuser1@ee.io|
-	|autobot@ee.io|Password1@|automationtestuser2@ee.io|
+	|z-controller@ee.io|Password1@|z-automationtestuser1@ee.io|
+	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|
 @SRM @Password @C44631
 Scenario Outline: Verify password strength policy is enforced  
     Given The STRAX Application login page is open
@@ -67,12 +67,12 @@ Scenario Outline: Verify password strength policy is enforced
     Then following "<errorMessage>" should be displayed
 Examples: 
 	|username     |password|testPassword|errorMessage|
-	|controller@ee.io|Password1@|eei|Password too short. Must be at least 8 characters long.|
-	|controller@ee.io|Password1@|password|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|controller@ee.io|Password1@|Password@|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|controller@ee.io|Password1@|Password1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|controller@ee.io|Password1@|P@SSWORD1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|controller@ee.io|Password1@|p@ssword1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|controller@ee.io|Password1@|P@$$WORD|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|controller@ee.io|Password1@|p@$$word|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|eei|Password too short. Must be at least 8 characters long.|
+	|z-controller@ee.io|Password1@|password|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|Password@|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|Password1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|P@SSWORD1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|p@ssword1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|P@$$WORD|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|p@$$word|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
  

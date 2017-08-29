@@ -8,4 +8,4 @@ Then User should have access to create a new UAS
 
 Examples:
 	|username     |password|
-	|autobot@ee.io|Password1@|
+	|z-autobot@ee.io|Password1@|
