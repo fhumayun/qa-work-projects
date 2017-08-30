@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONException;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -39,10 +40,9 @@ public class CucumberHooks extends BaseClass{
 	public void setUp(Scenario scenario) throws MalformedURLException
 	{
 		//reads browser from Jenkins parameters
-		capabilities.setCapability("browserName", System.getProperty("SELENIUM_BROWSER"));
-		capabilities.setCapability("platform", System.getProperty("SELENIUM_PLATFORM"));
-		capabilities.setCapability("version",System.getProperty("SELENIUM_VERSION"));
-		
+		capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+		capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
+		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 		
 		// uncomment to read the browser,platform values from config file
 		/*capabilities.setCapability("browserName", prreader.getPropertyvalues("SELENIUM_BROWSER"));
