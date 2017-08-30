@@ -128,7 +128,7 @@ Examples:
 	|z-controller@ee.io|Password1@|AutomationTestEventPlan1|Search & Rescue|1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA|||Event Created By Automation Framework|
 	|z-autobot@ee.io|Password1@|AutomationTestEventPlan2|Search & Rescue|1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA|||Event Created By Automation Framework|
 	|z-user@ee.io|Password1@|AutomationTestEventPlan3|Search & Rescue|1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA|||Event Created By Automation Framework|
-@arc @SRM  @EventPlan 
+@C46769 @SRM  @EventPlan 
 Scenario Outline: Verify user can archive the event plan
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
