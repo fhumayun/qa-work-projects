@@ -26,10 +26,6 @@ public class CucumberHooks extends BaseClass{
 		this.base = base;
 		
 	}
-	//LoginPage loginpage;
-	//DashboardPage dashboardpage;
-	//UsersPage uPage;
-	//RemoteWebDriver driver;
 	DesiredCapabilities capabilities;
 	public String jobName;
 	public String sessionId;
@@ -42,16 +38,21 @@ public class CucumberHooks extends BaseClass{
 	@Before
 	public void setUp(Scenario scenario) throws MalformedURLException
 	{
-		capabilities = DesiredCapabilities.chrome();
-		capabilities.setCapability("browserName", prreader.getPropertyvalues("BrowserName"));
+		//reads browser from Jenkins parameters
+		capabilities.setCapability("browserName", System.getProperty("BrowserName"));
+		capabilities.setCapability("platform", System.getProperty("Platform"));
+		capabilities.setCapability("version",System.getProperty("Version"));
+		
+		// uncomment to read the browser,platform values from config file
+		/*capabilities.setCapability("browserName", prreader.getPropertyvalues("BrowserName"));
 		capabilities.setCapability("platform", prreader.getPropertyvalues("Platform"));
-		capabilities.setCapability("version",prreader.getPropertyvalues("Version"));
+		capabilities.setCapability("version",prreader.getPropertyvalues("Version"));*/
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
 		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 		
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.32:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.103:4444/wd/hub"), capabilities);
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		base.driver.manage().window().maximize();
 		sessionId = (((RemoteWebDriver) base.driver).getSessionId()).toString();
