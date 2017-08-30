@@ -39,15 +39,15 @@ public class CucumberHooks extends BaseClass{
 	public void setUp(Scenario scenario) throws MalformedURLException
 	{
 		//reads browser from Jenkins parameters
-		capabilities.setCapability("browserName", System.getProperty("SELENIUM_BROWSER"));
+		/*capabilities.setCapability("browserName", System.getProperty("SELENIUM_BROWSER"));
 		capabilities.setCapability("platform", System.getProperty("SELENIUM_PLATFORM"));
-		capabilities.setCapability("version",System.getProperty("SELENIUM_VERSION"));
+		capabilities.setCapability("version",System.getProperty("SELENIUM_VERSION"));*/
 		
 		
 		// uncomment to read the browser,platform values from config file
-		/*capabilities.setCapability("browserName", prreader.getPropertyvalues("SELENIUM_BROWSER"));
+		capabilities.setCapability("browserName", prreader.getPropertyvalues("SELENIUM_BROWSER"));
 		capabilities.setCapability("platform", prreader.getPropertyvalues("SELENIUM_PLATFORM"));
-		capabilities.setCapability("version",prreader.getPropertyvalues("SELENIUM_VERSION"));*/
+		capabilities.setCapability("version",prreader.getPropertyvalues("SELENIUM_VERSION"));
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
 		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
