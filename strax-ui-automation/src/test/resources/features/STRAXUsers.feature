@@ -44,8 +44,8 @@ Scenario Outline: Verify edit user
     Then Then User should get updated successfully
 Examples: 
 	|username     |password|email|firstname|lastname|role|color|device|
-	|z-controller@ee.io|Password1@|z-automationtestuser1@ee.io|Z-Automation|Z-Tester|Z-User|Green|QA1|
-	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|Z-User|Green|hi|
+	|z-controller@ee.io|Password1@|z-automationtestuser1@ee.io|Z-Automation|Z-Tester|User|Green|QA1|
+	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|User|Green|hi|
 @SRM @Users @C44550 
 Scenario Outline: Verify archive user  
     Given The STRAX Application login page is open
