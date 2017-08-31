@@ -27,7 +27,7 @@ public class CucumberHooks extends BaseClass{
 		this.base = base;
 		
 	}
-	DesiredCapabilities capabilities;
+	static DesiredCapabilities capabilities;
 	public String jobName;
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
@@ -39,13 +39,16 @@ public class CucumberHooks extends BaseClass{
 	@Before
 	public void setUp(Scenario scenario) throws MalformedURLException
 	{
-		//reads browser from Jenkins parameters
+		
+		//reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
+		capabilities = DesiredCapabilities.chrome();
 		capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
 		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 		
 		// uncomment to read the browser,platform values from config file
-		/*capabilities.setCapability("browserName", prreader.getPropertyvalues("SELENIUM_BROWSER"));
+		/*capabilities = DesiredCapabilities.chrome();
+		capabilities.setCapability("browserName", prreader.getPropertyvalues("SELENIUM_BROWSER"));
 		capabilities.setCapability("platform", prreader.getPropertyvalues("SELENIUM_PLATFORM"));
 		capabilities.setCapability("version",prreader.getPropertyvalues("SELENIUM_VERSION"));*/
 		jobName = scenario.getName();
@@ -65,7 +68,7 @@ public class CucumberHooks extends BaseClass{
 	{
 		CommonClass cClass = new CommonClass(base.driver);
 		//cClass.logOut();
-		base.driver.quit();
+		base.driver.close();
 		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
 		testresult.uploadResult(scenario);
 		
