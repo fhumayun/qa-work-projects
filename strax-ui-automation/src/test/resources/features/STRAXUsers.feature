@@ -68,11 +68,11 @@ Scenario Outline: Verify password strength policy is enforced
 Examples: 
 	|username     |password|testPassword|errorMessage|
 	|z-controller@ee.io|Password1@|eei|Password too short. Must be at least 8 characters long.|
-	|z-controller@ee.io|Password1@|password|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|z-controller@ee.io|Password1@|Password@|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|z-controller@ee.io|Password1@|Password1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|z-controller@ee.io|Password1@|P@SSWORD1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|z-controller@ee.io|Password1@|p@ssword1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|z-controller@ee.io|Password1@|P@$$WORD|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
-	|z-controller@ee.io|Password1@|p@$$word|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Character (!,@,#,$ etc.)|
+	|z-controller@ee.io|Password1@|password|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
+	|z-controller@ee.io|Password1@|Password@|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
+	|z-controller@ee.io|Password1@|Password1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
+	|z-controller@ee.io|Password1@|P@SSWORD1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
+	|z-controller@ee.io|Password1@|p@ssword1|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
+	|z-controller@ee.io|Password1@|P@$$WORD|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
+	|z-controller@ee.io|Password1@|p@$$word|Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ &|
  
