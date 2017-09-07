@@ -26,8 +26,9 @@ Scenario Outline: Verify add new user
     Then Then User should get created successfully with email "<email>"
 Examples: valid user details
 	|username     |password|email|firstname|lastname|newpassword|role|color|device|
-	|z-controller@ee.io|Password1@  |z-automationtestuser1@ee.io|Z-Automation|Z-Tester|Password1@|User|Green|none|
-	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|Password1@|Controller|Green|none|
+	|z-controller@ee.io|Password1@  |z-automationtestuser1@ee.io|Z-Automation|Z-Tester|Password1~!@#|User|Green|none|
+	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|Password1$%*-_|Controller|Green|none|
+	|z-autobot@ee.io|Password1@|z-automationtestuser3@ee.io|Z-Automation|Z-Tester|Password1+=.^&|Viewer|Green|none|
 @SRM @Users @C44549 
 Scenario Outline: Verify edit user  
     Given The STRAX Application login page is open
@@ -57,6 +58,7 @@ Examples:
 	|username     |password|user|
 	|z-controller@ee.io|Password1@|z-automationtestuser1@ee.io|
 	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|
+	|z-autobot@ee.io|Password1@|z-automationtestuser3@ee.io|
 @SRM @Password @C44631
 Scenario Outline: Verify password strength policy is enforced  
     Given The STRAX Application login page is open
