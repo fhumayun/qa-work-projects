@@ -366,5 +366,19 @@ public class EventPage extends BaseClass {
 			driver.navigate().refresh();
 		
 	}
+	
+	public void navigateToArchivedEventPlanTab()
+	{
+		driver.findElement(By.id(prreader.getPropertyvalues("ShowArchivedEventPlanButton"))).click();
+		
+	}
+	public void unArchiveEventPlan(String eventPlan) throws InterruptedException {
+		
+		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnarchiveButton"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanArchiveConfirmButton"))).click();
+		Thread.sleep(1000);
+		
+	
+}
 
 }

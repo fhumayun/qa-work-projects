@@ -134,6 +134,31 @@ Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
 And User navigates to Event plan tab
 And User clicks on archive button to archive "<eventPlan>" event plan
+Then event plan "<eventPlan>" should get archived successfully	
+Examples:
+	|username     |password|eventPlan|
+	|z-controller@ee.io|Password1@|AutomationTestEventPlan1|
+	|z-autobot@ee.io|Password1@|AutomationTestEventPlan2|
+	|z-user@ee.io|Password1@|AutomationTestEventPlan3|
+@C46770 @SRM  @EventPlan 
+Scenario Outline: Verify user can unarchive the event plan
+Given The STRAX Application login page is open
+When User Enters Valid "<username>" and "<password>"
+And User navigates to Event plan tab
+And User navigates to archived event plan tab
+And User clicks on unarchive button of "<eventPlan>" to activate the plan 
+Then event plan "<eventPlan>" should get activated successfully
+Examples:
+	|username     |password|eventPlan|
+	|z-controller@ee.io|Password1@|AutomationTestEventPlan1|
+	|z-autobot@ee.io|Password1@|AutomationTestEventPlan2|
+	|z-user@ee.io|Password1@|AutomationTestEventPlan3|
+@C46769 @SRM  @EventPlan 
+Scenario Outline: Verify user can archive the event plan
+Given The STRAX Application login page is open
+When User Enters Valid "<username>" and "<password>"
+And User navigates to Event plan tab
+And User clicks on archive button to archive "<eventPlan>" event plan
 Then event plan "<eventPlan>" should get deleted successfully	
 Examples:
 	|username     |password|eventPlan|

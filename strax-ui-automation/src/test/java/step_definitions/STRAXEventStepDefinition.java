@@ -182,6 +182,13 @@ public class STRAXEventStepDefinition {
 		eventPage.archiveEventPlan(eventPlan);
 				
 	}
+	@Then("^event plan \"([^\"]*)\" should get archived successfully$")
+	public void event_plan_should_get_archived_successfully(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
+		
+		
+	}
 	@Then("^event plan \"([^\"]*)\" should get deleted successfully$")
 	public void event_plan_should_get_deleted_successfully(String eventPlan) throws InterruptedException {
 		EventPage eventPage = new EventPage(base.driver);
@@ -190,6 +197,33 @@ public class STRAXEventStepDefinition {
 
 		Assert.assertEquals(eventPlan, deletedEventPlan);
 		
+		
+	}
+	@And("^User navigates to archived event plan tab$")
+	public void User_navigates_to_archived_event_plan_tab() throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.navigateToArchivedEventPlanTab();
+		Thread.sleep(1000);
+				
+	}
+	@And("^User clicks on unarchive button of \"([^\"]*)\" to activate the plan$")
+	public void User_clicks_on_unarchive_button_to_activate_the_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.unArchiveEventPlan(eventPlan);
+		
+		
+				
+	}
+	@Then("^event plan \"([^\"]*)\" should get activated successfully$")
+	public void event_plan_should_get_activated_successfully(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		String deletedEventPlan = "";
+		//eventPage.navigateToEventPlanTab();
+		base.driver.navigate().refresh();
+		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
+		deletedEventPlan = eventPage.deleteEventPlanFromDB(eventPlan);
+
 		
 	}
 	
