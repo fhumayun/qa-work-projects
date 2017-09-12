@@ -185,6 +185,7 @@ public class STRAXEventStepDefinition {
 	@Then("^event plan \"([^\"]*)\" should get archived successfully$")
 	public void event_plan_should_get_archived_successfully(String eventPlan) throws InterruptedException {
 		EventPage eventPage = new EventPage(base.driver);
+		eventPage.navigateToArchivedEventPlanTab();
 		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
 		
 		
@@ -222,7 +223,7 @@ public class STRAXEventStepDefinition {
 		//eventPage.navigateToEventPlanTab();
 		base.driver.navigate().refresh();
 		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
-		deletedEventPlan = eventPage.deleteEventPlanFromDB(eventPlan);
+		
 
 		
 	}
