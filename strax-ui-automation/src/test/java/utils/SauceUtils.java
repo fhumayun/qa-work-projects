@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SouceUtils
+public class SauceUtils
 {
 	private static SauceREST sauceRESTClient;
 

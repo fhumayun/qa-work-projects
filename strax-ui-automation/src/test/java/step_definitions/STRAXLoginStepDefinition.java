@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import utils.APIException;
 import utils.PropertiesFileReader;
 import utils.TestrailResultUpload;
-import utils.SouceUtils;
+import utils.SauceUtils;
 import page_objects.BaseClass;
 import page_objects.CommonClass;
 import page_objects.DashboardPage;

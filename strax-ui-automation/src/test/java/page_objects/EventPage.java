@@ -380,5 +380,25 @@ public class EventPage extends BaseClass {
 		
 	
 }
+	public void shareEventPlan(String eventPlan) {
+		
+		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanShareButton"))).click();
+		
+	
+}
+	public boolean isEventPlanShared()
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		String attributeValue = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanShareButton"))).getAttribute("class");
+		if(attributeValue.equals(prreader.getPropertyvalues("EventPlanSharedBlueClassName")))
+		{
+			return true;
+		}
+		else
+			
+		return false;
+		
+	}
 
 }

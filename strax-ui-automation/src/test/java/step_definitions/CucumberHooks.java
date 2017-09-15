@@ -17,7 +17,7 @@ import page_objects.BaseClass;
 import page_objects.CommonClass;
 import utils.APIException;
 import utils.PropertiesFileReader;
-import utils.SouceUtils;
+import utils.SauceUtils;
 import utils.TestrailResultUpload;
 
 public class CucumberHooks extends BaseClass{
@@ -47,16 +47,16 @@ public class CucumberHooks extends BaseClass{
 		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 		
 		// uncomment to read the browser,platform values from config file
-		/*capabilities = DesiredCapabilities.chrome();
-		capabilities.setCapability("browserName", prreader.getPropertyvalues("SELENIUM_BROWSER"));
-		capabilities.setCapability("platform", prreader.getPropertyvalues("SELENIUM_PLATFORM"));
-		capabilities.setCapability("version",prreader.getPropertyvalues("SELENIUM_VERSION"));*/
+/*		capabilities = DesiredCapabilities.chrome();
+		capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
+		capabilities.setCapability(CapabilityType.PLATFORM, prreader.getPropertyvalues("SELENIUM_PLATFORM"));
+		capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));*/
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
 		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 		
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.103:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capabilities);
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		base.driver.manage().window().maximize();
 		sessionId = (((RemoteWebDriver) base.driver).getSessionId()).toString();
@@ -69,7 +69,7 @@ public class CucumberHooks extends BaseClass{
 		CommonClass cClass = new CommonClass(base.driver);
 		//cClass.logOut();
 		base.driver.close();
-		SouceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
+		SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
 		testresult.uploadResult(scenario);
 		
 	}

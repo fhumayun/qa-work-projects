@@ -227,7 +227,25 @@ public class STRAXEventStepDefinition {
 
 		
 	}
+	@And("^User clicks on share button to share \"([^\"]*)\" event plan$")
+	public void User_clicks_on_share_button_to_share_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		eventPage.searchEventPlan(eventPlan);
+		eventPage.shareEventPlan(eventPlan);
+						
+	}
+	@Then("^event plan \"([^\"]*)\" should get shared successfully$")
+	public void event_plan_should_get_shared_successfully(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		Assert.assertTrue(eventPage.isEventPlanShared());
 	
+	}
+	@Then("^user should see the shared \"([^\"]*)\" plan$")
+	public void user_should_see_the_shared_event_plan(String eventPlan) throws InterruptedException {
+		EventPage eventPage = new EventPage(base.driver);
+		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
+	
+	}	
 	
 
 }
