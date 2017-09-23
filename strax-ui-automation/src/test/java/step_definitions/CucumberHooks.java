@@ -69,6 +69,7 @@ public class CucumberHooks extends BaseClass{
 		CommonClass cClass = new CommonClass(base.driver);
 		//cClass.logOut();
 		base.driver.close();
+		base.driver.quit();
 		SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
 		testresult.uploadResult(scenario);
 		
