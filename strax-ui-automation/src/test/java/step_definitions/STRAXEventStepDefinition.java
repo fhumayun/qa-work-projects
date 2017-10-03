@@ -1,6 +1,5 @@
 package step_definitions;
 
-import java.awt.AWTException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -246,32 +245,7 @@ public class STRAXEventStepDefinition {
 		EventPage eventPage = new EventPage(base.driver);
 		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
 	
-	}
-	@Then("^Google map should get loaded successfully$")
-	public void Google_map_should_get_loaded_successfully(String eventPlan) throws InterruptedException {
-		EventPage eventPage = new EventPage(base.driver);
-		Assert.assertTrue(eventPage.isGoogleMapLoaded());
-	
-	}
-	@Then("^Event log window loads correctly$")
-	public void event_log_window_loads_correctly() throws InterruptedException {
-		EventPage eventPage = new EventPage(base.driver);
-		Assert.assertTrue(eventPage.isEventLogWindowLoaded());
-	
-	}
-	@Then("^User should see video feed$")
-	public void User_should_see_video_feed() throws InterruptedException {
-		EventPage eventPage = new EventPage(base.driver);
-		Assert.assertTrue(eventPage.isFeedVideoAvailable());
-	
-	}
-	@And("^User right clicks on the active event \"([^\"]*)\" link to open new window$")
-	public void User_right_clicks_on_the_active_event_link_to_open_new_window(String incident) throws InterruptedException, AWTException {
-		EventPage eventPage = new EventPage(base.driver);
-		//eventPage.searchEvent(incident);
-		eventPage.rightClickActiveEvent(incident);
-						
-	}
+	}	
 	
 
 }

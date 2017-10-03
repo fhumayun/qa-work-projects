@@ -1,19 +1,12 @@
 package page_objects;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -405,58 +398,6 @@ public class EventPage extends BaseClass {
 		else
 			
 		return false;
-		
-	}
-	public boolean isGoogleMapLoaded()
-	{
-		boolean mapState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventGoogleMapImage"))).isDisplayed();
-		return mapState;
-	}
-	public boolean isEventLogWindowLoaded()
-	{
-		boolean eventLogWindowState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindow"))).isDisplayed();
-		return eventLogWindowState;
-	}
-	public boolean isFeedVideoAvailable()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		if(driver.findElement(By.id(prreader.getPropertyvalues("EventFeedVideoStatusRed"))).isDisplayed())
-		{
-			return true;
-		}
-			return false;
-	
-	}
-	public void rightClickOnEventAndOpenInNewWindow(String incident)
-	{
-		Actions action = new Actions(driver);
-		action.contextClick().sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).build().perform();
-		
-	}
-	public void rightClickActiveEvent(String incident) throws InterruptedException, AWTException
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident.toLowerCase());
-		Thread.sleep(1000);
-		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
-		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
-		for (WebElement tr : trList) {
-			WebElement td = tr.findElement(By.xpath("//td[1]/a"));
-			if ((td.getText()).equals(incident))
-			{
-				Actions action = new Actions(driver);
-				action.keyDown(Keys.SHIFT).click(td).keyUp(Keys.SHIFT).build().perform();
-				
-			}
-				
-				
-
-
-		}
-		
 		
 	}
 
