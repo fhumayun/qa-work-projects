@@ -68,7 +68,7 @@ When User Enters Valid "<username>" and "<password>"
 And User clicks on the active event "<incidentName>" link to join
 Then Google map should get loaded successfully	
 Examples:
-	|username     |password|indentName|
+	|username     |password|incidentName|
 	|z-controller@ee.io|Password1@|AutomationTestIncident1|
 	|z-autobot@ee.io|Password1@|AutomationTestIncident1|
 	|z-user@ee.io|Password1@|AutomationTestIncident1|
