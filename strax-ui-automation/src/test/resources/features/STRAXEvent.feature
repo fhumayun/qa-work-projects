@@ -61,6 +61,41 @@ Examples:
 	|z-controller@ee.io|Password1@|AutomationTestIncident1|
 	|z-user@ee.io|Password1@|AutomationTestIncident1|
 	|z-viewer@ee.io|Password1@|AutomationTestIncident1|
+@C48854 @SRM  @Event 
+Scenario Outline: Verify google map is loaded in the active event
+Given The STRAX Application login page is open
+When User Enters Valid "<username>" and "<password>"
+And User clicks on the active event "<incidentName>" link to join
+Then Google map should get loaded successfully	
+Examples:
+	|username     |password|indentName|
+	|z-controller@ee.io|Password1@|AutomationTestIncident1|
+	|z-autobot@ee.io|Password1@|AutomationTestIncident1|
+	|z-user@ee.io|Password1@|AutomationTestIncident1|
+
+@C48855 @SRM  @Event 
+Scenario Outline: Verify event log window loads correctly
+Given The STRAX Application login page is open
+When User Enters Valid "<username>" and "<password>"
+And User clicks on the active event "<incidentName>" link to join
+Then Event log window loads correctly	
+Examples:
+	|username     |password|incidentName|
+	|z-controller@ee.io|Password1@|AutomationTestIncident1|
+	|z-autobot@ee.io|Password1@|AutomationTestIncident1|
+	|z-user@ee.io|Password1@|AutomationTestIncident1|
+
+@C48856 @SRM  @Event 
+Scenario Outline: Verify users can see video feed
+Given The STRAX Application login page is open
+When User Enters Valid "<username>" and "<password>"
+And User clicks on the active event "<incidentName>" link to join
+Then User should see video feed
+Examples:
+	|username     |password|incidentName|
+	|z-controller@ee.io|Password1@|AutomationTestIncident1|
+	|z-autobot@ee.io|Password1@|AutomationTestIncident1|
+	|z-user@ee.io|Password1@|AutomationTestIncident1|
 @C44558 @SRM @Event
 Scenario Outline: Verify user can end the event successfully
 Given The STRAX Application login page is open
@@ -189,3 +224,17 @@ Examples:
 	|z-autobot@ee.io|Password1@|AutomationTestEventPlan2|
 	|z-user@ee.io|Password1@|AutomationTestEventPlan3|
 
+#@chat @SRM  @Event
+#Scenario Outline: Verify users can chat
+#Given The STRAX Application login page is open
+#When User Enters Valid "<username>" and "<password>"
+#And User right clicks on the active event "<incidentName>" link to open new window
+#And user switch to second window
+#And User Enters Valid "<username>" and "<password>"
+#And User clicks on the active event "<incidentName>" link to join
+#And User switch to first window
+#And User clicks on the active event "<incidentName>" link to join
+
+#Examples:
+#	|username     |password|incidentName|
+#	|yogi@msys.com|Password1@|TestEvent111|
