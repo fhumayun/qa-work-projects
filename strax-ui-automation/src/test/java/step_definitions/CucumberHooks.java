@@ -56,7 +56,7 @@ public class CucumberHooks extends BaseClass{
 		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 		
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.32:4444/wd/hub"), capabilities);
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		base.driver.manage().window().maximize();
 		sessionId = (((RemoteWebDriver) base.driver).getSessionId()).toString();
