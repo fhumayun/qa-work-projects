@@ -248,7 +248,7 @@ public class STRAXEventStepDefinition {
 	
 	}
 	@Then("^Google map should get loaded successfully$")
-	public void Google_map_should_get_loaded_successfully(String eventPlan) throws InterruptedException {
+	public void Google_map_should_get_loaded_successfully() throws InterruptedException {
 		EventPage eventPage = new EventPage(base.driver);
 		Assert.assertTrue(eventPage.isGoogleMapLoaded());
 	
