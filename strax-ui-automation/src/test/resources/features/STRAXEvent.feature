@@ -19,7 +19,7 @@ Then User should not have access to create a new event
 Examples:
 	|username     |password|
 	|z-viewer@ee.io|Password1@|
-@C44555 @SRM @Event
+@C44555 @SRM @Event @Smoke
 Scenario Outline: Verify user can create a new event 
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
@@ -49,7 +49,7 @@ Examples:
 	|z-autobot@ee.io|Password1@|
 	|z-controller@ee.io|Password1@|
 	|z-user@ee.io|Password1@|
-@C44557 @SRM @Event
+@C44557 @SRM @Event @Smoke
 Scenario Outline: Verify only invited user can join the event
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
@@ -96,7 +96,7 @@ Examples:
 	|z-controller@ee.io|Password1@|AutomationTestIncident1|
 	|z-autobot@ee.io|Password1@|AutomationTestIncident1|
 	|z-user@ee.io|Password1@|AutomationTestIncident1|
-@C44558 @SRM @Event
+@C44558 @SRM @Event @Smoke
 Scenario Outline: Verify user can end the event successfully
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
@@ -143,7 +143,7 @@ Then User should be able to playback "<incidentName>" event
 Examples:
 	|username     |password|incidentName|
 	|z-autobot@ee.io|Password1@|AutomationTestIncident2|
-@C44603 @SRM  @EventPlan
+@C44603 @SRM  @EventPlan @Smoke
 Scenario Outline: Verify user can create a new event plan
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
@@ -211,7 +211,7 @@ Examples:
 	|z-controller@ee.io|Password1@|AutomationTestEventPlan1|
 	|z-autobot@ee.io|Password1@|AutomationTestEventPlan2|
 	|z-user@ee.io|Password1@|AutomationTestEventPlan3|
-@C46769 @SRM  @EventPlan 
+@C46769 @SRM  @EventPlan @Smoke
 Scenario Outline: Verify user can archive the event plan
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"

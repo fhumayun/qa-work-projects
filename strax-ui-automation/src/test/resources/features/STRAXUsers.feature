@@ -9,7 +9,7 @@ Examples:
 	|username     |password|userToSearch|
 	|z-controller@ee.io|Password1@|z-controller@ee.io|
 	|z-autobot@ee.io|Password1@|z-autobot@ee.io|
- @SRM @Users @C44548 
+ @SRM @Users @C44548 @Smoke
 Scenario Outline: Verify add new user  
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -47,7 +47,7 @@ Examples:
 	|username     |password|email|firstname|lastname|role|color|device|
 	|z-controller@ee.io|Password1@|z-automationtestuser1@ee.io|Z-Automation|Z-Tester|User|Green|QA1|
 	|z-autobot@ee.io|Password1@|z-automationtestuser2@ee.io|Z-Automation|Z-Tester|User|Green|hi|
-@SRM @Users @C44550 
+@SRM @Users @C44550 @Smoke
 Scenario Outline: Verify archive user  
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"

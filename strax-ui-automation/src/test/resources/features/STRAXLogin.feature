@@ -54,7 +54,7 @@ Examples: valid useremail & password
 	|useremail|password| 
 	|z-autobot@ee.io|Password1@|
 
-@C26465	@SRM  @Permissions 
+@C26465	@SRM  @Permissions @Smoke
 Scenario Outline: Verify user permissions to menu items 
 	Given The STRAX Application login page is open
 	When User Enters Valid "<useremail>" and "<password>" 
