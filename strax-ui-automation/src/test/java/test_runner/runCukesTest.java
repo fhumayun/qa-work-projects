@@ -10,6 +10,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentXReporter;
 import com.cucumber.listener.ExtentProperties;
 import com.cucumber.listener.Reporter;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import utils.PropertiesFileReader;
@@ -18,11 +19,11 @@ import utils.PropertiesFileReader;
 @RunWith(Cucumber.class) 
 @CucumberOptions(
 format = {"progress", "html:target/cucumber"},
-plugin={"com.cucumber.listener.ExtentCucumberFormatter:output/report.html","rerun:target/rerun.txt"},
+plugin={"com.cucumber.listener.ExtentCucumberFormatter:output/report.html","rerun:rerun.txt"},
 features = {"src/test/resources/features/"},
 glue = {"step_definitions"},
 tags = {"~@ignore"})
-public class runCukesTest {
+public class runCukesTest{
 	static ExtentReports extent;
 	static ExtentXReporter extentxReporter;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
