@@ -1,5 +1,6 @@
 package page_objects;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -31,14 +32,14 @@ public class MapLayersPage extends BaseClass {
 		return false;
 		
 	}
-	public boolean searchEvent(String incident) throws InterruptedException
+	public boolean searchMapLayer(String mapLayer) throws InterruptedException
 	{
 		boolean state = false;
 		try{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("MapLayersSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("MapLayersSearchInputBox"))).sendKeys(incident.toLowerCase());
+		driver.findElement(By.id(prreader.getPropertyvalues("MapLayersSearchInputBox"))).sendKeys(mapLayer.toLowerCase());
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("MapLayersListTableRow")))));
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("MapLayersListTableRow")));
@@ -47,7 +48,7 @@ public class MapLayersPage extends BaseClass {
 		for (WebElement tr : trList) {
 
 			WebElement td = tr.findElement(By.xpath("//td[1]"));
-			if ((td.getText()).equals(incident)) {
+			if ((td.getText()).equals(mapLayer)) {
 				state = true;
 			} else {
 				state = false;
@@ -74,5 +75,9 @@ public class MapLayersPage extends BaseClass {
 		driver.navigate().refresh();
 	
 }
+	public void createMapLayer() throws IOException
+	{
+		//Runtime.getRuntime().exec("C:\\Users\\Administrator\\Desktop\\eagleeye_uploadfile.exe");
+	}
 
 }

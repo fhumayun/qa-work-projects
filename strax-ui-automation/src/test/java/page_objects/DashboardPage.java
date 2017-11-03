@@ -54,13 +54,13 @@ public class DashboardPage
 		return new UASsPage(driver);
 		
 	}
-	public UsersPage navigateToMapLayersPage() throws InterruptedException
+	public MapLayersPage navigateToMapLayersPage() throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mapLayersMenuLink"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mapLayersMenuLink"))).click();
-		return new UsersPage(driver);
+		return new MapLayersPage(driver);
 		
 	}
 	
