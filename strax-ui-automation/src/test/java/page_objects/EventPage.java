@@ -31,13 +31,14 @@ public class EventPage extends BaseClass {
 
 	}
 	
-	public void addNewEvent(String incident, String missionType, String stream, String address, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
+	public void addNewEvent(String incident,String caseNumber, String missionType, String stream, String address, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
 	{
 	
 		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBox"))).sendKeys(incident);
+		driver.findElement(By.id(prreader.getPropertyvalues("CaseNumberTextBox"))).sendKeys(caseNumber);
 		WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("MissionTypeList")));
 		selectDropdownOption(selectMissionType, missionType);
 		WebElement selectStream = driver.findElement(By.id(prreader.getPropertyvalues("StreamList")));

@@ -26,6 +26,7 @@ When User Enters Valid "<username>" and "<password>"
 And User clicks on add new event button to create a new event
 And Enters valid values for the following fields and "<participants>"
 	|Incident|<incident>|
+	|CaseNumber|<casenumber>|
 	|MissionType|<missionType>|
 	|Stream|<stream>|
 	|Address|<address>|
@@ -34,8 +35,8 @@ And Enters valid values for the following fields and "<participants>"
 	|Description|<description>|
 Then A new event with name "<incident>" should get created successfully
 Examples:
-	|username     |password|incident|missionType|stream|address|latitude|longitude|description|participants|
-	|z-autobot@ee.io|Password1@|AutomationTestIncident1|Search & Rescue|None|1001 Broken Sound Parkway NW Suite C 33487 Boca Raton FLORIDA|||Event Created By Automation Framework|Z-User Z-Controller, Z-User Z-Viewer,Z-EEiUser Z-User|
+	|username     |password|incident|casenumber|missionType|stream|address|latitude|longitude|description|participants|
+	|z-autobot@ee.io|Password1@|AutomationTestIncident1|AutomationTest_CaseNumber001|Search & Rescue|None|1001 Broken Sound Parkway NW Suite C 33487 Boca Raton FLORIDA|||Event Created By Automation Framework|Z-User Z-Controller, Z-User Z-Viewer,Z-EEiUser Z-User|
 	
 @C44556 @SRM @Event
 Scenario Outline: Verify user can not create a new event while assigned to another
@@ -113,6 +114,7 @@ When User Enters Valid "<username>" and "<password>"
 And User clicks on add new event button to create a new event
 And Enters valid values for the following fields and "<participants>"
 	|Incident|<incident>|
+	|CaseNumber|<casenumber>|
 	|MissionType|<missionType>|
 	|Stream|<stream>|
 	|Address|<address>|
@@ -121,8 +123,8 @@ And Enters valid values for the following fields and "<participants>"
 	|Description|<description>|
 Then A new event with name "<incident>" should get created successfully
 Examples:
-	|username     |password|incident|missionType|stream|address|latitude|longitude|description|participants|
-	|z-controller@ee.io|Password1@|AutomationTestIncident2|Search & Rescue|None|1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA|||Event Created By Automation Framework|Z-User Z-Viewer,Z-EEiUser Z-User|
+	|username     |password|incident|casenumber|missionType|stream|address|latitude|longitude|description|participants|
+	|z-controller@ee.io|Password1@|AutomationTestIncident2|AutomationTest_CaseNumber002|Search & Rescue|None|1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA|||Event Created By Automation Framework|Z-User Z-Viewer,Z-EEiUser Z-User|
 @C44559 @SRM @Event
 Scenario Outline: Verify user can end the event successfully
 Given The STRAX Application login page is open

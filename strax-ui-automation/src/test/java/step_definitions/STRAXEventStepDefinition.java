@@ -46,7 +46,7 @@ public class STRAXEventStepDefinition {
 	@And("^Enters valid values for the following fields and \"([^\"]*)\"$")
 	public void Enters_valid_values_for_the_following_fields(List<String> participantList, Map<String, String> tableData) throws InterruptedException{
 	EventPage eventPage = new EventPage(base.driver);
-		eventPage.addNewEvent(tableData.get("Incident"),tableData.get("MissionType"), tableData.get("Stream"),tableData.get("Address"), tableData.get("Latitude"), 
+		eventPage.addNewEvent(tableData.get("Incident"),tableData.get("CaseNumber"),tableData.get("MissionType"), tableData.get("Stream"),tableData.get("Address"), tableData.get("Latitude"), 
 				tableData.get("Longitude"), tableData.get("Description"), participantList);
 		
 	}
