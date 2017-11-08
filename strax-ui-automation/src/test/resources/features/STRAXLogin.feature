@@ -62,7 +62,7 @@ Scenario Outline: Verify user permissions to menu items
 Examples: valid useremail & password
 	|useremail|password|menu|
 	|z-controller@ee.io|Password1@|Events, Users,Map Layers|
-	|z-autobot@ee.io|Password1@|Events, Users, UASs, Map Layers, Feeds|
+	|z-autobot@ee.io|Password1@|Events, Users, UASs, Map Layers, Video Feeds|
 	|z-user@ee.io|Password1@|Events|
 	|z-viewer@ee.io|Password1@|Events|
 @C26466 @SRM  @Permissions 
