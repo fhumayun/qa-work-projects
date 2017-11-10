@@ -63,6 +63,16 @@ public class DashboardPage
 		return new MapLayersPage(driver);
 		
 	}
+
+	public VideoFeedsPage navigateToVideoFeedsPage() {
+
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("videoFeedsMenuLink"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("videoFeedsMenuLink"))).click();
+		return new VideoFeedsPage(driver);
+		
+	}
 	
 	
 
