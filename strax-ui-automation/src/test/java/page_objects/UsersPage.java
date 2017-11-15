@@ -14,9 +14,9 @@ import utils.PropertiesFileReader;
 
 public class UsersPage {
 
-	RemoteWebDriver driver;
+	WebDriver driver;
 
-	public UsersPage(RemoteWebDriver driver) {
+	public UsersPage(WebDriver driver) {
 		this.driver = driver;
 
 	}

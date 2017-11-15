@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONException;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -40,26 +41,28 @@ public class CucumberHooks extends BaseClass{
 	public void setUp(Scenario scenario) throws MalformedURLException
 	{
 		
-		//reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
+/*		//reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
 		capabilities = DesiredCapabilities.chrome();
 		capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
-		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));*/
 		
 		// uncomment to read the browser,platform values from config file
-/*		capabilities = DesiredCapabilities.chrome();
+		capabilities = DesiredCapabilities.chrome();
 		capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
-		capabilities.setCapability(CapabilityType.PLATFORM, prreader.getPropertyvalues("SELENIUM_PLATFORM"));
-		capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));*/
+		//capabilities.setCapability(CapabilityType.PLATFORM, prreader.getPropertyvalues("SELENIUM_PLATFORM"));
+		//capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
-		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
+		//base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 		
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.32:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.29:4444/wd/hub"), capabilities);
+		System.setProperty("webdriver.chrome.driver","src/test/resources/drivers/chromedriver.exe");
+		base.driver = new ChromeDriver();
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		base.driver.manage().window().maximize();
-		sessionId = (((RemoteWebDriver) base.driver).getSessionId()).toString();
+		//sessionId = (((RemoteWebDriver) base.driver).getSessionId()).toString();
 	
 
 	}
@@ -70,7 +73,7 @@ public class CucumberHooks extends BaseClass{
 		//cClass.logOut();
 		base.driver.close();
 		base.driver.quit();
-		SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
+		//SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(), sessionId, jobName);
 		testresult.uploadResult(scenario);
 		
 	}

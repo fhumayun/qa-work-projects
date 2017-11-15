@@ -1,15 +1,16 @@
 package page_objects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import utils.PropertiesFileReader;
 
 public class VideoFeedsPage extends BaseClass{
-	RemoteWebDriver driver;
+	WebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	CommonClass cClass = new CommonClass(driver);
-	public VideoFeedsPage(RemoteWebDriver driver) {
+	public VideoFeedsPage(WebDriver driver) {
 		this.driver = driver;
 
 	}

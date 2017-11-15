@@ -23,10 +23,10 @@ import utils.PropertiesFileReader;
 
 public class EventPage extends BaseClass {
 
-	RemoteWebDriver driver;
+	WebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	CommonClass cClass = new CommonClass(driver);
-	public EventPage(RemoteWebDriver driver) {
+	public EventPage(WebDriver driver) {
 		this.driver = driver;
 
 	}

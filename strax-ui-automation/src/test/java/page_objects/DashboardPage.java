@@ -8,9 +8,9 @@ import utils.PropertiesFileReader;
 
 public class DashboardPage
 {
-	RemoteWebDriver driver;
+	WebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	public DashboardPage(RemoteWebDriver driver)
+	public DashboardPage(WebDriver driver)
 	{
 		this.driver=driver;
 
