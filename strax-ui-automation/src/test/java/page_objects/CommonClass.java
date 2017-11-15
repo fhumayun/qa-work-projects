@@ -14,8 +14,8 @@ import utils.PropertiesFileReader;
 public class CommonClass{
 	
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	WebDriver driver;
-	public CommonClass(WebDriver driver) {
+	RemoteWebDriver driver;
+	public CommonClass(RemoteWebDriver driver) {
 		this.driver = driver;
 		// TODO Auto-generated constructor stub
 	}
@@ -78,21 +78,6 @@ public class CommonClass{
 		catch(Exception e)
 		{
 			throw e;
-		}
-		
-	}
-	
-	public void paginationControl()
-	{
-		while(true)
-		{
-			List<WebElement> tRows =  driver.findElements(By.xpath("//tbody//tr"));
-			for(WebElement tRow : tRows)
-			{
-				tRow.findElement(By.xpath("//*[contains(@id, 'event-list__build')]")).click();
-				//wait until success message appears..
-			}
-			driver.findElement(By.xpath("//button[@ng-click='$pagination.next()']")).click();
 		}
 		
 	}
