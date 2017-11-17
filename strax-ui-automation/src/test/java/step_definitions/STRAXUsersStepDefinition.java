@@ -11,6 +11,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import page_objects.BaseClass;
+import page_objects.CommonClass;
 import page_objects.DashboardPage;
 import page_objects.LoginPage;
 import page_objects.UsersPage;
@@ -20,12 +21,14 @@ public class STRAXUsersStepDefinition {
 	// RemoteWebDriver driver;
 	Scenario scenario;
 	private BaseClass base;
+	
 
 	public STRAXUsersStepDefinition(BaseClass base) {
 		this.base = base;
 
 	}
-
+	//CommonClass commonClass=new CommonClass(base.driver);
+	
 	@Given("^The STRAX application is loggedin with \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void Login_with(String userName, String password) {
 		LoginPage loginpage = new LoginPage(base.driver);
@@ -121,5 +124,33 @@ public class STRAXUsersStepDefinition {
 
 	}
 	
+	@When("^User clicks on Username header field$")
+	public void user_clicks_on_Username_header_field() throws Throwable {
+		CommonClass commonClass=new CommonClass(base.driver);
+		 commonClass.navigateToUserNameHeader();
+	    
+	}
+
+	@When("^then clicks on the Change password menu$")
+	public void then_clicks_on_the_Change_password_menu() throws Throwable {
+	   CommonClass commonClass=new CommonClass(base.driver);
+	   commonClass.navigateToPasswordChange();
+	  
+	}
+
+	@When("^User enters valid \"([^\"]*)\" compliant with Strax security policy$")
+	public void user_enters_valid_compliant_with_Strax_security_policy(String newpassword) throws Throwable {
+		CommonClass commonClass=new CommonClass(base.driver);
+		commonClass.changePassword(newpassword);
+	    
+	}
+
+	@Then("^Password change should be successful$")
+	public void password_change_should_be_successful() throws Throwable {
+		CommonClass commonClass=new CommonClass(base.driver);
+	    String PasswordChangeSuccessMessage=commonClass.isPasswordChangesSuccesfuly();
+	    Assert.assertEquals("Password saved!", PasswordChangeSuccessMessage);
+	  
+	}
 
 }

@@ -17,7 +17,7 @@ public class CommonClass{
 	RemoteWebDriver driver;
 	public CommonClass(RemoteWebDriver driver) {
 		this.driver = driver;
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public LoginPage logOut() throws InterruptedException
@@ -82,6 +82,41 @@ public class CommonClass{
 		
 	}
 	
+	public void navigateToUserNameHeader()
+	{ 
+		
+	WebDriverWait wait = new WebDriverWait(driver, 10);
+	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+	driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+	wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("accountMenu"))));
+	driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
+		
+	}
+	public void navigateToPasswordChange()
+	{ 
+	WebDriverWait wait = new WebDriverWait(driver, 10);
+	wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuChangePassword"))));
+	driver.findElement(By.id(prreader.getPropertyvalues("mainMenuChangePassword"))).click();
+	}
 
+	public void changePassword(String newPassword)
+	{ 
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id(prreader.getPropertyvalues("changePasswordField_1"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("changePasswordField_1"))).sendKeys(newPassword);
+		driver.findElement(By.id(prreader.getPropertyvalues("changePasswordField_2"))).sendKeys(newPassword);
+		driver.findElement(By.id(prreader.getPropertyvalues("SavePassword"))).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 
+	
+	}
+	
+	public String isPasswordChangesSuccesfuly()
+	{ 
+	WebDriverWait wait = new WebDriverWait(driver, 10);
+	
+	wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))));
+	return driver.findElement(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))).getText();
+	
+	}
 }
