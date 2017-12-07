@@ -205,7 +205,9 @@ public class EventPage extends BaseClass {
 	public boolean verifyJoinEventSuccess()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
+		//boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
+		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew")))).isDisplayed();
+
 		if(state)
 		{
 			return true;
@@ -224,7 +226,9 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		Thread.sleep(2000);
-		driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
+		//driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
+		//Added new locator after Map Button location got changed.
+		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();

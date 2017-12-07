@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.PropertiesFileReader;
+import utils.WrapperUtility;
 
 public class CommonClass{
 	
@@ -19,7 +21,8 @@ public class CommonClass{
 		this.driver = driver;
 		
 	}
-
+	//Object creation for Wrapper uitility class- Class created to have multiple utility method to use in framework
+	//WrapperUtility util=new WrapperUtility(driver);
 	public LoginPage logOut() throws InterruptedException
 	{
 		
@@ -28,6 +31,7 @@ public class CommonClass{
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("accountMenu"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("logoutButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("logoutButton"))).click();
 		return new LoginPage(driver);
@@ -99,12 +103,14 @@ public class CommonClass{
 	driver.findElement(By.id(prreader.getPropertyvalues("mainMenuChangePassword"))).click();
 	}
 
-	public void changePassword(String newPassword)
+	public void changePassword(String newPassword) throws InterruptedException
 	{ 
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id(prreader.getPropertyvalues("changePasswordField_1"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("changePasswordField_1"))).sendKeys(newPassword);
 		driver.findElement(By.id(prreader.getPropertyvalues("changePasswordField_2"))).sendKeys(newPassword);
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("SavePassword"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("SavePassword"))).click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 
@@ -115,8 +121,37 @@ public class CommonClass{
 	{ 
 	WebDriverWait wait = new WebDriverWait(driver, 10);
 	
-	wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))));
+   wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))));
+	
+	//util.waitForVisibilityOfAllElements(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage")), 10);
 	return driver.findElement(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))).getText();
 	
 	}
+	
+	
+	//Method to call common search utility
+	
+	public boolean searchElement(String User, By searchButtonLocator, By SearchInputBoxLocator, By SearchListLocator) throws Exception
+	{
+		driver.findElement(searchButtonLocator).click();
+		driver.findElement(SearchInputBoxLocator).sendKeys(User.toLowerCase());
+		Thread.sleep(3000);
+		List<WebElement> trList = driver.findElements(SearchListLocator);
+		boolean state = false;
+		for (WebElement tr : trList) {
+
+			WebElement td = tr.findElement(By.xpath("//td[1]"));
+			if ((td.getText()).equals(User.toLowerCase())) {
+				state = true;
+			} else {
+				state = false;
+			}
+
+		}
+		return state;
+		
+	}
+	
 }
+
+
