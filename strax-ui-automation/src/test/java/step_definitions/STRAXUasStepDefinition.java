@@ -13,7 +13,7 @@ import page_objects.UASsPage;
 
 public class STRAXUasStepDefinition {
 	private BaseClass base;
-	
+	UASsPage uasPage;
 	public STRAXUasStepDefinition(BaseClass base)
 	{
 		this.base = base;
@@ -28,12 +28,11 @@ public class STRAXUasStepDefinition {
 	
 	@Then("^User should have access to create a new UAS$")
 	public void User_should_have_access_to_create_a_new_UAS() {
-		UASsPage uasPage = new UASsPage(base.driver);
+		uasPage = new UASsPage(base.driver);
 		Assert.assertEquals(true , uasPage.isAddUasButtonPresent());
 	}
 	@Then("^User should not have access to create a new UAS$")
 	public void User_should_not_have_access_to_create_a_new_UAS() {
-		UASsPage uasPage = new UASsPage(base.driver);
 		Assert.assertEquals(false, uasPage.isAddUasButtonPresent());
 	}
 	

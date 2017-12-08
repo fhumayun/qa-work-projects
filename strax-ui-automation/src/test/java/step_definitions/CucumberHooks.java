@@ -49,16 +49,12 @@ public class CucumberHooks extends BaseClass{
 		capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
 		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
-		
-		
-        //Uncomment to read chromedriver from local computer for Selenium Grid 
-		/*File chromedriver = new File("D:\\Shishu Raj Pandey\\Software\\Browser Drivers\\chromedriver_win32\\chromedriver.exe");
-		System.setProperty("webdriver.chrome.driver", chromedriver.getAbsolutePath());
-*/
+
+
 
 		// uncomment to read the browser,platform values from config file
 		
-		/*capabilities = DesiredCapabilities.chrome();
+/*		capabilities = DesiredCapabilities.chrome();
 		capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
 		
 		capabilities.setCapability(CapabilityType.PLATFORM, prreader.getPropertyvalues("SELENIUM_PLATFORM"));
@@ -69,7 +65,7 @@ public class CucumberHooks extends BaseClass{
 		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.170:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.29:4444/wd/hub"), capabilities);
 		
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		
