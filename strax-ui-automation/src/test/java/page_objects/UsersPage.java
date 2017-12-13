@@ -20,6 +20,8 @@ public class UsersPage {
 		this.driver = driver;
 
 	}
+	
+	CommonClass commonClass=new CommonClass(driver);
 
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 
@@ -78,6 +80,7 @@ public class UsersPage {
 
 	}
 
+	
 	public boolean searchUser(String User) throws InterruptedException {
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("participantSearchInput"))).sendKeys(User.toLowerCase());
@@ -101,6 +104,8 @@ public class UsersPage {
 	
 	public void navigateToAddEditUserPage()
 	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("participantAddButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("participantAddButton"))).click();
 		
 	}

@@ -27,18 +27,17 @@ public class CommonClass{
 	{
 		
 		WebDriverWait wait = new WebDriverWait(driver,15);
-		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("accountMenu"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
-		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("logoutButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("logoutButton"))).click();
 		return new LoginPage(driver);
 	}
 	
 	public List<String> getMenuAccessList()
-	{
+	{   WebDriverWait wait = new WebDriverWait(driver,15);
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		List<WebElement> accessList = driver.findElements(By.xpath(prreader.getPropertyvalues("accessList")));
 		List<String> accessSet = new ArrayList<String>();
@@ -48,6 +47,9 @@ public class CommonClass{
 			continue;
 			accessSet.add(element.getText());
 		}
+		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButtonClose"))).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id(prreader.getPropertyvalues("EventAddButton"))));
+
 		return accessSet;
 		
 	}
@@ -151,6 +153,8 @@ public class CommonClass{
 		return state;
 		
 	}
+	
+	
 	
 }
 

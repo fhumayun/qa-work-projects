@@ -182,8 +182,8 @@ Feature: STRAX Event functionality
 
     Examples: 
       | username           | password   | incident                 | missionType     | address                                                       | latitude | longitude | description                           |
-      | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
-      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+       | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+     | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
 
   @C46771 @SRM @EventPlan
@@ -281,7 +281,7 @@ Feature: STRAX Event functionality
       | username        | password   | incident                | missionType     | stream | address                                                       | latitude | longitude | description                           | participants                                          |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 | Search & Rescue | None   | 1001 Broken Sound Parkway NW Suite C 33487 Boca Raton FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Controller, Z-User Z-Viewer,Z-EEiUser Z-User |
 
-    @C44558 @SRM @Event @Smoke
+  @C44558 @SRM @Event @Smoke
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"

@@ -20,54 +20,64 @@ public class STRAXEventStepDefinition {
 	public STRAXEventStepDefinition(BaseClass base)
 	{
 		this.base = base;
+		eventPage = new EventPage(base.driver);
+		
 	}
 	
 	@Then("^User should have access to create a new event$")
 	public void User_should_have_access_to_create_a_new_event() {
-		eventPage = new EventPage(base.driver);
+	
 		Assert.assertEquals(true , eventPage.isAddEventButtonPresent());
 	}
 	@Then("^User should not have access to create a new event$")
 	public void User_should_not_have_access_to_create_a_new_event() {
+		
 		Assert.assertEquals(false , eventPage.isAddEventButtonPresent());
 	}
 	@When("^User clicks on add new event button to create a new event$")
 	public void User_clicks_on_add_new_event_button_to_create_a_new_event() {
+		
 		eventPage.navigateToCreateNewEvent();
 		
 	}
 	@Then("^can not create new event error message should be displayed$")
 	public void can_not_create_new_event_error_message_should_be_displayed() {
+		
 		Assert.assertEquals(true , eventPage.getErrorMessage());
 	}
 	@And("^Enters valid values for the following fields and \"([^\"]*)\"$")
 	public void Enters_valid_values_for_the_following_fields(List<String> participantList, Map<String, String> tableData) throws InterruptedException{
+		
 		eventPage.addNewEvent(tableData.get("Incident"),tableData.get("CaseNumber"),tableData.get("MissionType"), tableData.get("Stream"),tableData.get("Address"), tableData.get("Latitude"), 
 				tableData.get("Longitude"), tableData.get("Description"), participantList);
 		
 	}
 	@Then("^A new event with name \"([^\"]*)\" should get created successfully$")
 	public void A_new_event_should_get_created_successfully(String incident) throws InterruptedException {
+		
 		Assert.assertEquals(true , eventPage.searchEvent(incident));
 	}
 	@When("^User clicks on the active event \"([^\"]*)\" link to join$")
 	public void User_clicks_on_the_active_event_link_to_join(String incident) throws InterruptedException {
+		
 		eventPage.joinActiveEvent(incident);
 	}
 	@Then("^User should be able to join the event successfully$")
 	public void User_should_be_able_to_join_the_event_successfully() throws InterruptedException {
+		
 		Assert.assertEquals(true , eventPage.verifyJoinEventSuccess());
 		eventPage.closeMap();
 		
 	}
 	@Then("^User joins the event successfully$")
 	public void User_joins_the_event_successfully() throws InterruptedException {
+		
 		Assert.assertEquals(true , eventPage.verifyJoinEventSuccess());
 		
 	}
 	@Then("^User should be able to end an active event \"([^\"]*)\" successfully$")
 	public void User_should_be_able_to_end_an_active_event_successfully(String incident) throws InterruptedException {
-		eventPage.endActiveEvent();
+		
 		Assert.assertEquals(incident , eventPage.deleteEventFromDB(incident));
 		
 	}

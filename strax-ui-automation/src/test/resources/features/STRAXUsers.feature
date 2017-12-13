@@ -87,16 +87,16 @@ Feature: STRAX Users functionality
       | z-controller@ee.io | Password1@ | p@ssword1    | Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ & |
       | z-controller@ee.io | Password1@ | P@$$WORD     | Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ & |
       | z-controller@ee.io | Password1@ | p@$$word     | Password does not contain minimum 4 character sets, use, Uppercase (A-Z), Lowercase (a-z), Numeric (0-9), Special Characters ~ ! @ # $ % * - _ + = . ^ & |
-      
-      
-     @SRM @Password @C80776
-     Scenario Outline: As a user I want to be able to change my Strax password so that I can ensure my account security
-     Given The STRAX Application login page is open
-When User Enters Valid "<username>" and "<password>"
-And User clicks on Username header field 
-And then clicks on the Change password menu
-And User enters valid "<newpassword>" compliant with Strax security policy
-Then Password change should be successful
-   Examples: 
-      | username           | password   | newpassword |
-      | z-user@ee.io    | Password1@ | Password1@ |
+
+  @SRM @Password @C80776
+  Scenario Outline: As a user I want to be able to change my Strax password so that I can ensure my account security
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on Username header field
+    And then clicks on the Change password menu
+    And User enters valid "<newpassword>" compliant with Strax security policy
+    Then Password change should be successful
+
+    Examples: 
+      | username     | password   | newpassword |
+      | z-user@ee.io | Password1@ | Password1@  |

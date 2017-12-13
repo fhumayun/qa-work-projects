@@ -25,10 +25,11 @@ public class EventPage extends BaseClass {
 
 	RemoteWebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
+	
 	CommonClass cClass = new CommonClass(driver);
+	
 	public EventPage(RemoteWebDriver driver) {
 		this.driver = driver;
-
 	}
 	
 	public void addNewEvent(String incident,String caseNumber, String missionType, String stream, String address, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
@@ -132,16 +133,17 @@ public class EventPage extends BaseClass {
 		for(WebElement option: dropdownOptions)
 		{
 			if((option.getText()).equals(optionToSelect))
-			{
+			{   
 				option.click();
 				Thread.sleep(1000);
 				break;
+				
 			}
 			//Thread.sleep(1000);
 		}
 		}
 		catch(Exception e)
-		{
+		{System.out.println("3");
 			throw e;
 		}
 		
@@ -219,7 +221,9 @@ public class EventPage extends BaseClass {
 	public void closeMap()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("MapCloseButton")))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).click();
+		driver.findElement(By.xpath(prreader.getPropertyvalues("MapCloseButton"))).click();
+        
 	}
 	public void endActiveEvent() throws InterruptedException
 	{
@@ -282,7 +286,7 @@ public class EventPage extends BaseClass {
 	public void addEventPlan(String incident, String missionType, String address, String latitude, String longitude, String description ) throws InterruptedException
 	{
 	
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventPlanLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanNameTextBox"))).sendKeys(incident);
@@ -292,6 +296,7 @@ public class EventPage extends BaseClass {
 		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLatitudeTextBox"))).sendKeys(latitude);
 		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLongitudeTextBox"))).sendKeys(longitude);
 		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanDescriptionTextBox"))).sendKeys(description);
+		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton")))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton"))).click();
 	}
 	public boolean searchEventPlan(String incident) throws InterruptedException

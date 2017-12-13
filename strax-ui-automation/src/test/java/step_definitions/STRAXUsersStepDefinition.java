@@ -26,6 +26,7 @@ public class STRAXUsersStepDefinition {
 
 	public STRAXUsersStepDefinition(BaseClass base) {
 		this.base = base;
+		uPage = new UsersPage(base.driver);
 
 	}
 	//CommonClass commonClass=new CommonClass(base.driver);
@@ -49,7 +50,7 @@ public class STRAXUsersStepDefinition {
 
 	@Then("^User Should be able to search for a user \"([^\"]*)\"$")
 	public void user_should_be_able_to_search(String user) throws InterruptedException {
-		uPage = new UsersPage(base.driver);
+		
 
 		Assert.assertEquals(true, uPage.searchUser(user));
 
@@ -127,7 +128,7 @@ public class STRAXUsersStepDefinition {
 	   commonClass.navigateToPasswordChange();
 	  
 	}
-
+	
 	@When("^User enters valid \"([^\"]*)\" compliant with Strax security policy$")
 	public void user_enters_valid_compliant_with_Strax_security_policy(String newpassword) throws Throwable {
 		commonClass.changePassword(newpassword);
