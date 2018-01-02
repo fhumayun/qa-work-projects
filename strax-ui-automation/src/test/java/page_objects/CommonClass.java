@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.PropertiesFileReader;
-import utils.WrapperUtility;
 
 public class CommonClass{
 	
