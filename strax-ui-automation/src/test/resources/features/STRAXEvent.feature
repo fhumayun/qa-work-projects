@@ -281,7 +281,7 @@ Feature: STRAX Event functionality
       | username        | password   | incident                | missionType     | stream | address                                                       | latitude | longitude | description                           | participants                                          |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 | Search & Rescue | None   | 1001 Broken Sound Parkway NW Suite C 33487 Boca Raton FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Controller, Z-User Z-Viewer,Z-EEiUser Z-User |
 
-  @C44558 @SRM @Event @Smoke
+  @C44558 @SRM @Event
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
