@@ -224,7 +224,8 @@ public class EventPage extends BaseClass {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("MapCloseButton"))).click();
 		Thread.sleep(1000);
-		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog")))).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog")))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
         
 	}
