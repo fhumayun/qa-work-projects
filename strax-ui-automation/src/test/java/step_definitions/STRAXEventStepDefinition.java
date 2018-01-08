@@ -78,6 +78,7 @@ public class STRAXEventStepDefinition {
 	@Then("^User should be able to end an active event \"([^\"]*)\" successfully$")
 	public void User_should_be_able_to_end_an_active_event_successfully(String incident) throws InterruptedException {
 		
+		eventPage.endActiveEvent();
 		Assert.assertEquals(incident , eventPage.deleteEventFromDB(incident));
 		
 	}

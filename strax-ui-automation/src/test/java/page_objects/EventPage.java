@@ -223,6 +223,7 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("MapCloseButton"))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog")))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
         
 	}
@@ -233,9 +234,11 @@ public class EventPage extends BaseClass {
 		Thread.sleep(2000);
 		//driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
 		//Added new locator after Map Button location got changed.
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EndEventButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		
 		
