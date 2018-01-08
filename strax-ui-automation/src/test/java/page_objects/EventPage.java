@@ -204,10 +204,11 @@ public class EventPage extends BaseClass {
 		
 		
 	}
-	public boolean verifyJoinEventSuccess()
+	public boolean verifyJoinEventSuccess() throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		//boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
+		Thread.sleep(1000);
 		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew")))).isDisplayed();
 
 		if(state)
