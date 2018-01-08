@@ -223,6 +223,7 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("MapCloseButton"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
         
 	}
 	public void endActiveEvent() throws InterruptedException
