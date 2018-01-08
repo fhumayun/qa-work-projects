@@ -218,11 +218,12 @@ public class EventPage extends BaseClass {
 			return false; 
 				
 	}
-	public void closeMap()
+	public void closeMap() throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("MapCloseButton"))).click();
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog")))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
         
@@ -236,8 +237,10 @@ public class EventPage extends BaseClass {
 		//Added new locator after Map Button location got changed.
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EndEventButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		
