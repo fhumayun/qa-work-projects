@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -58,7 +59,9 @@ public class CommonClass{
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
 		boolean state = driver.findElement(By.id(prreader.getPropertyvalues("accountSettings"))).isDisplayed();
-		
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).build().perform();
+		action.sendKeys(Keys.ESCAPE).build().perform();
 		return state;
 		
 	}

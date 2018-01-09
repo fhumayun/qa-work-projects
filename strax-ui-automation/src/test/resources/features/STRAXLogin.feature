@@ -12,7 +12,7 @@ Feature: STRAX Login functionality
 
     Examples: footer string
       | footerString                                                                   |
-      | © EagleEye Intelligence - 2015/2017 - Customer/Technical Support: 561-894-9865 |
+      | © EagleEye Intelligence - 2015/2018 - Customer/Technical Support: 561-894-9865 |
 
   @C26457 @SRM @Login
   Scenario Outline: Login with valid credentials

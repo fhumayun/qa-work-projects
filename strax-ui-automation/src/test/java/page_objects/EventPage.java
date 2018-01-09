@@ -219,7 +219,7 @@ public class EventPage extends BaseClass {
 			return false; 
 				
 	}
-	public void closeMap() throws InterruptedException
+	public void closeMap()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
@@ -416,6 +416,7 @@ public class EventPage extends BaseClass {
 	public boolean isGoogleMapLoaded()
 	{
 		boolean mapState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventGoogleMapImage"))).isDisplayed();
+		closeMap();
 		return mapState;
 	}
 	public boolean isEventLogWindowLoaded()

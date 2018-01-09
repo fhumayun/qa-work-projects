@@ -1,6 +1,6 @@
 Feature: STRAX Video Feeds functionality
 
-  @C73395 @SRM @VideoFeeds
+  @C73395 @SRM @VideoFeeds @ignore
   Scenario Outline: Verify users have access to create a new feed
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -11,7 +11,7 @@ Feature: STRAX Video Feeds functionality
       | username        | password   |
       | z-autobot@ee.io | Password1@ |
 
-  @NewTestCases @SRM @VideoFeeds @C63680
+  @NewTestCases @SRM @VideoFeeds @C63680 @ignore
   Scenario Outline: Verify user can add a new security fixed camera feed
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -32,7 +32,7 @@ Feature: STRAX Video Feeds functionality
       | username        | password   | cameraname                  | account | url                                                                                                    | viewangle | address                                              | latitude | longitude |
       | z-autobot@ee.io | Password1@ | AutomationTestFixedCamera01 | PBSO    | rtsp://root:Biscayne!10@162.252.125.210:5521/axis-media/media.amp?videocodec=h264&streamprofile=Mobile |       100 | 1004 Broken Sound Pkwy NW, Boca Raton, FL 33487, USA |          |           |
 
-  @NewTestCases @SRM @VideoFeeds @C63679
+  @NewTestCases @SRM @VideoFeeds @C63679 @ignore
   Scenario Outline: Verify Fixed Cam Simulator Functionality is working
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -46,7 +46,7 @@ Feature: STRAX Video Feeds functionality
       | username        | password   | cameraName                  |
       | z-autobot@ee.io | Password1@ | AutomationTestFixedCamera01 |
 
-  @SRM @VideoFeeds @NewTestCases @C63682
+  @SRM @VideoFeeds @NewTestCases @C63682 @ignore
   Scenario Outline: Verify user can Update a Security Camera Feed
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -67,7 +67,7 @@ Feature: STRAX Video Feeds functionality
       | username        | password   | cameraName                  | account | url                                                                                                    | viewangle | address                                              | latitude | longitude |
       | z-autobot@ee.io | Password1@ | AutomationTestFixedCamera01 | PBSO    | rtsp://root:Biscayne!10@162.252.125.210:5521/axis-media/media.amp?videocodec=h264&streamprofile=Mobile |       101 | 1004 Broken Sound Pkwy NW, Boca Raton, FL 33487, USA |          |           |
 
-  @SRM @VideoFeeds @NewTestCases @C63681
+  @SRM @VideoFeeds @NewTestCases @C63681 @ignore
   Scenario Outline: Verify user can delete the security camera feed successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
