@@ -209,7 +209,7 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		//boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
 		Thread.sleep(1000);
-		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).isDisplayed();
+		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap")))).isDisplayed();
 
 		if(state)
 		{
@@ -222,12 +222,9 @@ public class EventPage extends BaseClass {
 	public void closeMap() throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("MapCloseButton")))).click();
-		driver.findElement(By.xpath(prreader.getPropertyvalues("MapCloseButton"))).click();
-		Thread.sleep(1000);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog")))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
+		driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))).click();
+		
         
 	}
 	public void endActiveEvent() throws InterruptedException
