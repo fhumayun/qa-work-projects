@@ -234,13 +234,11 @@ public class EventPage extends BaseClass {
 		//Added new locator after Map Button location got changed.
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		Thread.sleep(1000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
+
+		//wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		Thread.sleep(1000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EndEventButton"))));
+		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EndEventButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		
 		
