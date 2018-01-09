@@ -152,7 +152,7 @@ Feature: STRAX Event functionality
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
 
-  @C44560 @SRM @Playback @Event
+  @C44560 @SRM @Playback @Event @ignore
   Scenario Outline: Verify user can playback any historic event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
