@@ -231,14 +231,14 @@ public class EventPage extends BaseClass {
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		Thread.sleep(2000);
-		//driver.findElement(By.id(prreader.getPropertyvalues("ConfigMapButton"))).click();
 		//Added new locator after Map Button location got changed.
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew")))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EndEventTab"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EndEventButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
