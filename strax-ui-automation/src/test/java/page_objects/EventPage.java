@@ -36,7 +36,7 @@ public class EventPage extends BaseClass {
 	{
 	
 		WebDriverWait wait = new WebDriverWait(driver, 15);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBox"))).sendKeys(incident);
 		driver.findElement(By.id(prreader.getPropertyvalues("CaseNumberTextBox"))).sendKeys(caseNumber);

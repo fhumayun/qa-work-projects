@@ -46,10 +46,10 @@ public class DashboardPage
 	public UASsPage navigateToUASsPage()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("activeEventsLabel"))));
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("activeEventsLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("usersMenuLink"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("uasSMenuLink"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("uasMenuLink"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("uasMenuLink"))).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("listOfUASText"))));
 		return new UASsPage(driver);
 		
@@ -71,6 +71,15 @@ public class DashboardPage
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("videoFeedsMenuLink"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("videoFeedsMenuLink"))).click();
 		return new VideoFeedsPage(driver);
+		
+	}
+	public EventPage navigateToEventsPage() throws InterruptedException
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("eventsMenuLink"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("eventsMenuLink"))).click();
+		return new EventPage(driver);
 		
 	}
 	
