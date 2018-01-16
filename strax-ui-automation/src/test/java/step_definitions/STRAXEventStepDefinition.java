@@ -247,6 +247,13 @@ public class STRAXEventStepDefinition {
 		eventPage.rightClickActiveEvent(incident);
 						
 	}
+	@And("^video feed should be avilable \"([^\"]*)\"$")
+	public void video_feed_should_be_avilable(String incident) throws InterruptedException {
+		Assert.assertTrue(eventPage.isVideoFeedAvailable());
+		eventPage.endActiveEvent();
+		eventPage.deleteEventFromDB(incident);
+							
+	}
 	
 
 }

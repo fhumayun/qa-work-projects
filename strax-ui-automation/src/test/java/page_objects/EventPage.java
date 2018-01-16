@@ -127,8 +127,7 @@ public class EventPage extends BaseClass {
 	{
 		try{
 		dropdown.click();
-		//WebDriverWait wait = new WebDriverWait(driver,10);
-		//wait.until(ExpectedConditions.visi)
+		Thread.sleep(1000);
 		List<WebElement> dropdownOptions = driver.findElements(By.tagName("md-option"));
 		for(WebElement option: dropdownOptions)
 		{
@@ -139,7 +138,6 @@ public class EventPage extends BaseClass {
 				break;
 				
 			}
-			//Thread.sleep(1000);
 		}
 		}
 		catch(Exception e)
@@ -232,6 +230,7 @@ public class EventPage extends BaseClass {
 		WebDriverWait wait = new WebDriverWait(driver, 15);
 		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
+		Thread.sleep(2000);
 		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		
 	}
@@ -424,11 +423,11 @@ public class EventPage extends BaseClass {
 		boolean eventLogWindowState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindow"))).isDisplayed();
 		return eventLogWindowState;
 	}
-	public boolean isFeedVideoAvailable()
+	public boolean isVideoFeedAvailable()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		if(driver.findElement(By.id(prreader.getPropertyvalues("EventFeedVideoStatusRed"))).isDisplayed())
+		if(driver.findElement(By.id(prreader.getPropertyvalues("EventFeedVideoStatusGreen"))).isDisplayed())
 		{
 			return true;
 		}
@@ -466,5 +465,6 @@ public class EventPage extends BaseClass {
 		
 		
 	}
+
 
 }

@@ -46,7 +46,7 @@ public class DashboardPage
 	public UASsPage navigateToUASsPage()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("activeEventsLabel"))));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("activeEventsLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("uasMenuLink"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("uasMenuLink"))).click();
@@ -79,6 +79,7 @@ public class DashboardPage
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("eventsMenuLink"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("eventsMenuLink"))).click();
+		Thread.sleep(1000);
 		return new EventPage(driver);
 		
 	}
