@@ -40,7 +40,7 @@ Then video feed should be avilable "<incident>"
 
 Examples:
 |name     |feed              	|make         			|serialnumber  |model                  |status      |type         |username           | password   | incident                | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
-|qatest11 |FrontOfficeCamera	|Lockheed Martin        |qa007         |Indago       			|Available   |Multi-copter|z-autobot@ee.io | Password1@ | AutomationTestIncident121 | AutomationTest_CaseNumber002 | Search & Rescue | qatest11   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
+|qatest11 |QA-Automation-Feed	|Lockheed Martin        |qa007         |Indago       			|Available   |Multi-copter|z-autobot@ee.io | Password1@ | AutomationTestIncident121 | AutomationTest_CaseNumber002 | Search & Rescue | qatest11   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
 
 
 	  
