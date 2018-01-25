@@ -39,13 +39,30 @@ Feature: STRAX Video Feeds functionality
     And User navigates to Video Feeds menu
     And User navigates to Fixed camera tab
     And User selects the fixed camera "<cameraName>" from the list
-    And User navigates to video simulation page
-    Then User should be able to play the fixed camera video
+    Then User navigates to video simulation page
+    And User should be able to play the fixed camera video
 
     Examples: 
       | username        | password   | cameraName                  |
       | z-autobot@ee.io | Password1@ | AutomationTestFixedCamera01 |
 
+  @SRM @VideoFeeds @NewTestCases @camfeed @ignore
+  Scenario Outline: Verify user can create a new Camera Feed
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Video Feeds menu
+    And Clicks on Add new button and enter details for following fields
+      | Name       | <name>       |
+      | Account    | <account>    |
+      | CameraType | <cameraType> |
+      | WowzaPort  | <wowzaPort>  |
+      | KlvPort    | <klvPort>    |
+      | FrameRate  | <frameRate> |
+    Then New video feed should get created
+      Examples: 
+      | username        | password   | name                  | account |cameraType|wowzaPort|klvPort|frameRate|
+      | z-autobot@ee.io | Password1@ | QA-Automation-Feed2    | PBSO    |  KLV     |9999		|9999   | 25	  |
+    
   @SRM @VideoFeeds @NewTestCases @C63682 @ignore
   Scenario Outline: Verify user can Update a Security Camera Feed
     Given The STRAX Application login page is open

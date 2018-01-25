@@ -67,6 +67,7 @@ public class DashboardPage
 	public VideoFeedsPage navigateToVideoFeedsPage() {
 
 		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("activeEventsLabel"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("videoFeedsMenuLink"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("videoFeedsMenuLink"))).click();
