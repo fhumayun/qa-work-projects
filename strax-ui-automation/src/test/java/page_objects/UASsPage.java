@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import utils.DatabaseConnection;
 import utils.PropertiesFileReader;
 
 public class UASsPage {
@@ -105,6 +106,14 @@ public class UASsPage {
 		{
 			throw e;
 		}
+		
+	}
+	
+	public String deleteUASFromDB(String uas)
+	{
+		DatabaseConnection conn = new DatabaseConnection();
+		String deletedUAS = conn.deleteUAS(uas);
+		return deletedUAS;
 		
 	}
 	

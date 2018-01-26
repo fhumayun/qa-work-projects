@@ -55,5 +55,9 @@ public class STRAXUasStepDefinition {
 		dboard.navigateToEventsPage();
 	
 	}
+	@Then("^UAS should get deleted from DB \"([^\"]*)\"$")
+	public void UAS_should_get_deleted_from_DB(String uas) {
+		Assert.assertEquals(uas, uasPage.deleteUASFromDB(uas));
+	}
 
 }

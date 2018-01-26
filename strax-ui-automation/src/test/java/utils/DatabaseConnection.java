@@ -100,6 +100,31 @@ public class DatabaseConnection {
 			
 		
 	}
+	public String deleteUAS(String uas)
+	{
+		String deletedEventPlan="";
+		try{
+
+		       MongoCredential credential = MongoCredential.createScramSha1Credential(user, database, password.toCharArray());
+		       MongoClient mongoClient = new MongoClient(new ServerAddress(mongoDBServer), Arrays.asList(credential));
+		       MongoDatabase db =  mongoClient.getDatabase("sproutdb");
+		       BasicDBObject query = new BasicDBObject("name", uas);
+		       FindIterable<Document> cursor;
+		       MongoCollection<Document> coll = db.getCollection("fidgets");
+		       Document deleted = coll.findOneAndDelete(query);
+		       deletedEventPlan = deleted.getString("name");
+		       System.out.println(deletedEventPlan);
+		       
+		       mongoClient.close();
+		       
+					
+		     }catch(Exception e){
+		        System.err.println( e );
+		     }
+			return deletedEventPlan;
+			
+		
+	}
 		
 	
 
