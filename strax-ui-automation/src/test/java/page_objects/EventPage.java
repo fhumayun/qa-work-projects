@@ -225,6 +225,14 @@ public class EventPage extends BaseClass {
 		
         
 	}
+	public void closeMapFromPlayback()
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))).click();
+		
+        
+	}
 	public void endActiveEvent() throws InterruptedException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 15);

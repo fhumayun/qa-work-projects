@@ -95,7 +95,7 @@ public class STRAXEventStepDefinition {
 	@Then("^User should be able to playback \"([^\"]*)\" event$")
 	public void User_should_be_able_to_playback_that_event(String incident) throws InterruptedException {
 		Assert.assertEquals(true , eventPage.verifyJoinEventSuccess());
-		eventPage.closeMap();
+		eventPage.closeMapFromPlayback();
 		eventPage.deleteEventFromDB(incident);
 		
 		
