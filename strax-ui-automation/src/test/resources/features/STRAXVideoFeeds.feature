@@ -69,15 +69,14 @@ Feature: STRAX Video Feeds functionality
       | username        | password   | cameraName                  | account | url                                                                                                    | viewangle | address                                              | latitude | longitude |
       | z-autobot@ee.io | Password1@ | AutomationTestFixedCamera01 | PBSO    | rtsp://root:Biscayne!10@162.252.125.210:5521/axis-media/media.amp?videocodec=h264&streamprofile=Mobile |       101 | 1004 Broken Sound Pkwy NW, Boca Raton, FL 33487, USA |          |           |
 
-  @SRM @VideoFeeds @NewTestCases @C63681 @ignore
+  @SRM @VideoFeeds @C86129
   Scenario Outline: Verify user can delete the security camera feed successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
     And User navigates to Video Feeds menu
-    And User navigates to Fixed camera tab
-    And User select the Fixed camera "<cameraName>" to delete
-    Then User should be able to soft delete the fixed security camera feed "<cameraName>" successfully
+    And User select the video feed "<feedName>" to delete
+    Then User should be able to delete the video feed "<feedName>" successfully
 
     Examples: 
-      | username        | password   | cameraName                  |
-      | z-autobot@ee.io | Password1@ | AutomationTestFixedCamera01 |
+      | username        | password   | feedName           |
+      | z-autobot@ee.io | Password1@ | QA-Automation-Feed |

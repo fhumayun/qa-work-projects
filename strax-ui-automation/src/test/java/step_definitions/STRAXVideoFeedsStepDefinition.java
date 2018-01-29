@@ -40,8 +40,8 @@ DashboardPage dboard;
 		
 	}
 	@And("^User selects the fixed camera \"([^\"]*)\" from the list$")
-	public void User_selects_the_fixed_camera_from_the_list(String fixedcamName) throws InterruptedException   {
-		vfPage.searchFixedCam(fixedcamName);
+	public void User_selects_the_fixed_camera_from_the_list(String feed) throws InterruptedException   {
+		vfPage.searchFeed(feed);
 		vfPage.displayFixedCam();
 		
 	}
@@ -56,13 +56,23 @@ DashboardPage dboard;
 		Assert.assertTrue(vfPage.isVideoDisplaying());
 	}
 	@And("^Clicks on Add new button and enter details for following fields$")
-	public void Clicks_on_Add_new_button_and_enter_details_for_following_fields(Map<String, String> tableData) throws InterruptedException   {
-		vfPage.addNewUAV(tableData.get("Name"), tableData.get("Account"), tableData.get("CameraType"), tableData.get("WowzaPort"), tableData.get("KlvPort"), tableData.get("FrameRate"));
+	public void Clicks_on_Add_new_button_and_enter_details_for_following_fields(Map<String, String> tableData) throws Exception   {
+		vfPage.addNewUAV(tableData.get("Name"), tableData.get("Account"), tableData.get("CameraType"), tableData.get("WowzaPort"), tableData.get("KlvPort"), tableData.get("FrameRate"), tableData.get("FeedVideo"));
 		
 	}
-	@Then("^New video feed should get created$")
-	public void New_video_feed_should_get_created()  {
+	@Then("^New video feed should get created \"([^\"]*)\"$")
+	public void New_video_feed_should_get_created(String feed) throws InterruptedException  {
 		
-		Assert.assertTrue(true);
+		Assert.assertEquals(true, vfPage.startFeed(feed));
+	}
+	@And("^User select the video feed \"([^\"]*)\" to delete$")
+	public void User_select_the_video_feed_to_delete(String feed) throws InterruptedException  {
+		
+		//vfPage.deleteFeed(feed);
+	}
+	@Then("^User should be able to delete the video feed \"([^\"]*)\" successfully$")
+	public void User_should_be_able_to_delete_the_video_feed_successfully(String feed) throws InterruptedException  {
+		vfPage.deleteFeed(feed);
+		Assert.assertEquals(false , vfPage.searchFeed(feed));
 	}
 }

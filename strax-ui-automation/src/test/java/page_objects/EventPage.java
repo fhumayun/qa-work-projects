@@ -217,6 +217,21 @@ public class EventPage extends BaseClass {
 			return false; 
 				
 	}
+	public boolean verifyEvenPlaybackSuccess() throws InterruptedException
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		//boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
+		Thread.sleep(1000);
+		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback")))).isDisplayed();
+
+		if(state)
+		{
+			return true;
+		}
+		else
+			return false; 
+				
+	}
 	public void closeMap()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -228,7 +243,8 @@ public class EventPage extends BaseClass {
 	public void closeMapFromPlayback()
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))));
 		driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))).click();
 		
         
