@@ -54,8 +54,8 @@ public class CucumberHooks extends BaseClass{
 		capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 
 
-
-/*		// uncomment to read the browser,platform values from config file
+/*
+		// uncomment to read the browser,platform values from config file
 		//System.setProperty("webdriver.chrome.driver","D:\\Driver\\chromedriver.exe");
 		capabilities = DesiredCapabilities.chrome();
 		capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
@@ -70,7 +70,7 @@ public class CucumberHooks extends BaseClass{
 		//******* comment the above line and uncomment the below line if you want to use the selenium grid, replace with correct hub URL*********
 		
 		
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.169:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.103:4444/wd/hub"), capabilities);
 		
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		
@@ -105,7 +105,7 @@ public class CucumberHooks extends BaseClass{
 				sacPassCount= sacPassCount+1;
 			}
 		}
-		else if(tags.contains("PlayBack"))
+		else if(tags.contains("@PlayBack"))
 		{
 			playbackCount=playbackCount+1;
 			if(scenario.getStatus().equalsIgnoreCase("passed"))
