@@ -1,6 +1,6 @@
 Feature: STRAX Event functionality
 
-  @C44553 @SRM @Event
+  @C44553 @SRM
   Scenario Outline: Verify user have access to create a new event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -12,7 +12,7 @@ Feature: STRAX Event functionality
       | z-controller@ee.io | Password1@ |
       | z-user@ee.io       | Password1@ |
 
-  @C44554 @SRM @Event
+  @C44554 @SRM
   Scenario Outline: Verify user does not have access to create a new event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -22,7 +22,7 @@ Feature: STRAX Event functionality
       | username       | password   |
       | z-viewer@ee.io | Password1@ |
 
-  @C44555 @SRM @Event @Smoke
+  @C44555 @SRM @Smoke
   Scenario Outline: Verify user can create a new event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -42,7 +42,7 @@ Feature: STRAX Event functionality
       | username        | password   | incident                | casenumber                   | missionType     | stream | address                                                       | latitude | longitude | description                           | participants                                          |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident1 | AutomationTest_CaseNumber001 | Search & Rescue | None   | 1001 Broken Sound Parkway NW Suite C 33487 Boca Raton FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Controller, Z-User Z-Viewer,Z-EEiUser Z-User |
 
-  @C44556 @SRM @Event
+  @C44556 @SRM
   Scenario Outline: Verify user can not create a new event while assigned to another
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -55,7 +55,7 @@ Feature: STRAX Event functionality
       | z-controller@ee.io | Password1@ |
       | z-user@ee.io       | Password1@ |
 
-  @C44557 @SRM @Event @Smoke
+  @C44557 @SRM @Smoke
   Scenario Outline: Verify only invited user can join the event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -69,7 +69,7 @@ Feature: STRAX Event functionality
       | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
       | z-viewer@ee.io     | Password1@ | AutomationTestIncident1 |
 
-  @C48854 @SRM @Event
+  @C48854 @SAC
   Scenario Outline: Verify google map is loaded in the active event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -82,7 +82,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 |
       | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
 
-  @C48855 @SRM @Event @ignore
+  @C48855 @SAC @ignore
   Scenario Outline: Verify event log window loads correctly
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -95,7 +95,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 |
       | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
 
-  @C48856 @SRM @Event @ignore
+  @C48856 @SRM @ignore
   Scenario Outline: Verify users can see video feed
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -108,7 +108,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 |
       | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
 
-  @C44558 @SRM @Event @Smoke
+  @C44558 @SAC @Smoke
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -120,7 +120,7 @@ Feature: STRAX Event functionality
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident1 |
 
-  @C44555 @SRM @Event
+  @C44555 @SRM
   Scenario Outline: Verify user can create a new event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -140,7 +140,7 @@ Feature: STRAX Event functionality
       | username           | password   | incident                | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
       | z-controller@ee.io | Password1@ | AutomationTestIncident2 | AutomationTest_CaseNumber002 | Search & Rescue | None   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
 
-  @C44559 @SRM @Event
+  @C44559 @PlayBack @Event
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -152,7 +152,7 @@ Feature: STRAX Event functionality
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
 
-  @C44560 @SRM @Playback @Event
+  @C44560 @PlayBack @Event
   Scenario Outline: Verify user can playback any historic event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -164,7 +164,7 @@ Feature: STRAX Event functionality
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
 
-  @C44603 @SRM @EventPlan @Smoke
+  @C44603 @SRM @Smoke
   Scenario Outline: Verify user can create a new event plan
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -186,7 +186,7 @@ Feature: STRAX Event functionality
      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
 
-  @C46771 @SRM @EventPlan
+  @C46771 @SRM
   Scenario Outline: Verify user can share the event plan
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -200,7 +200,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 |
 
-  @C46772 @SRM @EventPlan
+  @C46772 @SRM
   Scenario Outline: Verify users can access the shared event plan
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -213,7 +213,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan1 |
 
-  @C46769 @SRM @EventPlan
+  @C46769 @SRM
   Scenario Outline: Verify user can archive the event plan
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -227,7 +227,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 |
 
-  @C46770 @SRM @EventPlan
+  @C46770 @SRM
   Scenario Outline: Verify user can unarchive the event plan
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -242,7 +242,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 |
 
-  @C46769 @SRM @EventPlan @Smoke
+  @C46769 @SRM @Smoke
   Scenario Outline: Verify user can archive the event plan
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -260,7 +260,7 @@ Feature: STRAX Event functionality
   #	|username     |password|incidentName|
   #	|yogi@msys.com|Password1@|TestEvent111|
  
-  @SRM @EVENT @NewTestCases @C73390 @ignore
+  @SRM  @C73390 @ignore
   Scenario Outline: Verify user can add event case number after an event.
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -281,7 +281,7 @@ Feature: STRAX Event functionality
       | username        | password   | incident                | missionType     | stream | address                                                       | latitude | longitude | description                           | participants                                          |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 | Search & Rescue | None   | 1001 Broken Sound Parkway NW Suite C 33487 Boca Raton FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Controller, Z-User Z-Viewer,Z-EEiUser Z-User |
 
-  @C44558 @SRM @Event @ignore
+  @C44558 @SRM @ignore
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -293,7 +293,7 @@ Feature: STRAX Event functionality
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 |
   
-    @SRM @Event @NewTestCases @C80743 @ignore
+    @SRM @C80743 @ignore
   Scenario Outline: Verify that the Case Number can be changed after a event has been closed
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -305,7 +305,7 @@ Feature: STRAX Event functionality
       | username        | password   | incidentName            | casenumber               |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 |  AutomationTestIncident3 |
   
-  @SRM @Event @NewTestCases @C73391 @ignore
+  @SRM @C73391 @ignore
   Scenario Outline: Verify user can add Critical Incident as mission type while creating a new event.
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"

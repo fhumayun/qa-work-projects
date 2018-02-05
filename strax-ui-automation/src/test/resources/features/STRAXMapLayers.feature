@@ -1,6 +1,6 @@
 Feature: STRAX Map Layers functionality
 
-@C73383 @SRM @MapLayer
+@C73383 @SRM
 Scenario Outline: Verify users have access to create a new map layer
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"

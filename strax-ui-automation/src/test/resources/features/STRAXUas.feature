@@ -1,5 +1,5 @@
 Feature: STRAX UASs functionality
-@C44551 @UAS 
+@C44551 @UAS  @SRM
 Scenario Outline: Verify user have access to create a new UAS
 Given The STRAX Application login page is open
 When User Enters Valid "<username>" and "<password>"
