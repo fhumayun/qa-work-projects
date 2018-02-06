@@ -168,5 +168,22 @@ public class VideoFeedsPage extends BaseClass{
 			throw(e);
 		}
 	}
+	public void updateFeed(String name, String account, String cameraType, String wowzaPort, String klvPort, String frameRate,String videoName) throws Exception {
+		// TODO Auto-generated method stub
+		searchFeed(name);
+		driver.findElement(By.xpath(prreader.getPropertyvalues("FeedEditLink"))).click();
+		//driver.findElement(By.id(prreader.getPropertyvalues("FeedName"))).sendKeys(name);
+		driver.findElement(By.id(prreader.getPropertyvalues("AccountName"))).sendKeys(account);
+		driver.findElement(By.id(prreader.getPropertyvalues("FeedCameraType"))).sendKeys(cameraType);
+		driver.findElement(By.id(prreader.getPropertyvalues("WowzaStreamPort"))).clear();
+		driver.findElement(By.id(prreader.getPropertyvalues("WowzaStreamPort"))).sendKeys(wowzaPort);
+		driver.findElement(By.id(prreader.getPropertyvalues("KLVPort"))).clear();
+		driver.findElement(By.id(prreader.getPropertyvalues("KLVPort"))).sendKeys(klvPort);
+		driver.findElement(By.id(prreader.getPropertyvalues("FrameRate"))).clear();
+		driver.findElement(By.id(prreader.getPropertyvalues("FrameRate"))).sendKeys(frameRate);
+		//selectSimulationVideo(videoName);
+		driver.findElement(By.id(prreader.getPropertyvalues("FeedSaveButton"))).click();
+		
+	}
 
 }

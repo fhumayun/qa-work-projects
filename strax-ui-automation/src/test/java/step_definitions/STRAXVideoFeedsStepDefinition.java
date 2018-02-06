@@ -75,4 +75,18 @@ DashboardPage dboard;
 		vfPage.deleteFeed(feed);
 		Assert.assertEquals(false , vfPage.searchFeed(feed));
 	}
+	@And("^enter details for following fields to update the feed$")
+	public void enter_details_for_following_fields_to_update_the_feed(Map<String, String> tableData) throws Exception  {
+		
+		vfPage.updateFeed(tableData.get("Name"), tableData.get("Account"), tableData.get("CameraType"), tableData.get("WowzaPort"), tableData.get("KlvPort"), tableData.get("FrameRate"), tableData.get("FeedVideo"));
+	}
+	@And("^User select the video feed \"([^\"]*)\" to edit$")
+	public void User_select_the_video_feed_to_edit(String feed) throws InterruptedException  {
+		
+		
+	}
+	@Then("^video feed should get updated successfully \"([^\"]*)\"$")
+	public void video_feed_should_get_updated_successfully(String feed) throws InterruptedException  {
+		Assert.assertEquals(true , vfPage.searchFeed(feed));
+	}
 }

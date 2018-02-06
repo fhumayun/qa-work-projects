@@ -74,7 +74,7 @@ public class runCukesTest extends CucumberHooks{
 		int sacPassPercentage = sacPassCount/sacCount*100;
 		int pbPassPercentage = pbPassCount/playbackCount*100;
         SlackApi api = new SlackApi("https://hooks.slack.com/services/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");
-        api.call(new SlackMessage("#qatest", null, 	"*`STRAX Module Wise Test Coverage`*\n"+
+        api.call(new SlackMessage("#strax-nightlies", null, 	"*`STRAX Module Wise Test Coverage`*\n"+
         		"```SRM Test Coverage - "+srmTestCoverage1+" %"+"("+srmCount+ " Scenario)  Health Grade "+getGrade(srmPassPercentage)+" ("+srmPassPercentage+"% Passing) ```\n" + 
         	    "```SAC Test Coverage - "+sacTestCoverage1+" %"+"("+sacCount+ " Scenario)  Health Grade "+getGrade(sacPassPercentage)+" ("+sacPassPercentage+"% Passing) ```\n" +
         		"```PlayBack Test Coverage - "+playbackTestCoverage1+" %"+"("+playbackCount+ " Scenario)  Health Grade "+getGrade(pbPassPercentage)+" ("+pbPassPercentage+"% Passing)```\n"+
