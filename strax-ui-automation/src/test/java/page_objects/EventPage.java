@@ -489,6 +489,21 @@ public class EventPage extends BaseClass {
 		
 		
 	}
+	public void playBackPlayAndPause()
+	{
+		driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackPlayPauseButton"))).click();
+	}
+	public boolean isPlayBackPlaying()
+	{
+		WebElement playBackButton = driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackPlayPauseButton")));
+		if(playBackButton.getAttribute("aria-label").equals("pause"))
+		{
+			return true;
+		}
+		else
+			return false;
+		
+	}
 
 
 }

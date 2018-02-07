@@ -163,6 +163,21 @@ Feature: STRAX Event functionality
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
+   @C86149 @PlayBack @play
+Scenario Outline: Verify play / pause feature works correctly
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event history tab
+	And User search and clicks on the event "<incidentName>" link to playback
+	And User should be able to open the event in playback
+	And User clicks on the play button of event playback
+	Then The playback should start to play
+	And The user will click Pause
+	Then The event playback should Pause "<incidentName>"
+    Examples: 
+      | username        | password   | incidentName            |
+      | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |	
+	
 
   @C44603 @SRM @Smoke
   Scenario Outline: Verify user can create a new event plan

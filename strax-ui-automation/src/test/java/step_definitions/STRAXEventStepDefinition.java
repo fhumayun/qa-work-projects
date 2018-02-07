@@ -254,6 +254,33 @@ public class STRAXEventStepDefinition {
 		eventPage.deleteEventFromDB(incident);
 							
 	}
+	@And("^User should be able to open the event in playback$")
+	public void User_should_be_able_to_open_the_event_in_playback() throws InterruptedException {
+		eventPage.verifyEvenPlaybackSuccess();
+	
+	}
+	@And("^User clicks on the play button of event playback$")
+	public void User_clicks_on_the_play_button_of_event_playback() throws InterruptedException {
+		eventPage.playBackPlayAndPause();
+	
+	}
+	@Then("^The playback should start to play$")
+	public void The_playback_should_start_to_play() {
+		Assert.assertTrue(eventPage.isPlayBackPlaying());
+
+	}
+	@And("^The user will click Pause$")
+	public void The_user_will_click_Pause() throws InterruptedException {
+		eventPage.playBackPlayAndPause();
+		
+	}
+	@Then("^The event playback should Pause \"([^\"]*)\"$")
+	public void The_event_playback_should_Pause(String incident) {
+		Assert.assertFalse(eventPage.isPlayBackPlaying());
+		eventPage.closeMapFromPlayback();
+		eventPage.deleteEventFromDB(incident);
+
+	}
 	
 
 }
