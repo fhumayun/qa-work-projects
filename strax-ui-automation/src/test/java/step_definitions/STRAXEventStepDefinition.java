@@ -233,6 +233,7 @@ public class STRAXEventStepDefinition {
 	@Then("^Event log window loads correctly$")
 	public void event_log_window_loads_correctly() throws InterruptedException {
 		Assert.assertTrue(eventPage.isEventLogWindowLoaded());
+		eventPage.closeMap();
 	
 	}
 	@Then("^User should see video feed$")

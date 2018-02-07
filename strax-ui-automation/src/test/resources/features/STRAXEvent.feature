@@ -82,7 +82,7 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 |
       | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
 
-  @C48855 @SAC @ignore
+  @C48855 @SAC
   Scenario Outline: Verify event log window loads correctly
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -90,10 +90,10 @@ Feature: STRAX Event functionality
     Then Event log window loads correctly
 
     Examples: 
-      | username           | password   | incidentName            |
-      | z-controller@ee.io | Password1@ | AutomationTestIncident1 |
-      | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 |
-      | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
+      | username           | password   | incidentName 			 	|
+      | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 	|
+      | z-controller@ee.io | Password1@ | AutomationTestIncident1 	|
+      | z-user@ee.io       | Password1@ | AutomationTestIncident1   |
 
   @C48856 @SRM @ignore
   Scenario Outline: Verify users can see video feed
