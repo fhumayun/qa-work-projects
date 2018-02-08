@@ -11,6 +11,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import page_objects.BaseClass;
+import page_objects.CommonClass;
 import page_objects.EventPage;
 
 public class STRAXEventStepDefinition {
@@ -96,9 +97,7 @@ public class STRAXEventStepDefinition {
 	public void User_should_be_able_to_playback_that_event(String incident) throws InterruptedException {
 		Assert.assertEquals(true , eventPage.verifyEvenPlaybackSuccess());
 		eventPage.closeMapFromPlayback();
-		eventPage.deleteEventFromDB(incident);
-		
-		
+	
 	}
 	@Then("^User should be able to soft delete an active event \"([^\"]*)\" successfully$")
 	public void User_should_be_able_to_end_soft_delete_an_active_event_successfully(String incident) throws InterruptedException {
@@ -281,6 +280,17 @@ public class STRAXEventStepDefinition {
 		eventPage.closeMapFromPlayback();
 		eventPage.deleteEventFromDB(incident);
 
+	}
+	@And("^User search the event \"([^\"]*)\" to edit case number$")
+	public void User_search_the_event(String incident) throws InterruptedException {
+		eventPage.searchEvent(incident);
+		
+	}       
+	@Then("^User should be able to edit or add a \"([^\"]*)\" to the event$")
+	public void User_should_be_able_to_edit_or_add_case_number(String caseNumber) {
+		CommonClass cl =  new CommonClass(base.driver);
+		eventPage.addUpdateEventCaseNumber(caseNumber);
+		Assert.assertEquals("Case number saved!", cl.getPopUpMessage());
 	}
 	
 

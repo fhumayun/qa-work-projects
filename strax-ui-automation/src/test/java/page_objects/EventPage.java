@@ -506,6 +506,14 @@ public class EventPage extends BaseClass {
 			return false;
 		
 	}
+	public void addUpdateEventCaseNumber(String caseNumber)
+	{
+		WebElement caseNumberField = driver.findElement(By.xpath(prreader.getPropertyvalues("EventCaseNumber")));
+		caseNumberField.clear();
+		caseNumberField.sendKeys(caseNumber);
+		caseNumberField.sendKeys(Keys.ENTER);
+		
+	}
 
 
 }

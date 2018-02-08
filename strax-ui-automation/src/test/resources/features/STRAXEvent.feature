@@ -151,8 +151,20 @@ Feature: STRAX Event functionality
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
+      
+    @SRM @C86150
+  Scenario Outline: Verify that the Case Number can be changed after a event has been closed
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event history tab
+    And User search the event "<incidentName>" to edit case number
+    Then User should be able to edit or add a "<casenumber>" to the event
 
-  @C44560 @PlayBack @Event
+    Examples: 
+      | username        | password   | incidentName            | casenumber        |
+      | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |  Case_007_Updated |
+
+  @C44560 @PlayBack
   Scenario Outline: Verify user can playback any historic event
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -163,7 +175,7 @@ Feature: STRAX Event functionality
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
-   @C86149 @PlayBack @play
+   @C86149 @PlayBack
 Scenario Outline: Verify play / pause feature works correctly
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -308,17 +320,6 @@ Scenario Outline: Verify play / pause feature works correctly
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 |
   
-    @SRM @C80743 @ignore
-  Scenario Outline: Verify that the Case Number can be changed after a event has been closed
-    Given The STRAX Application login page is open
-    When User Enters Valid "<username>" and "<password>"
-    And User navigates to Event history tab
-    And User search and clicks on the event "<incidentName>" link to edit case number
-    Then User should be able to edit or add a "<caseNumber>" to  the event
-
-    Examples: 
-      | username        | password   | incidentName            | casenumber               |
-      | z-autobot@ee.io | Password1@ | AutomationTestIncident3 |  AutomationTestIncident3 |
   
   @SRM @C73391 @ignore
   Scenario Outline: Verify user can add Critical Incident as mission type while creating a new event.

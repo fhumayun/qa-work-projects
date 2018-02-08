@@ -156,6 +156,11 @@ public class CommonClass{
 		
 	}
 	
+	public String getPopUpMessage()
+	{
+		return(driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText());
+	}
+	
 	
 	
 }

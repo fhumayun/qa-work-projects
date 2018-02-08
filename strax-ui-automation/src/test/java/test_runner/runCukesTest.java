@@ -61,6 +61,7 @@ public class runCukesTest extends CucumberHooks{
        // extentProperties.setProjectName("STRAX QAT");
 	}
 	
+	///******* This methos is due for refactoring ******//////////
 	public static void slackTestCoverageMatrix()
 	{
 		srmTestCoverage =  (float)srmCount/scenarioTotalCount*100;
@@ -68,17 +69,22 @@ public class runCukesTest extends CucumberHooks{
 		sacTestCoverage =  (float)sacCount/scenarioTotalCount*100;
 		int sacTestCoverage1 = (int) sacTestCoverage;
 		playbackTestCoverage = (float)playbackCount/scenarioTotalCount*100;
-		int totalTestCoverage = scenarioTotalCount/100*100;
+		float totalTestCoverage = (float)scenarioTotalCount/100*100;
+		int totalTestCoverage1 = (int)totalTestCoverage;
+		
 		int playbackTestCoverage1 = (int) playbackTestCoverage;
-		int srmPassPercentage = srmPassCount/srmCount*100;
-		int sacPassPercentage = sacPassCount/sacCount*100;
-		int pbPassPercentage = pbPassCount/playbackCount*100;
+		float srmPassPercentage = (float)srmPassCount/srmCount*100;
+		float sacPassPercentage = (float)sacPassCount/sacCount*100;
+		float pbPassPercentage = (float)pbPassCount/playbackCount*100;
+		int srmPassPercentage1 = (int)srmPassPercentage;
+		int sacPassPercentage1 = (int)sacPassPercentage;
+		int pbPassPercentage1 = (int)pbPassPercentage;
         SlackApi api = new SlackApi("https://hooks.slack.com/services/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");
         api.call(new SlackMessage("#strax-nightlies", null, 	"*`STRAX Module Wise Test Coverage`*\n"+
-        		"```SRM Test Coverage - "+srmTestCoverage1+" %"+"("+srmCount+ " Scenarios)  Health Grade "+getGrade(srmPassPercentage)+" ("+srmPassPercentage+"% Passing) ```\n" + 
-        	    "```SAC Test Coverage - "+sacTestCoverage1+" %"+"("+sacCount+ " Scenarios)  Health Grade "+getGrade(sacPassPercentage)+" ("+sacPassPercentage+"% Passing) ```\n" +
-        		"```PlayBack Test Coverage - "+playbackTestCoverage1+" %"+"("+playbackCount+ " Scenarios)  Health Grade "+getGrade(pbPassPercentage)+" ("+pbPassPercentage+"% Passing)```\n"+
-        		"```Total Automation Test Coverage - "+totalTestCoverage+"("+scenarioTotalCount+ " Scenarios)```" ));
+        		"```SRM Test Coverage - "+srmTestCoverage1+"%"+"("+srmCount+ " Scenarios)  Health Grade "+getGrade(srmPassPercentage1)+" ("+srmPassPercentage1+"% Passing) ```\n" + 
+        	    "```SAC Test Coverage - "+sacTestCoverage1+"%"+"("+sacCount+ " Scenarios)  Health Grade "+getGrade(sacPassPercentage1)+" ("+sacPassPercentage1+"% Passing) ```\n" +
+        		"```PlayBack Test Coverage - "+playbackTestCoverage1+"%"+"("+playbackCount+ " Scenarios)  Health Grade "+getGrade(pbPassPercentage1)+" ("+pbPassPercentage1+"% Passing)```\n"+
+        		"```Total Automation Test Coverage - "+totalTestCoverage1+"("+scenarioTotalCount+ " Scenarios)```" ));
             	
     	
 
