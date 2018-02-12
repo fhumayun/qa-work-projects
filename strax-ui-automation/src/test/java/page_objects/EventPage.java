@@ -515,5 +515,25 @@ public class EventPage extends BaseClass {
 		
 	}
 
+	public void autoFollowUAS() throws InterruptedException {
+		Thread.sleep(3000);
+		driver.findElement(By.xpath(prreader.getPropertyvalues("FollowUASOption"))).click();
+		Thread.sleep(1000);
+		driver.findElement(By.id(prreader.getPropertyvalues("FollowUASToggleButton"))).click();
+		
+	}
+	public boolean verifyAutoFollowUASStatus()
+	{
+		WebElement uasStatus = driver.findElement(By.xpath(prreader.getPropertyvalues("FollowUASStatus")));
+		if(uasStatus.getAttribute("class").equals("follow-uas-menu-icon ng-scope blue"))
+		{
+			return true;
+		}
+		else
+			return false;
+		
+	}
+	
+
 
 }

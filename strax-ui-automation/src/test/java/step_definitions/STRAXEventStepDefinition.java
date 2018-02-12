@@ -292,6 +292,24 @@ public class STRAXEventStepDefinition {
 		eventPage.addUpdateEventCaseNumber(caseNumber);
 		Assert.assertEquals("Case number saved!", cl.getPopUpMessage());
 	}
+	@And("^User clicks on Auto-Follow UAS button$")
+	public void User_clicks_on_Auto_Follow_UAS_button() throws InterruptedException {
+		eventPage.autoFollowUAS();
+		
+	} 
+	@Then("^Auto-Follow UAS feature should work$")
+	public void Auto_follow_UAS_feature_should_work() {
+		Assert.assertTrue(eventPage.verifyAutoFollowUASStatus());
+		eventPage.closeMapFromPlayback();
+		
+	}
+	@Then("^Browser title bar should have incident number/event name displayed in it \"([^\"]*)\"$")
+	public void Browser_title_bar_should_have_incident_number_displayed_in_it(String incident) throws InterruptedException{
+		Thread.sleep(3000);
+		String title = base.driver.getTitle();
+		Assert.assertTrue(title.contains(incident));
+		eventPage.closeMap();
+	}
 	
 
 }

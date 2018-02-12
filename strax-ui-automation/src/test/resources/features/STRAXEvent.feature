@@ -68,6 +68,18 @@ Feature: STRAX Event functionality
       | z-controller@ee.io | Password1@ | AutomationTestIncident1 |
       | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
       | z-viewer@ee.io     | Password1@ | AutomationTestIncident1 |
+      
+  @C86159 @SAC
+  Scenario Outline: Verify title bar contains Incident Number from SRM
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    Then Browser title bar should have incident number/event name displayed in it "<incidentName>"
+
+    Examples: 
+      | username           | password   | incidentName            |
+      | z-controller@ee.io | Password1@ | AutomationTestIncident1 |
+
 
   @C48854 @SAC
   Scenario Outline: Verify google map is loaded in the active event
@@ -175,6 +187,20 @@ Feature: STRAX Event functionality
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
+      
+   @follow @PlayBack @ignore
+  Scenario Outline: Verify Auto-Follow UAS feature works
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event history tab
+    And User search and clicks on the event "<incidentName>" link to playback
+    And User clicks on Auto-Follow UAS button
+    Then Auto-Follow UAS feature should work
+
+    Examples: 
+      | username        | password   | incidentName            |
+      | z-autobot@ee.io | Password1@ | Saber Testing |
+      
    @C86149 @PlayBack
 Scenario Outline: Verify play / pause feature works correctly
     Given The STRAX Application login page is open
