@@ -235,6 +235,12 @@ public class STRAXEventStepDefinition {
 		eventPage.closeMap();
 	
 	}
+	@Then("^chat window loads correctly$")
+	public void chat_window_loads_correctly() throws InterruptedException {
+		Assert.assertTrue(eventPage.isChatWindowLoaded());
+		eventPage.closeMap();
+	
+	}
 	@Then("^User should see video feed$")
 	public void User_should_see_video_feed() throws InterruptedException {
 		//Assert.assertTrue(eventPage.isFeedVideoAvailable());

@@ -106,6 +106,16 @@ Feature: STRAX Event functionality
       | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 	|
       | z-controller@ee.io | Password1@ | AutomationTestIncident1 	|
       | z-user@ee.io       | Password1@ | AutomationTestIncident1   |
+    @C86161 @SAC
+  Scenario Outline: Verify chat window loads correctly
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    Then chat window loads correctly
+
+    Examples: 
+      | username           | password   | incidentName 			 	|
+      | z-user@ee.io       | Password1@ | AutomationTestIncident1   |
 
   @C48856 @SRM @ignore
   Scenario Outline: Verify users can see video feed
@@ -199,7 +209,7 @@ Feature: STRAX Event functionality
 
     Examples: 
       | username        | password   | incidentName            |
-      | z-autobot@ee.io | Password1@ | Saber Testing |
+      | z-autobot@ee.io | Password1@ | Staging-T1 |
       
    @C86149 @PlayBack
 Scenario Outline: Verify play / pause feature works correctly

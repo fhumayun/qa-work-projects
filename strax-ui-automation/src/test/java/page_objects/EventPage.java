@@ -516,8 +516,7 @@ public class EventPage extends BaseClass {
 	}
 
 	public void autoFollowUAS() throws InterruptedException {
-		Thread.sleep(3000);
-		driver.findElement(By.xpath(prreader.getPropertyvalues("FollowUASOption"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("FollowUASOption"))).click();
 		Thread.sleep(1000);
 		driver.findElement(By.id(prreader.getPropertyvalues("FollowUASToggleButton"))).click();
 		
@@ -531,6 +530,15 @@ public class EventPage extends BaseClass {
 		}
 		else
 			return false;
+		
+	}
+	public boolean isChatWindowLoaded() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		Thread.sleep(1000);
+		boolean state = driver.findElement(By.xpath(prreader.getPropertyvalues("EventChatWindow"))).isDisplayed();
+
+		return state;
 		
 	}
 	
