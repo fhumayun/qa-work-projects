@@ -541,6 +541,44 @@ public class EventPage extends BaseClass {
 		return state;
 		
 	}
+
+	public void drawPolygon() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPolygon"))).click();
+		Actions a = new Actions(driver);
+		a.click().perform();
+		a.moveByOffset(100, 0).click().perform();
+		a.moveByOffset(50, -100);
+		a.click().doubleClick().build().perform();
+	driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("Polygontest");
+	driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+	}
+	public void drawPoint() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
+		Actions a = new Actions(driver);
+		a.moveByOffset(200, 0).click().perform();
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointTest");
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+	}
+	public void drawPolyline() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+		Thread.sleep(1000);
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPolyline"))).click();
+		Actions a = new Actions(driver);
+		a.click().perform();
+		a.moveByOffset(300, 0).click().perform();
+		a.moveByOffset(50, -200);
+		a.click().doubleClick().build().perform();
+		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("Polylinetest");
+	driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+	}
 	
 
 
