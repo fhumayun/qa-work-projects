@@ -116,6 +116,39 @@ Feature: STRAX Event functionality
     Examples: 
       | username           | password   | incidentName 			 	|
       | z-user@ee.io       | Password1@ | AutomationTestIncident1   |
+      
+      @C86168 @SAC
+  Scenario Outline: Verify user can add a point on map
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    And User adds a point on map
+
+    Examples: 
+      | username           | password   | incidentName 			 	|
+	  | z-autobot@ee.io    | Password1@ | AutomationTestIncident1 |
+ 
+       @C86169 @SAC
+  Scenario Outline: Verify user can draw a polygon on map
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    And User draw a polygon on map
+
+    Examples: 
+      | username           | password   | incidentName 			 	|
+      | z-controller@ee.io | Password1@ | AutomationTestIncident1 |
+        
+        @C86170 @SAC
+  Scenario Outline: Verify user can draw a polyline on map
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    And User draw a polyline on map
+
+    Examples: 
+      | username           | password   | incidentName 			 	|
+      | z-user@ee.io       | Password1@ | AutomationTestIncident1 |
 
   @C48856 @SRM @ignore
   Scenario Outline: Verify users can see video feed
@@ -162,7 +195,7 @@ Feature: STRAX Event functionality
       | username           | password   | incident                | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
       | z-controller@ee.io | Password1@ | AutomationTestIncident2 | AutomationTest_CaseNumber002 | Search & Rescue | None   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
 
-  @C44559 @PlayBack @Event
+  @C44559 @SRM @Event
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -208,7 +241,7 @@ Feature: STRAX Event functionality
     Then Auto-Follow UAS feature should work
 
     Examples: 
-      | username        | password   | incidentName            |
+      | username        | password   | incidentName |
       | z-autobot@ee.io | Password1@ | Staging-T1 |
       
    @C86149 @PlayBack

@@ -316,6 +316,26 @@ public class STRAXEventStepDefinition {
 		Assert.assertTrue(title.contains(incident));
 		eventPage.closeMap();
 	}
+	@And("^User adds a point on map$")
+	public void user_adds_point() throws InterruptedException {
+		eventPage.drawPoint();
+		eventPage.closeMap();
+	}
+	@And("^User draw a polygon on map$")
+	public void user_draw_polygon() throws InterruptedException {
+		eventPage.drawPolygon();
+		eventPage.closeMap();
+	}
+	@And("^User draw a polyline on map$")
+	public void user_draw_polyline() throws InterruptedException {
+		eventPage.drawPolyline();
+		eventPage.closeMap();
+	}
+	@And("^User draw a freehand on map$")
+	public void user_draw_freehand() throws InterruptedException {
+		eventPage.drawFreehand();
+		//eventPage.closeMap();
+	}
 	
 
 }
