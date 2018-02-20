@@ -331,11 +331,5 @@ public class STRAXEventStepDefinition {
 		eventPage.drawPolyline();
 		eventPage.closeMap();
 	}
-	@And("^User draw a freehand on map$")
-	public void user_draw_freehand() throws InterruptedException {
-		eventPage.drawFreehand();
-		//eventPage.closeMap();
-	}
-	
 
 }
