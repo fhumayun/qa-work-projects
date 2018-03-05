@@ -331,5 +331,15 @@ public class STRAXEventStepDefinition {
 		eventPage.drawPolyline();
 		eventPage.closeMap();
 	}
+	@And("^User drop a POI inside polygon$")
+	public void User_drop_POI_inside_polygon() throws InterruptedException {
+		eventPage.drawPointInsidePolygon();
+		eventPage.closeMap();
+	}
+	@And("^User drop a POI inside polyline$")
+	public void User_drop_POI_inside_polyline() throws InterruptedException {
+		eventPage.drawPointInsidePolyline();
+		eventPage.closeMap();
+	}
 
 }
