@@ -327,6 +327,17 @@ Scenario Outline: Verify play / pause feature works correctly
       | z-controller@ee.io | Password1@ | AutomationTestEventPlan3 |
       | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan1 |
+     @C86295 @SRM 
+    Scenario Outline: Verify users does not have access to archive the event plan shared by other user
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event plan tab
+    Then User should should not have access to archive the event plan "<eventPlan>" shared by other user
+
+    Examples: 
+      | username           | password   | eventPlan                |
+      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan1 |
+
 
   @C46769 @SRM
   Scenario Outline: Verify user can archive the event plan

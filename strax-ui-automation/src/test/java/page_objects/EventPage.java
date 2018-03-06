@@ -621,6 +621,24 @@ public class EventPage extends BaseClass {
 		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("freehand");
 		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
 	}
+
+	public boolean verifyArchiveAccess() {
+		
+		boolean state = false;
+		 try   
+		  {    
+		    if(driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanArchiveButton"))).isDisplayed())     
+		    {      
+		      state=true;     
+		    }    
+		  }      
+		  catch(Exception e)     
+		  {       
+		    state=false;    
+		  }     
+		 return state;
+		
+	}
 	
 
 

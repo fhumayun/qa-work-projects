@@ -224,6 +224,12 @@ public class STRAXEventStepDefinition {
 		Assert.assertTrue(eventPage.searchEventPlan(eventPlan));
 	
 	}
+	@And("^User should should not have access to archive the event plan \"([^\"]*)\" shared by other user$")
+	public void User_does_not_have_access_to_archive_plan_shared_by_other_user(String eventPlan) throws InterruptedException {
+		eventPage.searchEventPlan(eventPlan);
+		Assert.assertFalse(eventPage.verifyArchiveAccess());
+		
+	}
 	@Then("^Google map should get loaded successfully$")
 	public void Google_map_should_get_loaded_successfully() throws InterruptedException {
 		Assert.assertTrue(eventPage.isGoogleMapLoaded());
