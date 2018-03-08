@@ -639,6 +639,22 @@ public class EventPage extends BaseClass {
 		 return state;
 		
 	}
+
+	public boolean isEventHistoryTabVisible() {
+		boolean state = false;
+		 try   
+		  {    
+		    if(driver.findElement(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))).isDisplayed())     
+		    {      
+		      state=true;     
+		    }    
+		  }      
+		  catch(Exception e)     
+		  {       
+		    state=false;    
+		  }     
+		 return state;
+	}
 	
 
 

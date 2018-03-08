@@ -21,6 +21,15 @@ Feature: STRAX Event functionality
     Examples: 
       | username       | password   |
       | z-viewer@ee.io | Password1@ |
+    @C86939 @SRM  
+   Scenario Outline: Verify user does not have access to view event history
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    Then User should not have access to view event history
+
+    Examples: 
+      | username       | password   |
+      | z-viewer@ee.io | Password1@ |
 
   @C44555 @SRM @Smoke
   Scenario Outline: Verify user can create a new event

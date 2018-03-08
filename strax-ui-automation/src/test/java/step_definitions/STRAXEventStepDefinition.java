@@ -35,6 +35,11 @@ public class STRAXEventStepDefinition {
 		
 		Assert.assertEquals(false , eventPage.isAddEventButtonPresent());
 	}
+	@Then("^User should not have access to view event history$")
+	public void User_should_not_have_access_to_view_event_history() {
+		
+		Assert.assertFalse(eventPage.isEventHistoryTabVisible());
+	}
 	@When("^User clicks on add new event button to create a new event$")
 	public void User_clicks_on_add_new_event_button_to_create_a_new_event() {
 		
