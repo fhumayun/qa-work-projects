@@ -107,5 +107,21 @@ public class LoginPage
 		
 		return invalidPassword;
 	}
+	public void lockAccount(String userName, String password)
+	{
+		int count = 0;
+		while(count<=5)
+		{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("userEmail"))));
+		driver.findElement(By.id(prreader.getPropertyvalues("userEmail"))).clear();
+		driver.findElement(By.id(prreader.getPropertyvalues("userEmail"))).sendKeys(userName);
+		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).clear();
+		driver.findElement(By.id(prreader.getPropertyvalues("userPassword"))).sendKeys(password);
+		driver.findElement(By.id(prreader.getPropertyvalues("loginButton"))).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		count++;
+		}
+	}
 
 }

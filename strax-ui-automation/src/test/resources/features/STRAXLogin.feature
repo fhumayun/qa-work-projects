@@ -97,13 +97,13 @@ Feature: STRAX Login functionality
       | z-user@ee.io   | Password1@ |
       | z-viewer@ee.io | Password1@ |
 
-  @ignore
+  @C87045 @SRM @NoLogout
   Scenario Outline: Verify user account gets locked out after 5 unsuccessful login attempts
     Given The STRAX Application login page is open
-    When User Enters invalid "<useremail>" and "<password>"
-    Then The user should not have access to account settings menu
+    When User Enters invalid "<useremail>" and "<password>" for consecutive five times
+    Then The user account should get locked out
 
     Examples: valid useremail & password
-      | useremail      | password   |
-      | z-user@ee.io   | Password1@ |
-      | z-viewer@ee.io | Password1@ |
+      | useremail        | password   |
+      | yogitest@ee.io   | invalidpass|
+

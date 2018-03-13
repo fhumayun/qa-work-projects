@@ -143,6 +143,18 @@ public class STRAXLoginStepDefinition
 		
 		
 	}
+	@When("^User Enters invalid \"([^\"]*)\" and \"([^\"]*)\" for consecutive five times$")
+	public void User_Enters_invalid_credentials_for_consecutive_five_times(String username, String password)
+	{
+		
+		loginpage.lockAccount(username, password);
+	}
+	@Then("^The user account should get locked out$")
+	public void The_user_account_should_get_locked_out()
+	{
+		String errormsg = "Account Locked. Too many failed attempts.";
+		Assert.assertEquals(errormsg, loginpage.getLoginFailedError());			
+	}
 
 
 }
