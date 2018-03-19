@@ -25,637 +25,779 @@ public class EventPage extends BaseClass {
 
 	RemoteWebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	
+
 	CommonClass cClass = new CommonClass(driver);
-	
+
 	public EventPage(RemoteWebDriver driver) {
 		this.driver = driver;
 	}
-	
-	public void addNewEvent(String incident,String caseNumber, String missionType, String stream, String address, String latitude, String longitude, String description, List<String> participants ) throws InterruptedException
-	{
-	
-		WebDriverWait wait = new WebDriverWait(driver, 15);
-		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBox"))).sendKeys(incident);
-		driver.findElement(By.id(prreader.getPropertyvalues("CaseNumberTextBox"))).sendKeys(caseNumber);
-		WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("MissionTypeList")));
-		selectDropdownOption(selectMissionType, missionType);
-		WebElement selectStream = driver.findElement(By.id(prreader.getPropertyvalues("StreamList")));
-		selectDropdownOption(selectStream, stream);
-		driver.findElement(By.id(prreader.getPropertyvalues("AddressTextBox"))).sendKeys(address);
-		//driver.findElement(By.id(prreader.getPropertyvalues("AptSuiteUnitTextBox"))).sendKeys(aptSuiteUnit);
-		//driver.findElement(By.id(prreader.getPropertyvalues("ZipCodeTextBox"))).sendKeys(String.valueOf(zipCode));
-		//driver.findElement(By.id(prreader.getPropertyvalues("CityTextBox"))).sendKeys(city);
-		//driver.findElement(By.id(prreader.getPropertyvalues("StateList"))).sendKeys(state);
-		driver.findElement(By.id(prreader.getPropertyvalues("LatitudeTextBox"))).sendKeys(latitude);
-		driver.findElement(By.id(prreader.getPropertyvalues("LongitudeTextBox"))).sendKeys(longitude);
-		driver.findElement(By.id(prreader.getPropertyvalues("DescriptionTextBox"))).sendKeys(description);
-		int count=0;
-		for(String participant : participants)
-		{
-			count++;
-			Pattern whitespace = Pattern.compile("\\s");
-			Matcher matcher = whitespace.matcher(participant);
-			String participantFullName = matcher.replaceAll(", ");
-			if(count==1)
-			{
+
+	public void addNewEvent(String incident, String caseNumber, String missionType, String stream, String address,
+			String latitude, String longitude, String description, List<String> participants)
+			throws InterruptedException {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			wait.until(
+					ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBox"))).sendKeys(incident);
+			driver.findElement(By.id(prreader.getPropertyvalues("CaseNumberTextBox"))).sendKeys(caseNumber);
+			WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("MissionTypeList")));
+			selectDropdownOption(selectMissionType, missionType);
+			WebElement selectStream = driver.findElement(By.id(prreader.getPropertyvalues("StreamList")));
+			selectDropdownOption(selectStream, stream);
+			driver.findElement(By.id(prreader.getPropertyvalues("AddressTextBox"))).sendKeys(address);
+			driver.findElement(By.id(prreader.getPropertyvalues("LatitudeTextBox"))).sendKeys(latitude);
+			driver.findElement(By.id(prreader.getPropertyvalues("LongitudeTextBox"))).sendKeys(longitude);
+			driver.findElement(By.id(prreader.getPropertyvalues("DescriptionTextBox"))).sendKeys(description);
+			int count = 0;
+			for (String participant : participants) {
+				count++;
+				Pattern whitespace = Pattern.compile("\\s");
+				Matcher matcher = whitespace.matcher(participant);
+				String participantFullName = matcher.replaceAll(", ");
+				if (count == 1) {
 					driver.findElement(By.xpath(prreader.getPropertyvalues("SearchParticipantsButton"))).click();
-			}
-			
-			driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox"))).clear();
-			driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox"))).sendKeys(getNameToSearch(participant));
-			Thread.sleep(1000);
-			List<WebElement> participantLinks =driver.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
-			for(WebElement e:participantLinks)
-			{
-				
-				String name = e.getText();
-				String[] array1 = name.split("\n");
-				String result = array1[1];
-				if((result).equals(participantFullName))
-				{
-				e.click();
-				Thread.sleep(1000);
-				break;
 				}
+
+				driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox"))).clear();
+				driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox")))
+						.sendKeys(getNameToSearch(participant));
+				Thread.sleep(1000);
+				List<WebElement> participantLinks = driver
+						.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
+				for (WebElement e : participantLinks) {
+
+					String name = e.getText();
+					String[] array1 = name.split("\n");
+					String result = array1[1];
+					if ((result).equals(participantFullName)) {
+						e.click();
+						Thread.sleep(1000);
+						break;
+					}
+				}
+
 			}
+			wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EventSaveButton"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSaveButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while creating a new event");
 		}
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EventSaveButton"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSaveButton"))).click();
+	}
+
+	public boolean isAddEventButtonPresent() {
+		boolean state = false;
+		try {
+			if (driver.findElement(By.id(prreader.getPropertyvalues("EventAddButton"))).isDisplayed()) {
+				state = true;
+			} else
+
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while finding the event add button");
+		}
+		return state;
 
 	}
-	
-	public boolean isAddEventButtonPresent()
-	{
-		if(driver.findElement(By.id(prreader.getPropertyvalues("EventAddButton"))).isDisplayed())
-		{
-			return true;
+
+	public void navigateToCreateNewEvent() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EventAddButton"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventAddButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while navigating to create new event page");
 		}
-		else	
-		
-		return false;
-		
+
 	}
-	public void navigateToCreateNewEvent()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EventAddButton"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventAddButton"))).click();
-	}
-	public boolean getErrorMessage()
-	{
-		if(driver.findElement(By.xpath(prreader.getPropertyvalues("EventCreationError"))).isDisplayed())
-		{
-			return true;
+
+	public boolean getErrorMessage() {
+		boolean state = false;
+		try {
+			if (driver.findElement(By.xpath(prreader.getPropertyvalues("EventCreationError"))).isDisplayed()) {
+				state = true;
+			} else
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while getting event creation error message");
 		}
-		else
-		return false;
-		
+		return state;
+
 	}
-	public String getNameToSearch(String participant)
-	{
-		String participantFirstName="", participantLastName="";
+
+	public String getNameToSearch(String participant) {
+		String participantFirstName = "", participantLastName = "";
 		String[] names = participant.split(" ");
 		participantFirstName = names[0];
 		participantLastName = names[1];
 		return participantFirstName;
-		
+
 	}
-	public void selectDropdownOption(WebElement dropdown, String optionToSelect) throws InterruptedException
-	{
-		try{
-		dropdown.click();
-		Thread.sleep(1000);
-		List<WebElement> dropdownOptions = driver.findElements(By.tagName("md-option"));
-		for(WebElement option: dropdownOptions)
-		{
-			if((option.getText()).equals(optionToSelect))
-			{   
-				option.click();
-				Thread.sleep(1000);
-				break;
-				
+
+	public void selectDropdownOption(WebElement dropdown, String optionToSelect) throws InterruptedException {
+		try {
+			dropdown.click();
+			Thread.sleep(1000);
+			List<WebElement> dropdownOptions = driver.findElements(By.tagName("md-option"));
+			for (WebElement option : dropdownOptions) {
+				if ((option.getText()).equals(optionToSelect)) {
+					option.click();
+					Thread.sleep(1000);
+					break;
+
+				}
 			}
-		}
-		}
-		catch(Exception e)
-		{System.out.println("3");
+		} catch (Exception e) {
+			System.out.println("3");
 			throw e;
 		}
-		
+
 	}
-	
-	public boolean searchEvent(String incident) throws InterruptedException
-	{
+
+	public boolean searchEvent(String incident) throws InterruptedException {
 		boolean state = false;
-		try{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident.toLowerCase());
-		Thread.sleep(1000);
-		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
-		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
-		
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox")))
+					.sendKeys(incident.toLowerCase());
+			Thread.sleep(1000);
+			wait.until(ExpectedConditions.visibilityOfAllElements(
+					driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
+			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
 
-		for (WebElement tr : trList) {
+			for (WebElement tr : trList) {
 
-			WebElement td = tr.findElement(By.xpath("//td[1]/a"));
-			if ((td.getText()).equals(incident)) {
-				state = true;
-			} else {
-				state = false;
+				WebElement td = tr.findElement(By.xpath("//td[1]/a"));
+				if ((td.getText()).equals(incident)) {
+					state = true;
+				} else {
+					state = false;
+				}
+
 			}
 
-		}
-		
-		}
-		catch(org.openqa.selenium.StaleElementReferenceException ex)
-		{
+		} catch (org.openqa.selenium.StaleElementReferenceException ex) {
 			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-			
+
 		}
-		
+
 		return state;
-		
-		
-	}
-	public void joinActiveEvent(String incident) throws InterruptedException
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident.toLowerCase());
-		Thread.sleep(1000);
-		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
-		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
-		for (WebElement tr : trList) {
-			WebElement td = tr.findElement(By.xpath("//td[1]/a"));
-			if ((td.getText()).equals(incident)) {
-				td.click();
-				break;
-			} 
 
-		}
-		
-		
 	}
-	public boolean verifyJoinEventSuccess() throws InterruptedException
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		//boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
-		Thread.sleep(1000);
-		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap")))).isDisplayed();
 
-		if(state)
-		{
-			return true;
-		}
-		else
-			return false; 
-				
-	}
-	public boolean verifyEvenPlaybackSuccess() throws InterruptedException
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		//boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(prreader.getPropertyvalues("ConfigMapButton")))).isDisplayed();
-		Thread.sleep(1000);
-		boolean state = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback")))).isDisplayed();
+	public void joinActiveEvent(String incident) throws InterruptedException {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox")))
+					.sendKeys(incident.toLowerCase());
+			Thread.sleep(1000);
+			wait.until(ExpectedConditions.visibilityOfAllElements(
+					driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
+			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
+			for (WebElement tr : trList) {
+				WebElement td = tr.findElement(By.xpath("//td[1]/a"));
+				if ((td.getText()).equals(incident)) {
+					td.click();
+					break;
+				}
 
-		if(state)
-		{
-			return true;
+			}
+		} catch (Exception e) {
+			System.out.println("Exception while joining the event");
 		}
-		else
-			return false; 
-				
+
 	}
-	public void closeMap()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))).click();
-		
-        
-	}
-	public void closeMapFromPlayback()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))));
-		driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))).click();
-		
-        
-	}
-	public void endActiveEvent() throws InterruptedException
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 15);
-		driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
-		driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
-		Thread.sleep(2000);
-		driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
-		
-	}
-	public void navigateToEventHistory()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))));
-		driver.findElement(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		
-	}
-	public void navigateToEventPlanTab() throws InterruptedException
-	{
-		try{
-		
-		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanTab"))).click();
+
+	public boolean verifyJoinEventSuccess() throws InterruptedException {
+		boolean state = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			Thread.sleep(1000);
+			state = wait
+					.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))))
+					.isDisplayed();
+
+			if (state) {
+				state = true;
+			} else
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while exiting from SAC");
 		}
-		catch(org.openqa.selenium.StaleElementReferenceException ex)
-		{
-			
+
+		return state;
+
+	}
+
+	public boolean verifyEvenPlaybackSuccess() throws InterruptedException {
+		boolean state = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			Thread.sleep(1000);
+			state = wait
+					.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))))
+					.isDisplayed();
+
+			if (state) {
+				state = true;
+			} else
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception in event playback");
+		}
+
+		return state;
+
+	}
+
+	public void closeMap() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while closing the map from SAC");
+		}
+
+	}
+
+	public void closeMapFromPlayback() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.elementToBeClickable(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))));
+			driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap-Playback"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while closing the map from playback");
+		}
+
+	}
+
+	public void endActiveEvent() throws InterruptedException {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
+			Thread.sleep(2000);
+			driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while ending the event");
+		}
+	}
+
+	public void navigateToEventHistory() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(
+					ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))));
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))).click();
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		} catch (Exception e) {
+			System.out.println("Exception while navigating to the event history page");
+		}
+	}
+
+	public void navigateToEventPlanTab() throws InterruptedException {
+		try {
+
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanTab"))).click();
+		} catch (org.openqa.selenium.StaleElementReferenceException ex) {
+
 			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanTab"))).click();
 		}
-		
+
 	}
-	public void navigateToCreateNewEventPlan()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("AddNewEventPlanButton"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("AddNewEventPlanButton"))).click();
+
+	public void navigateToCreateNewEventPlan() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.elementToBeClickable(By.id(prreader.getPropertyvalues("AddNewEventPlanButton"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("AddNewEventPlanButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while navigating to event plan page");
+		}
 	}
-	public String deleteEventFromDB(String incident)
-	{
-		DatabaseConnection conn = new DatabaseConnection();
-		String deletedEvent = conn.deleteEvent(incident);
-		
+
+	public String deleteEventFromDB(String incident) {
+		String deletedEvent = "";
+		try {
+			DatabaseConnection conn = new DatabaseConnection();
+			deletedEvent = conn.deleteEvent(incident);
+		}
+
+		catch (Exception e) {
+			System.out.println("Exception while communicating to MongoDB");
+		}
 		return deletedEvent;
-		
+
 	}
-	public String deleteEventPlanFromDB(String eventPlan)
-	{
-		DatabaseConnection conn = new DatabaseConnection();
-		String deletedEventPlan = conn.deleteEventPlan(eventPlan);
-		
+
+	public String deleteEventPlanFromDB(String eventPlan) {
+		String deletedEventPlan = "";
+		try {
+			DatabaseConnection conn = new DatabaseConnection();
+			deletedEventPlan = conn.deleteEventPlan(eventPlan);
+		} catch (Exception e) {
+			System.out.println("Exception while communicating to MongoDB");
+		}
 		return deletedEventPlan;
-		
+
 	}
-	
-	public void addEventPlan(String incident, String missionType, String address, String latitude, String longitude, String description ) throws InterruptedException
-	{
-	
-		WebDriverWait wait = new WebDriverWait(driver, 15);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventPlanLabel"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanNameTextBox"))).sendKeys(incident);
-		WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("EventPlanTypeList")));
-		selectDropdownOption(selectMissionType, missionType);
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanAddressTextBox"))).sendKeys(address);
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLatitudeTextBox"))).sendKeys(latitude);
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLongitudeTextBox"))).sendKeys(longitude);
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanDescriptionTextBox"))).sendKeys(description);
-		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton")))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton"))).click();
+
+	public void addEventPlan(String incident, String missionType, String address, String latitude, String longitude,
+			String description) throws InterruptedException {
+
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			wait.until(ExpectedConditions
+					.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventPlanLabel"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanNameTextBox"))).sendKeys(incident);
+			WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("EventPlanTypeList")));
+			selectDropdownOption(selectMissionType, missionType);
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanAddressTextBox"))).sendKeys(address);
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLatitudeTextBox"))).sendKeys(latitude);
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLongitudeTextBox"))).sendKeys(longitude);
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanDescriptionTextBox"))).sendKeys(description);
+			wait.until(ExpectedConditions
+					.visibilityOf(driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton")))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while creating a new event plan");
+		}
 	}
-	public boolean searchEventPlan(String incident) throws InterruptedException
-	{
+
+	public boolean searchEventPlan(String incident) throws InterruptedException {
 		boolean state = false;
-		try{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchInputTextBox"))).sendKeys(incident);
-		Thread.sleep(1000);
-		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
-		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
-		
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchButton"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchInputTextBox"))).sendKeys(incident);
+			Thread.sleep(1000);
+			wait.until(ExpectedConditions.visibilityOfAllElements(
+					driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
+			List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
 
-		for (WebElement tr : trList) {
+			for (WebElement tr : trList) {
 
-			WebElement td = tr.findElement(By.xpath("//td[1]/a"));
-			if ((td.getText()).equals(incident)) {
-				state = true;
-			} else {
-				state = false;
+				WebElement td = tr.findElement(By.xpath("//td[1]/a"));
+				if ((td.getText()).equals(incident)) {
+					state = true;
+				} else {
+					state = false;
+				}
+
 			}
 
-		}
-		
-		}
-		catch(org.openqa.selenium.StaleElementReferenceException ex)
-		{
+		} catch (org.openqa.selenium.StaleElementReferenceException ex) {
 			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-			
+
 		}
-		
+
 		return state;
-		
-		
+
 	}
-	
-	public void lockEventPlan(String eventPlan)
-	{
+
+	public void lockEventPlan(String eventPlan) {
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanLockButton"))).click();
 	}
-	public void unlockEventPlan(String eventPlan)
-	{
+
+	public void unlockEventPlan(String eventPlan) {
 		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnlockButton"))).click();
 	}
-	public String getEventLockStatus(String eventPlan) throws InterruptedException
-	{
+
+	public String getEventLockStatus(String eventPlan) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(
+				ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.navigate().refresh();
 		searchEventPlan(eventPlan);
 		String status = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnlockButton"))).getText();
 		return status;
-		
+
 	}
-	public String getEventUnlockStatus(String eventPlan) throws InterruptedException
-	{
+
+	public String getEventUnlockStatus(String eventPlan) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(
+				ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.navigate().refresh();
 		searchEventPlan(eventPlan);
 		String status = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanLockButton"))).getText();
 		return status;
-		
+
 	}
-	
-	public void navigateToEditEventPlan()
-	{
-		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanEditButton"))).click();
+
+	public void navigateToEditEventPlan() {
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanEditButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while navigating to edit event plan form");
+		}
 	}
-	public String getEventPlanErrorMessage()
-	{
-		String ErrorMessage = driver.findElement(By.xpath(prreader.getPropertyvalues("EventplanLockedErrorMessage"))).getText();
+
+	public String getEventPlanErrorMessage() {
+		String ErrorMessage = "";
+		try {
+			ErrorMessage = driver.findElement(By.xpath(prreader.getPropertyvalues("EventplanLockedErrorMessage")))
+					.getText();
+		} catch (Exception e) {
+			System.out.println("Exception while getting the error message");
+		}
 		return ErrorMessage;
-		
+
 	}
 
 	public void archiveEventPlan(String eventPlan) throws InterruptedException {
-	
+		try {
 			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanArchiveButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanArchiveConfirmButton"))).click();
 			Thread.sleep(1000);
 			driver.navigate().refresh();
-		
-	}
-	
-	public void navigateToArchivedEventPlanTab()
-	{
-		driver.findElement(By.id(prreader.getPropertyvalues("ShowArchivedEventPlanButton"))).click();
-		
-	}
-	public void unArchiveEventPlan(String eventPlan) throws InterruptedException {
-		
-		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnarchiveButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("EventPlanArchiveConfirmButton"))).click();
-		Thread.sleep(1000);
-		
-	
-}
-	public void shareEventPlan(String eventPlan) {
-		
-		driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanShareButton"))).click();
-		
-	
-}
-	public boolean isEventPlanShared()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		String attributeValue = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanShareButton"))).getAttribute("class");
-		if(attributeValue.equals(prreader.getPropertyvalues("EventPlanSharedBlueClassName")))
-		{
-			return true;
+		} catch (Exception e) {
+			System.out.println("Exception while archiving the event plan");
 		}
-		else
-			
-		return false;
-		
+
 	}
-	public boolean isGoogleMapLoaded()
-	{
-		boolean mapState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventGoogleMapImage"))).isDisplayed();
-		closeMap();
+
+	public void navigateToArchivedEventPlanTab() {
+		try {
+			driver.findElement(By.id(prreader.getPropertyvalues("ShowArchivedEventPlanButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception navigating to archived event plan tab");
+		}
+
+	}
+
+	public void unArchiveEventPlan(String eventPlan) throws InterruptedException {
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanUnarchiveButton"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanArchiveConfirmButton"))).click();
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			System.out.println("Exception while unarchiving the event plan");
+		}
+
+	}
+
+	public void shareEventPlan(String eventPlan) {
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while sharing the event plan");
+		}
+
+	}
+
+	public boolean isEventPlanShared() {
+		boolean state = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			String attributeValue = driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanShareButton")))
+					.getAttribute("class");
+			if (attributeValue.equals(prreader.getPropertyvalues("EventPlanSharedBlueClassName"))) {
+				state = true;
+			} else
+
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while while finding the event plan sared status");
+		}
+		return state;
+	}
+
+	public boolean isGoogleMapLoaded() {
+		boolean mapState = false;
+		try {
+			mapState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventGoogleMapImage"))).isDisplayed();
+			closeMap();
+		} catch (Exception e) {
+			System.out.println("Exception getting the SAC google map load status");
+		}
 		return mapState;
 	}
-	public boolean isEventLogWindowLoaded()
-	{
-		Actions action = new Actions(driver);
-		action.moveToElement(driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindowButton")))).build().perform();
-		boolean eventLogWindowState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindow"))).isDisplayed();
+
+	public boolean isEventLogWindowLoaded() {
+		boolean eventLogWindowState = false;
+		try {
+			Actions action = new Actions(driver);
+			action.moveToElement(driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindowButton"))))
+					.build().perform();
+			eventLogWindowState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindow")))
+					.isDisplayed();
+		} catch (Exception e) {
+			System.out.println("Exception while finding the event log window");
+		}
 		return eventLogWindowState;
 	}
-	public boolean isVideoFeedAvailable()
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		if(driver.findElement(By.id(prreader.getPropertyvalues("EventFeedVideoStatusGreen"))).isDisplayed())
-		{
-			return true;
+
+	public boolean isVideoFeedAvailable() {
+		boolean state = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			if (driver.findElement(By.id(prreader.getPropertyvalues("EventFeedVideoStatusGreen"))).isDisplayed()) {
+				state = true;
+			}
+			state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while finding the video feed stream status");
 		}
-			return false;
-	
+		return state;
 	}
-	public void rightClickOnEventAndOpenInNewWindow(String incident)
-	{
+
+	public void rightClickOnEventAndOpenInNewWindow(String incident) {
 		Actions action = new Actions(driver);
 		action.contextClick().sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).build().perform();
-		
+
 	}
-	public void rightClickActiveEvent(String incident) throws InterruptedException, AWTException
-	{
+
+	public void rightClickActiveEvent(String incident) throws InterruptedException, AWTException {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		wait.until(
+				ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("EventSearchInputBox"))).sendKeys(incident.toLowerCase());
 		Thread.sleep(1000);
-		wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
+		wait.until(ExpectedConditions.visibilityOfAllElements(
+				driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
 		List<WebElement> trList = driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")));
 		for (WebElement tr : trList) {
 			WebElement td = tr.findElement(By.xpath("//td[1]/a"));
-			if ((td.getText()).equals(incident))
-			{
+			if ((td.getText()).equals(incident)) {
 				Actions action = new Actions(driver);
 				action.keyDown(Keys.SHIFT).click(td).keyUp(Keys.SHIFT).build().perform();
-				
+
 			}
-				
-				
-
-
 		}
-		
-		
 	}
-	public void playBackPlayAndPause()
-	{
-		driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackPlayPauseButton"))).click();
-	}
-	public boolean isPlayBackPlaying()
-	{
-		WebElement playBackButton = driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackPlayPauseButton")));
-		if(playBackButton.getAttribute("aria-label").equals("pause"))
-		{
-			return true;
+
+	public void playBackPlayAndPause() {
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackPlayPauseButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while play/pause historical event");
 		}
-		else
-			return false;
-		
 	}
-	public void addUpdateEventCaseNumber(String caseNumber)
-	{
+
+	public boolean isPlayBackPlaying() {
+		boolean state = false;
+		try {
+			WebElement playBackButton = driver
+					.findElement(By.xpath(prreader.getPropertyvalues("PlaybackPlayPauseButton")));
+			if (playBackButton.getAttribute("aria-label").equals("pause")) {
+				state = true;
+			} else
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception in getting the playback state");
+		}
+		return state;
+
+	}
+
+	public void addUpdateEventCaseNumber(String caseNumber) {
 		WebElement caseNumberField = driver.findElement(By.xpath(prreader.getPropertyvalues("EventCaseNumber")));
 		caseNumberField.clear();
 		caseNumberField.sendKeys(caseNumber);
 		caseNumberField.sendKeys(Keys.ENTER);
-		
+
 	}
 
 	public void autoFollowUAS() throws InterruptedException {
-		driver.findElement(By.id(prreader.getPropertyvalues("FollowUASOption"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("FollowUASToggleButton"))).click();
-		
-	}
-	public boolean verifyAutoFollowUASStatus()
-	{
-		WebElement uasStatus = driver.findElement(By.xpath(prreader.getPropertyvalues("FollowUASStatus")));
-		if(uasStatus.getAttribute("class").equals("follow-uas-menu-icon ng-scope blue"))
-		{
-			return true;
+		try {
+			driver.findElement(By.id(prreader.getPropertyvalues("FollowUASOption"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("FollowUASToggleButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while clicking on Auto Follow button");
 		}
-		else
-			return false;
-		
 	}
-	public boolean isChatWindowLoaded() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		Thread.sleep(1000);
-		boolean state = driver.findElement(By.xpath(prreader.getPropertyvalues("EventChatWindow"))).isDisplayed();
 
+	public boolean verifyAutoFollowUASStatus() {
+		boolean state = false;
+		try {
+			WebElement uasStatus = driver.findElement(By.xpath(prreader.getPropertyvalues("FollowUASStatus")));
+			if (uasStatus.getAttribute("class").equals("follow-uas-menu-icon ng-scope blue")) {
+				state = true;
+			} else
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while clicking on Auto Follow button");
+		}
 		return state;
-		
+	}
+
+	public boolean isChatWindowLoaded() throws InterruptedException {
+		boolean state = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			Thread.sleep(1000);
+			state = driver.findElement(By.xpath(prreader.getPropertyvalues("EventChatWindow"))).isDisplayed();
+		} catch (Exception e) {
+			System.out.println("Exception while finding the chat window");
+		}
+		return state;
+
 	}
 
 	public void drawPolygon() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPolygon"))).click();
-		Actions a = new Actions(driver);
-		a.click().perform();
-		a.moveByOffset(100, 0).click().perform();
-		a.moveByOffset(50, -100);
-		a.click().doubleClick().build().perform();
-	driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("Polygontest");
-	driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPolygon"))).click();
+			Actions a = new Actions(driver);
+			a.click().perform();
+			a.moveByOffset(100, 0).click().perform();
+			a.moveByOffset(50, -100);
+			a.click().doubleClick().build().perform();
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("Polygontest");
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while drawing a polygon on SAC Map");
+		}
 	}
+
 	public void drawPoint() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
-		Actions a = new Actions(driver);
-		a.moveByOffset(200, 0).click().perform();
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointTest");
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
+			Actions a = new Actions(driver);
+			a.moveByOffset(200, 0).click().perform();
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointTest");
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while drawing a point on SAC map");
+		}
 	}
+
 	public void drawPointInsidePolygon() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
-		Actions a = new Actions(driver);
-		a.moveByOffset(100, 0).click().perform();
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointInsidePolygon");
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
+			Actions a = new Actions(driver);
+			a.moveByOffset(100, 0).click().perform();
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointInsidePolygon");
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while drawing a point inside polygon on SAC map");
+		}
 
 	}
+
 	public void drawPolyline() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPolyline"))).click();
-		Actions a = new Actions(driver);
-		a.click().perform();
-		a.moveByOffset(300, 0).click().perform();
-		a.moveByOffset(50, -200).click().perform();
-		a.moveByOffset(-250, 300);
-		a.click().doubleClick().build().perform();
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("Polylinetest");
-	driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPolyline"))).click();
+			Actions a = new Actions(driver);
+			a.click().perform();
+			a.moveByOffset(300, 0).click().perform();
+			a.moveByOffset(50, -200).click().perform();
+			a.moveByOffset(-250, 300);
+			a.click().doubleClick().build().perform();
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("Polylinetest");
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while drawing a polyline on SAC map");
+		}
 	}
+
 	public void drawPointInsidePolyline() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
-		Actions a = new Actions(driver);
-		a.moveByOffset(300, 50).click().perform();
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointInsidePolyline");
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
-
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawPoint"))).click();
+			Actions a = new Actions(driver);
+			a.moveByOffset(300, 50).click().perform();
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("PointInsidePolyline");
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while drawing a point inside polyline on SAC map");
+		}
 
 	}
+
 	public void drawFreehand() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawFreehandLine"))).click();
-		Actions a = new Actions(driver);
-		//a.click().perform();
-		WebElement e = driver.findElement(By.xpath("//map/area"));
-		a.clickAndHold().moveByOffset(100, 400).release().build().perform();
-		//a.dragAndDrop(50, 50);
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("freehand");
-		driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawMenu"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawFreehandLine"))).click();
+			Actions a = new Actions(driver);
+			// a.click().perform();
+			WebElement e = driver.findElement(By.xpath("//map/area"));
+			a.clickAndHold().moveByOffset(100, 400).release().build().perform();
+			// a.dragAndDrop(50, 50);
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingLabel"))).sendKeys("freehand");
+			driver.findElement(By.id(prreader.getPropertyvalues("MapDrawingShareButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while drawing a freehand on SAC map");
+		}
 	}
 
 	public boolean verifyArchiveAccess() {
-		
+
 		boolean state = false;
-		 try   
-		  {    
-		    if(driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanArchiveButton"))).isDisplayed())     
-		    {      
-		      state=true;     
-		    }    
-		  }      
-		  catch(Exception e)     
-		  {       
-		    state=false;    
-		  }     
-		 return state;
-		
+		try {
+			if (driver.findElement(By.xpath(prreader.getPropertyvalues("EventPlanArchiveButton"))).isDisplayed()) {
+				state = true;
+			}
+		} catch (Exception e) {
+			state = false;
+		}
+		return state;
+
 	}
 
 	public boolean isEventHistoryTabVisible() {
 		boolean state = false;
-		 try   
-		  {    
-		    if(driver.findElement(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))).isDisplayed())     
-		    {      
-		      state=true;     
-		    }    
-		  }      
-		  catch(Exception e)     
-		  {       
-		    state=false;    
-		  }     
-		 return state;
+		try {
+			if (driver.findElement(By.xpath(prreader.getPropertyvalues("EventHistoryTab"))).isDisplayed()) {
+				state = true;
+			}
+		} catch (Exception e) {
+			state = false;
+		}
+		return state;
 	}
-	
-
 
 }

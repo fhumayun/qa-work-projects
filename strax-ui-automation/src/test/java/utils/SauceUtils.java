@@ -7,21 +7,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SauceUtils
-{
+public class SauceUtils {
 	private static SauceREST sauceRESTClient;
 
-	private static SauceREST getSauceRestClient(String username, String accessKey)
-	{
-		if (sauceRESTClient == null)
-		{
+	private static SauceREST getSauceRestClient(String username, String accessKey) {
+		if (sauceRESTClient == null) {
 			sauceRESTClient = new SauceREST(username, accessKey);
 		}
 		return sauceRESTClient;
 	}
-	
+
 	/**
 	 * Updates results on Saucelab with below parameters
+	 * 
 	 * @param username
 	 * @param accessKey
 	 * @param testResults
@@ -31,8 +29,7 @@ public class SauceUtils
 	 * @throws IOException
 	 */
 	public static void UpdateResults(String username, String accessKey, boolean testResults, String sessionId,
-			String jobName) throws JSONException, IOException
-	{
+			String jobName) throws JSONException, IOException {
 		SauceREST client = getSauceRestClient(username, accessKey);
 		Map<String, Object> updates = new HashMap<String, Object>();
 		addBuildNumberToUpdate(updates);
@@ -55,47 +52,39 @@ public class SauceUtils
 	 * @param updates
 	 *            String,Object pair containing job updates
 	 */
-	private static void addBuildNumberToUpdate(Map<String, Object> updates)
-	{
+	private static void addBuildNumberToUpdate(Map<String, Object> updates) {
 		// try Bamboo
 		String buildNumber = readPropertyOrEnv("SAUCE_BAMBOO_BUILDNUMBER", null);
-		if (buildNumber == null || buildNumber.equals(""))
-		{
+		if (buildNumber == null || buildNumber.equals("")) {
 			// try Jenkins
 			buildNumber = readPropertyOrEnv("JENKINS_BUILD_NUMBER", null);
 		}
 
-		if (buildNumber == null || buildNumber.equals(""))
-		{
+		if (buildNumber == null || buildNumber.equals("")) {
 			// try BUILD_TAG
 			buildNumber = readPropertyOrEnv("BUILD_TAG", null);
 		}
 
-		if (buildNumber == null || buildNumber.equals(""))
-		{
+		if (buildNumber == null || buildNumber.equals("")) {
 			// try BUILD_NUMBER
 			buildNumber = readPropertyOrEnv("BUILD_NUMBER", null);
 		}
-		if (buildNumber == null || buildNumber.equals(""))
-		{
+		if (buildNumber == null || buildNumber.equals("")) {
 			// try TRAVIS_BUILD_NUMBER
 			buildNumber = readPropertyOrEnv("TRAVIS_BUILD_NUMBER", null);
 		}
-		if (buildNumber == null || buildNumber.equals(""))
-		{
+		if (buildNumber == null || buildNumber.equals("")) {
 			// try CIRCLE_BUILD_NUM
 			buildNumber = readPropertyOrEnv("CIRCLE_BUILD_NUM", null);
 		}
 
-		if (buildNumber != null && !(buildNumber.equals("")))
-		{
+		if (buildNumber != null && !(buildNumber.equals(""))) {
 			updates.put("build", buildNumber);
 		}
 
 	}
 
-	private static String readPropertyOrEnv(String key, String defaultValue)
-	{
+	private static String readPropertyOrEnv(String key, String defaultValue) {
 		String v = System.getProperty(key);
 		if (v == null)
 			v = System.getenv(key);

@@ -10,11 +10,9 @@
  */
 
 package utils;
- 
-public class APIException extends Exception
-{
-	public APIException(String message)
-	{
+
+public class APIException extends Exception {
+	public APIException(String message) {
 		super(message);
 	}
 }
