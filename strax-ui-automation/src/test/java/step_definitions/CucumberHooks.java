@@ -118,7 +118,7 @@ public class CucumberHooks extends BaseClass {
 		}
 
 		 SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),sessionId, jobName);
-		 //testresult.uploadResult(scenario);
+		 testresult.uploadResult(scenario);
 	}
 
 }
