@@ -10,6 +10,7 @@ import java.util.*;
 
 import org.json.JSONException;
 import org.junit.AfterClass;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -50,8 +51,8 @@ public class CucumberHooks extends BaseClass {
 
 		// reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
 
-		
-		  capabilities = DesiredCapabilities.chrome();
+		 ChromeOptions options = new ChromeOptions();
+		  capabilities = new DesiredCapabilities();
 		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		  capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
 		  capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
@@ -59,21 +60,18 @@ public class CucumberHooks extends BaseClass {
 
 		// uncomment to read the browser,platform values from config file
 		// System.setProperty("webdriver.chrome.driver","D:\\Driver\\chromedriver.exe");
-		//capabilities = DesiredCapabilities.chrome();
 		//capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
-
-		// capabilities.setCapability(CapabilityType.PLATFORM,
-		// prreader.getPropertyvalues("SELENIUM_PLATFORM"));
+		// capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
 		// capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));
-
+		options.merge(capabilities);
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
-		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
+		base.driver = new RemoteWebDriver(new URL(URL),new ChromeOptions());
 
 		// ******* comment the above line and uncomment the below line if you want to
 		// use the selenium grid, replace with correct hub URL*********
 
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.137.1:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.169:4444/wd/hub"), new ChromeOptions());
 
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
@@ -119,9 +117,8 @@ public class CucumberHooks extends BaseClass {
 			base.driver.quit();
 		}
 
-		 SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),
-		 sessionId, jobName);
-		 testresult.uploadResult(scenario);
+		 SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),sessionId, jobName);
+		 //testresult.uploadResult(scenario);
 	}
 
 }
