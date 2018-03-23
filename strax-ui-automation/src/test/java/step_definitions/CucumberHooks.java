@@ -6,15 +6,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.*;
-
 import org.json.JSONException;
-import org.junit.AfterClass;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -50,8 +45,7 @@ public class CucumberHooks extends BaseClass {
 	public void setUp(Scenario scenario) throws MalformedURLException {
 
 		// reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
-
-		  capabilities = new DesiredCapabilities();
+		  capabilities = DesiredCapabilities.chrome();
 		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		  capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
 		  capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
