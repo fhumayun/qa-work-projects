@@ -51,7 +51,6 @@ public class CucumberHooks extends BaseClass {
 
 		// reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
 
-		 ChromeOptions options = new ChromeOptions();
 		  capabilities = new DesiredCapabilities();
 		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		  capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
@@ -59,11 +58,10 @@ public class CucumberHooks extends BaseClass {
 		 
 
 		// uncomment to read the browser,platform values from config file
-		// System.setProperty("webdriver.chrome.driver","D:\\Driver\\chromedriver.exe");
-		//capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
-		// capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
-		// capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));
-		options.merge(capabilities);
+/*		 System.setProperty("webdriver.chrome.driver","D:\\Driver\\chromedriver.exe");
+		 capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
+		 capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
+		 capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));*/
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
 		base.driver = new RemoteWebDriver(new URL(URL),new ChromeOptions());
