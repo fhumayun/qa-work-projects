@@ -47,7 +47,7 @@ public class CucumberHooks extends BaseClass {
 		// reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
 		  capabilities = DesiredCapabilities.chrome();
 		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-		  capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
+		  capabilities.setCapability(CapabilityType.PLATFORM_NAME,System.getenv("SELENIUM_PLATFORM"));
 		  capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 		 
 
