@@ -64,7 +64,7 @@ public class CucumberHooks extends BaseClass {
 		 capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));*/
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
-		base.driver = new RemoteWebDriver(new URL(URL),new ChromeOptions());
+		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
 
 		// ******* comment the above line and uncomment the below line if you want to
 		// use the selenium grid, replace with correct hub URL*********
