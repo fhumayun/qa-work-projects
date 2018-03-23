@@ -53,16 +53,16 @@ public class CucumberHooks extends BaseClass {
 
 		 ChromeOptions options = new ChromeOptions();
 		  capabilities = new DesiredCapabilities();
-/*		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 		  capabilities.setCapability(CapabilityType.PLATFORM,System.getenv("SELENIUM_PLATFORM"));
-		  capabilities.setVersion(System.getenv("SELENIUM_VERSION"));*/
+		  capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 		 
 
 		// uncomment to read the browser,platform values from config file
 		// System.setProperty("webdriver.chrome.driver","D:\\Driver\\chromedriver.exe");
-		capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
-		capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
-		capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));
+		//capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
+		// capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
+		// capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));
 		options.merge(capabilities);
 		jobName = scenario.getName();
 		capabilities.setCapability("name", jobName);
