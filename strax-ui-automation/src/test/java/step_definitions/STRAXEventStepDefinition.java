@@ -54,6 +54,7 @@ public class STRAXEventStepDefinition {
 	public void can_not_create_new_event_error_message_should_be_displayed() {
 
 		Assert.assertEquals(true, eventPage.getErrorMessage());
+		
 	}
 
 	@And("^Enters valid values for the following fields and \"([^\"]*)\"$")
@@ -143,7 +144,7 @@ public class STRAXEventStepDefinition {
 	@And("^Enters valid values for the following fields$")
 	public void Enters_valid_values_for_the_following_fields(Map<String, String> tableData)
 			throws InterruptedException {
-		eventPage.addEventPlan(tableData.get("Incident"), tableData.get("MissionType"), tableData.get("Address"),
+		eventPage.addEventPlan(tableData.get("EventPlan"), tableData.get("MissionType"), tableData.get("Address"),
 				tableData.get("Latitude"), tableData.get("Longitude"), tableData.get("Description"));
 
 	}
@@ -406,6 +407,36 @@ public class STRAXEventStepDefinition {
 	@And("^User drop a POI inside polyline$")
 	public void User_drop_POI_inside_polyline() throws InterruptedException {
 		eventPage.drawPointInsidePolyline();
+		eventPage.closeMap();
+	}
+	@And("^User clicks on launch event plan button \"([^\"]*)\"$")
+	public void User_clicks_on_launch_event_plan_button(String preplan) throws InterruptedException {
+		eventPage.launchPrePlan(preplan);
+	}
+	@Then("^New event creation form should load successfully$")
+	public void New_event_creation_form_should_load_successfully() throws InterruptedException {
+		eventPage.verifyPrePlanLaunchSuccess();
+	}
+	@And("^Clean up test event \"([^\"]*)\"$")
+	public void Clean_up_test_event(String incident) throws InterruptedException {
+		Assert.assertEquals(incident, eventPage.deleteEventFromDB(incident));
+	}
+	@And("^Clean up test event plan \"([^\"]*)\"$")
+	public void Clean_up_test_event_plan(String eventPlan) throws InterruptedException {
+		Assert.assertEquals(eventPlan, eventPage.deleteEventFromDB(eventPlan));;
+	}
+	@And("^User clicks on the map menu icon$")
+	public void User_clicks_on_the_map_menu_icon() throws InterruptedException {
+		eventPage.openMapMenu();
+	}
+	@And("^The list of map layers is displayed$")
+	public void The_list_of_map_layers_is_displayed() throws InterruptedException {
+		
+		Assert.assertEquals(4, eventPage.getMapLayerList().size());
+	}
+	@And("^The user can toggle various map layers$")
+	public void The_user_can_toggle_various_map_layers() throws InterruptedException {
+		eventPage.toggleMapLayer();
 		eventPage.closeMap();
 	}
 

@@ -125,7 +125,18 @@ Feature: STRAX Event functionality
     Examples: 
       | username           | password   | incidentName 			 	|
       | z-user@ee.io       | Password1@ | AutomationTestIncident1   |
-      
+ @SAC @C87060     
+Scenario Outline: Verify user can toggle various map layers
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    And User clicks on the map menu icon
+	Then The list of map layers is displayed
+	And The user can toggle various map layers
+	
+     Examples: 
+      | username           	  | password   | incidentName 			   |
+      | z-autobot@ee.io       | Password1@ | AutomationTestIncident1   |    
       @C86168 @SAC
   Scenario Outline: Verify user can add a point on map
     Given The STRAX Application login page is open
@@ -295,7 +306,7 @@ Scenario Outline: Verify play / pause feature works correctly
     And User navigates to Event plan tab
     And User clicks on add new event plan button to create a new event plan
     And Enters valid values for the following fields
-      | Incident    | <incident>    |
+      | EventPlan   | <eventPlan>    |
       | MissionType | <missionType> |
       | Stream      | <stream>      |
       | Address     | <address>     |
@@ -305,11 +316,56 @@ Scenario Outline: Verify play / pause feature works correctly
     Then A new event plan with name "<incident>" should get created successfully
 
     Examples: 
-      | username           | password   | incident                 | missionType     | address                                                       | latitude | longitude | description                           |
+      | username           | password   | eventPlan                 | missionType     | address                                                       | latitude | longitude | description                           |
        | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+     
+    @C87058 @SRM
+    Scenario Outline: Verify user can start a mission from a preplan
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event plan tab
+    And User clicks on add new event plan button to create a new event plan
+    And Enters valid values for the following fields
+      | EventPlan    | <eventPlan>    |
+      | MissionType | <missionType> |
+      | Stream      | <stream>      |
+      | Address     | <address>     |
+      | Latitude    | <latitude>    |
+      | Longitude   | <longitude>   |
+      | Description | <description> |
+    Then A new event plan with name "<eventPlan>" should get created successfully
+    When User clicks on launch event plan button "<eventPlan>"
+    Then New event creation form should load successfully
+    And Enters valid values for the following fields and "<participants>"
+   	  | Incident    | <incident>    |
+   	  | CaseNumber  | <casenumber>  |
+      | MissionType | <missionType> |
+      | Stream      | <stream>      |
+      | Address     | <address>     |
+      | Latitude    | <latitude>    |
+      | Longitude   | <longitude>   |
+      | Description | <description> |
+    Then A new event with name "<incident>" should get created successfully 
 
+    Examples: 
+      | username          	 | password   | eventPlan                 |incident           			   | missionType     |stream| address                                                       | latitude | longitude | description                           |participants    |
+       | z-controller@ee.io	 | Password1@ | AutomationTestEventPlan1 |AutomationTestEventFromEventPlan1| Search & Rescue |None  | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |Z-EEiUser Z-User|
+ @C87059 @SRM
+ Scenario Outline: Verify user can not start a mission from a preplan if already assigned to an active event  
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event plan tab
+    And User clicks on launch event plan button "<eventPlan>"
+    Then can not create new event error message should be displayed
+    And Clean up test event "<incident>"
+    And Clean up test event plan "<eventPlan>"
+    
+    Examples: 
+      | username           | password   | eventPlan                |incident						 |
+      | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 |AutomationTestEventFromEventPlan1|
+      
   @C46771 @SRM
   Scenario Outline: Verify user can share the event plan
     Given The STRAX Application login page is open
@@ -409,8 +465,8 @@ Scenario Outline: Verify play / pause feature works correctly
       | Longitude   | <longitude>   |
       | Description | <description> |
     And A new event with name "<incident>" should get created successfully
-    And User will be able to change the Case Number successfully
-    Then User will be able to rejoin the event "<incident>"
+    #And User will be able to change the Case Number successfully
+    #Then User will be able to rejoin the event "<incident>"
 
     Examples: 
       | username        | password   | incident                | missionType     | stream | address                                                       | latitude | longitude | description                           | participants                                          |
@@ -443,7 +499,7 @@ Scenario Outline: Verify play / pause feature works correctly
       | Latitude    | <latitude>    |
       | Longitude   | <longitude>   |
       | Description | <description> |
-    Then A new event with name "<incident>" and type "<missionType>" should get created successfully
+    #Then A new event with name "<incident>" and type "<missionType>" should get created successfully
 
     Examples: 
       | username           | password   | incident                | casenumber              | missionType       | stream | address                                                         | latitude | longitude | description                           | participants                     |

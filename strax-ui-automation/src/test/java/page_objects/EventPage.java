@@ -114,7 +114,7 @@ public class EventPage extends BaseClass {
 	public boolean getErrorMessage() {
 		boolean state = false;
 		try {
-			if (driver.findElement(By.xpath(prreader.getPropertyvalues("EventCreationError"))).isDisplayed()) {
+			if ((driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText()).equals("Not able to create an event while assigned to another")) {
 				state = true;
 			} else
 				state = false;
@@ -379,14 +379,14 @@ public class EventPage extends BaseClass {
 		}
 	}
 
-	public boolean searchEventPlan(String incident) throws InterruptedException {
+	public boolean searchEventPlan(String eventPlan) throws InterruptedException {
 		boolean state = false;
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions
 					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchButton"))).click();
-			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchInputTextBox"))).sendKeys(incident);
+			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSearchInputTextBox"))).sendKeys(eventPlan);
 			Thread.sleep(1000);
 			wait.until(ExpectedConditions.visibilityOfAllElements(
 					driver.findElements(By.xpath(prreader.getPropertyvalues("EventListTableRow")))));
@@ -395,7 +395,7 @@ public class EventPage extends BaseClass {
 			for (WebElement tr : trList) {
 
 				WebElement td = tr.findElement(By.xpath("//td[1]/a"));
-				if ((td.getText()).equals(incident)) {
+				if ((td.getText()).equals(eventPlan)) {
 					state = true;
 				} else {
 					state = false;
@@ -798,6 +798,74 @@ public class EventPage extends BaseClass {
 			state = false;
 		}
 		return state;
+	}
+	public void launchPrePlan(String preplan) throws InterruptedException
+	{
+		try {
+			System.out.print("in launch method....");
+			driver.findElement(By.xpath(prreader.getPropertyvalues("LaunchEventPlanButton"))).click();
+			}
+ 
+		catch (Exception e) {
+			System.out.println("Exception while launching the preplan");
+			
+		}
+
+	}
+
+	public boolean verifyPrePlanLaunchSuccess() {
+		boolean state = false;
+		try {
+			if (driver.findElement(By.xpath(prreader.getPropertyvalues("NewEventLabel"))).isDisplayed()) {
+				state = true;
+			}
+		} catch (Exception e) {
+			state = false;
+		}
+		return state;
+	}
+
+	public void openMapMenu() {
+		try {
+			driver.findElement(By.id(prreader.getPropertyvalues("MapMenu"))).click();
+	
+			}
+		 catch (Exception e) {
+			 System.out.println("Could not click on map menu");
+			
+		}
+		
+	}
+
+	public List<WebElement> getMapLayerList() {
+		Actions action = new Actions(driver);
+		List<WebElement> mapLayerList = null;
+		try {
+		mapLayerList = driver.findElements(By.xpath(prreader.getPropertyvalues("MapLayerList")));
+		action.sendKeys(Keys.ESCAPE).perform();
+		
+			}
+		 catch (Exception e) {
+			 System.out.println("Could not get map layer list");
+			
+		}
+		return mapLayerList;
+		
+	}
+
+	public void toggleMapLayer() {
+
+		List<WebElement> mapLayerList = getMapLayerList();
+		int layerCount = mapLayerList.size();
+		int i =1;
+		for(WebElement layer : mapLayerList)
+		{		
+			   openMapMenu();
+				layer.click();
+					
+		}
+
+
 	}
 
 }
