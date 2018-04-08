@@ -27,10 +27,10 @@ public class CommonClass{
 	{
 		try {
 		WebDriverWait wait = new WebDriverWait(driver,15);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("accountMenu"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
+		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
+		//driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("accountMenu"))));
+		driver.findElement(By.xpath(prreader.getPropertyvalues("accountMenu"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("logoutButton"))));
 		driver.findElement(By.id(prreader.getPropertyvalues("logoutButton"))).click();
 		//return new LoginPage(driver);
@@ -47,17 +47,17 @@ public class CommonClass{
 		List<String> accessSet=null;
 		try {
 		WebDriverWait wait = new WebDriverWait(driver,15);
-		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
+		//driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
 		List<WebElement> accessList = driver.findElements(By.xpath(prreader.getPropertyvalues("accessList")));
 		accessSet = new ArrayList<String>();
 		for(WebElement element:accessList )
 		{
-			if(element.getText().isEmpty())
+			if(element.getAttribute("aria-label").isEmpty())
 			continue;
-			accessSet.add(element.getText());
+			accessSet.add(element.getAttribute("aria-label"));
 		}
-		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButtonClose"))).click();
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id(prreader.getPropertyvalues("EventAddButton"))));
+		//driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButtonClose"))).click();
+		//wait.until(ExpectedConditions.presenceOfElementLocated(By.id(prreader.getPropertyvalues("EventAddButton"))));
 	}
 	catch(Exception e)
 	{

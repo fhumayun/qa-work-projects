@@ -46,8 +46,8 @@ public class EventPage extends BaseClass {
 			WebElement selectStream = driver.findElement(By.id(prreader.getPropertyvalues("StreamList")));
 			selectDropdownOption(selectStream, stream);
 			driver.findElement(By.id(prreader.getPropertyvalues("AddressTextBox"))).sendKeys(address);
-			driver.findElement(By.id(prreader.getPropertyvalues("LatitudeTextBox"))).sendKeys(latitude);
-			driver.findElement(By.id(prreader.getPropertyvalues("LongitudeTextBox"))).sendKeys(longitude);
+			//driver.findElement(By.id(prreader.getPropertyvalues("LatitudeTextBox"))).sendKeys(latitude);
+			//driver.findElement(By.id(prreader.getPropertyvalues("LongitudeTextBox"))).sendKeys(longitude);
 			driver.findElement(By.id(prreader.getPropertyvalues("DescriptionTextBox"))).sendKeys(description);
 			int count = 0;
 			for (String participant : participants) {
@@ -105,6 +105,8 @@ public class EventPage extends BaseClass {
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EventAddButton"))));
 			driver.findElement(By.id(prreader.getPropertyvalues("EventAddButton"))).click();
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 		} catch (Exception e) {
 			System.out.println("Exception while navigating to create new event page");
 		}
@@ -368,8 +370,8 @@ public class EventPage extends BaseClass {
 			WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("EventPlanTypeList")));
 			selectDropdownOption(selectMissionType, missionType);
 			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanAddressTextBox"))).sendKeys(address);
-			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLatitudeTextBox"))).sendKeys(latitude);
-			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLongitudeTextBox"))).sendKeys(longitude);
+			//driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLatitudeTextBox"))).sendKeys(latitude);
+			//driver.findElement(By.id(prreader.getPropertyvalues("EventPlanLongitudeTextBox"))).sendKeys(longitude);
 			driver.findElement(By.id(prreader.getPropertyvalues("EventPlanDescriptionTextBox"))).sendKeys(description);
 			wait.until(ExpectedConditions
 					.visibilityOf(driver.findElement(By.id(prreader.getPropertyvalues("EventPlanSaveButton")))));

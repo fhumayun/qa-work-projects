@@ -12,47 +12,49 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import page_objects.BaseClass;
 import page_objects.CommonClass;
+import page_objects.DashboardPage;
 import page_objects.EventPage;
 
 public class STRAXEventStepDefinition {
 
 	private BaseClass base;
 	EventPage eventPage;
+	DashboardPage dPage;
 
 	public STRAXEventStepDefinition(BaseClass base) {
 		this.base = base;
 		eventPage = new EventPage(base.driver);
-
+		dPage = new DashboardPage(base.driver);
 	}
 
 	@Then("^User should have access to create a new event$")
-	public void User_should_have_access_to_create_a_new_event() {
-
+	public void User_should_have_access_to_create_a_new_event() throws InterruptedException {
+		dPage.navigateToEventsPage();
 		Assert.assertEquals(true, eventPage.isAddEventButtonPresent());
 	}
 
 	@Then("^User should not have access to create a new event$")
-	public void User_should_not_have_access_to_create_a_new_event() {
-
+	public void User_should_not_have_access_to_create_a_new_event() throws InterruptedException {
+		dPage.navigateToEventsPage();
 		Assert.assertEquals(false, eventPage.isAddEventButtonPresent());
 	}
 
 	@Then("^User should not have access to view event history$")
-	public void User_should_not_have_access_to_view_event_history() {
-
+	public void User_should_not_have_access_to_view_event_history() throws InterruptedException {
+		dPage.navigateToEventsPage();
 		Assert.assertFalse(eventPage.isEventHistoryTabVisible());
 	}
 
 	@When("^User clicks on add new event button to create a new event$")
-	public void User_clicks_on_add_new_event_button_to_create_a_new_event() {
-
+	public void User_clicks_on_add_new_event_button_to_create_a_new_event() throws InterruptedException {
+		dPage.navigateToEventsPage();
 		eventPage.navigateToCreateNewEvent();
 
 	}
 
 	@Then("^can not create new event error message should be displayed$")
 	public void can_not_create_new_event_error_message_should_be_displayed() {
-
+		
 		Assert.assertEquals(true, eventPage.getErrorMessage());
 		
 	}
@@ -131,6 +133,7 @@ public class STRAXEventStepDefinition {
 
 	@And("^User navigates to Event plan tab$")
 	public void User_navigates_to_Event_plan_tab() throws InterruptedException {
+		dPage.navigateToEventsPage();
 		eventPage.navigateToEventPlanTab();
 
 	}
