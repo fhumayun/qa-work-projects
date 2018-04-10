@@ -20,9 +20,11 @@ public class STRAXLoginStepDefinition {
 	Scenario scenario;
 	LoginPage loginpage;
 	private BaseClass base;
+	DashboardPage dPage;
 
 	public STRAXLoginStepDefinition(BaseClass base) {
 		this.base = base;
+		dPage = new DashboardPage(base.driver);
 
 	}
 
@@ -125,14 +127,13 @@ public class STRAXLoginStepDefinition {
 
 	@Then("^The user should have access to account settings menu$")
 	public void The_user_should_have_access_to_account_settings() {
-		CommonClass cl = new CommonClass(base.driver);
-		Assert.assertEquals(true, cl.isAccountSettingsAccessible());
+		Assert.assertEquals(true, dPage.isAccountSettingsAccessible());
 	}
 
 	@Then("^The user should not have access to account settings menu$")
 	public void The_user_should_not_have_access_to_account_settings() {
 		CommonClass cl = new CommonClass(base.driver);
-		Assert.assertEquals(false, cl.isAccountSettingsAccessible());
+		Assert.assertEquals(false, dPage.isAccountSettingsAccessible());
 
 	}
 

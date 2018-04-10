@@ -23,25 +23,7 @@ public class CommonClass{
 	}
 	//Object creation for Wrapper uitility class- Class created to have multiple utility method to use in framework
 	//WrapperUtility util=new WrapperUtility(driver);
-	public LoginPage logOut() throws InterruptedException
-	{
-		try {
-		WebDriverWait wait = new WebDriverWait(driver,15);
-		//wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuButton"))));
-		//driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prreader.getPropertyvalues("accountMenu"))));
-		driver.findElement(By.xpath(prreader.getPropertyvalues("accountMenu"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("logoutButton"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("logoutButton"))).click();
-		//return new LoginPage(driver);
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception occured while logging out from the STRAX application.");
-		}
-		return new LoginPage(driver);
-	}
-	
+		
 	public List<String> getMenuAccessList()
 	{   
 		List<String> accessSet=null;
@@ -67,24 +49,7 @@ public class CommonClass{
 		
 	}
 	
-	public boolean isAccountSettingsAccessible()
-	{
-		boolean state = false;
-		try {
-		driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
-		driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
-		state = driver.findElement(By.id(prreader.getPropertyvalues("accountSettings"))).isDisplayed();
-		Actions action = new Actions(driver);
-		action.sendKeys(Keys.ESCAPE).build().perform();
-		action.sendKeys(Keys.ESCAPE).build().perform();
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception occured while accessing the Account Settings menu");
-		}
-		return state;
-		
-	}
+	
 	
 	public void selectDropdownOption(WebElement dropdown, String optionToSelect) throws InterruptedException
 	{
@@ -110,70 +75,9 @@ public class CommonClass{
 		
 	}
 	
-	public void navigateToUserNameHeader()
-	{ 
-		try {
-	WebDriverWait wait = new WebDriverWait(driver, 10);
-	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-	driver.findElement(By.id(prreader.getPropertyvalues("mainMenuButton"))).click();
-	wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("accountMenu"))));
-	driver.findElement(By.id(prreader.getPropertyvalues("accountMenu"))).click();
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception occured while navigating to User Name Header");
-		}
+	
+	
 		
-	}
-	public void navigateToPasswordChange()
-	{ 
-		try {
-	WebDriverWait wait = new WebDriverWait(driver, 10);
-	wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("mainMenuChangePassword"))));
-	driver.findElement(By.id(prreader.getPropertyvalues("mainMenuChangePassword"))).click();
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception occured while navigating to password change menu");
-		}
-	}
-
-	public void changePassword(String newPassword) throws InterruptedException
-	{ 
-		try {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id(prreader.getPropertyvalues("changePasswordField_1"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("changePasswordField_1"))).sendKeys(newPassword);
-		driver.findElement(By.id(prreader.getPropertyvalues("changePasswordField_2"))).sendKeys(newPassword);
-		Thread.sleep(1000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("SavePassword"))));
-		driver.findElement(By.id(prreader.getPropertyvalues("SavePassword"))).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception occured while updating the password");
-		}
-	
-	}
-	
-	public String isPasswordChangesSuccesfuly()
-	{ 
-		try {
-	WebDriverWait wait = new WebDriverWait(driver, 10);
-	
-   wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))));
-	
-	//util.waitForVisibilityOfAllElements(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage")), 10);
-		}
-		catch(Exception e)
-		{
-			System.out.println("could not get the password change success message");
-		}
-	return driver.findElement(By.xpath(prreader.getPropertyvalues("PasswordChangeSuccessMessage"))).getText();
-	
-	}
-	
 	
 	//Method to call common search utility
 	

@@ -15,6 +15,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import page_objects.BaseClass;
 import page_objects.CommonClass;
+import page_objects.DashboardPage;
 import utils.APIException;
 import utils.PropertiesFileReader;
 import utils.SauceUtils;
@@ -52,7 +53,7 @@ public class CucumberHooks extends BaseClass {
 		 
 
 		// uncomment to read the browser,platform values from config file
-/*		 System.setProperty("webdriver.chrome.driver","D:\\Driver\\chromedriver.exe");
+/*		System.setProperty("webdriver.chrome.driver","C:\\Users\\msys\\Desktop\\Driver");
 		 capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
 		 capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
 		 capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));*/
@@ -63,7 +64,7 @@ public class CucumberHooks extends BaseClass {
 		// ******* comment the above line and uncomment the below line if you want to
 		// use the selenium grid, replace with correct hub URL*********
 
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.101.169:4444/wd/hub"), new ChromeOptions());
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capabilities);
 
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
@@ -78,6 +79,7 @@ public class CucumberHooks extends BaseClass {
 		scenarioTotalCount = scenarioTotalCount + 1;
 
 		CommonClass cClass = new CommonClass(base.driver);
+		DashboardPage dPage = new DashboardPage(base.driver);
 		////// Test coverage percentage code starts
 		Collection<String> tags = scenario.getSourceTagNames();
 		if (tags.contains("@SRM")) {
@@ -104,7 +106,7 @@ public class CucumberHooks extends BaseClass {
 			base.driver.close();
 			base.driver.quit();
 		} else {
-			cClass.logOut();
+			dPage.logOut();
 			base.driver.close();
 			base.driver.quit();
 		}

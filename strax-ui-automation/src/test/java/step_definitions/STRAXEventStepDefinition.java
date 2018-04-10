@@ -77,7 +77,7 @@ public class STRAXEventStepDefinition {
 
 	@When("^User clicks on the active event \"([^\"]*)\" link to join$")
 	public void User_clicks_on_the_active_event_link_to_join(String incident) throws InterruptedException {
-
+		dPage.navigateToEventsPage();
 		eventPage.joinActiveEvent(incident);
 	}
 

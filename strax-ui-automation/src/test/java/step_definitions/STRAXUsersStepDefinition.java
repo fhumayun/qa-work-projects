@@ -24,10 +24,11 @@ public class STRAXUsersStepDefinition {
 	private BaseClass base;
 	UsersPage uPage;
 	CommonClass commonClass;
-
+	DashboardPage dPage;
 	public STRAXUsersStepDefinition(BaseClass base) {
 		this.base = base;
 		uPage = new UsersPage(base.driver);
+		dPage = new DashboardPage(base.driver);
 
 	}
 	// CommonClass commonClass=new CommonClass(base.driver);
@@ -43,8 +44,6 @@ public class STRAXUsersStepDefinition {
 	@When("^User navigates to Users menu$")
 	public void navigateUserPage() throws InterruptedException {
 		DashboardPage dboard = new DashboardPage(base.driver);
-		WebDriverWait wait = new WebDriverWait(base.driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//md-tab-item[text()='Active Events']")));
 		dboard.navigateToUsersPage();
 
 	}
@@ -124,28 +123,28 @@ public class STRAXUsersStepDefinition {
 
 	}
 
-	@When("^User clicks on Username header field$")
-	public void user_clicks_on_Username_header_field() throws Throwable {
-		commonClass = new CommonClass(base.driver);
-		commonClass.navigateToUserNameHeader();
+	@When("^User clicks on Account menu$")
+	public void User_clicks_on_Account_menu() throws Throwable {
+		
+		dPage.navigateToAccountMenu();
 
 	}
 
 	@When("^then clicks on the Change password menu$")
 	public void then_clicks_on_the_Change_password_menu() throws Throwable {
-		commonClass.navigateToPasswordChange();
+		dPage.navigateToPasswordChange();
 
 	}
 
 	@When("^User enters valid \"([^\"]*)\" compliant with Strax security policy$")
 	public void user_enters_valid_compliant_with_Strax_security_policy(String newpassword) throws Throwable {
-		commonClass.changePassword(newpassword);
+		dPage.changePassword(newpassword);
 
 	}
 
 	@Then("^Password change should be successful$")
 	public void password_change_should_be_successful() throws Throwable {
-		String PasswordChangeSuccessMessage = commonClass.isPasswordChangesSuccesfuly();
+		String PasswordChangeSuccessMessage = dPage.isPasswordChangesSuccesfuly();
 		Assert.assertEquals("Password saved!", PasswordChangeSuccessMessage);
 
 	}
