@@ -136,7 +136,19 @@ Scenario Outline: Verify user can toggle various map layers
 	
      Examples: 
       | username           	  | password   | incidentName 			   |
-      | z-autobot@ee.io       | Password1@ | AutomationTestIncident1   |    
+      | z-autobot@ee.io       | Password1@ | AutomationTestIncident1   |   
+      
+ @SAC @C101695    
+Scenario Outline: Verify user can toggle various KLV map layers
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    And User navigates to map layer settings
+	And The user enable "<mapLayer>" map layer
+	
+     Examples: 
+      | username           	  | password   | incidentName 			   | mapLayer			|
+      | z-autobot@ee.io       | Password1@ | AutomationTestIncident1   | Florida Airspace   | 
       @C86168 @SAC
   Scenario Outline: Verify user can add a point on map
     Given The STRAX Application login page is open
@@ -313,12 +325,12 @@ Scenario Outline: Verify play / pause feature works correctly
       | Latitude    | <latitude>    |
       | Longitude   | <longitude>   |
       | Description | <description> |
-    Then A new event plan with name "<incident>" should get created successfully
+    Then A new event plan with name "<eventPlan>" should get created successfully
 
     Examples: 
       | username           | password   | eventPlan                 | missionType     | address                                                       | latitude | longitude | description                           |
-       | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
-     | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+      | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
       | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
      
     @C87058 @SRM

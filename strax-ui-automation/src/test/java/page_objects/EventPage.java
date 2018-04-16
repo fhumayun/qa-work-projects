@@ -266,6 +266,7 @@ public class EventPage extends BaseClass {
 			wait.until(ExpectedConditions
 					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 			driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
 		} catch (Exception e) {
 			System.out.println("Exception while closing the map from SAC");
 		}
@@ -293,6 +294,42 @@ public class EventPage extends BaseClass {
 			driver.findElement(By.id(prreader.getPropertyvalues("EndEventButton"))).click();
 		} catch (Exception e) {
 			System.out.println("Exception while ending the event");
+		}
+	}
+	public void navigateToEventMapLayerSettings() throws InterruptedException {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while navigating to map layer tab");
+		}
+	}
+	
+	public void selectMapLayer(String mapLayer)
+	{
+		try {
+			List<WebElement> layerList =  driver.findElements(By.xpath(prreader.getPropertyvalues("KLVMapLayerList")));
+			for(WebElement layer : layerList)
+			{
+				if((layer.getText()).equals(mapLayer))
+				{
+					layer.click();
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Exception while selecting map layer");
+		}
+	}
+	public void closeSACSettings()
+	{
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			driver.findElement(By.id(prreader.getPropertyvalues("SACSettingsClose"))).click();
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+		} catch (Exception e) {
+			System.out.println("Exception while closing to SAC settings");
 		}
 	}
 

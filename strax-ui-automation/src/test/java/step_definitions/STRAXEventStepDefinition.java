@@ -106,6 +106,7 @@ public class STRAXEventStepDefinition {
 
 	@And("^User navigates to Event history tab$")
 	public void User_navigates_to_Event_history_tab() throws InterruptedException {
+		dPage.navigateToEventsPage();
 		eventPage.navigateToEventHistory();
 
 	}
@@ -440,6 +441,16 @@ public class STRAXEventStepDefinition {
 	@And("^The user can toggle various map layers$")
 	public void The_user_can_toggle_various_map_layers() throws InterruptedException {
 		eventPage.toggleMapLayer();
+		eventPage.closeMap();
+	}
+	@And("^User navigates to map layer settings$")
+	public void User_navigates_to_map_layer_settings() throws InterruptedException {
+		eventPage.navigateToEventMapLayerSettings();
+	}
+	@And("^The user enable \"([^\"]*)\" map layer$")
+	public void User_enable_map_layer(String mapLayer) throws InterruptedException {
+		eventPage.selectMapLayer(mapLayer);
+		eventPage.closeSACSettings();
 		eventPage.closeMap();
 	}
 

@@ -92,7 +92,7 @@ Feature: STRAX Users functionality
   Scenario Outline: As a user I want to be able to change my Strax password so that I can ensure my account security
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
-    And User clicks on Username header field
+    And User clicks on Account menu
     And then clicks on the Change password menu
     And User enters valid "<newpassword>" compliant with Strax security policy
     Then Password change should be successful
