@@ -23,7 +23,7 @@ public class DatabaseConnection {
 	String database = "admin"; // the name of the database in which the user is defined
 	String password = prreader.getPropertyvalues("mongoDBPassword"); // the password as a character array
 
-	public String mongodbOperation(String loginId) {
+	public String deleteUser(String loginId) {
 		String deletedLoginId = "";
 
 		try {

@@ -172,15 +172,9 @@ public class VideoFeedsPage extends BaseClass {
 			action.perform();
 			List<WebElement> trList = driver
 					.findElements(By.xpath(prreader.getPropertyvalues("SimulationVideoListrow")));
-			//driver.findElement(By.xpath("//md-input-container[@class='md-block flex-gt-sm']//tbody/tr[2]/td[1]")).click();
 			for (WebElement tr : trList) {
-									String va = tr.getText();
-									System.out.println(va);
 				WebElement td1 = tr.findElement(By.xpath("//td[1]"));
 				WebElement td2 = tr.findElement(By.xpath("//td[2]"));
-									String val = td2.getText();
-									System.out.println(val);
-				
 				if ((tr.getText()).contains(video)) {
 					tr.click();
 				}

@@ -86,7 +86,6 @@ public class STRAXEventStepDefinition {
 
 		Assert.assertEquals(true, eventPage.verifyJoinEventSuccess());
 		eventPage.closeMap();
-
 	}
 
 	@Then("^User joins the event successfully$")
@@ -121,6 +120,11 @@ public class STRAXEventStepDefinition {
 	public void User_should_be_able_to_playback_that_event(String incident) throws InterruptedException {
 		Assert.assertEquals(true, eventPage.verifyEvenPlaybackSuccess());
 		eventPage.closeMapFromPlayback();
+
+	}
+	@Then("^Playback slider moves forward$")
+	public void Playback_slider_moves_forward() throws InterruptedException {
+
 
 	}
 
@@ -427,7 +431,7 @@ public class STRAXEventStepDefinition {
 	}
 	@And("^Clean up test event plan \"([^\"]*)\"$")
 	public void Clean_up_test_event_plan(String eventPlan) throws InterruptedException {
-		Assert.assertEquals(eventPlan, eventPage.deleteEventFromDB(eventPlan));;
+		Assert.assertEquals(eventPlan, eventPage.deleteEventPlanFromDB(eventPlan));;
 	}
 	@And("^User clicks on the map menu icon$")
 	public void User_clicks_on_the_map_menu_icon() throws InterruptedException {

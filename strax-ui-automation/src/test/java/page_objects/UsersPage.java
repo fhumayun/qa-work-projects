@@ -231,4 +231,18 @@ public class UsersPage {
 		return msg;
 	}
 
+	public String deleteUserFromDB(String user) {
+		
+		String deletedUser = "";
+		try {
+			DatabaseConnection conn = new DatabaseConnection();
+			deletedUser = conn.deleteEvent(user);
+		}
+
+		catch (Exception e) {
+			System.out.println("Exception while communicating to MongoDB");
+		}
+		return deletedUser;
+	}
+
 }

@@ -282,6 +282,19 @@ Scenario Outline: Verify user can toggle various KLV map layers
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
       
+    @slider @PlayBack
+  Scenario Outline: Verify moving circle on slider correctly moves forward and reverse
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event history tab
+    And User search and clicks on the event "<incidentName>" link to playback
+    Then User should be able to playback "<incidentName>" event
+    And Playback slider moves forward
+
+    Examples: 
+      | username        | password   | incidentName            |
+      | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
+      
    @follow @PlayBack @ignore
   Scenario Outline: Verify Auto-Follow UAS feature works
     Given The STRAX Application login page is open

@@ -26,7 +26,7 @@ Feature: STRAX Users functionality
       | Role        | <role>        |
       | Color       | <color>       |
       | Device      | <device>      |
-    Then Then User should get created successfully with email "<email>"
+    Then User should get created successfully with email "<email>"
 
     Examples: valid user details
       | username           | password   | email                       | firstname    | lastname | newpassword    | role       | color | device |
@@ -100,3 +100,27 @@ Feature: STRAX Users functionality
     Examples: 
       | username     | password   | newpassword |
       | z-user@ee.io | Password1@ | Password1@  |
+ @SRM @case
+  Scenario Outline: Verify Password reset workflow doesn't break because email field is case sensitive
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Users menu
+    And clicks on Add New User button
+    And User Enters valid values for the following fields and click save button:
+      | Email       | <email>       |
+      | FirstName   | <firstname>   |
+      | LastName    | <lastname>    |
+      | NewPassword | <newpassword> |
+      | Role        | <role>        |
+      | Color       | <color>       |
+      | Device      | <device>      |    
+    Then User should get created successfully with email "<email>"
+    When User clicks on Account menu
+    And then clicks on the Change password menu
+    And User enters valid "<newpassword>" compliant with Strax security policy
+    Then Password change should be successful
+    And Clean up test user "<email>"
+
+    Examples: valid user details
+      | username           | password   | email                               | firstname    | lastname | newpassword    | role       | color | device |password   | newpassword |
+      | z-controller@ee.io | Password1@ | Z-AutomationTestUserPassword1@ee.io | Z-Automation | Z-Tester | Password1~!@#  | User       | Green | none   |Password1@ | Password1@  |

@@ -259,8 +259,20 @@ public class EventPage extends BaseClass {
 		return state;
 
 	}
-
+	
 	public void closeMap() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
+			driver.findElement(By.xpath(prreader.getPropertyvalues("SACMapCloseButton"))).click();
+		    } catch (Exception e) {
+			System.out.println("Exception while closing the map from SAC");
+		}
+
+	}
+
+	public void leaveEvent() {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions
@@ -268,7 +280,7 @@ public class EventPage extends BaseClass {
 			driver.findElement(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("ConfirmMapCloseDialog"))).click();
 		} catch (Exception e) {
-			System.out.println("Exception while closing the map from SAC");
+			System.out.println("Exception while leaving the event");
 		}
 
 	}
@@ -595,7 +607,6 @@ public class EventPage extends BaseClass {
 			if (driver.findElement(By.id(prreader.getPropertyvalues("EventFeedVideoStatusGreen"))).isDisplayed()) {
 				state = true;
 			}
-			state = false;
 		} catch (Exception e) {
 			System.out.println("Exception while finding the video feed stream status");
 		}

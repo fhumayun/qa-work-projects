@@ -67,7 +67,7 @@ public class STRAXUsersStepDefinition {
 				tableData.get("NewPassword"), tableData.get("Role"), tableData.get("Color"), tableData.get("Device"));
 	}
 
-	@Then("^Then User should get created successfully with email \"([^\"]*)\"$")
+	@Then("^User should get created successfully with email \"([^\"]*)\"$")
 	public void Then_User_should_get_created_successfully_with_email(String email) throws InterruptedException {
 		Assert.assertTrue(uPage.isUserCreatedSuccessfully());
 
@@ -104,7 +104,7 @@ public class STRAXUsersStepDefinition {
 		DatabaseConnection conn = new DatabaseConnection();
 
 		if (!uPage.searchUser(user)) {
-			deletedUser = conn.mongodbOperation(user);
+			deletedUser = conn.deleteUser(user);
 
 		}
 		Assert.assertEquals(user, deletedUser);
@@ -146,6 +146,11 @@ public class STRAXUsersStepDefinition {
 	public void password_change_should_be_successful() throws Throwable {
 		String PasswordChangeSuccessMessage = dPage.isPasswordChangesSuccesfuly();
 		Assert.assertEquals("Password saved!", PasswordChangeSuccessMessage);
+
+	}
+	@And("^Clean up test user \"([^\"]*)\"$")
+	public void Clean_up_test_user(String user) {
+		Assert.assertEquals(user, uPage.deleteUserFromDB(user));
 
 	}
 
