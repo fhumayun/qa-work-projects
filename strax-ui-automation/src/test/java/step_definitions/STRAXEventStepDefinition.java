@@ -94,6 +94,20 @@ public class STRAXEventStepDefinition {
 		Assert.assertEquals(true, eventPage.verifyJoinEventSuccess());
 
 	}
+	@And("^User should be able to add the user \"([^\"]*)\" from SAC edit users pane$")
+	public void User_should_be_able_to_add_the_user_from_SAC_edit_pane_successfully(List<String> participants) throws InterruptedException {
+		eventPage.navigateToEditUsersTab();
+		eventPage.addEventParticipant(participants);
+
+	}
+	@And("^User close SAC map$")
+	public void User_close_SAC_map() throws InterruptedException {
+		eventPage.closeMap();
+	}
+	@And("^Logs out from STRAX$")
+	public void Logs_out_from_STRAX() throws InterruptedException {
+		dPage.logOut();
+	}
 
 	@Then("^User should be able to end an active event \"([^\"]*)\" successfully$")
 	public void User_should_be_able_to_end_an_active_event_successfully(String incident) throws InterruptedException {

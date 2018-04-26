@@ -223,7 +223,7 @@ public class EventPage extends BaseClass {
 			Thread.sleep(1000);
 			state = wait
 					.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("GoBackFromMap"))))
+							.visibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("LeaveEvent"))))
 					.isDisplayed();
 
 			if (state) {
@@ -916,6 +916,62 @@ public class EventPage extends BaseClass {
 		}
 
 
+	}
+	
+	public void navigateToEditUsersTab()
+	{
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EditUsersTab"))));
+			driver.findElement(By.xpath(prreader.getPropertyvalues("EditUsersTab"))).click();
+			} 
+		catch (Exception e) {
+			System.out.println("Exception while navigating to Edit users tab");
+		}
+	}
+	
+	public void addEventParticipant(List<String> participants) throws InterruptedException
+	{
+		try {
+		int count = 0;
+		for (String participant : participants) {
+			count++;
+			Pattern whitespace = Pattern.compile("\\s");
+			Matcher matcher = whitespace.matcher(participant);
+			String participantFullName = matcher.replaceAll(", ");
+			if (count == 1) {
+				Thread.sleep(1000);
+				driver.findElement(By.xpath(prreader.getPropertyvalues("SearchParticipantsButton"))).click();
+			}
+
+			driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox"))).clear();
+			driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox")))
+					.sendKeys(getNameToSearch(participant));
+			Thread.sleep(1000);
+			List<WebElement> participantLinks = driver
+					.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
+			for (WebElement e : participantLinks) {
+
+				String name = e.getText();
+				String[] array1 = name.split("\n");
+				String result = array1[1];
+				if ((result).equals(participantFullName)) {
+					e.click();
+					Thread.sleep(1000);
+					break;
+				}
+			}
+
+		}
+		driver.findElement(By.id(prreader.getPropertyvalues("EventUpdateButton"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("SACSettingsClose"))).click();
+		}
+		catch (Exception e) {
+			System.out.println("Exception while adding the participants");
+		}
+		
 	}
 
 }

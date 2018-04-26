@@ -245,7 +245,23 @@ Scenario Outline: Verify user can toggle various KLV map layers
     Examples: 
       | username           | password   | incident                | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
       | z-controller@ee.io | Password1@ | AutomationTestIncident2 | AutomationTest_CaseNumber002 | Search & Rescue | None   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
+	
+	  @add @SRM @Event
+  Scenario Outline: Verify user can be added to an active event from the SAC Edit Users pane
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    And User joins the event successfully
+    And User should be able to add the user "<participants>" from SAC edit users pane
+    And User close SAC map
+    And Logs out from STRAX
+    When User Enters Valid "<username1>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    Then User should be able to join the event successfully
 
+    Examples: 
+      | username        | password   | incidentName            |participants    |username1     |
+      | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |Z-User Z-Viewer |z-viewer@ee.io|	  
   @C44559 @SRM @Event
   Scenario Outline: Verify user can end the event successfully
     Given The STRAX Application login page is open
@@ -282,7 +298,7 @@ Scenario Outline: Verify user can toggle various KLV map layers
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
       
-    @slider @PlayBack
+    @slider @PlayBack @ignore
   Scenario Outline: Verify moving circle on slider correctly moves forward and reverse
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
