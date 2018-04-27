@@ -104,6 +104,6 @@ Scenario Outline: Verify user account gets locked out after 5 unsuccessful login
 	Then The user account should get locked out
 
 Examples: valid useremail & password
-      | useremail        | password   |
-      | yogitest@ee.io   | invalidpass|
+      | useremail            | password   |
+      | z-autotest23@ee.io   | invalidpass|
 
