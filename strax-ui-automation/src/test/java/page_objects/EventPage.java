@@ -973,5 +973,35 @@ public class EventPage extends BaseClass {
 		}
 		
 	}
+	
+	public void removeParticipants(List<String> participants)
+	{
+		try {
+		List<WebElement> assignedParticipantList = driver.findElements(By.xpath(prreader.getPropertyvalues("AssignedParticipantList")));
+		for(String participant : participants)
+		{		
+			for(WebElement assignedparticipant : assignedParticipantList)
+			{		
+				assignedparticipant.click();
+				System.out.println(assignedparticipant.getText());
+				System.out.println(assignedparticipant.findElement(By.xpath("//p[@class='ng-binding']")).getText());
+				
+				 if(participant.equals(assignedparticipant.findElement(By.xpath("//p[@class='ng-binding']")).getText()))
+				 {
+					 assignedparticipant.click();
+					 break;
+				 }
+						
+			}
+					
+		}
+		driver.findElement(By.id(prreader.getPropertyvalues("EventUpdateButton"))).click();
+		driver.findElement(By.id(prreader.getPropertyvalues("SACSettingsClose"))).click();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Wxcwption while removing the participants");
+		}
+	}
 
 }

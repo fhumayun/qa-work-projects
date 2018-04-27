@@ -87,6 +87,11 @@ public class STRAXEventStepDefinition {
 		Assert.assertEquals(true, eventPage.verifyJoinEventSuccess());
 		eventPage.closeMap();
 	}
+	@Then("^User should not have access to join the event \"([^\"]*)\"$")
+	public void User_should_not_have_access_to_join_the_event(String incident) throws InterruptedException {
+		dPage.navigateToEventsPage();
+		Assert.assertFalse(eventPage.searchEvent(incident));
+	}
 
 	@Then("^User joins the event successfully$")
 	public void User_joins_the_event_successfully() throws InterruptedException {
@@ -98,6 +103,12 @@ public class STRAXEventStepDefinition {
 	public void User_should_be_able_to_add_the_user_from_SAC_edit_pane_successfully(List<String> participants) throws InterruptedException {
 		eventPage.navigateToEditUsersTab();
 		eventPage.addEventParticipant(participants);
+
+	}
+	@And("^User should be able to remove the user \"([^\"]*)\" from SAC edit users pane$")
+	public void User_should_be_able_to_remove_the_user_from_SAC_edit_users_pane(List<String> participants) throws InterruptedException {
+		eventPage.navigateToEditUsersTab();
+		eventPage.removeParticipants(participants);
 
 	}
 	@And("^User close SAC map$")
