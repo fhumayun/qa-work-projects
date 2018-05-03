@@ -159,6 +159,12 @@ public class EventPage extends BaseClass {
 	public boolean searchEvent(String incident) throws InterruptedException {
 		boolean state = false;
 		try {
+			if(driver.findElement(By.xpath("//div[@ng-controller='EventListController as vm']//h3")).getText().equals("No events registered."))
+			{
+				return false;
+			}
+			else {
+			
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions
 					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
@@ -179,6 +185,7 @@ public class EventPage extends BaseClass {
 					state = false;
 				}
 
+			}
 			}
 
 		} catch (org.openqa.selenium.StaleElementReferenceException ex) {
@@ -922,6 +929,7 @@ public class EventPage extends BaseClass {
 	{
 		try {
 			driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+			Thread.sleep(1000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions
 					.elementToBeClickable(By.xpath(prreader.getPropertyvalues("EditUsersTab"))));
@@ -980,20 +988,19 @@ public class EventPage extends BaseClass {
 		List<WebElement> assignedParticipantList = driver.findElements(By.xpath(prreader.getPropertyvalues("AssignedParticipantList")));
 		for(String participant : participants)
 		{		
-			for(WebElement assignedparticipant : assignedParticipantList)
-			{		
-				assignedparticipant.click();
-				System.out.println(assignedparticipant.getText());
-				System.out.println(assignedparticipant.findElement(By.xpath("//p[@class='ng-binding']")).getText());
-				
-				 if(participant.equals(assignedparticipant.findElement(By.xpath("//p[@class='ng-binding']")).getText()))
-				 {
-					 assignedparticipant.click();
-					 break;
-				 }
-						
-			}
-					
+			
+				for(int i=0; i< assignedParticipantList.size();i++){
+		            WebElement user = assignedParticipantList.get(i).findElement(By.xpath(".//div/div//p"));
+		           String user1 =  user.getText().replace(",", "");
+					 if(participant.equals(user1))
+					 {
+						assignedParticipantList.get(i).click();
+						 break;
+					 }
+							
+				}
+
+							
 		}
 		driver.findElement(By.id(prreader.getPropertyvalues("EventUpdateButton"))).click();
 		driver.findElement(By.id(prreader.getPropertyvalues("SACSettingsClose"))).click();
@@ -1003,5 +1010,61 @@ public class EventPage extends BaseClass {
 			System.out.println("Wxcwption while removing the participants");
 		}
 	}
+	
+	public void assignUsersToEvent(List<String> participants)
+	{
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("SACUsersMenu"))).click();
+			driver.findElement(By.id(prreader.getPropertyvalues("LoadAvailableUsers"))).click();
+			List<WebElement> availableUsers = driver.findElements(By.xpath(prreader.getPropertyvalues("AvailableUsers")));
+			
+			for(String participant : participants)
+			{		
+				for(int i=0; i< availableUsers.size();i++){
+		            WebElement user = availableUsers.get(i).findElement(By.xpath(".//div[1]"));
+					 if(participant.equals(user.getText()))
+					 {
+						 WebElement user1 = availableUsers.get(i).findElement(By.xpath(".//div[2]"));
+						 user1.findElement(By.xpath(".//button")).click();
+						 break;
+					 }
+							
+				}
+						
+			}
+
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception while assigning the users");
+			}
+		}
+	public void removeUsersFromEvent(List<String> participants)
+	{
+		try {
+			driver.findElement(By.xpath(prreader.getPropertyvalues("SACUsersMenu"))).click();
+			List<WebElement> assignedUsers = driver.findElements(By.xpath(prreader.getPropertyvalues("AssignedUsers")));
+			
+			for(String participant : participants)
+			{		
+				for(int i=0; i< assignedUsers.size();i++){
+		            WebElement user = assignedUsers.get(i).findElement(By.xpath(".//div[1]"));
+					 if(participant.equals(user.getText()))
+					 {
+						 WebElement user1 = assignedUsers.get(i).findElement(By.xpath(".//div[2]"));
+						 user1.findElement(By.xpath(".//button")).click();
+						 break;
+					 }
+							
+				}
+						
+			}
+
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception while assigning the users");
+			}
+		}
 
 }
