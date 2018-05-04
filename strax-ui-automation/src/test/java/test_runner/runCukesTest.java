@@ -21,7 +21,7 @@ import utils.PropertiesFileReader;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(format = { "progress", "html:target/cucumber" }, plugin = {
-		"com.cucumber.listener.ExtentCucumberFormatter:output/report.html", "rerun:rerun.txt" }, features = {
+		"com.cucumber.listener.ExtentCucumberFormatter:output/report.html"}, features = {
 				"src/test/resources/features/" }, glue = { "step_definitions" }, tags = { "~@ignore" })
 public class runCukesTest extends CucumberHooks {
 	public runCukesTest(BaseClass base) {

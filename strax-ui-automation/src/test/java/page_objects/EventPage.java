@@ -884,6 +884,9 @@ public class EventPage extends BaseClass {
 
 	public void openMapMenu() {
 		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions
+					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
 			driver.findElement(By.id(prreader.getPropertyvalues("MapMenu"))).click();
 	
 			}

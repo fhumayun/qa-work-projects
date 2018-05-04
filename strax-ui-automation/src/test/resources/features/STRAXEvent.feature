@@ -346,6 +346,20 @@ Scenario Outline: Verify user can toggle various KLV map layers
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
+ 
+   @PlayBack @C102697    
+Scenario Outline: Verify user can toggle various map layers in event playback
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event history tab
+    And User search and clicks on the event "<incidentName>" link to playback
+    And User clicks on the map menu icon
+	Then The list of map layers is displayed
+	And The user can toggle various map layers
+	
+     Examples: 
+      | username           	  | password   | incidentName 			   |
+      | z-autobot@ee.io       | Password1@ | AutomationTestIncident2   |   
       
     @slider @PlayBack @ignore
   Scenario Outline: Verify moving circle on slider correctly moves forward and reverse
