@@ -69,11 +69,11 @@ Scenario Outline: Verify user permissions to menu items
 	Then The user should have access to these "<menu>"
 
 Examples: valid useremail & password
-      | useremail          | password   | menu                                         					|
-      | z-controller@ee.io | Password1@ | Dashboard, Events, Users,Map Layers                     					|
-      | z-autobot@ee.io    | Password1@ | Dashboard, Events, Users, UASs, Map Layers, Video Feeds, Video Monitor 	|
-      | z-user@ee.io       | Password1@ | Dashboard, Events                                      					|
-      | z-viewer@ee.io     | Password1@ | Dashboard, Events                                    				    |
+      | useremail          | password   | menu                                         											|
+      | z-controller@ee.io | Password1@ | Dashboard, Events, IER Alerts, Users,Map Layers                     					|
+      | z-autobot@ee.io    | Password1@ | Dashboard, Events, IER Alerts, Users, UASs, Map Layers, Video Feeds, Video Monitor 	|
+      | z-user@ee.io       | Password1@ | Dashboard, Events, IER Alerts                                      					|
+      | z-viewer@ee.io     | Password1@ | Dashboard, Events, IER Alerts                                    			 		    |
 
 @C26466 @SRM
 Scenario Outline: Verify user can access account settings menu option
