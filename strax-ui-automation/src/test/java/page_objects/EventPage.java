@@ -158,13 +158,7 @@ public class EventPage extends BaseClass {
 
 	public boolean searchEvent(String incident) throws InterruptedException {
 		boolean state = false;
-		try {
-			if(driver.findElement(By.xpath("//div[@ng-controller='EventListController as vm']//h3")).getText().equals("No events registered."))
-			{
-				return false;
-			}
-			else {
-			
+		try {	
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions
 					.invisibilityOfElementLocated(By.xpath(prreader.getPropertyvalues("loadingIcon"))));
@@ -186,11 +180,9 @@ public class EventPage extends BaseClass {
 				}
 
 			}
-			}
 
-		} catch (org.openqa.selenium.StaleElementReferenceException ex) {
-			driver.findElement(By.id(prreader.getPropertyvalues("EventSearchButton"))).click();
-
+		} catch (Exception e) {
+			return false;
 		}
 
 		return state;
@@ -1069,5 +1061,11 @@ public class EventPage extends BaseClass {
 				System.out.println("Exception while assigning the users");
 			}
 		}
+
+	public String  getUsersEditedSuccessMessage() {
+		String msg = driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText();
+		return msg;
+		
+	}
 
 }
