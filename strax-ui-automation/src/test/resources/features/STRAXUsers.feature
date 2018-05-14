@@ -115,10 +115,13 @@ Feature: STRAX Users functionality
       | Color       | <color>       |
       | Device      | <device>      |    
     Then User should get created successfully with email "<email>"
+    And Logs out from STRAX
+    When User Enters Valid "<email>" and "<newpassword>"
     When User clicks on Account menu
     And then clicks on the Change password menu
     And User enters valid "<newpassword>" compliant with Strax security policy
     Then Password change should be successful
+    And Logs out from STRAX
     And Clean up test user "<email>"
 
     Examples: valid user details
