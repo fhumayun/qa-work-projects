@@ -100,7 +100,7 @@ Feature: STRAX Users functionality
     Examples: 
       | username     | password   | newpassword |
       | z-user@ee.io | Password1@ | Password1@  |
- @SRM @C102529
+ @SRM @C102529 @NoLogout
   Scenario Outline: Verify Password reset workflow doesn't break because email field is case sensitive
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
