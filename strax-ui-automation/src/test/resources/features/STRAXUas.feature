@@ -26,7 +26,7 @@ Scenario Outline: Verify user can create a new Camera Feed
 	Then New video feed should get created "<name>"
 Examples: 
       | username        | password   | name                  | account |cameraType|wowzaPort|klvPort|frameRate|feedVideo|
-      | z-autobot@ee.io | Password1@ | QA-Automation-Feed    | PBSO    |  KLV     |1450		|1440   | 25	  |Indago|
+      | z-autobot@ee.io | Password1@ | QA-Automation-Feed    | staging |  KLV     |1450		|1440   | 25	  |Indago|
 @C86128 @SAC 
 Scenario Outline: Verify user can access canned camera feed in active event
 	Given The STRAX Application login page is open
@@ -57,7 +57,7 @@ Scenario Outline: Verify user can access canned camera feed in active event
 	Then video feed should be avilable "<incident>"
 	Then UAS should get deleted from DB "<name>"
 	Examples:
-		|name     		   |feed              	|make         			|serialnumber  |model                   |status      |type         |username        | password   | incident                | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
+		|name     		   |feed              	|make         			|serialnumber  |model                   |status      |type         |username        | password   | incident                  | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
 		|QA-Automation-UAS |QA-Automation-Feed	|Lockheed Martin        |qa007         |Indago       			|Available   |Multi-copter |z-autobot@ee.io | Password1@ | AutomationTestIncident121 | AutomationTest_CaseNumber002 | Search & Rescue | QA-Automation-UAS   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
 
 
