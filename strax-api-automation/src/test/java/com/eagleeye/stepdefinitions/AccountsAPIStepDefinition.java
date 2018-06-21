@@ -29,8 +29,8 @@ public class AccountsAPIStepDefinition extends BaseService{
 	public void verifyResponse() throws MalformedURLException {
 		res.then().statusCode(200);
 		res.getBody().asString();
-		//DatabaseConnection conn =  new DatabaseConnection();
-		//conn.getAccount();
+		DatabaseConnection conn =  new DatabaseConnection();
+		conn.getAccount();
 	}
 
 }

@@ -43,7 +43,7 @@ public class DatabaseConnection {
 	         JSON json =new JSON();
 	        String serialize = json.serialize(cursor1);
 	        System.out.println(serialize);
-			System.out.println(coll);
+			//System.out.println(coll);
 
 			mongoClient.close();
 
