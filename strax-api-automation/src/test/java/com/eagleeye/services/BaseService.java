@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import com.eagleeye.utils.PropertiesFileReader;
 import com.google.common.net.HttpHeaders;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -26,6 +28,8 @@ public class BaseService {
     public   String[] scope;
     public   double exp;
     public RequestSpecification requestSpec;
+    PropertiesFileReader prreader = new PropertiesFileReader();
+    public String BASEURI = prreader.getPropertyvalues("STRAXUrl");
     
     public void getAppTicket() throws MalformedURLException
     {
@@ -33,7 +37,7 @@ public class BaseService {
     	try {
         String payload= "{\"username\":\"yogi@msys.com\",\"password\":\"Password1@\",\"applnName\":\"STRAX APP AngularJS\",\"applnType\":\"Web Application\",\"fingerprint\":\"74681325572dc861723eff28c006a55f\",\"fpData\":[]}";
         Client restClient = Client.create();
-        WebResource request = restClient.resource("https://qa.strax.co/api/login");
+        WebResource request = restClient.resource(BASEURI+"/api/login");
         JSONParser parser = new JSONParser();
         JSONObject jo = (JSONObject) parser.parse(payload);
         ClientResponse response2  = request.header("Content-Type", "application/json").post(ClientResponse.class, jo);

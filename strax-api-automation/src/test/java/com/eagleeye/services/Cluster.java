@@ -12,13 +12,14 @@ public class Cluster extends BaseService {
 	public Cluster(RequestSpecification requestSpec) throws MalformedURLException
 	{
 		this.requestSpec = RestAssured.given().contentType("application/json");
-	    this.requestSpec.header(HttpHeaders.AUTHORIZATION, getHawkId("https://qa.strax.co/api/clusters","GET"));
+	    this.requestSpec.header(HttpHeaders.AUTHORIZATION, getHawkId(BASEURI+"/api/clusters","GET"));
 	}
 	
-	public void getCluster()
+	public Response getCluster()
 	{
-		Response response = requestSpec.given().get("https://qa.strax.co/api/clusters");
+		Response response = requestSpec.given().get(BASEURI+"/api/clusters");
 		System.out.println(response.getBody().asString());
+		return response;
 	}
 
 }

@@ -5,9 +5,6 @@ import java.util.Arrays;
 import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -19,26 +16,48 @@ import com.mongodb.util.JSON;
 public class DatabaseConnection {
 
 	//PropertiesFileReader prreader = new PropertiesFileReader();
-	String mongoDBServer = "msg"; //prreader.getPropertyvalues("mongoDBServer");
-	String user =   "strax"; //prreader.getPropertyvalues("mongoDBUserName");// the user name
-	String database = "admin"; // the name of the database in which the user is defined
-	String password = "strax";//prreader.getPropertyvalues("mongoDBPassword"); // the password as a character array
+	public static String mongoDBServer = "msg"; //prreader.getPropertyvalues("mongoDBServer");
+	public static	String user =   "strax"; //prreader.getPropertyvalues("mongoDBUserName");// the user name
+	public static String database = "admin"; // the name of the database in which the user is defined
+	public static String password = "strax";//prreader.getPropertyvalues("mongoDBPassword"); // the password as a character array
+	public static MongoDatabase db;
+	public static MongoClient mongoClient;
+	
+	public DatabaseConnection()
+	{
+		MongoCredential credential = MongoCredential.createScramSha1Credential(user, database,
+				password.toCharArray());
+		mongoClient = new MongoClient(new ServerAddress(mongoDBServer), Arrays.asList(credential));
+		 db = mongoClient.getDatabase("sproutdb");
+	}
 
 	public String getAccount() {
 		String deletedLoginId = "";
 
 		try {
 
-			MongoCredential credential = MongoCredential.createScramSha1Credential(user, database,
-					password.toCharArray());
-			MongoClient mongoClient = new MongoClient(new ServerAddress(mongoDBServer), Arrays.asList(credential));
-			MongoDatabase db = mongoClient.getDatabase("sproutdb");
-			BasicDBObject query = new BasicDBObject();
-			FindIterable<Document> cursor;
-			MongoCollection<Document> coll = db.getCollection("accounts");
-			//DBCollection coll = db.getCollection("accounts");
-			//Document deleted = coll.findOneAndDelete(query);
-			//deletedLoginId = deleted.getString("loginId");
+		    MongoCollection<Document> coll = db.getCollection("accounts");
+			FindIterable<Document> cursor1 = coll.find();
+	         JSON json =new JSON();
+	        String serialize = json.serialize(cursor1);
+	        System.out.println(serialize);
+			//System.out.println(coll);
+
+			mongoClient.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		return deletedLoginId;
+
+	}
+	
+	public String getCluster() {
+		String deletedLoginId = "";
+
+		try {
+
+		    MongoCollection<Document> coll = db.getCollection("clusters");
 			FindIterable<Document> cursor1 = coll.find();
 	         JSON json =new JSON();
 	        String serialize = json.serialize(cursor1);
