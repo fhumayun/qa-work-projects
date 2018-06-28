@@ -18,7 +18,7 @@ public class PrePlanEvents extends BaseService {
 	{
 		String requestURL = BASEURI+"/api/eventplans";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,getHawkId(requestURL,"GET")).given().get(requestURL);
-		System.out.println(response.getBody().asString());
+		//System.out.println(response.getBody().asString());
 		return response;
 	}
 

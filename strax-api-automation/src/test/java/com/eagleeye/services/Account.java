@@ -22,7 +22,7 @@ public class Account extends BaseService{
 	{
 		String requestURL = BASEURI+"/api/accounts";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,getHawkId(requestURL,"GET")).given().get(requestURL);
-		System.out.println(response.getBody().asString());
+		//System.out.println(response.getBody().asString());
 		return response;
 	}
 	
