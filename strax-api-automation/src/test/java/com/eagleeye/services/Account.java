@@ -12,16 +12,16 @@ import com.jayway.restassured.specification.RequestSpecification;
 public class Account extends BaseService{
 
 	PropertiesFileReader prreader;
-	public Account(RequestSpecification requestSpec) throws MalformedURLException
+	public Account(RequestSpecification requestSpec)
 	{
 		this.requestSpec = RestAssured.given().contentType("application/json");
-	    this.requestSpec.header(HttpHeaders.AUTHORIZATION, getHawkId(BASEURI+"/api/accounts","GET"));
 	    prreader = new PropertiesFileReader();
 	}
 	
-	public Response getAccount()
+	public Response getAccount() throws MalformedURLException
 	{
-		Response response = requestSpec.given().get(BASEURI+"/api/accounts");
+		String requestURL = BASEURI+"/api/accounts";
+		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,getHawkId(requestURL,"GET")).given().get(requestURL);
 		System.out.println(response.getBody().asString());
 		return response;
 	}

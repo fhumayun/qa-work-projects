@@ -6,7 +6,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(format = { "progress", "html:target/cucumber" }, 
-plugin = {}, features = {"src/test/resources/features/" }, glue = { "com.eagleeye.stepdefinitions" },
+plugin = {"ru.yandex.qatools.allure.cucumberjvm.AllureReporter"}, features = {"src/test/resources/features/" }, glue = { "com.eagleeye.stepdefinitions" },
 tags = { "~@ignore" })
 public class runCukesTest {
 }
