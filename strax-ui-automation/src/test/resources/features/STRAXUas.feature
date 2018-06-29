@@ -26,7 +26,7 @@ Scenario Outline: Verify user can create a new Camera Feed
 	Then New video feed should get created "<name>"
 Examples: 
       | username        | password   | name                  | account |cameraType|wowzaPort|klvPort|frameRate|feedVideo|
-      | z-autobot@ee.io | Password1@ | QA-Automation-Feed    | staging |  KLV     |1450		|1440   | 25	  |Indago|
+      | z-autobot@ee.io | Password1@ | QA-Automation-Feed    | QA    |  KLV     |1450		|1440   | 25	  |Indago|
 @C86128 @SAC 
 Scenario Outline: Verify user can access canned camera feed in active event
 	Given The STRAX Application login page is open

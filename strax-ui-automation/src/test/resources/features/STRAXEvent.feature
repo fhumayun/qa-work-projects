@@ -225,6 +225,24 @@ Scenario Outline: Verify user can toggle various KLV map layers
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident1 |
+     
+     @test1 @ignore
+  Scenario Outline: Verify user can end the event successfully
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User clicks on the active event "<incidentName>" link to join
+    Then User joins the event successfully
+	And the SAC application loads completely
+	And the User clicks on the settings icon
+    And the Settings Modal appears successfully
+	When the user selects the `End Event` option
+	And the Modal provides a confirmation message
+	And RED END EVENT button is available to select
+	And the User clicks END EVENT
+    Then User should be able to end an active event successfully now
+    Examples: 
+      | username        | password   | incidentName            |
+      | yogi@msys.com | Password1@ | QATest22 				   |
 
   @C44555 @SRM
   Scenario Outline: Verify user can create a new event
@@ -442,7 +460,7 @@ Scenario Outline: Verify play / pause feature works correctly
     Then A new event plan with name "<eventPlan>" should get created successfully
     When User clicks on launch event plan button "<eventPlan>"
     Then New event creation form should load successfully
-    And Enters valid values for the following fields and "<participants>"
+    And Enters valid values for the following fields and "<participants>" to create event from preplan
    	  | Incident    | <incident>    |
    	  | CaseNumber  | <casenumber>  |
       | MissionType | <missionType> |
@@ -454,8 +472,8 @@ Scenario Outline: Verify play / pause feature works correctly
     Then A new event with name "<incident>" should get created successfully 
 
     Examples: 
-      | username          	 | password   | eventPlan                 |incident           			   | missionType     |stream| address                                                       | latitude | longitude | description                           |participants    |
-       | z-controller@ee.io	 | Password1@ | AutomationTestEventPlan1 |AutomationTestEventFromEventPlan1| Search & Rescue |None  | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |Z-EEiUser Z-User|
+      | username          	 | password   | eventPlan                 |incident           			    | missionType     |stream| address                                                       | latitude | longitude | description                           |participants    |
+       | z-controller@ee.io	 | Password1@ | AutomationTestEventPlan11 |AutomationTestEventFromEventPlan1| Search & Rescue |None  | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |Z-EEiUser Z-User|
  @C87059 @SRM
  Scenario Outline: Verify user can not start a mission from a preplan if already assigned to an active event  
     Given The STRAX Application login page is open

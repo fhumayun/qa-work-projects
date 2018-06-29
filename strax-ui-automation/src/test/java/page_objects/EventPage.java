@@ -84,6 +84,61 @@ public class EventPage extends BaseClass {
 			System.out.println("Exception while creating a new event");
 		}
 	}
+	
+	////this method is temporary, this needs refactoring..
+	public void addNewEventFromPrePlan(String incident, String caseNumber, String missionType, String stream, String address,
+			String latitude, String longitude, String description, List<String> participants)
+			throws InterruptedException {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			wait.until(
+					ExpectedConditions.presenceOfElementLocated(By.xpath(prreader.getPropertyvalues("NewEventLabel"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBoxFromPrePlan"))).sendKeys(incident);
+			driver.findElement(By.id(prreader.getPropertyvalues("IncidentNameTextBoxFromPrePlan"))).sendKeys(Keys.ENTER);
+			//driver.findElement(By.id(prreader.getPropertyvalues("CaseNumberTextBox"))).sendKeys(caseNumber);
+			WebElement selectMissionType = driver.findElement(By.id(prreader.getPropertyvalues("MissionTypeList")));
+			selectDropdownOption(selectMissionType, missionType);
+			WebElement selectStream = driver.findElement(By.id(prreader.getPropertyvalues("StreamList")));
+			selectDropdownOption(selectStream, stream);
+			driver.findElement(By.id(prreader.getPropertyvalues("AddressTextBox"))).sendKeys(address);
+			//driver.findElement(By.id(prreader.getPropertyvalues("LatitudeTextBox"))).sendKeys(latitude);
+			//driver.findElement(By.id(prreader.getPropertyvalues("LongitudeTextBox"))).sendKeys(longitude);
+			driver.findElement(By.id(prreader.getPropertyvalues("DescriptionTextBox"))).sendKeys(description);
+			int count = 0;
+			for (String participant : participants) {
+				count++;
+				Pattern whitespace = Pattern.compile("\\s");
+				Matcher matcher = whitespace.matcher(participant);
+				String participantFullName = matcher.replaceAll(", ");
+				if (count == 1) {
+					driver.findElement(By.xpath(prreader.getPropertyvalues("SearchParticipantsButton"))).click();
+				}
+
+				driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox"))).clear();
+				driver.findElement(By.id(prreader.getPropertyvalues("SearchParticipantsTextBox")))
+						.sendKeys(getNameToSearch(participant));
+				Thread.sleep(1000);
+				List<WebElement> participantLinks = driver
+						.findElements(By.xpath(prreader.getPropertyvalues("participantList")));
+				for (WebElement e : participantLinks) {
+
+					String name = e.getText();
+					String[] array1 = name.split("\n");
+					String result = array1[1];
+					if ((result).equals(participantFullName)) {
+						e.click();
+						Thread.sleep(1000);
+						break;
+					}
+				}
+
+			}
+			wait.until(ExpectedConditions.elementToBeClickable(By.id(prreader.getPropertyvalues("EventSaveButton"))));
+			driver.findElement(By.id(prreader.getPropertyvalues("EventSaveButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while creating a new event"+e);
+		}
+	}
 
 	public boolean isAddEventButtonPresent() {
 		boolean state = false;

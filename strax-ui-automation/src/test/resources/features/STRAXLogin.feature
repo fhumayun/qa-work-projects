@@ -70,10 +70,10 @@ Scenario Outline: Verify user permissions to menu items
 
 Examples: valid useremail & password
       | useremail          | password   | menu                                         														|
-      | z-controller@ee.io | Password1@ | Dashboard, Events, IER Alerts, Users, Map Layers, Pipeline                     					|
-      | z-autobot@ee.io    | Password1@ | Dashboard, Events, IER Alerts, Users, UASs, Map Layers, Video Feeds, Video Monitor, Pipeline 		|
-      | z-user@ee.io       | Password1@ | Dashboard, Events, IER Alerts, Pipeline                                      						|
-      | z-viewer@ee.io     | Password1@ | Dashboard, Events, IER Alerts, Pipeline                                    			 		    |
+      | z-controller@ee.io | Password1@ | Toggle Menu, Dashboard, Events, IER Alerts, Users, Map Layers, Pipeline                     					|
+      | z-autobot@ee.io    | Password1@ | Toggle Menu, Dashboard, Events, IER Alerts, Users, UASs, Map Layers, Video Feeds, Video Monitor, Pipeline 		|
+      | z-user@ee.io       | Password1@ | Toggle Menu, Dashboard, Events, IER Alerts, Pipeline                                      						|
+      | z-viewer@ee.io     | Password1@ | Toggle Menu, Dashboard, Events, IER Alerts, Pipeline                                    			 		    |
 
 @C26466 @SRM
 Scenario Outline: Verify user can access account settings menu option
