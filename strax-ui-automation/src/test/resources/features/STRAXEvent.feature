@@ -473,7 +473,7 @@ Scenario Outline: Verify play / pause feature works correctly
 
     Examples: 
       | username          	 | password   | eventPlan                 |incident           			    | missionType     |stream| address                                                       | latitude | longitude | description                           |participants    |
-       | z-controller@ee.io	 | Password1@ | AutomationTestEventPlan11 |AutomationTestEventFromEventPlan1| Search & Rescue |None  | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |Z-EEiUser Z-User|
+       | z-controller@ee.io	 | Password1@ | TestEventPlanFromPrePlan11 |AutomationTestEventFromEventPlan1| Search & Rescue |None  | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |Z-EEiUser Z-User|
  @C87059 @SRM
  Scenario Outline: Verify user can not start a mission from a preplan if already assigned to an active event  
     Given The STRAX Application login page is open
