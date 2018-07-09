@@ -236,7 +236,7 @@ public class UsersPage {
 		String deletedUser = "";
 		try {
 			DatabaseConnection conn = new DatabaseConnection();
-			deletedUser = conn.deleteEvent(user);
+			deletedUser = conn.deleteUser(user);
 		}
 
 		catch (Exception e) {
