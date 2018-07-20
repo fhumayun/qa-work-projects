@@ -171,8 +171,9 @@ public class EventPage extends BaseClass {
 	public boolean getErrorMessage() {
 		boolean state = false;
 		try {
-			if ((driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText()).equals("Not able to create an event while assigned to another")) {
+			if ((driver.findElement(By.xpath(prreader.getPropertyvalues("ConfirmLeaveEventMsg"))).getText()).equals("Event creator is already assigned to an event. Do you want to leave other event?")) {
 				state = true;
+				driver.findElement(By.id(prreader.getPropertyvalues("DialogClose"))).click();
 			} else
 				state = false;
 		} catch (Exception e) {
@@ -1120,6 +1121,15 @@ public class EventPage extends BaseClass {
 	public String  getUsersEditedSuccessMessage() {
 		String msg = driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText();
 		return msg;
+		
+	}
+
+	public void moveChatWindow() throws InterruptedException {
+		Actions action = new Actions(driver);
+		WebElement source = driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackChatWindow")));
+		WebElement target = driver.findElement(By.xpath(prreader.getPropertyvalues("PlaybackMapWindow")));
+		action.dragAndDrop(source, target).build().perform();
+		Thread.sleep(3000);
 		
 	}
 

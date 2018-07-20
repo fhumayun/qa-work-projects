@@ -364,6 +364,18 @@ Scenario Outline: Verify user can toggle various KLV map layers
     Examples: 
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
+  
+    @Chat @PlayBack
+  Scenario Outline: Verify user can relocate chat window in playback
+    Given The STRAX Application login page is open
+    When User Enters Valid "<username>" and "<password>"
+    And User navigates to Event history tab
+    And User search and clicks on the event "<incidentName>" link to playback
+    Then User should be able to relocate chat window
+
+    Examples: 
+      | username        | password   | incidentName            |
+      | yogi@msys.com   | Password1@ | AB Test 7-2 2p          |
  
    @PlayBack @C102697    
 Scenario Outline: Verify user can toggle various map layers in event playback
@@ -486,7 +498,7 @@ Scenario Outline: Verify play / pause feature works correctly
     
     Examples: 
       | username           | password   | eventPlan                |incident						 |
-      | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 |AutomationTestEventFromEventPlan1|
+      | z-controller@ee.io | Password1@ | TestEventPlanFromPrePlan11 |AutomationTestEventFromEventPlan1|
       
   @C46771 @SRM
   Scenario Outline: Verify user can share the event plan
