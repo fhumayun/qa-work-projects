@@ -236,7 +236,7 @@ public class UsersPage {
 		String deletedUser = "";
 		try {
 			DatabaseConnection conn = new DatabaseConnection();
-			deletedUser = conn.deleteUser(user);
+			deletedUser = conn.deleteUser(user.toLowerCase());
 		}
 
 		catch (Exception e) {
