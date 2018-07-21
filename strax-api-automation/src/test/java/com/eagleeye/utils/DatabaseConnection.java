@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -50,6 +52,22 @@ public class DatabaseConnection {
 		}
 		return deletedLoginId;
 
+	}
+	
+	public String getParticipantDocId(String loginId)
+	{
+		BasicDBObject query = new BasicDBObject();
+		query.put("loginId", "yogiraj.ghumade@msystechnologies.com");
+		query.put("_id", "1");
+		MongoCollection<Document>  coll = db.getCollection("participants");
+				//db.getCollection("participants");
+		FindIterable<Document> cursor = coll.find(query);
+
+			System.out.println(cursor);
+
+		//deletedIncident = deleted.getString("incident");
+		return null;
+		
 	}
 	
 	public String getCluster() {

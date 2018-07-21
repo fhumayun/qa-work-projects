@@ -45,11 +45,6 @@
     <artifactId>commons-codec</artifactId>
     <version>1.9</version>
 </dependency>
-    <dependency>
-		<groupId>com.saucelabs</groupId>
-		<artifactId>saucerest</artifactId>
-		<version>1.0.23</version>
-	</dependency>
   	<dependency>
     <groupId>org.mongodb</groupId>
     <artifactId>mongo-java-driver</artifactId>
@@ -81,21 +76,6 @@
     <artifactId>jersey-media-json-jackson</artifactId>
     <version>2.22.1</version>
 </dependency>
-<dependency>
-    <groupId>com.yy</groupId>
-    <artifactId>android-util</artifactId>
-    <version>1.0.2</version>
-</dependency>
-<dependency>
-    <groupId>com.google.android</groupId>
-    <artifactId>support-v4</artifactId>
-    <version>r6</version>
-</dependency>
-    <dependency>
-  <groupId>net.gpedro.integrations.slack</groupId>
-  <artifactId>slack-webhook</artifactId>
-  <version>1.4.0</version>
-</dependency>
         <dependency>
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -115,11 +95,6 @@
     <groupId>commons-codec</groupId>
     <artifactId>commons-codec</artifactId>
     <version>1.11</version>
-</dependency>
-<dependency>
-    <groupId>guru.nidi.raml</groupId>
-    <artifactId>raml-tester</artifactId>
-    <version>0.8.8</version>
 </dependency>
 <dependency>
     <groupId>com.jayway.jsonpath</groupId>

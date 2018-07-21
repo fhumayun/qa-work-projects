@@ -1,6 +1,6 @@
 Feature: STRAX Event functionality
 
-
+@ignore
 Scenario: verify pre-plan event API returns the valid response
 	Given The STRAX pre-plan event API end point is available
 	When User reuests the event plan information with GET method

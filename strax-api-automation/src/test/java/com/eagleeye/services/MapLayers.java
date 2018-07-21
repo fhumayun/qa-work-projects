@@ -8,18 +8,18 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 
-public class PrePlanEvents extends BaseService {
+public class MapLayers extends BaseService {
 	
-	public PrePlanEvents(RequestSpecification requestSpec) throws MalformedURLException
+	public MapLayers(RequestSpecification requestSpec)
 	{
 		this.requestSpec = RestAssured.given().contentType("application/json");
+				
 	}
-	
-	public Response getPrePlanEvents(Map appTicket) throws MalformedURLException
-	{
-		String requestURL = BASEURI+"/api/eventplans";
+
+	public Response getAllMapLayers(Map appTicket) throws MalformedURLException {
+		String requestURL = BASEURI+"/api/gis/maplayers";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		//System.out.println(response.getBody().asString());
+		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 

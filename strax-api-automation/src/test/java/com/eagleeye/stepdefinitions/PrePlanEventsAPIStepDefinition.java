@@ -1,7 +1,7 @@
 package com.eagleeye.stepdefinitions;
 
 import java.net.MalformedURLException;
-
+import java.util.Map;
 import com.eagleeye.services.BaseService;
 import com.eagleeye.services.PrePlanEvents;
 import com.jayway.restassured.response.Response;
@@ -17,10 +17,10 @@ public class PrePlanEventsAPIStepDefinition extends BaseService{
 
 	}
 	@When("^User reuests the event plan information with GET method$")
-	public void getPrePlanEvent() throws MalformedURLException {
+	public void getPrePlanEvent(Map appTicket) throws MalformedURLException {
 
 		PrePlanEvents pevents = new PrePlanEvents(requestSpec);
-		res = pevents.getPrePlanEvents();
+		res = pevents.getPrePlanEvents(appTicket);
 	}
 	@Then("^The pre-plan event API should return valid response and status as 200$")
 	public void verifyResponse() throws MalformedURLException {

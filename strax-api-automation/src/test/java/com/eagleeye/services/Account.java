@@ -1,6 +1,7 @@
 package com.eagleeye.services;
 
 import java.net.MalformedURLException;
+import java.util.Map;
 
 import com.eagleeye.utils.DatabaseConnection;
 import com.eagleeye.utils.PropertiesFileReader;
@@ -18,10 +19,10 @@ public class Account extends BaseService{
 	    prreader = new PropertiesFileReader();
 	}
 	
-	public Response getAccount() throws MalformedURLException
+	public Response getAccount(Map appTicket) throws MalformedURLException
 	{
 		String requestURL = BASEURI+"/api/accounts";
-		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,getHawkId(requestURL,"GET")).given().get(requestURL);
+		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
 		//System.out.println(response.getBody().asString());
 		return response;
 	}

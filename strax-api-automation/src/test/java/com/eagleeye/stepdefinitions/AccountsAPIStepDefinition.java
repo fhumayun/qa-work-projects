@@ -1,12 +1,10 @@
 package com.eagleeye.stepdefinitions;
 
 import java.net.MalformedURLException;
-
+import java.util.Map;
 import com.eagleeye.services.Account;
 import com.eagleeye.services.BaseService;
-import com.eagleeye.utils.DatabaseConnection;
 import com.jayway.restassured.response.Response;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,17 +18,17 @@ public class AccountsAPIStepDefinition extends BaseService{
 
 	}
 	@When("^User reuests the accounts information with GET method$")
-	public void getAccountAPI() throws MalformedURLException {
+	public void getAccountAPI(Map appTicket) throws MalformedURLException {
 
 		Account acc = new Account(requestSpec);
-		res = acc.getAccount();
+		res = acc.getAccount(appTicket);
 	}
 	@Then("^The API should return valid response and status as 200$")
 	public void verifyResponse() throws MalformedURLException {
 		res.then().statusCode(200);
 		res.getBody().asString();
-		DatabaseConnection conn =  new DatabaseConnection();
-		conn.getAccount();
+		//DatabaseConnection conn =  new DatabaseConnection();
+		//conn.getAccount();
 	}
 
 }
