@@ -150,6 +150,7 @@ public class STRAXUsersStepDefinition {
 	}
 	@And("^Clean up test user \"([^\"]*)\"$")
 	public void Clean_up_test_user(String user) {
+		user = user.toLowerCase();
 		Assert.assertEquals(user, uPage.deleteUserFromDB(user));
 
 	}

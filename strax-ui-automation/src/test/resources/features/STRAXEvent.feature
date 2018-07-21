@@ -365,7 +365,7 @@ Scenario Outline: Verify user can toggle various KLV map layers
       | username        | password   | incidentName            |
       | z-autobot@ee.io | Password1@ | AutomationTestIncident2 |
   
-    @Chat @PlayBack
+    @Chat @PlayBack @ignore
   Scenario Outline: Verify user can relocate chat window in playback
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
