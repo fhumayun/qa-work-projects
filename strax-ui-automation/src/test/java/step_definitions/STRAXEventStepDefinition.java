@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -14,17 +15,20 @@ import page_objects.BaseClass;
 import page_objects.CommonClass;
 import page_objects.DashboardPage;
 import page_objects.EventPage;
+import utils.PropertiesFileReader;
 
 public class STRAXEventStepDefinition {
 
 	private BaseClass base;
 	EventPage eventPage;
 	DashboardPage dPage;
+	static PropertiesFileReader prreader;
 
 	public STRAXEventStepDefinition(BaseClass base) {
 		this.base = base;
 		eventPage = new EventPage(base.driver);
 		dPage = new DashboardPage(base.driver);
+		prreader = new PropertiesFileReader();
 	}
 
 	@Then("^User should have access to create a new event$")
@@ -64,6 +68,15 @@ public class STRAXEventStepDefinition {
 			Map<String, String> tableData) throws InterruptedException {
 
 		eventPage.addNewEvent(tableData.get("Incident"), tableData.get("CaseNumber"), tableData.get("MissionType"),
+				tableData.get("Stream"), tableData.get("Address"), tableData.get("Latitude"),
+				tableData.get("Longitude"), tableData.get("Description"), participantList);
+
+	}
+	@And("^Enters valid values for the following fields and \"([^\"]*)\" to create event from preplan$")
+	public void Enters_valid_values_for_the_following_fields_to_create_event_from_preplan(List<String> participantList,
+			Map<String, String> tableData) throws InterruptedException {
+
+		eventPage.addNewEventFromPrePlan(tableData.get("Incident"), tableData.get("CaseNumber"), tableData.get("MissionType"),
 				tableData.get("Stream"), tableData.get("Address"), tableData.get("Latitude"),
 				tableData.get("Longitude"), tableData.get("Description"), participantList);
 
@@ -154,6 +167,13 @@ public class STRAXEventStepDefinition {
 	@Then("^User should be able to playback \"([^\"]*)\" event$")
 	public void User_should_be_able_to_playback_that_event(String incident) throws InterruptedException {
 		Assert.assertEquals(true, eventPage.verifyEvenPlaybackSuccess());
+		eventPage.closeMapFromPlayback();
+
+	}
+	@Then("^User should be able to relocate chat window$")
+	public void User_should_be_able_to_relocate_chat_window() throws InterruptedException {
+		//Assert.assertEquals(true, eventPage.verifyEvenPlaybackSuccess());
+		eventPage.moveChatWindow();
 		eventPage.closeMapFromPlayback();
 
 	}
@@ -491,6 +511,41 @@ public class STRAXEventStepDefinition {
 		eventPage.selectMapLayer(mapLayer);
 		eventPage.closeSACSettings();
 		eventPage.closeMap();
+	}
+	
+	@And("^the SAC application loads completely$")
+	public void the_SAC_application_loads_completely() throws InterruptedException {
+		eventPage.isGoogleMapLoaded();
+	}
+	@And("^the User clicks on the settings icon$")
+	public void the_User_clicks_on_the_settings_icon() throws InterruptedException {
+		base.driver.findElement(By.xpath(prreader.getPropertyvalues("ConfigMapButtonNew"))).click();
+	}
+	@Then("^the Settings Modal appears successfully$")
+	public void the_Settings_Modal_appears_successfully() throws InterruptedException {
+		String s1=base.driver.findElement(By.xpath("//h2[text()='Settings']")).getText();
+		System.out.println(s1);
+		Assert.assertTrue((s1.equals("Settings")));
+	}
+	@And("^the user selects the `End Event` option$")
+	public void the_user_selects_the_End_Event_option() throws InterruptedException {
+		base.driver.findElement(By.xpath(prreader.getPropertyvalues("EndEventTab"))).click();
+	}
+	@Then("^the Modal provides a confirmation message")
+	public void the_Modal_provides_a_confirmation_message() throws InterruptedException { 
+		Assert.assertTrue(base.driver.findElement(By.xpath("//p[text()='Would you like to end the event?']")).getText().equals("Would you like to end the event?"));
+	}
+	@And("^RED END EVENT button is available to select$")
+	public void RED_END_EVENT_button_is_available_to_select() throws InterruptedException {
+		Assert.assertTrue(base.driver.findElement(By.id("end-event__button")).isDisplayed());
+	}
+	@Then("^the User clicks END EVENT$")
+	public void the_User_clicks_END_EVENT() throws InterruptedException {
+		base.driver.findElement(By.id("end-event__button")).click();
+	}
+	@Then("^User should be able to end an active event successfully now$")
+	public void User_should_be_able_to_end_an_active_event() throws InterruptedException {
+		
 	}
 
 }

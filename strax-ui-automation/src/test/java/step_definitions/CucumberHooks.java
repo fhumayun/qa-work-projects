@@ -7,14 +7,13 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONException;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import page_objects.BaseClass;
-import page_objects.CommonClass;
 import page_objects.DashboardPage;
 import utils.APIException;
 import utils.PropertiesFileReader;
@@ -29,8 +28,6 @@ public class CucumberHooks extends BaseClass {
 		this.base = base;
 
 	}
-
-	static DesiredCapabilities capabilities;
 	public String jobName;
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
@@ -46,25 +43,26 @@ public class CucumberHooks extends BaseClass {
 	public void setUp(Scenario scenario) throws MalformedURLException {
 
 		// reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
-		  capabilities = DesiredCapabilities.chrome();
-		  capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-		  capabilities.setCapability(CapabilityType.PLATFORM_NAME,System.getenv("SELENIUM_PLATFORM"));
-		  capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
-		 
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability(CapabilityType.BROWSER_NAME, System.getenv("SELENIUM_BROWSER"));
+		options.setCapability(CapabilityType.PLATFORM_NAME, System.getenv("SELENIUM_PLATFORM"));
+		options.setCapability(CapabilityType.VERSION, System.getenv("SELENIUM_VERSION"));
+	 
 
 		// uncomment to read the browser,platform values from config file
 /*		System.setProperty("webdriver.chrome.driver","C:\\Users\\msys\\Desktop\\Driver");
-		 capabilities.setBrowserName(prreader.getPropertyvalues("SELENIUM_BROWSER"));
-		 capabilities.setCapability(CapabilityType.PLATFORM,prreader.getPropertyvalues("SELENIUM_PLATFORM"));
-		 capabilities.setVersion(prreader.getPropertyvalues("SELENIUM_VERSION"));*/
+		options.setCapability(CapabilityType.BROWSER_NAME, prreader.getPropertyvalues("SELENIUM_BROWSER"));
+		options.setCapability(CapabilityType.PLATFORM_NAME, prreader.getPropertyvalues("SELENIUM_PLATFORM"));
+		options.setCapability(CapabilityType.VERSION, prreader.getPropertyvalues("SELENIUM_VERSION"));*/
 		jobName = scenario.getName();
-		capabilities.setCapability("name", jobName);
-		base.driver = new RemoteWebDriver(new URL(URL), capabilities);
+		options.setCapability("name", jobName);
+
+		base.driver = new RemoteWebDriver(new URL(URL), options);
 
 		// ******* comment the above line and uncomment the below line if you want to
 		// use the selenium grid, replace with correct hub URL*********
 
-		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capabilities);
+		//base.driver = new RemoteWebDriver(new URL("http://192.168.0.103:4444/wd/hub"), options);
 
 		base.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
@@ -77,8 +75,6 @@ public class CucumberHooks extends BaseClass {
 	@After
 	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException, InterruptedException {
 		scenarioTotalCount = scenarioTotalCount + 1;
-
-		CommonClass cClass = new CommonClass(base.driver);
 		DashboardPage dPage = new DashboardPage(base.driver);
 		////// Test coverage percentage code starts
 		Collection<String> tags = scenario.getSourceTagNames();
@@ -99,7 +95,7 @@ public class CucumberHooks extends BaseClass {
 				pbPassCount = pbPassCount + 1;
 			}
 		}
-
+		
 		///// Test coverage percentage code ends
 		Collection<String> tagnames = scenario.getSourceTagNames();
 		if (tagnames.contains("@NoLogout")) {
@@ -111,8 +107,8 @@ public class CucumberHooks extends BaseClass {
 			base.driver.quit();
 		}
 
-		 SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),sessionId, jobName);
-		 testresult.uploadResult(scenario);
+		SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),sessionId, jobName);
+		testresult.uploadResult(scenario);
 	}
 
 }
