@@ -47,7 +47,6 @@ public class CucumberHooks extends BaseClass {
 		options.setCapability(CapabilityType.BROWSER_NAME, System.getenv("SELENIUM_BROWSER"));
 		options.setCapability(CapabilityType.PLATFORM_NAME, System.getenv("SELENIUM_PLATFORM"));
 		options.setCapability(CapabilityType.VERSION, System.getenv("SELENIUM_VERSION"));
-		options.setHeadless(true);
 	 
 
 		// uncomment to read the browser,platform values from config file
