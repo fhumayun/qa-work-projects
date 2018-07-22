@@ -53,9 +53,10 @@ public class Participants extends BaseService {
 
 	public Response getSingleParticipant(Map appTicket,String loginId) throws MalformedURLException {
 		
-		String requestURL = BASEURI+"/api/participants/59c37cd7efabe50001795b20";
+		
 		DatabaseConnection con = new DatabaseConnection();
-		con.getParticipantDocId(loginId);
+		String docId = con.getParticipantDocId(loginId);
+		String requestURL = BASEURI+"/api/participants/"+docId;
         Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL);
 		System.out.println("Response from the API end point : "+response.getBody().asString());

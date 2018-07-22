@@ -7,6 +7,11 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import com.eagleeye.utils.PropertiesFileReader;
+import com.google.common.net.HttpHeaders;
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.config.EncoderConfig;
+import com.jayway.restassured.path.json.JsonPath;
+import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -30,20 +35,18 @@ public class AppTicket {
 		 Map<?,?> map1=null; 
 	    	try {
 	        String payload= "{\"username\":\""+userName+"\",\"password\":\""+password+"\",\"applnName\":\"STRAX APP AngularJS\",\"applnType\":\"Web Application\",\"fingerprint\":\"74681325572dc861723eff28c006a55f\",\"fpData\":[]}";
-	        Client restClient = Client.create();
-	        WebResource request = restClient.resource(BASEURI+"/api/login");
+	        String requestURL = BASEURI+"/api/login";
 	        JSONParser parser = new JSONParser();
-	        JSONObject jo = (JSONObject) parser.parse(payload);
-	        ClientResponse response2  = request.header("Content-Type", "application/json").post(ClientResponse.class, jo);
-	        response2.bufferEntity();
-	        JSONObject json = response2.getEntity(JSONObject.class);
-	        map1 = (HashMap<?, ?>) json.get("appTicket");
-	        //AppTicket appTicket = (AppTicket) json.get("appTicket");
-	  /*      app = (String) map1.get("app");
-	        key = (String) map1.get("key");
-	        algorithm =  (String) map1.get("algorithm");
-	        id =(String) map1.get("id");*/
-	        
+	        JSONObject obj = (JSONObject) parser.parse(payload);
+	        RequestSpecification requestSpec = RestAssured.given().contentType("application/json");     
+	        requestSpec.header("Content-Type", "application/json");
+	        EncoderConfig ec = new EncoderConfig();
+	        Response response =  requestSpec.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+    		.contentType("application/json").body(obj).post(requestURL);
+	        String jsonAsString = response.getBody().asString();
+	       JSONObject object =  (JSONObject) parser.parse(jsonAsString);
+	       map1 = (HashMap<?, ?>) object.get("appTicket");
+        
 	    	}
 	    	catch(Exception e)
 	    	{

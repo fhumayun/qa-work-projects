@@ -21,8 +21,8 @@ Scenario Outline: verify GET single participant API works correctly
 	When User request single participant "<loginId>" with GET method with valid participantDocId
 	Then The participant API should return single participant details and return status code as 200
 			Examples: valid username/password combination
-      | username           | password   |loginId        |
-      | yogi@msys.com | Password1@      |z-apitest@ee.io|
+      | username           | password        |loginId        |
+      | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
 	
 	@ignore
 Scenario Outline: verify unlock participant API works correctly
