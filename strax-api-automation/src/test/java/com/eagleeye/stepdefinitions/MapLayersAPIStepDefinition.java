@@ -23,11 +23,17 @@ public class MapLayersAPIStepDefinition extends BaseService{
 		System.out.println("in step definition");
 
 	}
-	@When("^User reuests the map layers information with GET method$")
+	@When("^User request the map layers information with GET method$")
 	public void getAccountAPI() throws MalformedURLException {
 
 		MapLayers layer = new MapLayers(requestSpec);
 		res = layer.getAllMapLayers(appTicket);
+	}
+	@When("^User request all the gis icons with GET method$")
+	public void getIcons() throws MalformedURLException {
+
+		MapLayers layer = new MapLayers(requestSpec);
+		res = layer.getAllIcons(appTicket);
 	}
 	@Then("^The map layer API should return valid response and status as 200$")
 	public void verifyResponse() throws MalformedURLException {
@@ -35,6 +41,12 @@ public class MapLayersAPIStepDefinition extends BaseService{
 		res.getBody().asString();
 		//DatabaseConnection conn =  new DatabaseConnection();
 		//conn.getAccount();
+	}
+	@When("^User request to create a new map layers with POST method$")
+	public void createMapLayerAPI() throws MalformedURLException {
+
+		MapLayers layer = new MapLayers(requestSpec);
+		res = layer.createMapLayers(appTicket);
 	}
 
 }

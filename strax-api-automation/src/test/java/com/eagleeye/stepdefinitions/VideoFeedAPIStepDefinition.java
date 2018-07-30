@@ -23,13 +23,19 @@ public class VideoFeedAPIStepDefinition extends BaseService{
 		System.out.println("in step definition");
 
 	}
-	@When("^User reuests the video feed information with GET method$")
+	@When("^User request the video feed information with GET method$")
 	public void getVideoFeedAPI() throws MalformedURLException {
 
 		VideoFeed feed = new VideoFeed(requestSpec);
 		res = feed.getAllVideoFeeds(appTicket);
 	}
-	@Then("^The video feed API should return valid response and status as 200$")
+	@When("^User request the video feed from mobile information with GET method$")
+	public void getTelemetryAPI() throws MalformedURLException {
+
+		VideoFeed feed = new VideoFeed(requestSpec);
+		res = feed.getMobileFeed(appTicket);
+	}
+	@Then("^The media API should return valid response and status as 200$")
 	public void verifyResponse() throws MalformedURLException {
 		res.then().statusCode(200);
 		res.getBody().asString();

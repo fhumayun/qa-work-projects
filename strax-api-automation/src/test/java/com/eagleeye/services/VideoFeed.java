@@ -23,4 +23,11 @@ public class VideoFeed extends BaseService {
 		return response;
 	}
 
+	public Response getMobileFeed(Map appTicket) throws MalformedURLException {
+		String requestURL = BASEURI+"/api/media/videofeed/mobile";
+		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
+		System.out.println("Response from the API end point : "+response.getBody().asString());
+		return response;
+	}
+
 }

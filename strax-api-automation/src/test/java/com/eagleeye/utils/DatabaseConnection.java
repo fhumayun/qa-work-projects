@@ -57,7 +57,7 @@ public class DatabaseConnection {
 	public String getParticipantDocId(String loginId)
 	{
 		BasicDBObject query = new BasicDBObject();
-		query.put("loginId", "yogiraj.ghumade@msystechnologies.com");
+		query.put("loginId", loginId);
 		query.put("_id", "1");
 		MongoCollection<Document>  coll = db.getCollection("participants");
 				//db.getCollection("participants");

@@ -31,7 +31,6 @@ public class ParticipantsAPIStepDefinition extends BaseService{
 	@Given("^The STRAX API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
-		System.out.println("in step definition"+appTicket);
 
 	}
 	@When("^User requests the create new participant with POST method with valid data$")
@@ -45,18 +44,17 @@ public class ParticipantsAPIStepDefinition extends BaseService{
 		res.then().statusCode(200);
 		res.getBody().asString();
 	}
-	@When("^User reuests the unlock a participant with POST method with valid participantDocId$")
-	public void unlockParticipantAPI(Map appTicket) throws MalformedURLException, ParseException {
+	@When("^User reuests the unlock a participant \"([^\"]*)\" with POST method with valid participantDocId$")
+	public void unlockParticipantAPI(String loginId) throws MalformedURLException, ParseException {
 
 		//Participants ps = new Participants(requestSpec);
-		res = ps.unlockParticipant(appTicket);
+		res = ps.unlockParticipant(appTicket,loginId);
 	}
 	@Then("^The participant should get unlocked and return status code as 200$")
 	public void verifyUnlockResponse() throws MalformedURLException {
 		res.then().statusCode(200);
 		res.getBody().asString();
 	}
-
 @When("^User request single participant \"([^\"]*)\" with GET method with valid participantDocId$")
 public void getSingleParticipantAPI(String loginId) throws MalformedURLException, ParseException {
 
@@ -68,33 +66,32 @@ public void verifyGetParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
 	res.getBody().asString();
 }
-@When("^User deletes a participant with DELETE method with valid participantDocId$")
-public void deleteParticipantAPI(Map appTicket) throws MalformedURLException, ParseException {
+@When("^User deletes a participant \"([^\"]*)\" with DELETE method with valid participantDocId$")
+public void deleteParticipantAPI(String loginId) throws MalformedURLException, ParseException {
 
-	//Participants ps = new Participants(requestSpec);
-	res = ps.deleteParticipant(appTicket);
+	res = ps.deleteParticipant(appTicket,loginId);
 }
 @Then("^The participant should get deleted and return status code as 200$")
 public void verifyDeleteParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
 	res.getBody().asString();
 }
-@When("^User updates participant details with PUT method with valid data$")
-public void updateParticipantAPI(Map appTicket) throws MalformedURLException, ParseException {
+@When("^User updates participant \"([^\"]*)\" details with PUT method with valid data$")
+public void updateParticipantAPI(String loginId) throws MalformedURLException, ParseException {
 
 	//Participants ps = new Participants(requestSpec);
-	res = ps.updateParticipant(appTicket);
+	res = ps.updateParticipant(appTicket,loginId);
 }
 @Then("^The participant details should get updated successfully and return status code as 200$")
 public void verifyUpdateParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
 	res.getBody().asString();
 }
-@When("^User change password of a participant with POST method$")
-public void changePasswordAPI(Map appTicket) throws MalformedURLException, ParseException {
+@When("^User change password of a participant \"([^\"]*)\" with POST method$")
+public void changePasswordAPI(String loginId) throws MalformedURLException, ParseException {
 
 	//Participants ps = new Participants(requestSpec);
-	res = ps.changePassword(appTicket);
+	res = ps.changePassword(appTicket,loginId);
 }
 @Then("^The password should get changed successfully and return status code as 200$")
 public void verifyChangePasswordResponse() throws MalformedURLException {

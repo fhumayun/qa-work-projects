@@ -1,30 +1,46 @@
 Feature: STRAX Cluster API
 
-@Cluster @ignore
+@Cluster 
 Scenario Outline: verify GET cluster API returns the valid response
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User request the events information with GET method
 	Then The cluster API should return all available clusters in response and return status code as 200
 				Examples: valid username/password combination
       | username           | password   |
-      | yogi@msys.com | Password1@ |
- @Cluster @ignore
+      | z-autobot@ee.io | Password1@ |
+ @Cluster
 Scenario Outline: verify POST cluster API successfully creates a cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
-	When User sends json input to create a new cluster with POST method
-	Then The cluster API should return all available clusters in response and return status code as 200
+	When User requests the create new cluster with POST method with valid data
+	Then The cluster API should create a new cluster and return status as 200
 				Examples: valid username/password combination
-      | username           | password   |fileName|
-      | z-autobot@ee.io    | Password1@ ||
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+ @Cluster
+Scenario Outline: verify PUT cluster API successfully updates a cluster
+	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
+	When User requests to update an existing cluster "<eventName>" with PUT method with valid data
+	Then The cluster API should update the cluster and return status as 200
+				Examples: valid username/password combination
+      | username           | password   |eventName|
+      | z-autobot@ee.io    | Password1@ |EventFromAPI1|
+ @Cluster @ignore
+Scenario Outline: verify join active event API works correctly
+	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
+	When User"<participant>" requests the join cluster "<eventName>" with POST method with valid data
+	Then The join event API should add a participant to active event and return status as 200
+				Examples: valid username/password combination
+      | username           | password   |eventName		|
+      | z-autobot@ee.io    | Password1@ |EventFromAPI1|
 	
-@Cluster @ignore
+@Cluster
 Scenario Outline: verify delete cluster API deletes the given cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
-	When User deletes the events with DELETE method
+	When User deletes the events "<eventName>" with DELETE method
 	Then The delete cluster API should delete the cluster and return status code as 200
 					Examples: valid username/password combination
-      | username           | password   |
-      | yogi@msys.com | Password1@ |
+      | username         	   | password   |eventName		|
+      | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
 	
 @IER  @ignore
 Scenario Outline: verify IER Alert Escalation API send event ID if user already assigned

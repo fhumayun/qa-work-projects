@@ -16,7 +16,7 @@ import cucumber.api.java.en.When;
 public class ClustersAPIStepDefinition extends BaseService{
 	public Response res;
 	Map appTicket;
-	
+	Cluster cl = new Cluster(requestSpec);
 	@Given("^The STRAX Cluster API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
@@ -29,9 +29,9 @@ public class ClustersAPIStepDefinition extends BaseService{
 
 	}
 	@When("^User request the events information with GET method$")
-	public void getAccountAPI() throws MalformedURLException {
+	public void getAllClusterAPI() throws MalformedURLException {
 
-		Cluster cl = new Cluster(requestSpec);
+
 		res = cl.getCluster(appTicket);
 	}
 	@Then("^The cluster API should return all available clusters in response and return status code as 200$")
@@ -41,11 +41,24 @@ public class ClustersAPIStepDefinition extends BaseService{
 		//DatabaseConnection conn =  new DatabaseConnection();
 		//conn.getAccount();
 	}
-	@When("^User deletes the events with DELETE method$")
-	public void deleteClusterAPI() throws MalformedURLException {
+	@When("^User requests the create new cluster with POST method with valid data$")
+	public void createClusterAPI() throws MalformedURLException, ParseException {
 
-		Cluster cl = new Cluster(requestSpec);
-		res = cl.deleteCluster(appTicket);
+
+		res = cl.createCluster(appTicket);
+	}
+	@Then("^The cluster API should create a new cluster and return status as 200$")
+	public void verifyCreateResponse() throws MalformedURLException {
+		res.then().statusCode(201);
+		res.getBody().asString();
+		//DatabaseConnection conn =  new DatabaseConnection();
+		//conn.getAccount();
+	}
+	@When("^User deletes the events \"([^\"]*)\" with DELETE method$")
+	public void deleteClusterAPI(String eventName) throws MalformedURLException, ParseException {
+
+
+		res = cl.deleteCluster(appTicket,eventName);
 	}
 	@Then("^The delete cluster API should delete the cluster and return status code as 200$")
 	public void verifyDeleteResponse() throws MalformedURLException {
@@ -73,7 +86,7 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@When("^User reuests chat with GET method$")
 	public void getChat() throws MalformedURLException, ParseException {
 
-		Cluster cl = new Cluster(requestSpec);
+
 		res = cl.getChatMsg(appTicket);
 	}
 	@Then("^The chat API should return all chat messages and return status code as 200$")
@@ -86,11 +99,37 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@When("^User reuests event plan details with GET method$")
 	public void getEventPlan() throws MalformedURLException, ParseException {
 
-		Cluster cl = new Cluster(requestSpec);
+
 		res = cl.getEventPlans(appTicket);
 	}
 	@Then("^The event plan API should return all available event plans and return status code as 200$")
 	public void verifyEventPlanResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+		res.getBody().asString();
+		System.out.println("Status code returned is  : "+res.getStatusCode());
+
+	}
+	@When("^User\"([^\"]*)\" requests the join cluster \"([^\"]*)\" with POST method with valid data$")
+	public void joinEvent(String event,String participant) throws MalformedURLException, ParseException {
+
+
+		res = cl.joinEvent(appTicket,event,participant);
+	}
+	@Then("^The join event API should add a participant to active event and return status as 200$")
+	public void verifyEventJoinResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+		res.getBody().asString();
+		System.out.println("Status code returned is  : "+res.getStatusCode());
+
+	}
+	@When("^User requests to update an existing cluster \"([^\"]*)\" with PUT method with valid data$")
+	public void updateEvent(String eventName) throws MalformedURLException, ParseException {
+
+
+		res = cl.updateEvent(appTicket,eventName);
+	}
+	@Then("^The cluster API should update the cluster and return status as 200$")
+	public void verifyEventUpdateResponse() throws MalformedURLException {
 		res.then().statusCode(200);
 		res.getBody().asString();
 		System.out.println("Status code returned is  : "+res.getStatusCode());

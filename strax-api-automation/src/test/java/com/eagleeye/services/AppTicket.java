@@ -56,8 +56,6 @@ public class AppTicket {
 	    }
 		
 		public static String getHawkId(String requestUrl, String requestMethod,Map<?,?> map1) throws MalformedURLException {
-	       	// getAppTicket(userName,password);
-			System.out.println("in hawk ID method...");
 			app = (String) map1.get("app");
 	         HawkCredentials hawkCredentials = new HawkCredentials.Builder()
 	                 .keyId((String) map1.get("id"))
@@ -68,7 +66,6 @@ public class AppTicket {
 	         HawkClient hawkClient = new HawkClient.Builder().credentials(hawkCredentials).build();
 	         String hawkId = hawkClient.generateAuthorizationHeader(URI.create(requestUrl),requestMethod,null,null,app,null);
 	         hawkId = hawkId + ", app=\"" + app + "\"";
-	         System.out.println(hawkId);
 	         return hawkId;
 	     }
 
