@@ -1,0 +1,5 @@
+<aspectj>
+    <weaver>
+        <include within="src/test/resources/features..*"/>
+    </weaver>
+</aspectj>
