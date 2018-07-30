@@ -1,5 +1,7 @@
 <aspectj>
     <weaver>
+        <include within="io.qameta..*"/>
+        <include within="org.junit..*"/>
         <include within="src/test/resources/features..*"/>
     </weaver>
 </aspectj>
