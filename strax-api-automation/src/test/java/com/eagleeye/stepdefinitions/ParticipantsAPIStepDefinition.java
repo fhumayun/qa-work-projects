@@ -42,7 +42,6 @@ public class ParticipantsAPIStepDefinition extends BaseService{
 	@Then("^The new participant should get created and return status code as 200$")
 	public void verifyResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
 	}
 	@When("^User reuests the unlock a participant \"([^\"]*)\" with POST method with valid participantDocId$")
 	public void unlockParticipantAPI(String loginId) throws MalformedURLException, ParseException {
@@ -53,7 +52,6 @@ public class ParticipantsAPIStepDefinition extends BaseService{
 	@Then("^The participant should get unlocked and return status code as 200$")
 	public void verifyUnlockResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
 	}
 @When("^User request single participant \"([^\"]*)\" with GET method with valid participantDocId$")
 public void getSingleParticipantAPI(String loginId) throws MalformedURLException, ParseException {
@@ -64,7 +62,6 @@ public void getSingleParticipantAPI(String loginId) throws MalformedURLException
 @Then("^The participant API should return single participant details and return status code as 200$")
 public void verifyGetParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
-	res.getBody().asString();
 }
 @When("^User deletes a participant \"([^\"]*)\" with DELETE method with valid participantDocId$")
 public void deleteParticipantAPI(String loginId) throws MalformedURLException, ParseException {
@@ -74,7 +71,6 @@ public void deleteParticipantAPI(String loginId) throws MalformedURLException, P
 @Then("^The participant should get deleted and return status code as 200$")
 public void verifyDeleteParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
-	res.getBody().asString();
 }
 @When("^User updates participant \"([^\"]*)\" details with PUT method with valid data$")
 public void updateParticipantAPI(String loginId) throws MalformedURLException, ParseException {
@@ -85,7 +81,6 @@ public void updateParticipantAPI(String loginId) throws MalformedURLException, P
 @Then("^The participant details should get updated successfully and return status code as 200$")
 public void verifyUpdateParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
-	res.getBody().asString();
 }
 @When("^User change password of a participant \"([^\"]*)\" with POST method$")
 public void changePasswordAPI(String loginId) throws MalformedURLException, ParseException {
@@ -96,6 +91,5 @@ public void changePasswordAPI(String loginId) throws MalformedURLException, Pars
 @Then("^The password should get changed successfully and return status code as 200$")
 public void verifyChangePasswordResponse() throws MalformedURLException {
 	res.then().statusCode(200);
-	res.getBody().asString();
 }
 }

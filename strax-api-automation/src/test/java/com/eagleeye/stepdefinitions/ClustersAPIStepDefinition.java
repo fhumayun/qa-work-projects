@@ -37,9 +37,6 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The cluster API should return all available clusters in response and return status code as 200$")
 	public void verifyResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		//DatabaseConnection conn =  new DatabaseConnection();
-		//conn.getAccount();
 	}
 	@When("^User requests the create new cluster with POST method with valid data$")
 	public void createClusterAPI() throws MalformedURLException, ParseException {
@@ -50,9 +47,6 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The cluster API should create a new cluster and return status as 200$")
 	public void verifyCreateResponse() throws MalformedURLException {
 		res.then().statusCode(201);
-		res.getBody().asString();
-		//DatabaseConnection conn =  new DatabaseConnection();
-		//conn.getAccount();
 	}
 	@When("^User deletes the events \"([^\"]*)\" with DELETE method$")
 	public void deleteClusterAPI(String eventName) throws MalformedURLException, ParseException {
@@ -63,25 +57,16 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The delete cluster API should delete the cluster and return status code as 200$")
 	public void verifyDeleteResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		//DatabaseConnection conn =  new DatabaseConnection();
-		//conn.getAccount();
 	}
 	@When("^User escalate an IER to active event when user is already assigned to an active event$")
 	public void escalateIERAPI() throws MalformedURLException, ParseException {
 
-		//Cluster cl = new Cluster(requestSpec);
-		//res = cl.escalateIER();
 		Participants p = new Participants(requestSpec);
 		res = p.createParticipants(appTicket);
 	}
 	@Then("^the API should return status code as 500$")
 	public void verifyIEREscalateResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		System.out.println("Status code returned is  : "+res.getStatusCode());
-		//DatabaseConnection conn =  new DatabaseConnection();
-		//conn.getAccount();
 	}
 	@When("^User reuests chat with GET method$")
 	public void getChat() throws MalformedURLException, ParseException {
@@ -92,9 +77,6 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The chat API should return all chat messages and return status code as 200$")
 	public void verifyChateResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		System.out.println("Status code returned is  : "+res.getStatusCode());
-
 	}
 	@When("^User reuests event plan details with GET method$")
 	public void getEventPlan() throws MalformedURLException, ParseException {
@@ -105,8 +87,6 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The event plan API should return all available event plans and return status code as 200$")
 	public void verifyEventPlanResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		System.out.println("Status code returned is  : "+res.getStatusCode());
 
 	}
 	@When("^User\"([^\"]*)\" requests the join cluster \"([^\"]*)\" with POST method with valid data$")
@@ -118,8 +98,6 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The join event API should add a participant to active event and return status as 200$")
 	public void verifyEventJoinResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		System.out.println("Status code returned is  : "+res.getStatusCode());
 
 	}
 	@When("^User requests to update an existing cluster \"([^\"]*)\" with PUT method with valid data$")
@@ -131,9 +109,6 @@ public class ClustersAPIStepDefinition extends BaseService{
 	@Then("^The cluster API should update the cluster and return status as 200$")
 	public void verifyEventUpdateResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		res.getBody().asString();
-		System.out.println("Status code returned is  : "+res.getStatusCode());
-
 	}
 
 }

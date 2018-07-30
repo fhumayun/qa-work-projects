@@ -33,7 +33,6 @@ public class Cluster extends BaseService {
 	{
 		String requestURL = BASEURI+"/api/clusters";
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 	
@@ -46,7 +45,6 @@ public class Cluster extends BaseService {
 		String deletRequestURL = BASEURI+"/api/clusters/"+clusterDocId;
 		 requestSpec = RestAssured.given().contentType("application/json");
 		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deletRequestURL,"DELETE",appTicket)).given().contentType("application/json").delete(deletRequestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
@@ -79,15 +77,13 @@ public class Cluster extends BaseService {
         response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(addMediaURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj1).post(addMediaURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
-		return response;
+				return response;
 	}
 
 	public Response getChatMsg(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI+"/api/mq/messages/clusters/5b4dedaec2556e3ea745a2fd/chats";
 		
         Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().contentType("application/json").get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
@@ -95,7 +91,6 @@ public class Cluster extends BaseService {
 		String requestURL = BASEURI+"/api/eventplans";
 		
         response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().contentType("application/json").get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
@@ -112,8 +107,7 @@ public class Cluster extends BaseService {
 	       response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(joinEventURL,"POST",appTicket))
 	        		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
 	        		.contentType("application/json").body(obj).post(joinEventURL);
-	       System.out.println(response.getBody().asString());
-		return response;
+	       		return response;
 	}
 
 	public Response updateEvent(Map appTicket, String eventName) throws MalformedURLException, ParseException {
@@ -128,8 +122,7 @@ public class Cluster extends BaseService {
         response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"PUT",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).put(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
-		return response;
+				return response;
 	}
 
 }

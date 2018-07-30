@@ -36,8 +36,7 @@ public class Participants extends BaseService {
         response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
-		participantDocId = parser.getPropertyValue(response, "_id");
+				participantDocId = parser.getPropertyValue(response, "_id");
 		System.gc();
 		return response;
 	}
@@ -67,8 +66,7 @@ public class Participants extends BaseService {
         requestSpec = RestAssured.given().contentType("application/json");
         response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL1,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL1);
-       System.out.println("Response from the API end point : "+response.getBody().asString());
-		return response;
+       		return response;
 	}
 
 	public Response deleteParticipant(Map appTicket,String loginId) throws MalformedURLException, ParseException {
@@ -82,8 +80,7 @@ public class Participants extends BaseService {
 		requestSpec = RestAssured.given().contentType("application/json");
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"DELETE",appTicket))
         		.given().contentType("application/json").delete(deleteRequestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
-		System.out.println("Delete...");
+				System.out.println("Delete...");
 		return response;
 	}
 
@@ -109,8 +106,7 @@ public class Participants extends BaseService {
 		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(updateRequestURL);
-		System.out.println("Response from the Update API end point : "+response.getBody().asString());
-		return response;
+				return response;
 	}
 
 	@SuppressWarnings("unchecked")
