@@ -17,6 +17,10 @@ public class Participants extends BaseService {
 	
 	String participantDocId = "";
 	JsonParser parser = new JsonParser();
+	Response response;
+	JSONObject obj = new JSONObject();
+	JSONFileReader reader = new JSONFileReader(); 
+	EncoderConfig ec = new EncoderConfig();
 	
 	public Participants(RequestSpecification requestSpec)
 	{
@@ -28,60 +32,57 @@ public class Participants extends BaseService {
 	public Response createParticipants(Map appTicket) throws MalformedURLException, ParseException
 	{
 		String requestURL = BASEURI+"/api/participants";
-		JSONObject obj = new JSONObject();
-		JSONFileReader reader = new JSONFileReader(); 
 		obj = reader.jsonReader("src/test/resources/testData/participant_post.json");
-		EncoderConfig ec = new EncoderConfig();
-        Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"POST",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(requestURL);
 		System.out.println("Response from the API end point : "+response.getBody().asString());
 		participantDocId = parser.getPropertyValue(response, "_id");
+		System.gc();
 		return response;
 	}
 	public Response unlockParticipant(Map appTicket,String loginId) throws MalformedURLException, ParseException
 	{
 		String requestURL = BASEURI+"/api/participants";
-        Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL);
        String id = parser.getDocumentID(response,loginId);
        String unlockRequestURL = BASEURI+"/api/participants/"+id+"/unlock";
        requestSpec = RestAssured.given().contentType("application/json");
-        EncoderConfig ec = new EncoderConfig();
-        Response unlockResponse = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(unlockRequestURL,"POST",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(unlockRequestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").post(unlockRequestURL);
-		System.out.println("Response from the API end point : "+unlockResponse.getBody().asString());
+		System.out.println("Response from the API end point : "+response.getBody().asString());
 		System.out.println("unlock...");
-		return unlockResponse;
+		return response;
 	}
 
 	public Response getSingleParticipant(Map appTicket,String loginId) throws MalformedURLException, ParseException {
 		
 		String requestURL = BASEURI+"/api/participants";
-        Response response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL);
         participantDocId = parser.getDocumentID(response,loginId);
         String requestURL1 = BASEURI+"/api/participants/"+participantDocId;
         requestSpec = RestAssured.given().contentType("application/json");
-        Response getResponse = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL1,"GET",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL1,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL1);
-       System.out.println("Response from the API end point : "+getResponse.getBody().asString());
-		return getResponse;
+       System.out.println("Response from the API end point : "+response.getBody().asString());
+		return response;
 	}
 
 	public Response deleteParticipant(Map appTicket,String loginId) throws MalformedURLException, ParseException {
 		
 		String requestURL = BASEURI+"/api/participants";
-        Response response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL);
         participantDocId = parser.getDocumentID(response,loginId);
         String deleteRequestURL = BASEURI+"/api/participants/"+participantDocId;
 		System.out.println("befor edelete..."+requestURL);
 		requestSpec = RestAssured.given().contentType("application/json");
-        Response deleteResponse = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"DELETE",appTicket))
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"DELETE",appTicket))
         		.given().contentType("application/json").delete(deleteRequestURL);
-		System.out.println("Response from the API end point : "+deleteResponse.getBody().asString());
+		System.out.println("Response from the API end point : "+response.getBody().asString());
 		System.out.println("Delete...");
 		return response;
 	}
@@ -90,11 +91,9 @@ public class Participants extends BaseService {
 	public Response updateParticipant(Map appTicket,String loginId) throws MalformedURLException, ParseException {
 		
 		String requestURL = BASEURI+"/api/participants";
-		 Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
+		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(requestURL);
 		String participantDocId = parser.getDocumentID(response,loginId);
-		JSONObject obj = new JSONObject();
-	
 		obj.put("accessLevel", "2");
 		obj.put("accountDocId", "000000000000000000000002");
 		obj.put("color", "#FF0000");
@@ -105,33 +104,30 @@ public class Participants extends BaseService {
 	    obj.put("loginId", "z-apitest@ee.io");
 	    obj.put("status", true);
         System.out.println(obj.toString());
-		EncoderConfig ec = new EncoderConfig();
 		String updateRequestURL = BASEURI+"/api/participants/"+participantDocId;
 		requestSpec = RestAssured.given().contentType("application/json");
-        Response updateResponse =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"POST",appTicket))
+		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(updateRequestURL);
-		System.out.println("Response from the Update API end point : "+updateResponse.getBody().asString());
-		return updateResponse;
+		System.out.println("Response from the Update API end point : "+response.getBody().asString());
+		return response;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Response changePassword(Map appTicket,String loginId) throws MalformedURLException, ParseException {
 		String requestURL = BASEURI+"/api/participants";
-        Response response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL);
         participantDocId = parser.getDocumentID(response,loginId);
         String changeRequestURL = BASEURI+"/api/password/change";
-        JSONObject obj = new JSONObject();
 	    obj.put("partId", participantDocId);
 	    obj.put("password", "Password1@");
         System.out.println(obj.toString());
-		EncoderConfig ec = new EncoderConfig();
 		requestSpec = RestAssured.given().contentType("application/json");
-        Response changeResponse = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(changeRequestURL,"POST",appTicket))
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(changeRequestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(changeRequestURL);
-		System.out.println("Response from the API end point : "+changeResponse.getBody().asString());
+		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
