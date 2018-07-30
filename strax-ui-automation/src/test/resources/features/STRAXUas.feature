@@ -55,6 +55,9 @@ Scenario Outline: Verify user can access canned camera feed in active event
       | Description | <description> |
 	And User clicks on the active event "<incident>" link to join
 	Then video feed should be avilable "<incident>"
+	When User navigates to UASs menu from Event Page
+	Then Verify the UAS "<name>" state is Available after the event has been ended
+	And User should be able to delete the UAS "<name>" successfully
 	Then UAS should get deleted from DB "<name>"
 	Examples:
 		|name     		   |feed              	|make         			|serialnumber  |model                   |status      |type         |username        | password   | incident                  | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |

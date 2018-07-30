@@ -1,6 +1,6 @@
 package step_definitions;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,9 +31,6 @@ public class CucumberHooks extends BaseClass {
 	public String jobName;
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	public static int scenarioTotalCount = 0, srmCount = 0, sacCount = 0, playbackCount = 0, srmPassCount = 0,
-			sacPassCount = 0, pbPassCount = 0;
-	public static float srmTestCoverage = 0, sacTestCoverage = 0, playbackTestCoverage = 0;
 	TestrailResultUpload testresult = new TestrailResultUpload();
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
 	public static final String ACCESS_KEY = prreader.getPropertyvalues("SauceAccessKey");
@@ -74,29 +71,7 @@ public class CucumberHooks extends BaseClass {
 
 	@After
 	public void tearDown(Scenario scenario) throws JSONException, IOException, APIException, InterruptedException {
-		scenarioTotalCount = scenarioTotalCount + 1;
 		DashboardPage dPage = new DashboardPage(base.driver);
-		////// Test coverage percentage code starts
-		Collection<String> tags = scenario.getSourceTagNames();
-		if (tags.contains("@SRM")) {
-
-			srmCount = srmCount + 1;
-			if (scenario.getStatus().equalsIgnoreCase("passed")) {
-				srmPassCount = srmPassCount + 1;
-			}
-		} else if (tags.contains("@SAC")) {
-			sacCount = sacCount + 1;
-			if (scenario.getStatus().equalsIgnoreCase("passed")) {
-				sacPassCount = sacPassCount + 1;
-			}
-		} else if (tags.contains("@PlayBack")) {
-			playbackCount = playbackCount + 1;
-			if (scenario.getStatus().equalsIgnoreCase("passed")) {
-				pbPassCount = pbPassCount + 1;
-			}
-		}
-		
-		///// Test coverage percentage code ends
 		Collection<String> tagnames = scenario.getSourceTagNames();
 		if (tagnames.contains("@NoLogout")) {
 			base.driver.close();

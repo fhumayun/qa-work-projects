@@ -123,4 +123,22 @@ public class UASsPage {
 
 	}
 
+	public void deleteUASFromUI(String uas) throws InterruptedException {
+		try {
+			searchUAS(uas);
+			driver.findElement(By.xpath(prreader.getPropertyvalues("UASDeleteButton"))).click();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prreader.getPropertyvalues("ConfirmDialogButton"))).click();
+		} catch (Exception e) {
+			System.out.println("Exception while deleting a feed");
+		}
+		
+		
+	}
+
+	public void verifyUasState(String uas) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

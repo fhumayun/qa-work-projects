@@ -547,5 +547,12 @@ public class STRAXEventStepDefinition {
 	public void User_should_be_able_to_end_an_active_event() throws InterruptedException {
 		
 	}
+	@When("^User navigates to UASs menu from Event Page$")
+	public void navigateUASPage() {
+		dPage = new DashboardPage(base.driver);
+		dPage.navigateToUASsPage();
+
+	}
+
 
 }

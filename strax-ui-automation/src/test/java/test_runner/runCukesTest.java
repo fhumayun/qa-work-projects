@@ -29,7 +29,7 @@ public class runCukesTest extends UtilityMethods {
 	@AfterClass
 	public static void tearDown() {
 	
-		slackTestCoverageMatrix();
+
 	}
 
 	@BeforeClass

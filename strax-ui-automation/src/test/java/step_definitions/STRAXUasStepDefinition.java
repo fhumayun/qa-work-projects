@@ -65,5 +65,17 @@ public class STRAXUasStepDefinition {
 	public void UAS_should_get_deleted_from_DB(String uas) {
 		Assert.assertEquals(uas, uasPage.deleteUASFromDB(uas));
 	}
+	@Then("^Verify the UAS \"([^\"]*)\" state is Available after the event has been ended$")
+	public void verifyUasState(String uas) throws InterruptedException {
+		uasPage.verifyUasState(uas);
+
+	}
+
+	@And("^User should be able to delete the UAS \"([^\"]*)\" successfully$")
+	public void UAS_should_get_deleted_from_UI(String uas) throws InterruptedException {
+		uasPage.deleteUASFromUI(uas);
+		Assert.assertEquals(false, uasPage.searchUAS(uas));
+	}
+
 
 }
