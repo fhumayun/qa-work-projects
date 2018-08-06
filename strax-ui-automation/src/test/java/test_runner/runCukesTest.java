@@ -6,10 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
-import net.gpedro.integrations.slack.SlackApi;
-import net.gpedro.integrations.slack.SlackMessage;
 import page_objects.BaseClass;
-import step_definitions.CucumberHooks;
 import utils.PropertiesFileReader;
 import utils.UtilityMethods;
 
@@ -23,9 +20,6 @@ public class runCukesTest extends UtilityMethods {
 	}
 
 	static PropertiesFileReader prreader = new PropertiesFileReader();
-	
-	int percentage;
-
 	@AfterClass
 	public static void tearDown() {
 	
