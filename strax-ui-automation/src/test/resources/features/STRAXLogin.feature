@@ -11,8 +11,8 @@ Scenario Outline: Verify footer information is correct
 	Then The footer copyright should contain "<footerString>"
 
 Examples: footer string
-      | footerString                                                                   |
-      | © EagleEye Intelligence - 2015/2018 - Customer/Technical Support: 561-894-9865 |
+      | footerString                                                              |
+      | © STRAX Intelligence Group, LLC - Customer/Technical Support: 561-894-9865|
 
 @C26457 @SRM
 Scenario Outline: Login with valid credentials
