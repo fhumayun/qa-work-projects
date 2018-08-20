@@ -185,13 +185,18 @@ public class EventPage extends BaseClass {
 	public boolean getEventCreationErrorMessage() {
 		boolean state = false;
 		try {
-			if ((driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText()).equals("Not able to create an event while assigned to another"))
+			if ((driver.findElement(By.xpath(prreader.getPropertyvalues("ConfirmLeaveEventMsg"))).getText()).equals("Event creator is already assigned to an event. Do you want to leave other event?"))
 					{
 				state = true;
 				} else
 				state = false;
 		} catch (Exception e) {
 			System.out.println("Exception while getting event creation error message");
+		}
+		finally
+		{
+			driver.findElement(By.id(prreader.getPropertyvalues("LeaveEventCancelButton"))).click();
+			
 		}
 		return state;
 
