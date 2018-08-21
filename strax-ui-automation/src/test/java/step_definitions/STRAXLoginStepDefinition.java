@@ -138,9 +138,10 @@ public class STRAXLoginStepDefinition {
 	}
 
 	@When("^User Enters invalid \"([^\"]*)\" and \"([^\"]*)\" for consecutive five times$")
-	public void User_Enters_invalid_credentials_for_consecutive_five_times(String username, String password) {
+	public void User_Enters_invalid_credentials_for_consecutive_five_times(String username, String password) throws InterruptedException {
 
 		loginpage.lockAccount(username, password);
+		Thread.sleep(2000);
 	}
 
 	@Then("^The user account should get locked out$")
