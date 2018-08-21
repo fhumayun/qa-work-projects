@@ -201,6 +201,20 @@ public class EventPage extends BaseClass {
 		return state;
 
 	}
+	public boolean getEventAlreadyAssignedErrorMessage() {
+		boolean state = false;
+		try {
+			if ((driver.findElement(By.xpath(prreader.getPropertyvalues("GeneralPopUpMessage"))).getText()).equals("Not able to create an event while assigned to another"))
+					{
+				state = true;
+				} else
+				state = false;
+		} catch (Exception e) {
+			System.out.println("Exception while getting event creation error message");
+		}
+		return state;
+
+	}
 
 	public String getNameToSearch(String participant) {
 		String participantFirstName = "", participantLastName = "";

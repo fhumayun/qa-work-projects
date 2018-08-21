@@ -59,7 +59,7 @@ public class STRAXEventStepDefinition {
 	@Then("^can not create new event error message should be displayed$")
 	public void can_not_create_new_event_error_message_should_be_displayed() {
 		
-		Assert.assertEquals(true, eventPage.getEventCreationErrorMessage());
+		Assert.assertEquals(true, eventPage.getEventAlreadyAssignedErrorMessage());
 		
 	}
 

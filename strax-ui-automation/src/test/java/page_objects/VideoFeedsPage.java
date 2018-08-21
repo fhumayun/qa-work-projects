@@ -175,7 +175,7 @@ public class VideoFeedsPage extends BaseClass {
 			for (WebElement tr : trList) {
 				WebElement td1 = tr.findElement(By.xpath("//td[1]"));
 				WebElement td2 = tr.findElement(By.xpath("//td[2]"));
-				if ((tr.getText()).contains(video)) {
+				if ((tr.getText()).equals(video)) {
 					tr.click();
 				}
 			}
