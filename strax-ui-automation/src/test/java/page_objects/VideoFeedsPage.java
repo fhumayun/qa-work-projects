@@ -17,7 +17,8 @@ public class VideoFeedsPage extends BaseClass {
 	RemoteWebDriver driver;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	CommonClass cClass = new CommonClass(driver);
-	private static String accountName = System.getProperty("AccountName");
+	//Get AccountName from Jenkins environment variable
+	private static String accountName = System.getenv("AccountName");
 	
 	public VideoFeedsPage(RemoteWebDriver driver) {
 		this.driver = driver;
@@ -148,8 +149,7 @@ public class VideoFeedsPage extends BaseClass {
 
 	public void addNewUAV(String name, String account, String cameraType, String wowzaPort, String klvPort,
 			String frameRate, String videoName) throws Exception {
-		//Get AccountName from Jenkins environment variable
-				try {
+		try {
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedsAddButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedName"))).sendKeys(name);
 			System.out.println("Account name is......"+accountName);
@@ -178,7 +178,7 @@ public class VideoFeedsPage extends BaseClass {
 			for (WebElement tr : trList) {
 				WebElement td1 = tr.findElement(By.xpath("//td[1]"));
 				WebElement td2 = tr.findElement(By.xpath("//td[2]"));
-				if ((tr.getText()).equals(video)) {
+				if ((td2.getText()).equals(video)) {
 					tr.click();
 				}
 			}
