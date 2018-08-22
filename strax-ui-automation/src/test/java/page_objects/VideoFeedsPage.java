@@ -18,7 +18,7 @@ public class VideoFeedsPage extends BaseClass {
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	CommonClass cClass = new CommonClass(driver);
 	//Get AccountName from Jenkins environment variable
-	private static String accountName = System.getenv("AccountName");
+	private static String accountName = System.getProperty("AccountName");
 	
 	public VideoFeedsPage(RemoteWebDriver driver) {
 		this.driver = driver;
