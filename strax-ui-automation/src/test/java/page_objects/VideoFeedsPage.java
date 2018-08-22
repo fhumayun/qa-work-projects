@@ -1,5 +1,6 @@
 package page_objects;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -152,7 +153,6 @@ public class VideoFeedsPage extends BaseClass {
 		try {
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedsAddButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedName"))).sendKeys(name);
-			System.out.println("Account name is......"+accountName);
 			driver.findElement(By.id(prreader.getPropertyvalues("AccountName"))).sendKeys(accountName);
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedCameraType"))).sendKeys(cameraType);
 			driver.findElement(By.id(prreader.getPropertyvalues("WowzaStreamPort"))).sendKeys(wowzaPort);
@@ -168,23 +168,24 @@ public class VideoFeedsPage extends BaseClass {
 	public void selectSimulationVideo(String video) throws Exception {
 		try {
 			Thread.sleep(1000);
-
 			WebElement slider = driver.findElement(By.xpath(prreader.getPropertyvalues("FeedSimulationMode")));
 			Actions move = new Actions(driver);
 			Action action = (Action) move.dragAndDropBy(slider, 30, 0).build();
 			action.perform();
 			List<WebElement> trList = driver
 					.findElements(By.xpath(prreader.getPropertyvalues("SimulationVideoListrow")));
-			for (WebElement tr : trList) {
-				WebElement td1 = tr.findElement(By.xpath("//td[1]"));
-				WebElement td2 = tr.findElement(By.xpath("//td[2]"));
-				if ((td2.getText()).equals(video)) {
-					System.out.println("TD text.."+td2.getText());
-					tr.click();
+			Iterator<WebElement> iter = trList.iterator();
+			while(iter.hasNext()) {
+			    WebElement tr = iter.next();
+			    WebElement td2 = tr.findElement(By.xpath("./td[2]"));
+				 System.out.println(tr.getText());
+			    if ((td2.getText()).equals(video))
+			    {
+			    	tr.click();
 					break;
-				}
-			}
-			
+			    // do something in else perhaps
+			    }
+			}	
 
 
 		} catch (Exception e) {
