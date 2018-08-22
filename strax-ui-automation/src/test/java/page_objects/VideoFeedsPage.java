@@ -147,10 +147,12 @@ public class VideoFeedsPage extends BaseClass {
 
 	public void addNewUAV(String name, String account, String cameraType, String wowzaPort, String klvPort,
 			String frameRate, String videoName) throws Exception {
+		//Get AccountName from Jenkins environment variable
+		final String accountName = System.getProperty("AccountName");
 		try {
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedsAddButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedName"))).sendKeys(name);
-			driver.findElement(By.id(prreader.getPropertyvalues("AccountName"))).sendKeys(account);
+			driver.findElement(By.id(prreader.getPropertyvalues("AccountName"))).sendKeys(accountName);
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedCameraType"))).sendKeys(cameraType);
 			driver.findElement(By.id(prreader.getPropertyvalues("WowzaStreamPort"))).sendKeys(wowzaPort);
 			driver.findElement(By.id(prreader.getPropertyvalues("KLVPort"))).sendKeys(klvPort);
