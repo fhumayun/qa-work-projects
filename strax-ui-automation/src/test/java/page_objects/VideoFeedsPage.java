@@ -152,6 +152,7 @@ public class VideoFeedsPage extends BaseClass {
 		try {
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedsAddButton"))).click();
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedName"))).sendKeys(name);
+			System.out.println("Account name is......"+accountName);
 			driver.findElement(By.id(prreader.getPropertyvalues("AccountName"))).sendKeys(accountName);
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedCameraType"))).sendKeys(cameraType);
 			driver.findElement(By.id(prreader.getPropertyvalues("WowzaStreamPort"))).sendKeys(wowzaPort);
@@ -160,7 +161,7 @@ public class VideoFeedsPage extends BaseClass {
 			selectSimulationVideo(videoName);
 			driver.findElement(By.id(prreader.getPropertyvalues("FeedSaveButton"))).click();
 		} catch (Exception e) {
-			System.out.println("Exception while adding a new UAV");
+			System.out.println("Exception while adding a new UAV"+e);
 		}
 	}
 
