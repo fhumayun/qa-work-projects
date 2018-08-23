@@ -2,6 +2,6 @@
     <weaver>
         <include within="io.qameta..*"/>
         <include within="org.junit..*"/>
-        <include within="src/test/resources/features..*"/>
+        <include within="com.eagleeye.stepdefinitions..*"/>
     </weaver>
 </aspectj>
