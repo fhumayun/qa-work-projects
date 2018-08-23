@@ -1,7 +1,5 @@
 <aspectj>
     <weaver>
-        <include within="io.qameta..*"/>
-        <include within="org.junit..*"/>
-        <include within="com.eagleeye.stepdefinitions..*"/>
+        <include within="strax-api-automation..*"/>
     </weaver>
 </aspectj>
