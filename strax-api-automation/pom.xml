@@ -58,7 +58,7 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-cucumber-jvm-adaptor</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.4</version>
         </dependency>
 <dependency>
     <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -111,7 +111,7 @@
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                        -Xms1024M -Xmx1024M -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
                         -Dcucumber.options="--plugin ru.yandex.qatools.allure.cucumberjvm.AllureReporter"
                     </argLine>
                 </configuration>
