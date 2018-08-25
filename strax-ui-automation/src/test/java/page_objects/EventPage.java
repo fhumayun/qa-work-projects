@@ -678,6 +678,7 @@ public class EventPage extends BaseClass {
 			Actions action = new Actions(driver);
 			action.moveToElement(driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindowButton"))))
 					.build().perform();
+			Thread.sleep(1000);
 			eventLogWindowState = driver.findElement(By.xpath(prreader.getPropertyvalues("EventLogWindow")))
 					.isDisplayed();
 		} catch (Exception e) {
