@@ -31,7 +31,7 @@ public class TestrailResultUpload {
 				+ "](https://eei.testrail.com/index.php?/cases/view/" + caseID + ")\n "
 				+ "Click on this link [SauceLabRecording](https://saucelabs.com/beta/dashboard/tests) to watch video recording of tests \n"
 				+ "Click on this link [BDD Report](https://ci.eagleeye.io/view/Nightlies/job/1.5%20Automated%20UI%20Test%20Run/allure/) to see detailed test results.");
-		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/197/" + caseID + "", data);
+		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/199/" + caseID + "", data);
 
 	}
 
