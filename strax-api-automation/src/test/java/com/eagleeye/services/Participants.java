@@ -91,6 +91,7 @@ public class Participants extends BaseService {
 		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(requestURL);
 		String participantDocId = parser.getDocumentID(response,loginId);
+		System.out.println("_ID....."+participantDocId);
 		obj.put("accessLevel", "2");
 		obj.put("accountDocId", "000000000000000000000002");
 		obj.put("color", "#FF0000");
@@ -103,7 +104,7 @@ public class Participants extends BaseService {
         System.out.println(obj.toString());
 		String updateRequestURL = BASEURI+"/api/participants/"+participantDocId;
 		requestSpec = RestAssured.given().contentType("application/json");
-		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"POST",appTicket))
+		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"PUT",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(updateRequestURL);
 				return response;

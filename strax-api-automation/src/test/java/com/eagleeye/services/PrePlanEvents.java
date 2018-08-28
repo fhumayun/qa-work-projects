@@ -28,7 +28,7 @@ public class PrePlanEvents extends BaseService {
 
 	public Response getPrePlanEvents(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI + "/api/eventplans";
-		requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "GET", appTicket)).given()
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "GET", appTicket)).given()
 				.get(requestURL);
 		// System.out.println(response.getBody().asString());
 		return response;

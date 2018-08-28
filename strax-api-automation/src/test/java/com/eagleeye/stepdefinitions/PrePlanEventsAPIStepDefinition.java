@@ -46,7 +46,7 @@ public class PrePlanEventsAPIStepDefinition extends BaseService {
 
 	@Then("^The pre plan API should create a new pre plan and return status as 201$")
 	public void verifyCreatePrePLanResponse() throws MalformedURLException {
-		res.then().statusCode(200);
+		res.then().statusCode(201);
 
 	}
 

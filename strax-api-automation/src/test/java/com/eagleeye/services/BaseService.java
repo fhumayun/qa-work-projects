@@ -13,7 +13,7 @@ public class BaseService {
     public   double exp;
     public RequestSpecification requestSpec;
     PropertiesFileReader prreader = new PropertiesFileReader();
-   // public String BASEURI = prreader.getPropertyvalues("STRAXUrl");
+    public String BASEURI = prreader.getPropertyvalues("STRAXUrl");
 	//Get STRAX API url from Jenkins environment variable
-	public static String BASEURI = System.getProperty("BaseURI");
+	//public static String BASEURI = System.getProperty("BaseURI");
 }
