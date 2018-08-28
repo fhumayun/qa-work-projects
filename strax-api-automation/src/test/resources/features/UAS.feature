@@ -1,6 +1,6 @@
 Feature: STRAX UAS/fidget functionality
 
-@ignore @testuas
+@testuas
 Scenario Outline: verify UAS API returns the valid response
 	Given The STRAX UAS API is authenticated with user "<username>" and "<password>"
 	When User request the UAS information with GET method

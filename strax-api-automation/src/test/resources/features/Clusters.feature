@@ -1,6 +1,6 @@
 Feature: STRAX Cluster API
 
-@Cluster @ignore
+@Cluster
 Scenario Outline: verify GET cluster API returns the valid response
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User request the events information with GET method
@@ -8,7 +8,7 @@ Scenario Outline: verify GET cluster API returns the valid response
 				Examples: valid username/password combination
       | username           | password   |
       | z-autobot@ee.io | Password1@ |
- @Cluster @ignore
+ @Cluster
 Scenario Outline: verify POST cluster API successfully creates a cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User requests the create new cluster with POST method with valid data
@@ -16,7 +16,7 @@ Scenario Outline: verify POST cluster API successfully creates a cluster
 				Examples: valid username/password combination
       | username           | password   |
       | z-autobot@ee.io    | Password1@ |
- @Cluster @ignore
+ @Cluster
 Scenario Outline: verify PUT cluster API successfully updates a cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User requests to update an existing cluster "<eventName>" with PUT method with valid data
@@ -24,7 +24,7 @@ Scenario Outline: verify PUT cluster API successfully updates a cluster
 				Examples: valid username/password combination
       | username           | password   |eventName|
       | z-autobot@ee.io    | Password1@ |EventFromAPI1|
- @Cluster @ignore
+ @Cluster
 Scenario Outline: verify join active event API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User"<participant>" requests the join cluster "<eventName>" with POST method with valid data
@@ -32,7 +32,7 @@ Scenario Outline: verify join active event API works correctly
 				Examples: valid username/password combination
       | username           | password   |eventName		|
       | z-autobot@ee.io    | Password1@ |EventFromAPI1|
-@ignore
+
 Scenario Outline: verify GET chat API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User reuests get chat of an event "<eventName>" with GET method
@@ -40,7 +40,7 @@ Scenario Outline: verify GET chat API works correctly
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
-@ignore
+
 Scenario Outline: verify GET notes API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User reuests notes of an event "<eventName>" with GET method
@@ -48,7 +48,7 @@ Scenario Outline: verify GET notes API works correctly
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
-  @ignore
+
  Scenario Outline: verify GET Geotags API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User reuests Geotags of an event "<eventName>" with GET method
@@ -56,7 +56,7 @@ Scenario Outline: verify GET notes API works correctly
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|     
-@Cluster @ignore
+@Cluster
 Scenario Outline: verify delete cluster API deletes the given cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User deletes the events "<eventName>" with DELETE method
@@ -65,7 +65,7 @@ Scenario Outline: verify delete cluster API deletes the given cluster
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
 	
-@IER  @ignore
+@IER
 Scenario Outline: verify IER Alert Escalation API send event ID if user already assigned
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User escalate an IER to active event when user is already assigned to an active event
@@ -74,7 +74,7 @@ Scenario Outline: verify IER Alert Escalation API send event ID if user already 
       | username           | password   |
       | z-autobot@ee.io    | Password1@ |
 
- @ignore 
+
 Scenario Outline: verify GET event message API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User reuests event messages details with GET method

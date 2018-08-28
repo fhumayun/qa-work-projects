@@ -1,6 +1,6 @@
 Feature: STRAX Account functionality
 
-@ignore
+
 Scenario: verify Accounts API returns the valid response
 	Given The STRAX Accounts API end point is available
 	When User reuests the accounts information with GET method
