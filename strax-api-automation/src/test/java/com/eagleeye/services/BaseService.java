@@ -15,5 +15,5 @@ public class BaseService {
     PropertiesFileReader prreader = new PropertiesFileReader();
    // public String BASEURI = prreader.getPropertyvalues("STRAXUrl");
 	//Get STRAX API url from Jenkins environment variable
-	private static String BASEURI = System.getProperty("BaseURI");
+	public static String BASEURI = System.getProperty("BaseURI");
 }
