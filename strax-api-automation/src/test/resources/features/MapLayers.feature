@@ -1,6 +1,6 @@
 Feature: STRAX Map Layers functionality
 
-@map1 
+@map1 @Smoke
 Scenario Outline: verify Map Layers API returns the valid response
 	Given The STRAX map layer API is authenticated with user "<username>" and "<password>"
 	When User request the map layers information with GET method
@@ -18,7 +18,7 @@ Scenario Outline: verify gis icon API returns the valid response
 	Examples: valid username/password combination
       | username        | password   |
       | z-autobot@ee.io | Password1@ |
-  @map3   
+  @map3 @Smoke
 Scenario Outline: verify Map Layers API returns the valid response
 	Given The STRAX map layer API is authenticated with user "<username>" and "<password>"
 	When User request to create a new map layers with POST method

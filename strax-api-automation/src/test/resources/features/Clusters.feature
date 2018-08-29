@@ -1,6 +1,6 @@
 Feature: STRAX Cluster API
 
-@Cluster @get
+@Cluster @get @Smoke
 Scenario Outline: verify GET cluster API returns the valid response
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User request the events information with GET method
@@ -8,7 +8,7 @@ Scenario Outline: verify GET cluster API returns the valid response
 				Examples: valid username/password combination
       | username           | password   |
       | z-autobot@ee.io | Password1@ |
- @Cluster @post
+ @Cluster @post @Smoke
 Scenario Outline: verify POST cluster API successfully creates a cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User requests the create new cluster with POST method with valid data
@@ -32,7 +32,7 @@ Scenario Outline: verify join active event API works correctly
 				Examples: valid username/password combination
       | username           | password   |eventName		|
       | z-controller@ee.io    | Password1@ |EventFromAPI1|
-@chat
+@chat @Smoke
 Scenario Outline: verify GET chat API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User reuests get chat of an event "<eventName>" with GET method
@@ -48,7 +48,7 @@ Scenario Outline: verify GET notes API works correctly
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
-@geotag
+@geotag @Smoke
  Scenario Outline: verify GET Geotags API works correctly
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User reuests Geotags of an event "<eventName>" with GET method
@@ -56,7 +56,7 @@ Scenario Outline: verify GET notes API works correctly
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|     
-@Cluster @del
+@Cluster @del @Smoke
 Scenario Outline: verify delete cluster API deletes the given cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
 	When User deletes the events "<eventName>" with DELETE method

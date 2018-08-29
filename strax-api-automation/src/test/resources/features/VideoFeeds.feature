@@ -1,6 +1,6 @@
 Feature: STRAX Map Layers functionality
 
-@vid1
+@vid1 @Smoke
 Scenario Outline: verify video feed API returns the valid response
 	Given The STRAX video feed API is authenticated with user "<username>" and "<password>"
 	When User request the video feed information with GET method

@@ -8,7 +8,7 @@ Scenario Outline: verify GET pre plan API returns the valid response
 				Examples: valid username/password combination
       | username           | password   |
       | z-autobot@ee.io    | Password1@ |
- @plan2    
+ @plan2 @Smoke
 Scenario Outline: verify POST pre plan event API successfully creates a pre plan 
 	Given The STRAX pre plan API is authenticated with user "<username>" and "<password>"
 	When User requests the create new pre plan with POST method with valid data
@@ -24,7 +24,7 @@ Scenario Outline: verify PUT pre plan event API successfully updates a pre plan
 				Examples: valid username/password combination
       | username           | password   |eventName         |
       | z-autobot@ee.io    | Password1@ |EventPlanFrom API1|
-@plan4 
+@plan4 @Smoke
 Scenario Outline: verify delete pre plan API deletes the given pre plan
 	Given The STRAX pre plan API is authenticated with user "<username>" and "<password>"
 	When User deletes the pre plan "<eventName>" with DELETE method
