@@ -1,6 +1,6 @@
 Feature: STRAX Participants functionality
 
-@user1
+@user1 @Smoke
 Scenario Outline: verify participant API works correctly for creating a participant
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User requests the create new participant with POST method with valid data
@@ -9,7 +9,7 @@ Scenario Outline: verify participant API works correctly for creating a particip
       | username        | password   |
       | z-autobot@ee.io | Password1@ |
 	
-@user2 @ignore @Smoke
+@user2 @ignore 
 Scenario Outline: verify participant API works correctly for updating an existing participant
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User updates participant "<loginId>" details with PUT method with valid data
