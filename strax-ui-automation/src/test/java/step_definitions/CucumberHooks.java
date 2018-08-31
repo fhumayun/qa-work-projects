@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONException;
+import org.junit.AfterClass;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -16,6 +17,7 @@ import cucumber.api.java.Before;
 import page_objects.BaseClass;
 import page_objects.DashboardPage;
 import utils.APIException;
+import utils.DatabaseConnection;
 import utils.PropertiesFileReader;
 import utils.SauceUtils;
 import utils.TestrailResultUpload;
@@ -32,6 +34,7 @@ public class CucumberHooks extends BaseClass {
 	public String sessionId;
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 	TestrailResultUpload testresult = new TestrailResultUpload();
+	DatabaseConnection con =  new DatabaseConnection();
 	public static final String USERNAME = prreader.getPropertyvalues("SauceUserName");
 	public static final String ACCESS_KEY = prreader.getPropertyvalues("SauceAccessKey");
 	public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
@@ -42,7 +45,7 @@ public class CucumberHooks extends BaseClass {
 		// reads browser from Jenkins parameters with Sauce Ondemand jenkin plugin
 		ChromeOptions options = new ChromeOptions();
 		options.setCapability(CapabilityType.BROWSER_NAME, System.getenv("SELENIUM_BROWSER"));
-		options.setCapability(CapabilityType.PLATFORM_NAME, System.getenv("SELENIUM_PLATFORM"));
+		options.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
 		options.setCapability(CapabilityType.VERSION, System.getenv("SELENIUM_VERSION"));
 	 
 
@@ -84,6 +87,28 @@ public class CucumberHooks extends BaseClass {
 
 		SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),sessionId, jobName);
 		testresult.uploadResult(scenario);
+	}
+	/*
+	 * Trial code for suite level stale test data cleanup
+	 */
+	@AfterClass
+	public void suiteTearDown() {
+		for(int i=1;i<4;i++)
+		{
+		con.deleteEvent("AutomationTestIncident"+i);
+		}
+		for(int i=1;i<4;i++)
+		{
+		con.deleteUser("z-automationtestuser"+i+"@ee.io");
+		}
+		for(int i=1;i<4;i++)
+		{
+		con.deleteEventPlan("AutomationTestEventPlan"+i);
+		}
+		con.deleteEventPlan("TestEventPlanFromPrePlan11");
+		con.deleteEvent("AutomationTestEventFromEventPlan1");
+		con.deleteUAS("QA-Automation-UAS");
+		con.deleteVideoFeed("QA-Automation-Feed");
 	}
 
 }

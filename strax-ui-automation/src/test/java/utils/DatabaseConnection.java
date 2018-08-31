@@ -119,5 +119,28 @@ public class DatabaseConnection {
 		return deletedEventPlan;
 
 	}
+	public String deleteVideoFeed(String feed) {
+		String deletedVideoFeed = "";
+		try {
+
+			MongoCredential credential = MongoCredential.createScramSha1Credential(user, database,
+					password.toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(mongoDBServer), Arrays.asList(credential));
+			MongoDatabase db = mongoClient.getDatabase("straxmedia");
+			BasicDBObject query = new BasicDBObject("name", feed);
+			FindIterable<Document> cursor;
+			MongoCollection<Document> coll = db.getCollection("videofeeds");
+			Document deleted = coll.findOneAndDelete(query);
+			deletedVideoFeed = deleted.getString("name");
+			System.out.println(deletedVideoFeed);
+
+			mongoClient.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		return deletedVideoFeed;
+
+	}
 
 }
