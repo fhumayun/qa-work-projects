@@ -43,6 +43,7 @@ public class runCukesTest extends UtilityMethods {
 		con.deleteEvent("AutomationTestEventFromEventPlan1");
 		con.deleteUAS("QA-Automation-UAS");
 		con.deleteVideoFeed("QA-Automation-Feed");
+		System.out.println("Deleted test data");
 	}
 
 
