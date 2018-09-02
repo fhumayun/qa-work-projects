@@ -88,27 +88,5 @@ public class CucumberHooks extends BaseClass {
 		SauceUtils.UpdateResults(USERNAME, ACCESS_KEY, !scenario.isFailed(),sessionId, jobName);
 		testresult.uploadResult(scenario);
 	}
-	/*
-	 * Trial code for suite level stale test data cleanup
-	 */
-	@AfterClass
-	public void suiteTearDown() {
-		for(int i=1;i<4;i++)
-		{
-		con.deleteEvent("AutomationTestIncident"+i);
-		}
-		for(int i=1;i<4;i++)
-		{
-		con.deleteUser("z-automationtestuser"+i+"@ee.io");
-		}
-		for(int i=1;i<4;i++)
-		{
-		con.deleteEventPlan("AutomationTestEventPlan"+i);
-		}
-		con.deleteEventPlan("TestEventPlanFromPrePlan11");
-		con.deleteEvent("AutomationTestEventFromEventPlan1");
-		con.deleteUAS("QA-Automation-UAS");
-		con.deleteVideoFeed("QA-Automation-Feed");
-	}
-
+	
 }
