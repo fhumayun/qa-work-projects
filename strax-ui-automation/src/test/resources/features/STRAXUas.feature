@@ -61,7 +61,7 @@ Scenario Outline: Verify user can access canned camera feed in active event
 	Then UAS should get deleted from DB "<name>"
 	Examples:
 		|name     		   |feed              	|make         			|serialnumber  |model                   |status      |type         |username        | password   | incident                  | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants                     |
-		|QA-Automation-UAS |QA-Automation-Feed	|Lockheed Martin        |qa007         |Indago       			|Available   |Multi-copter |z-autobot@ee.io | Password1@ | AutomationTestIncident3 | AutomationTest_CaseNumber002 | Search & Rescue | QA-Automation-UAS   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
+		|QA-Automation-UAS |QA-Automation-Feed	|Lockheed Martin        |qa007         |Indago       			|Available   |Multi-copter |z-autobot@ee.io | Password1@ | AutomationTestIncident3   | AutomationTest_CaseNumber002   | VHI               | QA-Automation-UAS   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-User Z-Viewer,Z-EEiUser Z-User |
 
 
 	  

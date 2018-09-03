@@ -262,7 +262,7 @@ Scenario Outline: Verify user can toggle various KLV map layers
 
     Examples: 
       | username           | password   | incident                | casenumber                   | missionType     | stream | address                                                         | latitude | longitude | description                           | participants     |
-      | z-controller@ee.io | Password1@ | AutomationTestIncident2 | AutomationTest_CaseNumber002 | Search & Rescue | None   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-EEiUser Z-User |
+      | z-controller@ee.io | Password1@ | AutomationTestIncident2 | AutomationTest_CaseNumber002 | SWAT            | None   | 1001 Broken Sound Parkway NW, Suite C, 33487 Boca Raton,FLORIDA |          |           | Event Created By Automation Framework | Z-EEiUser Z-User |
 	
 	  @C102528 @SAC
   Scenario Outline: Verify user can be added to an active event from the SAC Edit Users pane
@@ -451,9 +451,9 @@ Scenario Outline: Verify play / pause feature works correctly
 
     Examples: 
       | username           | password   | eventPlan                 | missionType     | address                                                       | latitude | longitude | description                           |
-      | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
-      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
-      | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 | Search & Rescue | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+      | z-controller@ee.io | Password1@ | AutomationTestEventPlan1 | Other            | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+      | z-autobot@ee.io    | Password1@ | AutomationTestEventPlan2 | SWAT             | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
+      | z-user@ee.io       | Password1@ | AutomationTestEventPlan3 | Search & Rescue  | 1001 Broken Sound Parkway NW,Suite C,33487,Boca Raton,FLORIDA |          |           | Event Created By Automation Framework |
      
     @C87058 @SRM
     Scenario Outline: Verify user can start a mission from a preplan
@@ -492,7 +492,7 @@ Scenario Outline: Verify play / pause feature works correctly
     When User Enters Valid "<username>" and "<password>"
     And User navigates to Event plan tab
     And User clicks on launch event plan button "<eventPlan>"
-    Then can not create new event error message should be displayed
+    Then Event creator is already assigned to an event error message should be displayed
     And Clean up test event "<incident>"
     And Clean up test event plan "<eventPlan>"
     
@@ -619,7 +619,7 @@ Scenario Outline: Verify play / pause feature works correctly
       | z-autobot@ee.io | Password1@ | AutomationTestIncident3 |
   
   
-  @SRM @C73391 @ignore
+  @SRM @C171557
   Scenario Outline: Verify user can add Critical Incident as mission type while creating a new event.
     Given The STRAX Application login page is open
     When User Enters Valid "<username>" and "<password>"
@@ -633,7 +633,9 @@ Scenario Outline: Verify play / pause feature works correctly
       | Latitude    | <latitude>    |
       | Longitude   | <longitude>   |
       | Description | <description> |
-    #Then A new event with name "<incident>" and type "<missionType>" should get created successfully
+    Then A new event with name "<incident>" should get created successfully
+    And User should be able to end an active event "<incidentName>" successfully
+    And Clean up test event "<incident>"
 
     Examples: 
       | username           | password   | incident                | casenumber              | missionType       | stream | address                                                         | latitude | longitude | description                           | participants                     |

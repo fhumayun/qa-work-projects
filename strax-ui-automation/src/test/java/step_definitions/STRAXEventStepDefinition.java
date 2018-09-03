@@ -53,6 +53,7 @@ public class STRAXEventStepDefinition {
 	public void User_clicks_on_add_new_event_button_to_create_a_new_event() throws InterruptedException {
 		dPage.navigateToEventsPage();
 		eventPage.navigateToCreateNewEvent();
+		Thread.sleep(1000);
 
 	}
 
@@ -60,6 +61,12 @@ public class STRAXEventStepDefinition {
 	public void can_not_create_new_event_error_message_should_be_displayed() {
 		
 		Assert.assertEquals(true, eventPage.getEventAlreadyAssignedErrorMessage());
+		
+	}
+	@Then("^Event creator is already assigned to an event error message should be displayed$")
+	public void Event_creator_is_already_assigned() {
+		
+		Assert.assertEquals(true, eventPage.getEventCreationErrorMessage());
 		
 	}
 

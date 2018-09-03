@@ -49,6 +49,23 @@ public class runCukesTest extends UtilityMethods {
 
 	@BeforeClass
 	public static void setUp() {
+		for(int i=1;i<4;i++)
+		{
+		con.deleteEvent("AutomationTestIncident"+i);
+		}
+		for(int i=1;i<4;i++)
+		{
+		con.deleteUser("z-automationtestuser"+i+"@ee.io");
+		}
+		for(int i=1;i<4;i++)
+		{
+		con.deleteEventPlan("AutomationTestEventPlan"+i);
+		}
+		con.deleteEventPlan("TestEventPlanFromPrePlan11");
+		con.deleteEvent("AutomationTestEventFromEventPlan1");
+		con.deleteUAS("QA-Automation-UAS");
+		con.deleteVideoFeed("QA-Automation-Feed");
+		System.out.println("Deleted test data");
 	}
 
 	
