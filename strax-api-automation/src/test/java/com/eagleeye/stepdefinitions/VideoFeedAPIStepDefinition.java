@@ -61,9 +61,22 @@ public class VideoFeedAPIStepDefinition extends BaseService{
 	
 		res = feed.updateFeed(appTicket,feedName);
 	}
+	@When("^User request to delete an existing video feed \"([^\"]*)\" with DELETE method$")
+	public void deleteFeed(String feedName) throws MalformedURLException, ParseException {
+
+	
+		res = feed.deleteFeed(appTicket,feedName);
+	}
 	@Then("^The video feed API should update an existing feed and return status as 201$")
 	public void verifyUpdateFeedResponse() throws MalformedURLException {
 		res.then().statusCode(201);
+		res.getBody().asString();
+		//DatabaseConnection conn =  new DatabaseConnection();
+		//conn.getAccount();
+	}
+	@Then("^The video feed API should delete an existing feed and return status as 201$")
+	public void verifyDeleteFeedResponse() throws MalformedURLException {
+		res.then().statusCode(204);
 		res.getBody().asString();
 		//DatabaseConnection conn =  new DatabaseConnection();
 		//conn.getAccount();

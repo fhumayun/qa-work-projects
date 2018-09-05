@@ -51,17 +51,29 @@ public class VideoFeed extends BaseService {
 				.config(RestAssured.config()
 						.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
 				.contentType("application/json").body(obj).post(requestURL);
-		System.out.println(response.getBody().asString());
 		return response;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Response updateFeed(Map appTicket,String feedName) throws ParseException, MalformedURLException {
 		String requestURL = BASEURI+"/api/media/videofeed";
 		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(requestURL);
-		String videoFeedDocId = parser.getDocumentID(response,feedName);
+		 
+		String videoFeedDocId = parser.getDocID(response,"name",feedName);
+		System.out.println("Feed Name..."+videoFeedDocId);
 		obj.put("klvPort","3355");
-		String updateRequestURL = BASEURI + "/api/media/videofeed/media"+videoFeedDocId;
+		obj.put("live",true);
+		obj.put("frameRate",111);
+		obj.put("capture",false);
+		obj.put("cameraType","KLV");
+		obj.put("feedType","uav");
+		obj.put("klv","false");
+		obj.put("account","000000000000000000000002");
+		obj.put("wowzaStreamPort","2255");
+		obj.put("_id",videoFeedDocId);
+		String updateRequestURL = BASEURI + "/api/media/videofeed/media";
+		System.out.println("object..."+obj.toString());
 		//obj = reader.jsonReader("src/test/resources/testData/VideoFeed_post.json");
 		//System.out.println("Response from the API end point : " + obj.toString());
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(updateRequestURL, "PUT", appTicket))
@@ -71,6 +83,26 @@ public class VideoFeed extends BaseService {
 				.contentType("application/json").body(obj).put(updateRequestURL);
 		System.out.println(response.getBody().asString());
 		return response;
+	}
+
+	public Response deleteFeed(Map appTicket, String feedName) throws ParseException {
+		String requestURL = BASEURI+"/api/media/videofeed";
+		String videoFeedDocId="";
+		 try {
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
+			    		.given().contentType("application/json").get(requestURL);
+			videoFeedDocId = parser.getDocID(response,"name",feedName);
+			 String deleteRequestURL = BASEURI+"/api/media/videofeed/"+videoFeedDocId;
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"DELETE",appTicket))
+						.given().config(RestAssured.config()
+								.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+						.contentType("application/json").delete(deleteRequestURL);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			return response;
+		 
 	}
 
 }
