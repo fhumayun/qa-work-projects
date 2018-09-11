@@ -55,7 +55,26 @@ Scenario Outline: verify GET notes API works correctly
 	Then The notes API should return all Geotags of an event and return status code as 200
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
-      | z-autobot@ee.io			 | Password1@ |EventFromAPI1|     
+      | z-autobot@ee.io			 | Password1@ |EventFromAPI1| 
+@log 
+Scenario Outline: verify GET event scribe notes API works correctly
+	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
+	When User requests scribe notes of an event with GET method for "<eventName>" and "<username>"
+	Then The scribe notes API should return all available notes and return status code as 200
+			Examples: valid username/password combination
+      | username         	   | password   |eventName		|
+      | z-autobot@ee.io			 | Password1@ |EventFromAPI1|  
+      
+
+@log1 @ignore
+Scenario Outline: verify POST method of event scribe notes API works correctly
+	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
+	When User requests to add a new scribe notes to an event with POST method for "<eventName>" and "<username>"
+	Then The scribe notes API should add a new note to the event and return status code as 200
+			Examples: valid username/password combination
+      | username         	   | password   |eventName		|
+      | z-autobot@ee.io			 | Password1@ |EventFromAPI1| 
+        
 @Cluster @del @Smoke
 Scenario Outline: verify delete cluster API deletes the given cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"

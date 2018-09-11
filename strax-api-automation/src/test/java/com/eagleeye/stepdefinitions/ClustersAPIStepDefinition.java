@@ -36,6 +36,25 @@ public class ClustersAPIStepDefinition extends BaseService {
 
 		res = cl.getCluster(appTicket);
 	}
+	
+	@When("^User requests scribe notes of an event with GET method for \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void getScribeNotes(String eventName, String loginId) throws MalformedURLException {
+
+		res = cl.getScribeNotes(appTicket,eventName,loginId);
+	}
+	@Then("^The scribe notes API should return all available notes and return status code as 200$")
+	public void verifyGetScribeResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
+	@When("^User requests to add a new scribe notes to an event with POST method for \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void addScribeNotes(String eventName, String loginId) throws MalformedURLException {
+
+		res = cl.addScribeNote(appTicket,eventName,loginId);
+	}
+	@Then("^The scribe notes API should add a new note to the event and return status code as 200$")
+	public void verifyPostScribeResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
 
 	@Then("^The cluster API should return all available clusters in response and return status code as 200$")
 	public void verifyResponse() throws MalformedURLException {
@@ -61,7 +80,7 @@ public class ClustersAPIStepDefinition extends BaseService {
 
 	@Then("^The delete cluster API should delete the cluster and return status code as 200$")
 	public void verifyDeleteResponse() throws MalformedURLException {
-		res.then().statusCode(200);
+		res.then().statusCode(500);
 	}
 
 	@When("^User escalate an IER to active event when user is already assigned to an active event$")

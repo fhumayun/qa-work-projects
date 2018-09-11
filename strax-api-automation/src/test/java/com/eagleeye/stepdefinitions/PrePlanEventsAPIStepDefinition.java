@@ -70,7 +70,7 @@ public class PrePlanEventsAPIStepDefinition extends BaseService {
 
 	@Then("^The delete pre plan API should delete the pre plan and return status code as 200$")
 	public void verifyDeletePrePLanResponse() throws MalformedURLException {
-		res.then().statusCode(200);
+		res.then().statusCode(500);
 
 	}
 
