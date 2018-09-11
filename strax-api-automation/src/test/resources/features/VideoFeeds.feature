@@ -1,6 +1,6 @@
 Feature: STRAX Map Layers functionality
 
-@vid1 @Smoke
+@vid1 @Smoke @C171618
 Scenario Outline: verify video feed API returns the valid response
 	Given The STRAX video feed API is authenticated with user "<username>" and "<password>"
 	When User request the video feed information with GET method
@@ -9,7 +9,7 @@ Scenario Outline: verify video feed API returns the valid response
 	Examples: valid username/password combination
       | username        | password   |
       | z-autobot@ee.io | Password1@ |
-@vid2
+@vid2 @C171619
 Scenario Outline: verify mobile feed API returns the valid response
 	Given The STRAX video feed API is authenticated with user "<username>" and "<password>"
 	When User request the video feed from mobile information with GET method
@@ -19,7 +19,7 @@ Scenario Outline: verify mobile feed API returns the valid response
       | username        | password   |
       | z-autobot@ee.io | Password1@ |
 
-@vid3
+@vid3 @C171620
 Scenario Outline: verify video feed API creates a new video feed
 	Given The STRAX video feed API is authenticated with user "<username>" and "<password>"
 	When User request to create a new video feed with POST method
@@ -36,7 +36,7 @@ Scenario Outline: verify video feed API updates an existing video feed
 	Examples: valid username/password combination
       | username        | password   |feedName   |
       | z-autobot@ee.io | Password1@ |QA-API-Feed|
- @vid5
+ @vid5 @C171622
 Scenario Outline: verify delete video feed API deletes a video feed
 	Given The STRAX video feed API is authenticated with user "<username>" and "<password>"
 	When User request to delete an existing video feed "<feedName>" with DELETE method

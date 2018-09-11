@@ -1,6 +1,6 @@
 Feature: STRAX Account functionality
 
-@acc @Smoke
+@acc @Smoke @C171624
 Scenario Outline: verify Accounts API returns the valid response
 	Given The STRAX Account API is authenticated with user "<username>" and "<password>"
 	When User reuests the accounts information with GET method
