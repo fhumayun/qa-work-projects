@@ -29,8 +29,7 @@ public class TestrailResultUpload {
 		data.put("status_id", statusID);
 		data.put("comment", "Automation framework executed [Test case - " + caseID
 				+ "](https://eei.testrail.com/index.php?/cases/view/" + caseID + ")\n "
-				+ "Click on this link [SauceLabRecording](https://saucelabs.com/beta/dashboard/tests) to watch video recording of tests \n"
-				+ "Click on this link [BDD Report](https://ci.eagleeye.io/view/Nightlies/job/1.5%20Automated%20UI%20Test%20Run/allure/) to see detailed test results.");
+				+ "Click on this link [BDD Report](https://ci.eagleeye.io/view/Nightlies/job/STRAX-API-Automation/allure/) to see detailed test results.");
 		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/201/" + caseID + "", data);
 
 	}
