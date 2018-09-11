@@ -1,6 +1,6 @@
 Feature: STRAX Participants functionality
 
-@user1 @Smoke @C171592
+@user1 @Smoke
 Scenario Outline: verify participant API works correctly for creating a participant
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User requests the create new participant with POST method with valid data
@@ -9,7 +9,7 @@ Scenario Outline: verify participant API works correctly for creating a particip
       | username        | password   |
       | z-autobot@ee.io | Password1@ |
 	
-@user2 @ignore @C171593
+@user2 @ignore 
 Scenario Outline: verify participant API works correctly for updating an existing participant
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User updates participant "<loginId>" details with PUT method with valid data
@@ -18,7 +18,7 @@ Scenario Outline: verify participant API works correctly for updating an existin
       | username        | password   |loginId					|
       | z-autobot@ee.io | Password1@ |z-apitest@ee.io |
 	
-@user3 @C171594
+@user3
 Scenario Outline: verify GET single participant API works correctly
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User request single participant "<loginId>" with GET method with valid participantDocId
@@ -27,7 +27,7 @@ Scenario Outline: verify GET single participant API works correctly
       | username           | password        |loginId        |
       | z-autobot@ee.io    | Password1@      |z-controller@ee.io|
 	
-@user4 @C171595
+@user4 
 Scenario Outline: verify unlock participant API works correctly
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User reuests the unlock a participant "<loginId>" with POST method with valid participantDocId
@@ -35,7 +35,7 @@ Scenario Outline: verify unlock participant API works correctly
 				Examples: valid username/password combination
       | username           | password        |loginId        |
       | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
-@user5 @Smoke @C171596
+@user5 @Smoke
 Scenario Outline: verify change password API works correctly
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User change password of a participant "<loginId>" with POST method
@@ -43,7 +43,7 @@ Scenario Outline: verify change password API works correctly
 				Examples: valid username/password combination
       | username           | password        |loginId        |
       | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
-@user6 @Smoke @C171597
+@user6 @Smoke
 Scenario Outline: verify delete participant API works correctly
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User deletes a participant "<loginId>" with DELETE method with valid participantDocId

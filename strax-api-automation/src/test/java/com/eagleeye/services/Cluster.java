@@ -215,11 +215,13 @@ public class Cluster extends BaseService {
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getClusterIdrequestURL, "GET", appTicket))
 				.given().get(getClusterIdrequestURL);
 		String clusterDocId = parser.getDocID(response, "incident", eventName);
+		System.out.println("cluster id..."+clusterDocId);
 		String getParticipantIdrequestURL = BASEURI+"/api/participants";
 		requestSpec = RestAssured.given().contentType("application/json");
 		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(getParticipantIdrequestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(getParticipantIdrequestURL);
 		String participantDocId = parser.getDocumentID(response,loginId);
+		System.out.println("login id..."+participantDocId);
 		String addRequestURL = BASEURI + "/api/mq/scribes/event";
 		obj.put("data", "Automated Note2");
 		obj.put("accountDocId", "000000000000000000000002");
@@ -227,13 +229,13 @@ public class Cluster extends BaseService {
 		obj.put("lastName", "Z-Bot");
 	    obj.put("referenceId", "STXPBSO201809111392");
 		obj.put("participantDocId", participantDocId);
-	    obj.put("clusterDocId", clusterDocId);	 
-	    requestSpec = RestAssured.given().contentType("application/json");
+	    obj.put("clusterDocId", clusterDocId);	    
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(addRequestURL, "POST", appTicket))
 				.given()
 				.config(RestAssured.config()
 						.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
 				.contentType("application/json").body(obj).post(addRequestURL);
+		System.out.println("response is..."+response.asString());
 		}
 		catch(Exception e)
 		{
