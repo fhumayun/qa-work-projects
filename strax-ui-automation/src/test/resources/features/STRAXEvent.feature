@@ -634,7 +634,7 @@ Scenario Outline: Verify play / pause feature works correctly
       | Longitude   | <longitude>   |
       | Description | <description> |
     Then A new event with name "<incident>" should get created successfully
-    And User should be able to end an active event "<incidentName>" successfully
+    And User should be able to end an active event "<incident>" successfully
     And Clean up test event "<incident>"
 
     Examples: 
