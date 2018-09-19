@@ -51,3 +51,13 @@ Scenario Outline: verify delete participant API works correctly
 			Examples: valid username/password combination
       | username           | password        |loginId        |
       | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
+
+@C171625
+Scenario Outline: verify GET callsign API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests callsigns information with GET method
+	Then The callsigns API should return all available callsigns in response and return status code as 200
+			Examples: valid username/password combination
+      | username           | password        |
+      | z-autobot@ee.io    | Password1@      |
+

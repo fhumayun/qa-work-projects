@@ -77,7 +77,7 @@ public class PrePlanEvents extends BaseService {
 		requestSpec = RestAssured.given().contentType("application/json");
 		response = requestSpec
 				.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(deletRequestURL, "DELETE", appTicket)).given()
-				.contentType("application/json").delete(deletRequestURL);
+				.contentType("application/json; charset=UTF-8").delete(deletRequestURL);
 		return response;
 	}
 

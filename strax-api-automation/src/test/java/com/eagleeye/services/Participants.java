@@ -79,7 +79,7 @@ public class Participants extends BaseService {
 		System.out.println("befor edelete..."+requestURL);
 		requestSpec = RestAssured.given().contentType("application/json");
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"DELETE",appTicket))
-        		.given().contentType("application/json").delete(deleteRequestURL);
+        		.given().contentType("application/json; charset=UTF-8").delete(deleteRequestURL);
 				System.out.println("Delete...");
 		return response;
 	}
@@ -125,6 +125,18 @@ public class Participants extends BaseService {
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(changeRequestURL);
 		System.out.println("Response from the API end point : "+response.getBody().asString());
+		return response;
+	}
+
+	public Response getCallsignsAPI(Map appTicket) {
+		String requestURL = BASEURI+"/api/callsigns";
+        try {
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+					.given().contentType("application/json").get(requestURL);		
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return response;
 	}
 

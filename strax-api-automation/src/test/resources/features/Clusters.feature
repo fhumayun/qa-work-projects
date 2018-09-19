@@ -6,7 +6,7 @@ Scenario Outline: verify GET cluster API returns the valid response
 	When User request the events information with GET method
 	Then The cluster API should return all available clusters in response and return status code as 200
 				Examples: valid username/password combination
-      | username           | password   |
+      | username           | password|
       | z-autobot@ee.io | Password1@ |
  @Cluster @C171599 @Smoke
 Scenario Outline: verify POST cluster API successfully creates a cluster
@@ -23,6 +23,16 @@ Scenario Outline: verify PUT cluster API successfully updates a cluster
 	Then The cluster API should update the cluster and return status as 200
 				Examples: valid username/password combination
       | username           | password   |eventName|
+      | z-autobot@ee.io    | Password1@ |EventFromAPI1|
+
+@callsign   @ignore  
+Scenario Outline: verify GET cluster API pulls the callsign name in participant list
+	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
+	When User requests the events information of "<eventName>" with GET method
+	Then The GET cluster API should return all the cluster details and return status code as 200
+  And The participant list should have callsign name for "<username>" along with other details
+				Examples: valid username/password combination
+      | username           | password   |eventName    |
       | z-autobot@ee.io    | Password1@ |EventFromAPI1|
  @Cluster @ignore @C171601
 Scenario Outline: verify join active event API works correctly

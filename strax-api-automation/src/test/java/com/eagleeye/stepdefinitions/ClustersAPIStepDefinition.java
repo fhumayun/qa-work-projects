@@ -4,11 +4,15 @@ import java.net.MalformedURLException;
 import java.util.Map;
 
 import org.json.simple.parser.ParseException;
+import org.junit.Assert;
+
 import com.eagleeye.services.BaseService;
 import com.eagleeye.services.Cluster;
 import com.eagleeye.services.AppTicket;
 import com.eagleeye.services.Participants;
 import com.jayway.restassured.response.Response;
+
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -80,7 +84,7 @@ public class ClustersAPIStepDefinition extends BaseService {
 
 	@Then("^The delete cluster API should delete the cluster and return status code as 200$")
 	public void verifyDeleteResponse() throws MalformedURLException {
-		res.then().statusCode(500);
+		res.then().statusCode(200);
 	}
 
 	@When("^User escalate an IER to active event when user is already assigned to an active event$")
@@ -169,6 +173,21 @@ public class ClustersAPIStepDefinition extends BaseService {
 	@Then("^The notes API should return all Geotags of an event and return status code as 200$")
 	public void verifyEventGeoTagsResponse() throws MalformedURLException {
 		res.then().statusCode(200);
+	}
+	@When("^User requests the events information of \"([^\"]*)\" with GET method$")
+	public void getClusterAPI(String eventName) throws MalformedURLException, ParseException {
+
+		res = cl.getSpecificCluster(appTicket,eventName);
+	}
+
+	@Then("^The GET cluster API should return all the cluster details and return status code as 200$")
+	public void verifygetSpecificClusterResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
+	@And("^The participant list should have callsign name for \"([^\"]*)\" along with other details$")
+	public void verifyCallsignResponse(String loginId) throws MalformedURLException, ParseException {
+
+		Assert.assertTrue(cl.verifyCallsignNamePresent(appTicket,res,loginId));
 	}
 
 }

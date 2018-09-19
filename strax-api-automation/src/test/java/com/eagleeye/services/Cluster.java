@@ -33,18 +33,35 @@ public class Cluster extends BaseService {
 				.given().get(requestURL);
 		return response;
 	}
-
+	public Response getSpecificCluster(Map appTicket,String eventName) throws MalformedURLException {
+		String requestURL = BASEURI + "/api/clusters";
+		try {
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "GET", appTicket))
+				.given().get(requestURL);
+		String clusterDocId = parser.getDocID(response, "incident", eventName);
+		String getClusterDocURL = BASEURI + "/api/clusters/" + clusterDocId;
+		requestSpec = RestAssured.given().contentType("application/json");
+		response = requestSpec
+				.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getClusterDocURL, "GET", appTicket)).given()
+				.contentType("application/json; charset=UTF-8").get(getClusterDocURL);
+		return response;
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+	}
 	public Response deleteCluster(Map appTicket, String eventName) throws MalformedURLException, ParseException {
 		String getRequestURL = BASEURI + "/api/clusters";
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getRequestURL, "GET", appTicket))
 				.given().get(getRequestURL);
 		String clusterDocId = parser.getDocID(response, "incident", eventName);
-		System.out.println(clusterDocId);
 		String deletRequestURL = BASEURI + "/api/clusters/" + clusterDocId;
 		requestSpec = RestAssured.given().contentType("application/json");
 		response = requestSpec
 				.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(deletRequestURL, "DELETE", appTicket)).given()
-				.contentType("application/json").delete(deletRequestURL);
+				.contentType("application/json; charset=UTF-8").delete(deletRequestURL);
 		return response;
 	}
 
@@ -188,19 +205,15 @@ public class Cluster extends BaseService {
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getClusterIdrequestURL, "GET", appTicket))
 				.given().get(getClusterIdrequestURL);
 		String clusterDocId = parser.getDocID(response, "incident", eventName);
-		System.out.println("cluster id..."+clusterDocId);
 		String getParticipantIdrequestURL = BASEURI+"/api/participants";
 		requestSpec = RestAssured.given().contentType("application/json");
 		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(getParticipantIdrequestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(getParticipantIdrequestURL);
 		String participantDocId = parser.getDocumentID(response,loginId);
-		System.out.println("login id..."+participantDocId);
 		requestSpec = RestAssured.given().contentType("application/json");
 		String getScribeNotesRequestURL = BASEURI + "/api/mq/scribes/participants/"+participantDocId+"/clusters/"+clusterDocId;
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getScribeNotesRequestURL, "GET", appTicket))
 				.given().get(getScribeNotesRequestURL);
-		System.out.println("url is..."+getScribeNotesRequestURL);
-		System.out.println("response is..."+response.asString());
 		}
 		catch(Exception e)
 		{
@@ -240,6 +253,29 @@ public class Cluster extends BaseService {
 			
 		}
 		return response;
+	}
+
+	public boolean verifyCallsignNamePresent(Map appTicket,Response response, String loginId ) {
+		String callSignName="";
+		try {
+			String requestURL = BASEURI+"/api/participants";
+			requestSpec = RestAssured.given().contentType("application/json");
+			Response participantresponse = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+	        		.given().contentType("application/json").get(requestURL);
+	       String participantDocId = parser.getDocumentID(participantresponse,loginId);
+	       callSignName  = parser.getCallSignName(response, "participantDocId", participantDocId);
+	      System.out.println("call sign name....."+callSignName);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getStackTrace().toString());
+			
+		}
+		if(!callSignName.isEmpty())
+		return true;
+		else
+			return false;
+	
 	}
 
 }
