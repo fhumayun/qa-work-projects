@@ -634,9 +634,7 @@ Scenario Outline: Verify play / pause feature works correctly
       | Longitude   | <longitude>   |
       | Description | <description> |
     Then A new event with name "<incident>" should get created successfully
-    And User clicks on the active event "<incident>" link to join
-    Then User joins the event successfully
-    And User should be able to end an active event "<incident>" successfully
+    And Clean up test event "<incident>"
 
     Examples: 
       | username           | password   | incident                | casenumber              | missionType       | stream | address                                                         | latitude | longitude | description                           | participants                     |
