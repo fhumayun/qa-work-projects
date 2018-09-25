@@ -17,7 +17,7 @@ public class CucumberHooks extends BaseService {
 	TestrailResultUpload testresult = new TestrailResultUpload();
 	@Before
 	public void setUp(Scenario scenario){
-		
+		System.out.println("Executing Scenario : "+scenario.getName());
 
 	}
 	

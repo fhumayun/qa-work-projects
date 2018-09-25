@@ -70,8 +70,7 @@ public class Cluster extends BaseService {
 		Response response = requestSpec
 				.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "GET", appTicket)).given()
 				.contentType("application/json").get(requestURL);
-		System.out.println("Response from the API end point : " + response.getBody().asString());
-		return response;
+				return response;
 	}
 
 	public Response createCluster(Map appTicket) throws MalformedURLException, ParseException {
@@ -162,7 +161,6 @@ public class Cluster extends BaseService {
 				.given().get(getRequestURL);
 		String clusterDocId = parser.getDocID(response, "incident", eventName);
 		String getNotesRequestURL = BASEURI + "/api/mq/messages/clusters/" + clusterDocId + "/notes";
-		System.out.println(getNotesRequestURL);
 		requestSpec = RestAssured.given().contentType("application/json");
 		response =  requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getNotesRequestURL, "GET", appTicket))
 				.given().get(getNotesRequestURL);
@@ -247,11 +245,9 @@ public class Cluster extends BaseService {
 	        		.given().contentType("application/json").get(requestURL);
 	       String participantDocId = parser.getDocumentID(participantresponse,loginId);
 	       callSignName  = parser.getCallSignName(response, "participantDocId", participantDocId);
-	      System.out.println("call sign name....."+callSignName);
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getStackTrace().toString());
 			
 		}
 		if(!callSignName.isEmpty())

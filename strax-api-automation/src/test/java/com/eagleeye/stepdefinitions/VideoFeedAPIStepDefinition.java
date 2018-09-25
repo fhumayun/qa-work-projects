@@ -22,8 +22,6 @@ public class VideoFeedAPIStepDefinition extends BaseService{
 	@Given("^The STRAX video feed API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
-		System.out.println("in step definition");
-
 	}
 	@When("^User request the video feed information with GET method$")
 	public void getVideoFeedAPI() throws MalformedURLException {

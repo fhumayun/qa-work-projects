@@ -31,21 +31,18 @@ public class VideoFeed extends BaseService {
 	public Response getAllVideoFeeds(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI+"/api/media/videofeed/available";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
 	public Response getMobileFeed(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI+"/api/media/videofeed/mobile";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
 	public Response createFeed(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI + "/api/media/videofeed";
 		obj = reader.jsonReader("src/test/resources/testData/VideoFeed_post.json");
-		System.out.println("Response from the API end point : " + obj.toString());
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "POST", appTicket))
 				.given()
 				.config(RestAssured.config()
@@ -73,15 +70,11 @@ public class VideoFeed extends BaseService {
 		obj.put("wowzaStreamPort","2255");
 		obj.put("_id",videoFeedDocId);
 		String updateRequestURL = BASEURI + "/api/media/videofeed/media";
-		System.out.println("object..."+obj.toString());
-		//obj = reader.jsonReader("src/test/resources/testData/VideoFeed_post.json");
-		//System.out.println("Response from the API end point : " + obj.toString());
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(updateRequestURL, "PUT", appTicket))
 				.given()
 				.config(RestAssured.config()
 						.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
 				.contentType("application/json").body(obj).put(updateRequestURL);
-		System.out.println(response.getBody().asString());
 		return response;
 	}
 

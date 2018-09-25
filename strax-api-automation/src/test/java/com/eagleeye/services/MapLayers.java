@@ -19,21 +19,18 @@ public class MapLayers extends BaseService {
 	public Response getAllMapLayers(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI+"/api/gis/maplayers";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
 	public Response createMapLayers(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI+"/api/gis/maplayers";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
 	public Response getAllIcons(Map appTicket) throws MalformedURLException {
 		String requestURL = BASEURI+"/api/gis/icons";
 		Response response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket)).given().get(requestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 

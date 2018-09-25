@@ -20,8 +20,6 @@ public class MapLayersAPIStepDefinition extends BaseService{
 	@Given("^The STRAX map layer API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
-		System.out.println("in step definition");
-
 	}
 	@When("^User request the map layers information with GET method$")
 	public void getAccountAPI() throws MalformedURLException {

@@ -183,7 +183,6 @@ public class Participants extends BaseService {
 		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(putRequestURL,"PUT",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).put(putRequestURL);
-		System.out.println("update..."+response.asString());
 		}
 		catch(Exception e)
 		{
@@ -214,8 +213,7 @@ public class Participants extends BaseService {
      		obj.put("isArchived", true);
      		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"PUT",appTicket))
              		.given().contentType("application/json; charset=UTF-8").body(obj).put(deleteRequestURL);
-     				System.out.println("Delete..."+response.getBody().asString());
-		}
+     		}
 		catch(Exception e)
 		{
 			
@@ -235,7 +233,6 @@ public class Participants extends BaseService {
 	     		obj.put("isArchived", false);
 	     		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(unArchiveRequestURL,"PUT",appTicket))
 	             		.given().contentType("application/json; charset=UTF-8").body(obj).put(unArchiveRequestURL);
-	     				System.out.println("Delete..."+response.getBody().asString());
 			}
 			catch(Exception e)
 			{

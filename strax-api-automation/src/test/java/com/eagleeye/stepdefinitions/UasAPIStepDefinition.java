@@ -21,8 +21,6 @@ public class UasAPIStepDefinition extends BaseService{
 	@Given("^The STRAX UAS API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
-		System.out.println("in step definition");
-
 	}
 	@When("^User request the UAS information with GET method$")
 	public void getIcons() throws MalformedURLException {
@@ -46,8 +44,7 @@ public class UasAPIStepDefinition extends BaseService{
 	@Then("^The Milestone API should return valid response and status as 200$")
 	public void verifyMilestoneResponse() throws MalformedURLException {
 		res.then().statusCode(200);
-		
-		System.out.println(res.getBody().asString());
+
 	}
 	
 

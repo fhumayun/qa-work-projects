@@ -30,7 +30,6 @@ public class UAS extends BaseService {
 		String requestURL = BASEURI + "/api/fidgets";
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "GET", appTicket))
 				.given().get(requestURL);
-		System.out.println(response.getBody().asString());
 		return response;
 	}
 
