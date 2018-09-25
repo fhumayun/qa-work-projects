@@ -91,7 +91,6 @@ public class Participants extends BaseService {
 		 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(requestURL);
 		String participantDocId = parser.getDocumentID(response,loginId);
-		System.out.println("_ID....."+participantDocId);
 		obj.put("accessLevel", "2");
 		obj.put("accountDocId", "000000000000000000000002");
 		obj.put("color", "#FF0000");
@@ -101,7 +100,6 @@ public class Participants extends BaseService {
 	    obj.put("password", "Password1@");
 	    obj.put("loginId", "z-apitest@ee.io");
 	    obj.put("status", true);
-        System.out.println(obj.toString());
 		String updateRequestURL = BASEURI+"/api/participants/"+participantDocId;
 		requestSpec = RestAssured.given().contentType("application/json");
 		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"PUT",appTicket))
@@ -119,12 +117,10 @@ public class Participants extends BaseService {
         String changeRequestURL = BASEURI+"/api/password/change";
 	    obj.put("partId", participantDocId);
 	    obj.put("password", "Password1@");
-        System.out.println(obj.toString());
 		requestSpec = RestAssured.given().contentType("application/json");
 		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(changeRequestURL,"POST",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(changeRequestURL);
-		System.out.println("Response from the API end point : "+response.getBody().asString());
 		return response;
 	}
 
@@ -138,6 +134,114 @@ public class Participants extends BaseService {
 			e.printStackTrace();
 		}
 		return response;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response createCallsignAPI(Map appTicket,String loginId) {
+		
+		try {
+			String getParticipantIdrequestURL = BASEURI+"/api/participants";
+	        response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getParticipantIdrequestURL,"GET",appTicket))
+	        		.given().contentType("application/json").get(getParticipantIdrequestURL);
+	        participantDocId = parser.getDocumentID(response,loginId);
+		    obj.put("callSignName", "Tango6");
+		    obj.put("participant", participantDocId);
+		    String requestURL = BASEURI+"/api/callsigns";
+		    requestSpec = RestAssured.given().contentType("application/json");
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"POST",appTicket))
+        		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+        		.contentType("application/json").body(obj).post(requestURL);
+		System.out.println("Response from the API end point : "+response.getBody().asString());
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response updateCallsignAPI(Map appTicket, String callSignName, String loginId) {
+		try {
+			String getCallSignIdrequestURL = BASEURI+"/api/callsigns";
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getCallSignIdrequestURL,"GET",appTicket))
+					.given().contentType("application/json").get(getCallSignIdrequestURL);
+	       String callSignDocId = parser.getDocID(response,"callSignName",callSignName );
+		requestSpec = RestAssured.given().contentType("application/json");
+		String getParticipantIdrequestURL = BASEURI+"/api/participants";
+        response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getParticipantIdrequestURL,"GET",appTicket))
+        		.given().contentType("application/json").get(getParticipantIdrequestURL);
+        participantDocId = parser.getDocumentID(response,loginId);
+		obj.put("callSignType", "Individual");
+		obj.put("status", "Active");
+		obj.put("isArchived", false);
+	    obj.put("participant", participantDocId);
+	    obj.put("_id", callSignDocId);
+		String putRequestURL = BASEURI+"/api/callsigns";
+	    requestSpec = RestAssured.given().contentType("application/json");
+		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(putRequestURL,"PUT",appTicket))
+        		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+        		.contentType("application/json").body(obj).put(putRequestURL);
+		System.out.println("update..."+response.asString());
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response archiveCallsignAPI(Map appTicket, String callSignName) {
+		try {
+
+		String getCallSignIdrequestURL = BASEURI+"/api/callsigns";
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getCallSignIdrequestURL,"GET",appTicket))
+				.given().contentType("application/json").get(getCallSignIdrequestURL);
+       String callSignDocId = parser.getDocID(response,"callSignName",callSignName );
+		obj.put("isArchived", false);
+	    obj.put("participant", "");
+	    obj.put("Status", "Available");
+	    obj.put("_id", callSignDocId);
+		String putRequestURL = BASEURI+"/api/callsigns";
+	    requestSpec = RestAssured.given().contentType("application/json");
+		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(putRequestURL,"PUT",appTicket))
+       		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+       		.contentType("application/json").body(obj).put(putRequestURL);
+       String deleteRequestURL = BASEURI+"/api/callsigns/"+callSignDocId+"/archive";
+     		requestSpec = RestAssured.given().contentType("application/json");
+     		obj.put("isArchived", true);
+     		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(deleteRequestURL,"PUT",appTicket))
+             		.given().contentType("application/json; charset=UTF-8").body(obj).put(deleteRequestURL);
+     				System.out.println("Delete..."+response.getBody().asString());
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response unarchivedCallsignAPI(Map appTicket, String callSignName) {
+		try {
+			String getCallSignIdrequestURL = BASEURI+"/api/callsigns";
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getCallSignIdrequestURL,"GET",appTicket))
+					.given().contentType("application/json").get(getCallSignIdrequestURL);
+	       String callSignDocId = parser.getDocID(response,"callSignName",callSignName );
+	       String unArchiveRequestURL = BASEURI+"/api/callsigns/"+callSignDocId+"/archive";
+	     		requestSpec = RestAssured.given().contentType("application/json");
+	     		obj.put("isArchived", false);
+	     		response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(unArchiveRequestURL,"PUT",appTicket))
+	             		.given().contentType("application/json; charset=UTF-8").body(obj).put(unArchiveRequestURL);
+	     				System.out.println("Delete..."+response.getBody().asString());
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
 	}
 
 

@@ -16,7 +16,7 @@ import cucumber.api.java.en.When;
 public class UasAPIStepDefinition extends BaseService{
 	public Response res;
 	Map appTicket;
-	UAS layer = new UAS(requestSpec);
+	UAS uas = new UAS(requestSpec);
 	
 	@Given("^The STRAX UAS API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
@@ -28,7 +28,7 @@ public class UasAPIStepDefinition extends BaseService{
 	public void getIcons() throws MalformedURLException {
 
 		
-		res = layer.getAllUAS(appTicket);
+		res = uas.getAllUAS(appTicket);
 	}
 	@Then("^The UAS API should return valid response and status as 200$")
 	public void verifyResponse() throws MalformedURLException {
@@ -36,6 +36,18 @@ public class UasAPIStepDefinition extends BaseService{
 		res.getBody().asString();
 		//DatabaseConnection conn =  new DatabaseConnection();
 		//conn.getAccount();
+	}
+	@When("^User request the Milestone information with GET method$")
+	public void getMilestone() throws MalformedURLException {
+
+		
+		res = uas.getMilestone(appTicket);
+	}
+	@Then("^The Milestone API should return valid response and status as 200$")
+	public void verifyMilestoneResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+		
+		System.out.println(res.getBody().asString());
 	}
 	
 

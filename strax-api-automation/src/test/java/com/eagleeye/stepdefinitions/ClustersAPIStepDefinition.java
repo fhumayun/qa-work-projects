@@ -25,13 +25,10 @@ public class ClustersAPIStepDefinition extends BaseService {
 	@Given("^The STRAX Cluster API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
-		System.out.println("in step definition");
-
 	}
 
 	@Given("^The STRAX cluster API end point is available$")
 	public void openAPI() {
-		System.out.println("in step definition");
 
 	}
 

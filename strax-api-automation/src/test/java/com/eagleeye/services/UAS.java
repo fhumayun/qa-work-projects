@@ -33,4 +33,18 @@ public class UAS extends BaseService {
 		System.out.println(response.getBody().asString());
 		return response;
 	}
+
+	public Response getMilestone(Map appTicket) {
+		try {
+		String requestURL = BASEURI + "/api/media/onvifbridge";
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "GET", appTicket))
+				.given().get(requestURL);
+		System.out.println(response.getBody().asString());
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+	}
 }

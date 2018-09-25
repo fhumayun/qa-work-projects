@@ -61,3 +61,38 @@ Scenario Outline: verify GET callsign API works correctly
       | username           | password        |
       | z-autobot@ee.io    | Password1@      |
 
+@C171639
+Scenario Outline: verify POST callsign API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to creates new callsign and assign to a user "<username>"
+	Then The callsign should get created and return status code as 200
+			Examples: valid username/password combination
+      | username           | password        |
+      | z-autobot@ee.io    | Password1@      |
+
+@C171640
+Scenario Outline: verify PUT callsign API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to assign the callsign "<callsign>" to other user "<username>"
+	Then The callsign should get assigned to other user and return status code as 200
+			Examples: valid username/password combination
+      | username        | password  |callsign|
+      | z-autobot@ee.io | Password1@|Tango6  |
+
+@C171641
+Scenario Outline: verify archive callsign API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to archive the callsign "<callsign>"
+	Then The callsign should get archived and return status code as 200
+			Examples: valid username/password combination
+      | username        | password  |callsign|
+      | z-autobot@ee.io | Password1@|Tango6  |
+
+@C171642
+Scenario Outline: verify unarchive callsign API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to unarchive the callsign "<callsign>"
+	Then The callsign should get unarchived and return status code as 200
+			Examples: valid username/password combination
+      | username        | password  |callsign|
+      | z-autobot@ee.io | Password1@|Tango6  |
