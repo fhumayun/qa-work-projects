@@ -96,3 +96,12 @@ Scenario Outline: verify unarchive callsign API works correctly
 			Examples: valid username/password combination
       | username        | password  |callsign|
       | z-autobot@ee.io | Password1@|Tango6  |
+
+@C171643
+Scenario Outline: verify bulk upload callsign API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to bulk upload the callsign using csv file
+	Then The callsign should get uploaded and return status code as 200
+			Examples: valid username/password combination
+      | username        | password  |
+      | z-autobot@ee.io | Password1@|

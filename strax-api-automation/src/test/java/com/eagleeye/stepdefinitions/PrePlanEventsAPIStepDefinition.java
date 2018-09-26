@@ -22,8 +22,6 @@ public class PrePlanEventsAPIStepDefinition extends BaseService {
 	@Given("^The STRAX pre plan API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
-		System.out.println("in step definition");
-
 	}
 
 	@When("^User request the pre plan information with GET method$")

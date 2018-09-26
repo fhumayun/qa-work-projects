@@ -160,4 +160,12 @@ public void unarchiveCallsignsAPI(String callSignName) throws MalformedURLExcept
 public void verifyUnArchiveCallsignsResponse() throws MalformedURLException {
 	res.then().statusCode(200);
 }
+@When("^User requests to bulk upload the callsign using csv file$")
+public void bulkUploadCallsignsAPI() throws MalformedURLException, ParseException {
+	res = ps.bulkUploadCallsignAPI(appTicket);
+}
+@Then("^The callsign should get uploaded and return status code as 200$")
+public void verifyBulkUploadCallsignsResponse() throws MalformedURLException {
+	res.then().statusCode(200);
+}
 }

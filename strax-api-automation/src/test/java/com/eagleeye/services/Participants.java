@@ -1,8 +1,12 @@
 package com.eagleeye.services;
 
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Map;
+
+import javax.ws.rs.core.MediaType;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import com.eagleeye.utils.JSONFileReader;
@@ -12,6 +16,8 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
+import com.jayway.restassured.builder.MultiPartSpecBuilder; 
+import com.jayway.restassured.builder.RequestSpecBuilder; 
 
 public class Participants extends BaseService {
 	
@@ -240,6 +246,26 @@ public class Participants extends BaseService {
 			}
 			return response;
 	}
+
+	public Response bulkUploadCallsignAPI(Map appTicket) {
+
+		try {
+		String uploadCallSignrequestURL = BASEURI+"/api/callsigns-upload";
+	    response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(uploadCallSignrequestURL,"POST",appTicket))
+	    .given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+	    .contentType("multipart/form-data").multiPart("file", new File("src/test/resources/testData/callsigns.csv"))
+	    .post(uploadCallSignrequestURL);
+	    System.out.println("Response of upload..."+response.asString());
+
+	 }
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+	}
+	
+	
 
 
 }
