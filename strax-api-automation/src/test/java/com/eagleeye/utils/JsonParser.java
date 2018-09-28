@@ -75,6 +75,29 @@ public class JsonParser {
 	    		  	}
 		return docId;
 	}
+	public String getKeyValueByKey(Response response, String key,String value,String property) throws ParseException
+	{
+
+		 String docId="";
+		 String jsonAsString = response.getBody().asString();
+	       JSONArray arr =  (JSONArray) parser.parse(jsonAsString);
+	       for(int i=0;i<arr.size();i++) {
+	    	   JSONObject obj = (JSONObject) arr.get(i);
+	    	  Set<?> keys = obj.keySet();
+	    	  Iterator<?> a = keys.iterator();
+	    	  while (a.hasNext()) {
+	    		    String k = (String) a.next();
+	    		    if(k.contains(key) && obj.get(key).equals(value) )
+	    		    {
+	    		    	docId = (String) obj.get(property);
+	    		    	break;
+	    		    }
+
+	    		}
+	    	 
+	    		  	}
+		return docId;
+	}
 	public String getCallSignName(Response response, String key,String value) throws ParseException
 	{
 		JSONObject val=null;

@@ -103,6 +103,7 @@ public class Cluster extends BaseService {
 		requestSpec = RestAssured.given().contentType("application/json");
 		response =  requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(getChatRequestURL, "GET", appTicket))
 				.given().get(getChatRequestURL);
+		System.out.println(response.getBody().asString());
 		return response;
 	}
 
@@ -257,14 +258,15 @@ public class Cluster extends BaseService {
 	
 	}
 
+	@SuppressWarnings("unchecked")
 	public Response promoteScribeToChat(Map appTicket,String loginId,String eventName) {
 		try {
 			
-			response =  getScribeNotes(appTicket,eventName,loginId);
-			String clusterDocId = parser.getDocID(response, "incident", eventName);
-			String referencerDocId = parser.getDocID(response, "incident", eventName);
-			String scribeDocId = parser.getDocID(response, "data", "Automated Note3");
-			String participantDocId = parser.getDocumentID(response,loginId);
+			response =  getScribeNotes(appTicket,eventName,loginId);		
+			String clusterDocId = parser.getKeyValueByKey(response, "data", "Automated Note2", "clusterDocId");
+			String referencerDocId = parser.getKeyValueByKey(response, "data", "Automated Note2", "referenceId");
+			String scribeDocId = parser.getKeyValueByKey(response, "data", "Automated Note2", "_id");
+			String participantDocId = parser.getKeyValueByKey(response, "data", "Automated Note2", "participantDocId");	
 			obj.put("firstName", "Z-Auto");
 			obj.put("lastName", "Z-Bot");
 		    obj.put("referenceId", referencerDocId);
@@ -277,6 +279,7 @@ public class Cluster extends BaseService {
 					.config(RestAssured.config()
 							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
 					.contentType("application/json").body(obj).post(promoteScribeToChatrequestURL);
+			System.out.println(response.getBody().asString());
 			}
 			catch(Exception e)
 			{
