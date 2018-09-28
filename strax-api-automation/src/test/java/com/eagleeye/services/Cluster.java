@@ -257,4 +257,32 @@ public class Cluster extends BaseService {
 	
 	}
 
+	public Response promoteScribeToChat(Map appTicket,String loginId,String eventName) {
+		try {
+			
+			response =  getScribeNotes(appTicket,eventName,loginId);
+			String clusterDocId = parser.getDocID(response, "incident", eventName);
+			String referencerDocId = parser.getDocID(response, "incident", eventName);
+			String scribeDocId = parser.getDocID(response, "data", "Automated Note3");
+			String participantDocId = parser.getDocumentID(response,loginId);
+			obj.put("firstName", "Z-Auto");
+			obj.put("lastName", "Z-Bot");
+		    obj.put("referenceId", referencerDocId);
+			obj.put("participantDocId", participantDocId);
+		    obj.put("clusterDocId", clusterDocId);	 
+			String promoteScribeToChatrequestURL = BASEURI + "/api/mq/scribes/"+scribeDocId+"/promote/chat";
+		    requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(promoteScribeToChatrequestURL, "POST", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json").body(obj).post(promoteScribeToChatrequestURL);
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
 }

@@ -20,6 +20,14 @@ public class JsonParser {
 	       String value = (String) object.get(key);
 		return value;
 	}
+	//returns a json Object 
+	public JSONObject getPropertyObject(Response response, String key) throws ParseException
+	{
+		 String jsonAsString = response.getBody().asString();
+	       JSONObject object =  (JSONObject) parser.parse(jsonAsString);
+	       JSONObject value =  (JSONObject) object.get(key);
+		return value;
+	}
 	
 	public String getDocumentID(Response response, String key1) throws ParseException
 	{

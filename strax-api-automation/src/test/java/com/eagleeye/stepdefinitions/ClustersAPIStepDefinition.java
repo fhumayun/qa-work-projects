@@ -10,6 +10,7 @@ import com.eagleeye.services.BaseService;
 import com.eagleeye.services.Cluster;
 import com.eagleeye.services.AppTicket;
 import com.eagleeye.services.Participants;
+import com.eagleeye.utils.JsonParser;
 import com.jayway.restassured.response.Response;
 
 import cucumber.api.java.en.And;
@@ -20,6 +21,7 @@ import cucumber.api.java.en.When;
 public class ClustersAPIStepDefinition extends BaseService {
 	public Response res;
 	Map appTicket;
+	JsonParser parser =  new JsonParser();
 	Cluster cl = new Cluster(requestSpec);
 
 	@Given("^The STRAX Cluster API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
@@ -185,6 +187,20 @@ public class ClustersAPIStepDefinition extends BaseService {
 	public void verifyCallsignResponse(String loginId) throws MalformedURLException, ParseException {
 
 		Assert.assertTrue(cl.verifyCallsignNamePresent(appTicket,res,loginId));
+	}
+	@When("^User \"([^\"]*)\" requests to promote a scribe note to chat channel for \"([^\"]*)\" with valid request body using POST method$")
+	public void promoteScribeToChatAPI(String userName,String eventName) throws MalformedURLException, ParseException {
+
+		res = cl.promoteScribeToChat(appTicket,userName,eventName);
+	}
+
+	@Then("^the response should have JSON <promoted> object which should have a boolean property <chat>$")
+	public void verifyPromotedTrue() throws MalformedURLException, ParseException {
+		Assert.assertNotNull(parser.getPropertyObject(res, "promoted"));
+	}
+	@And("^return the statusCode as 200$")
+	public void verifyScribePromotedResponse() throws MalformedURLException, ParseException {
+		res.then().statusCode(200);
 	}
 
 }

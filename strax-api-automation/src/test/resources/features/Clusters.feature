@@ -84,6 +84,17 @@ Scenario Outline: verify POST method of event scribe notes API works correctly
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1| 
+ 
+
+@C171644
+Scenario Outline: As a STRAX user i want an API with POST method to promote a scribe entry to chat channel
+	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
+	When User "<username>" requests to promote a scribe note to chat channel for "<eventName>" with valid request body using POST method
+	Then the response should have JSON <promoted> object which should have a boolean property <chat>
+	And return the statusCode as 200
+			Examples: valid username/password combination
+      | username         	   | password   |eventName		|
+      | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
         
 @Cluster @C171607 @Smoke
 Scenario Outline: verify delete cluster API deletes the given cluster
