@@ -270,7 +270,7 @@ public class Cluster extends BaseService {
 			obj.put("firstName", "Z-Auto");
 			obj.put("lastName", "Z-Bot");
 		    obj.put("referenceId", referencerDocId);
-			obj.put("participantDocId", participantDocId);
+		    obj.put("participantDocId", participantDocId);
 		    obj.put("clusterDocId", clusterDocId);	 
 			String promoteScribeToChatrequestURL = BASEURI + "/api/mq/scribes/"+scribeDocId+"/promote/chat";
 		    requestSpec = RestAssured.given().contentType("application/json");
@@ -279,7 +279,7 @@ public class Cluster extends BaseService {
 					.config(RestAssured.config()
 							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
 					.contentType("application/json").body(obj).post(promoteScribeToChatrequestURL);
-			System.out.println(response.getBody().asString());
+			System.out.println(response.getBody().toString());
 			}
 			catch(Exception e)
 			{
@@ -288,4 +288,110 @@ public class Cluster extends BaseService {
 			return response;
 	}
 
+	public Response getPreferences(JSONObject authTicket) {
+		try {
+		String requestURL = BASEURI+"/api/preferences";
+		response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",authTicket))
+        		.given().contentType("application/json").get(requestURL);
+		System.out.println("Response here of req.."+response.getBody().asString());
+		System.out.println("Response Code.."+response.getStatusCode());
+		//System.out.println(requestURL);
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return response;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response addPreferences(JSONObject authTicket) {
+		try {
+			String requestURL = BASEURI+"/api/preferences";
+			obj.put("save_enter", true);
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", authTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json").body(obj).put(requestURL);
+			System.out.println("Response.."+response.getBody().asString());
+			System.out.println("Response Code.."+response.getStatusCode());
+			System.out.println(requestURL);
+			System.out.println(obj.toJSONString());
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+		
+	}
+	
+	public Response addAndroidPreferences(JSONObject authTicket) {
+		try {
+			String requestURL = BASEURI+"/api/preferences/android";
+			obj.put("theme", "blue");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", authTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json").body(obj).put(requestURL);
+			System.out.println("Response.."+response.getBody().asString());
+			System.out.println("Response Code.."+response.getStatusCode());
+			System.out.println(requestURL);
+			System.out.println(obj.toJSONString());
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	public Response addMapPreferences(JSONObject authTicket) {
+		try {
+			String requestURL = BASEURI+"/api/preferences/5bbdbe7aef37cf001ceb2da6/map";
+			obj = reader.jsonReader("src/test/resources/testData/Preference_put.json");
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", authTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json").body(obj).put(requestURL);
+			System.out.println("Response.."+response.getBody().asString());
+			System.out.println("Response Code.."+response.getStatusCode());
+			System.out.println(requestURL);
+			System.out.println(obj.toJSONString());
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	public Response deletePreferences(JSONObject authTicket) {
+		try {
+			String requestURL = BASEURI+"/api/preferences/participants/59ad8d32070d610001e6bc7f";
+						response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "DELETE", authTicket))
+					.given().contentType("application/json; charset=UTF-8").delete(requestURL);
+			System.out.println("Response.."+response.getBody().asString());
+			System.out.println("Response Code.."+response.getStatusCode());
+			System.out.println(requestURL);
+			System.out.println(obj.toJSONString());
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	
+
 }
+

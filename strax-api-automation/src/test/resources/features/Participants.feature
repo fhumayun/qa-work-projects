@@ -105,3 +105,47 @@ Scenario Outline: verify bulk upload callsign API works correctly
 			Examples: valid username/password combination
       | username        | password  |
       | z-autobot@ee.io | Password1@|
+      
+@C171653
+Scenario Outline: verify POST subunit API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User reuests to add subunit with POST method
+	Then The subunit API should add subunit and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+
+@C171649
+Scenario Outline: verify GET subunit API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to query subunit with GET method
+	Then The subunit API should get all subunits and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+              
+@C171650
+Scenario Outline: verify PUT subunit API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to update subunit "<subUnitName>" with PUT method
+	Then The subunit API should update subunit and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |subUnitName|
+      | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
+@C171651
+Scenario Outline: verify change order subunit API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to change order of subunit "<subUnitName>" with PUT method
+	Then The change order subunit API should update order and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |subUnitName|
+      | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
+      
+@C171652
+Scenario Outline: verify archive subunit API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to archive subunit "<subUnitName>" with PUT method
+	Then The archive subunit API should archive the subunit and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |subUnitName|
+      | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|

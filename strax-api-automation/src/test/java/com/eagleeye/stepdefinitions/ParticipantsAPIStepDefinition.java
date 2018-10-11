@@ -168,4 +168,68 @@ public void bulkUploadCallsignsAPI() throws MalformedURLException, ParseExceptio
 public void verifyBulkUploadCallsignsResponse() throws MalformedURLException {
 	res.then().statusCode(200);
 }
+@When("^User reuests to add subunit with POST method$")
+public void addSubunitAPI() throws MalformedURLException, ParseException {
+
+	res = ps.addSubunit(appTicket);
+}
+
+@Then("^The subunit API should add subunit and return status code as 200$")
+public void verifySubunitResponse() throws MalformedURLException, ParseException {
+	JsonParser parser =  new JsonParser();
+	String message = parser.getPropertyValue(res,"message");
+	int  status = res.getStatusCode();
+	if(message == null || message.equals("Duplicate subunit name"))
+	{
+		Assert.assertTrue(true);
+	}
+	else if((status==200))
+	{
+		Assert.assertTrue(true);
+	}
+	else
+		
+		Assert.assertFalse(false);
+}
+@When("^User requests to query subunit with GET method$")
+public void getSubunitAPI() throws MalformedURLException, ParseException {
+
+	res = ps.getSubunit(appTicket);
+}
+
+@Then("^The subunit API should get all subunits and return status code as 200$")
+public void verifyGetSubunitResponse() throws MalformedURLException {
+	res.then().statusCode(200);
+}
+@When("^User requests to update subunit \"([^\"]*)\" with PUT method$")
+public void updateSubunitAPI(String subUnit) throws MalformedURLException, ParseException {
+
+	res = ps.updateSubunit(appTicket,subUnit);
+}
+
+@Then("^The subunit API should update subunit and return status code as 200$")
+public void verifyPutSubunitResponse() throws MalformedURLException {
+	res.then().statusCode(200);
+}
+@When("^User requests to change order of subunit \"([^\"]*)\" with PUT method$")
+public void updateOrderSubunitAPI(String subUnit) throws MalformedURLException, ParseException {
+
+	res = ps.updateOrderSubunit(appTicket,subUnit);
+}
+
+@Then("^The change order subunit API should update order and return status code as 200$")
+public void verifyUpdateOrderSubunitResponse() throws MalformedURLException {
+	res.then().statusCode(200);
+}
+@When("^User requests to archive subunit \"([^\"]*)\" with PUT method$")
+public void archiveSubunitAPI(String subUnit) throws MalformedURLException, ParseException {
+
+	res = ps.archiveSubunit(appTicket,subUnit);
+}
+
+@Then("^The archive subunit API should archive the subunit and return status code as 200$")
+public void verifyarchiveSubunitResponse() throws MalformedURLException {
+	res.then().statusCode(200);
+}
+
 }

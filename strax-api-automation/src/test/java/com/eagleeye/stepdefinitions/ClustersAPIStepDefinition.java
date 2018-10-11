@@ -3,6 +3,7 @@ package com.eagleeye.stepdefinitions;
 import java.net.MalformedURLException;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 
@@ -21,12 +22,18 @@ import cucumber.api.java.en.When;
 public class ClustersAPIStepDefinition extends BaseService {
 	public Response res;
 	Map appTicket;
+	JSONObject authTicket;
 	JsonParser parser =  new JsonParser();
 	Cluster cl = new Cluster(requestSpec);
 
 	@Given("^The STRAX Cluster API is authenticated with user \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void apiAuth(String username, String password) throws MalformedURLException {
 		appTicket = AppTicket.getAppTicket(username, password);
+	}
+	
+	@Given("^The STRAX Cluster API is authenticated with authTicket with user \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void getAuth(String username, String password) throws MalformedURLException {
+		authTicket = AppTicket.getLoginObject(username, password);
 	}
 
 	@Given("^The STRAX cluster API end point is available$")
@@ -202,5 +209,53 @@ public class ClustersAPIStepDefinition extends BaseService {
 	public void verifyScribePromotedResponse() throws MalformedURLException, ParseException {
 		res.then().statusCode(200);
 	}
+	@When("^User reuests preferences details with GET method$")
+	public void getPreferencesAPI() throws MalformedURLException, ParseException {
 
+		res = cl.getPreferences(authTicket);
+	}
+
+	@Then("^The preferences API should return currently set preferences and return status code as 200$")
+	public void verifyGetPreferencesResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
+	@When("^User reuests to add preferences with PUT method for browser property$")
+	public void addPreferencesAPI() throws MalformedURLException, ParseException {
+
+		res = cl.addPreferences(authTicket);
+	}
+
+	@Then("^The preferences API should add user preference and return status code as 200$")
+	public void verifyAddPreferencesResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
+	@When("^User reuests to add preferences with PUT method for android property$")
+	public void addAndroidPreferencesAPI() throws MalformedURLException, ParseException {
+
+		res = cl.addAndroidPreferences(authTicket);
+	}
+
+	@Then("^The preferences API should add user preference for android and return status code as 200$")
+	public void verifyAddMapPreferencesResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
+	@When("^User reuests to add preferences with PUT method for map property$")
+	public void addMapPreferencesAPI() throws MalformedURLException, ParseException {
+
+		res = cl.addMapPreferences(authTicket);
+	}
+	@Then("^The preferences API should delete user preference and return status code as 200$")
+	public void verifyDeletePreferencesResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
+	@When("^User reuests to delete preferences with DELETE method$")
+	public void deletePreferencesAPI() throws MalformedURLException, ParseException {
+
+		res = cl.deletePreferences(authTicket);
+	}
+
+	@Then("^The preferences API should add user preference for map and return status code as 200$")
+	public void verifyAddAndroidPreferencesResponse() throws MalformedURLException {
+		res.then().statusCode(200);
+	}
 }

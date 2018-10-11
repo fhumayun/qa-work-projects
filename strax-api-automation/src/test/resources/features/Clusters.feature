@@ -95,7 +95,53 @@ Scenario Outline: As a STRAX user i want an API with POST method to promote a sc
 			Examples: valid username/password combination
       | username         	   | password   |eventName		|
       | z-autobot@ee.io			 | Password1@ |EventFromAPI1|
-        
+
+@C171654
+Scenario Outline: verify PUT preferences API works correctly for browser property
+	Given The STRAX Cluster API is authenticated with authTicket with user "<username>" and "<password>"
+	When User reuests to add preferences with PUT method for browser property
+	Then The preferences API should add user preference and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+@C171655     
+Scenario Outline: verify PUT preferences API works correctly for android property
+	Given The STRAX Cluster API is authenticated with authTicket with user "<username>" and "<password>"
+	When User reuests to add preferences with PUT method for android property
+	Then The preferences API should add user preference for android and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+      
+@C171656     
+Scenario Outline: verify PUT preferences API works correctly for map property
+	Given The STRAX Cluster API is authenticated with authTicket with user "<username>" and "<password>"
+	When User reuests to add preferences with PUT method for map property
+	Then The preferences API should add user preference for map and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+
+@C171657
+Scenario Outline: verify GET preferences API works correctly
+	Given The STRAX Cluster API is authenticated with authTicket with user "<username>" and "<password>"
+	When User reuests preferences details with GET method
+	Then The preferences API should return currently set preferences and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+      
+@C171658   
+Scenario Outline: verify DELETE preferences API works correctly
+	Given The STRAX Cluster API is authenticated with authTicket with user "<username>" and "<password>"
+	When User reuests to delete preferences with DELETE method
+	Then The preferences API should delete user preference and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |
+      | z-autobot@ee.io    | Password1@ |
+
+
+      
 @Cluster @C171607 @Smoke
 Scenario Outline: verify delete cluster API deletes the given cluster
 	Given The STRAX Cluster API is authenticated with user "<username>" and "<password>"
@@ -122,3 +168,4 @@ Scenario Outline: verify GET event message API works correctly
 			Examples: valid username/password combination
       | username           | password   |
       | z-autobot@ee.io    | Password1@ |
+      

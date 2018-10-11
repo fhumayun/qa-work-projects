@@ -134,7 +134,7 @@ public class Participants extends BaseService {
 		String requestURL = BASEURI+"/api/callsigns";
         try {
 			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
-					.given().contentType("application/json").get(requestURL);		
+					.given().contentType("application/json").get(requestURL);	
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -264,6 +264,104 @@ public class Participants extends BaseService {
 		}
 		return response;
 	}
+	@SuppressWarnings("unchecked")
+	public Response addSubunit(Map appTicket) {
+		try {
+			String requestURL = BASEURI+"/api/subunits";
+			obj = reader.jsonReader("src/test/resources/testData/Subunit_post.json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "POST", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json; charset=UTF-8").body(obj).post(requestURL);
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+		
+	}
+
+	public Response getSubunit(Map appTicket) {
+		try {
+			String requestURL = BASEURI+"/api/subunits";
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+	        		.given().contentType("application/json").get(requestURL);
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+		}
+
+	public Response updateSubunit(Map appTicket,String subUnit) {
+		try {
+			response = getSubunit(appTicket);
+			String subUnitDocId = parser.getDocID(response, "name", subUnit);
+			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId;
+			obj = reader.jsonReader("src/test/resources/testData/Subunit_put.json");
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json; charset=UTF-8").body(obj).put(requestURL);
+		
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	public Response updateOrderSubunit(Map appTicket,String subUnit) {
+		try {
+			response = getSubunit(appTicket);
+			String subUnitDocId = parser.getDocID(response, "name", subUnit);
+			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId+"/changeOrder";
+			obj.put("new", 2);
+			obj.put("old", 1);
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json; charset=UTF-8").body(obj).put(requestURL);
+		
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	public Response archiveSubunit(Map appTicket,String subUnit) {
+		try {
+			response = getSubunit(appTicket);
+			String subUnitDocId = parser.getDocID(response, "name", subUnit);
+			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId+"/archive";
+			obj.put("status", false);
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json; charset=UTF-8").body(obj).put(requestURL);
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	
 	
 	
 
