@@ -397,15 +397,15 @@ public class Participants extends BaseService {
 			String requestURL = BASEURI+"/api/participants";
 			 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
 		        		.given().contentType("application/json").get(requestURL);
-			 System.out.print(response.getBody().asString());
+			// System.out.print(response.getBody().asString());
 			String participantDocId = parser.getDocumentID(response,loginId);
-			System.out.print(participantDocId);
+			System.out.print("doc id.."+participantDocId);
 			obj.put("status", false);
 			String updateRequestURL = BASEURI+"/api/participants/"+participantDocId;
 			requestSpec = RestAssured.given().contentType("application/json");
 			response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"PUT",appTicket))
 	        		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
-	        		.contentType("application/json").body(obj).put(updateRequestURL);
+	        		.contentType("application/json; charset=UTF-8").body(obj).put(updateRequestURL);
 			System.out.println(response.getBody().asString());
 					
 	}
