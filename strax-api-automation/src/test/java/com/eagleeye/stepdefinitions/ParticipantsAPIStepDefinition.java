@@ -81,8 +81,18 @@ public void updateParticipantAPI(String loginId) throws MalformedURLException, P
 
 	res = ps.updateParticipant(appTicket,loginId);
 }
+@When("^User archive participant \"([^\"]*)\" with PUT method with valid data$")
+public void archiveParticipantAPI(String loginId) throws MalformedURLException, ParseException {
+
+
+	res = ps.archiveParticipant(appTicket,loginId);
+}
 @Then("^The participant details should get updated successfully and return status code as 200$")
 public void verifyUpdateParticipantResponse() throws MalformedURLException {
+	res.then().statusCode(200);
+}
+@Then("^The participant should get archived successfully and return status code as 200$")
+public void verifyArchiveParticipantResponse() throws MalformedURLException {
 	res.then().statusCode(200);
 }
 @When("^User change password of a participant \"([^\"]*)\" with POST method$")
@@ -205,6 +215,12 @@ public void verifyGetSubunitResponse() throws MalformedURLException {
 public void updateSubunitAPI(String subUnit) throws MalformedURLException, ParseException {
 
 	res = ps.updateSubunit(appTicket,subUnit);
+}
+
+@When("^User requests to add participants in subunit \"([^\"]*)\" with PUT method$")
+public void addParticipantToSubunit(String subUnit) throws MalformedURLException, ParseException {
+
+	res = ps.addParticipantToSubunit(appTicket,subUnit);
 }
 
 @Then("^The subunit API should update subunit and return status code as 200$")

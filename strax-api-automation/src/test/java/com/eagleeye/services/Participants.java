@@ -43,7 +43,7 @@ public class Participants extends BaseService {
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
         		.contentType("application/json").body(obj).post(requestURL);
 				participantDocId = parser.getPropertyValue(response, "_id");
-		System.gc();
+		System.out.println(response.getBody().asString());
 		return response;
 	}
 	public Response unlockParticipant(Map appTicket,String loginId) throws MalformedURLException, ParseException
@@ -72,6 +72,8 @@ public class Participants extends BaseService {
         requestSpec = RestAssured.given().contentType("application/json");
         response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL1,"GET",appTicket))
         		.given().contentType("application/json").get(requestURL1);
+        System.out.println("Response from the API end point : "+response.getBody().asString());
+        
        		return response;
 	}
 
@@ -98,6 +100,7 @@ public class Participants extends BaseService {
 	        		.given().contentType("application/json").get(requestURL);
 		String participantDocId = parser.getDocumentID(response,loginId);
 		obj.put("accessLevel", "2");
+		obj.put("_id", participantDocId);
 		obj.put("accountDocId", "000000000000000000000002");
 		obj.put("color", "#FF0000");
 	    obj.put("vertical", "eagleeye");
@@ -106,11 +109,14 @@ public class Participants extends BaseService {
 	    obj.put("password", "Password1@");
 	    obj.put("loginId", "z-apitest@ee.io");
 	    obj.put("status", true);
+	    obj.put("suffix", "Sr.");
+	    obj.put("mobilePhone", "+1234567890");
 		String updateRequestURL = BASEURI+"/api/participants/"+participantDocId;
 		requestSpec = RestAssured.given().contentType("application/json");
 		response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"PUT",appTicket))
         		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
-        		.contentType("application/json").body(obj).post(updateRequestURL);
+        		.contentType("application/json").body(obj).put(updateRequestURL);
+		System.out.println(response.getBody().asString());
 				return response;
 	}
 
@@ -286,9 +292,10 @@ public class Participants extends BaseService {
 
 	public Response getSubunit(Map appTicket) {
 		try {
-			String requestURL = BASEURI+"/api/subunits";
+			String requestURL = BASEURI+"/api/subunits/5bc9b350d7c4ff001c8f2bc9";
 			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
 	        		.given().contentType("application/json").get(requestURL);
+			System.out.println(response.getBody().asString());
 			}
 			catch(Exception e)
 			{
@@ -361,7 +368,52 @@ public class Participants extends BaseService {
 			return response;
 	}
 
-	
+	public Response addParticipantToSubunit(Map appTicket, String subUnit) {
+		try {
+			response = getSubunit(appTicket);
+			String subUnitDocId = parser.getDocID(response, "name", subUnit);
+			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId+"/addParticipant";
+			//obj = reader.jsonReader("src/test/resources/testData/Subunit_put.json");
+			obj.put("participantDocId", "59ad7278070d610001e6bc7d");
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json; charset=UTF-8").body(obj).put(requestURL);
+			System.out.print(response.getBody().asString());
+		
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
+
+	public Response archiveParticipant(Map appTicket, String loginId) {
+		try
+		{
+/*			String requestURL = BASEURI+"/api/participants";
+			 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(requestURL,"GET",appTicket))
+		        		.given().contentType("application/json").get(requestURL);
+			 System.out.print(response.getBody().asString());
+			String participantDocId = parser.getDocumentID(response,loginId);
+			System.out.print(participantDocId);*/
+			obj.put("status", false);
+			String updateRequestURL = BASEURI+"/api/participants/5bdb2a444aae76001d517133";
+			requestSpec = RestAssured.given().contentType("application/json");
+			response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"PUT",appTicket))
+	        		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+	        		.contentType("application/json").body(obj).put(updateRequestURL);
+			System.out.println(response.getBody().asString());
+					
+	}
+		catch(Exception e)
+		{}
+		return response;
+
+	}
 	
 	
 
