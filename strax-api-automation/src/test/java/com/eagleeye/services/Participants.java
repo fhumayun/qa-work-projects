@@ -400,8 +400,20 @@ public class Participants extends BaseService {
 			// System.out.print(response.getBody().asString());
 			String participantDocId = parser.getDocumentID(response,loginId);
 			System.out.print("doc id.."+participantDocId);
-			obj.put("status", false);
+			obj.put("accessLevel", "2");
+			obj.put("_id", participantDocId);
+			obj.put("accountDocId", "000000000000000000000002");
+			obj.put("color", "#FF0000");
+		    obj.put("vertical", "eagleeye");
+			obj.put("firstName", "API1");
+		    obj.put("lastName", "Test1");
+		    obj.put("password", "Password1@");
+		    obj.put("loginId", "z-apitest@ee.io");
+		    obj.put("status", false);
+		    obj.put("suffix", "Sr.");
+		    obj.put("mobilePhone", "+1234567890");
 			String updateRequestURL = BASEURI+"/api/participants/"+participantDocId;
+			
 			requestSpec = RestAssured.given().contentType("application/json");
 			response =requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(updateRequestURL,"PUT",appTicket))
 	        		.given().config(RestAssured.config().encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
@@ -410,7 +422,9 @@ public class Participants extends BaseService {
 					
 	}
 		catch(Exception e)
-		{}
+		{
+			
+		}
 		return response;
 
 	}

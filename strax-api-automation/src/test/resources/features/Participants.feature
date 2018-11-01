@@ -25,7 +25,7 @@ Scenario Outline: verify participant API works correctly for archiving an existi
 	Then The participant should get archived successfully and return status code as 200
 			Examples: valid username/password combination
       | username        | password   |loginId					|
-      | z-autobot@ee.io | Password1@ |z-qatest66@ee.io |
+      | z-autobot@ee.io | Password1@ |z-apitest@ee.io |
 	
 @user3 @C171594
 Scenario Outline: verify GET single participant API works correctly
