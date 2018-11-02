@@ -452,6 +452,27 @@ public class Participants extends BaseService {
 			}
 			return val;
 	}
+
+	public Response unArchiveSubunit(Map appTicket, String subUnit) {
+		try {
+			response = getSubunit(appTicket);
+			String subUnitDocId = parser.getDocID(response, "name", subUnit);
+			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId+"/archive";
+			obj.put("status", true);
+			requestSpec = RestAssured.given().contentType("application/json");
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", appTicket))
+					.given()
+					.config(RestAssured.config()
+							.encoderConfig(ec.appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+					.contentType("application/json; charset=UTF-8").body(obj).put(requestURL);
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return response;
+	}
 	
 	
 

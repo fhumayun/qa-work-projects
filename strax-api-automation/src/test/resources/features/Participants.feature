@@ -162,6 +162,16 @@ Scenario Outline: verify archive subunit API works correctly
 			Examples: valid username/password combination
       | username           | password   |subUnitName|
       | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
+
+@C171663
+Scenario Outline: verify unarchive subunit API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User requests to unarchive subunit "<subUnitName>" with PUT method
+	Then The archive subunit API should archive the subunit and return status code as 200
+			Examples: valid username/password combination
+      | username           | password   |subUnitName|
+      | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
+
 @user6 @Smoke @C171597
 Scenario Outline: verify delete participant API works correctly
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
