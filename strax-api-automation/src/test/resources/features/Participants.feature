@@ -18,14 +18,6 @@ Scenario Outline: verify participant API works correctly for updating an existin
       | username        | password   |loginId					|
       | z-autobot@ee.io | Password1@ |z-apitest@ee.io |
 
-@arc1
-Scenario Outline: verify participant API works correctly for archiving an existing participant
-	Given The STRAX API is authenticated with user "<username>" and "<password>"
-	When User archive participant "<loginId>" with PUT method with valid data
-	Then The participant should get archived successfully and return status code as 200
-			Examples: valid username/password combination
-      | username        | password   |loginId					|
-      | z-autobot@ee.io | Password1@ |z-apitest@ee.io |
 	
 @user3 @C171594
 Scenario Outline: verify GET single participant API works correctly
@@ -34,7 +26,7 @@ Scenario Outline: verify GET single participant API works correctly
 	Then The participant API should return single participant details and return status code as 200
 			Examples: valid username/password combination
       | username           | password        |loginId        |
-      | z-autobot@ee.io    | Password1@      |z-controller@ee.io|
+      | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
 	
 @user4 @C171595
 Scenario Outline: verify unlock participant API works correctly
@@ -150,6 +142,16 @@ Scenario Outline: verify add user to subunit API works correctly
 			Examples: valid username/password combination
       | username           | password   |subUnitName|
       | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
+      
+@arc1
+Scenario Outline: verify participant API works correctly for archiving an existing participant
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User archive participant "<loginId>" with PUT method with valid data
+	Then The participant should get archived successfully and return status code as 200
+	And the archived users should get removed from subunit group if any "<subunit>" 
+			Examples: valid username/password combination
+      | username        | password   |loginId					|subUnitName|
+      | z-autobot@ee.io | Password1@ |z-apitest@ee.io |QAAutomationSubUnit|
       
 @C171651
 Scenario Outline: verify change order subunit API works correctly

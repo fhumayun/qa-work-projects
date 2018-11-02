@@ -7,5 +7,10 @@
 	"lastName": "Test",
 	"loginId": "z-apitest@ee.io",
     "password": "Password1@",
+    "suffix": "Sr.",
+    "mobilePhone": "+9860421177",
+    "homePhone": "+1234567890",
+    "businessPhone": "+9860421177",
+    "middleName": "XYZ",
 	"status": true
 }

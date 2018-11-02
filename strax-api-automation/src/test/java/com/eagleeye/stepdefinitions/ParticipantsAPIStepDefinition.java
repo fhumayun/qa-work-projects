@@ -222,7 +222,12 @@ public void addParticipantToSubunit(String subUnit) throws MalformedURLException
 
 	res = ps.addParticipantToSubunit(appTicket,subUnit);
 }
+@When("^the archived users should get removed from subunit group if any \"([^\"]*)\"$")
+public void verifyArchivedUserSubunit(String subUnit) throws MalformedURLException, ParseException {
 
+	String val = ps.verifyArchivedUserSubunit(appTicket,subUnit);
+	Assert.assertEquals("[]", val);
+}
 @Then("^The subunit API should update subunit and return status code as 200$")
 public void verifyPutSubunitResponse() throws MalformedURLException {
 	res.then().statusCode(200);

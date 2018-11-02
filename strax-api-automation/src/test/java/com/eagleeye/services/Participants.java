@@ -374,7 +374,12 @@ public class Participants extends BaseService {
 			String subUnitDocId = parser.getDocID(response, "name", subUnit);
 			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId+"/addParticipant";
 			//obj = reader.jsonReader("src/test/resources/testData/Subunit_put.json");
-			obj.put("participantDocId", "59ad7278070d610001e6bc7d");
+			String getParticipantIDRequestURL = BASEURI+"/api/participants";
+			 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(getParticipantIDRequestURL,"GET",appTicket))
+		        		.given().contentType("application/json").get(requestURL);
+			// System.out.print(response.getBody().asString());
+			String participantDocId = parser.getDocumentID(response,"z-apitest@ee.io");
+			obj.put("participantDocId", participantDocId);
 			requestSpec = RestAssured.given().contentType("application/json");
 			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL, "PUT", appTicket))
 					.given()
@@ -427,6 +432,24 @@ public class Participants extends BaseService {
 		}
 		return response;
 
+	}
+
+	public String verifyArchivedUserSubunit(Map appTicket, String subUnit) {
+		String val="";
+		try {
+			response = getSubunit(appTicket);
+			String subUnitDocId = parser.getDocID(response, "name", subUnit);
+			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId;
+			response = requestSpec.header(HttpHeaders.AUTHORIZATION, AppTicket.getHawkId(requestURL,"GET",appTicket))
+	        		.given().contentType("application/json").get(requestURL);
+			System.out.println(response.getBody().asString());
+			val = parser.getPropertyValue(response, "participants");
+			}
+			catch(Exception e)
+			{
+				
+			}
+			return val;
 	}
 	
 	
