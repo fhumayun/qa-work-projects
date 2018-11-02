@@ -375,8 +375,9 @@ public class Participants extends BaseService {
 			String requestURL = BASEURI+"/api/subunits/"+subUnitDocId+"/addParticipant";
 			//obj = reader.jsonReader("src/test/resources/testData/Subunit_put.json");
 			String getParticipantIDRequestURL = BASEURI+"/api/participants";
+			requestSpec = RestAssured.given().contentType("application/json");
 			 response = requestSpec.header(HttpHeaders.AUTHORIZATION,AppTicket.getHawkId(getParticipantIDRequestURL,"GET",appTicket))
-		        		.given().contentType("application/json").get(requestURL);
+		        		.given().contentType("application/json").get(getParticipantIDRequestURL);
 			// System.out.print(response.getBody().asString());
 			String participantDocId = parser.getDocumentID(response,"z-apitest@ee.io");
 			obj.put("participantDocId", participantDocId);
