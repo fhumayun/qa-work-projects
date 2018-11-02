@@ -143,7 +143,7 @@ Scenario Outline: verify add user to subunit API works correctly
       | username           | password   |subUnitName|
       | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
       
-@arc1
+@arc1 @C171661
 Scenario Outline: verify participant API works correctly for archiving an existing participant
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User archive participant "<loginId>" with PUT method with valid data
