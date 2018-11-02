@@ -247,7 +247,7 @@ public void archiveSubunitAPI(String subUnit) throws MalformedURLException, Pars
 
 	res = ps.archiveSubunit(appTicket,subUnit);
 }
-@When("^User requests to archive subunit \"([^\"]*)\" with PUT method$")
+@When("^User requests to unarchive subunit \"([^\"]*)\" with PUT method$")
 public void unArchiveSubunitAPI(String subUnit) throws MalformedURLException, ParseException {
 
 	res = ps.unArchiveSubunit(appTicket,subUnit);
