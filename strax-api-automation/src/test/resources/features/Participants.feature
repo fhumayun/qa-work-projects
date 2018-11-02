@@ -134,7 +134,7 @@ Scenario Outline: verify PUT subunit API works correctly
       | username           | password   |subUnitName|
       | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
       
-@ad
+@C171662
 Scenario Outline: verify add user to subunit API works correctly
 	Given The STRAX API is authenticated with user "<username>" and "<password>"
 	When User requests to add participants in subunit "<subUnitName>" with PUT method

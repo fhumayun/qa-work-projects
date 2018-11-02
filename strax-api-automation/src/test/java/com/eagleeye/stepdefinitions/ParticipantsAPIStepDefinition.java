@@ -226,7 +226,7 @@ public void addParticipantToSubunit(String subUnit) throws MalformedURLException
 public void verifyArchivedUserSubunit(String subUnit) throws MalformedURLException, ParseException {
 
 	String val = ps.verifyArchivedUserSubunit(appTicket,subUnit);
-	Assert.assertEquals("[]", val);
+	Assert.assertEquals("", val);
 }
 @Then("^The subunit API should update subunit and return status code as 200$")
 public void verifyPutSubunitResponse() throws MalformedURLException {
