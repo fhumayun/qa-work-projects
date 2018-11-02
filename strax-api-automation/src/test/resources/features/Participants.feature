@@ -44,14 +44,6 @@ Scenario Outline: verify change password API works correctly
 				Examples: valid username/password combination
       | username           | password        |loginId        |
       | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
-@user6 @Smoke @C171597
-Scenario Outline: verify delete participant API works correctly
-	Given The STRAX API is authenticated with user "<username>" and "<password>"
-	When User deletes a participant "<loginId>" with DELETE method with valid participantDocId
-	Then The participant should get deleted and return status code as 200
-			Examples: valid username/password combination
-      | username           | password        |loginId        |
-      | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
 
 @C171625
 Scenario Outline: verify GET callsign API works correctly
@@ -170,3 +162,11 @@ Scenario Outline: verify archive subunit API works correctly
 			Examples: valid username/password combination
       | username           | password   |subUnitName|
       | z-autobot@ee.io    | Password1@ |QAAutomationSubUnit|
+@user6 @Smoke @C171597
+Scenario Outline: verify delete participant API works correctly
+	Given The STRAX API is authenticated with user "<username>" and "<password>"
+	When User deletes a participant "<loginId>" with DELETE method with valid participantDocId
+	Then The participant should get deleted and return status code as 200
+			Examples: valid username/password combination
+      | username           | password        |loginId        |
+      | z-autobot@ee.io    | Password1@      |z-apitest@ee.io|
