@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  1.6 UI Changes
-Resource  /Development/robot-scripts/Project-1/Resources/Common.robot
-Resource  /Development/robot-scripts/Project-1/Resources/1.6UI_Changes.robot
+Resource  /Development/strax-qa/strax-rf-automation/Resources/Common.robot
+Resource  /Development/strax-qa/strax-rf-automation/Resources/1.6_STRAX_Workspace.robot
 Test Setup     Begin Web Test
 Test Teardown  End Web Test
 

@@ -2,15 +2,14 @@
 Library   String
 Library   ExtendedSelenium2Library
 Library   SeleniumLibrary
-Resource  /Development/robot-scripts/Project-1/Page/LoginPage.robot
-Resource  /Development/robot-scripts/Project-1/Page/CreateEventPage.robot
-Resource  /Development/robot-scripts/Project-1/Page/SideBar.robot
-Resource  /Development/robot-scripts/Project-1/Page/HeaderBar.robot
-Resource  /Development/robot-scripts/Project-1/Page/GoldenLayout.robot
-Resource  /Development/robot-scripts/Project-1/Page/ActiveEventsPage.robot
-Resource  /Development/robot-scripts/Project-1/Page/UserAccountPopOut.robot
-Resource  /Development/robot-scripts/Project-1/Page/AccountSettingsModal.robot
-Resource  /Development/robot-scripts/Project-1/Page/UsersPage.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/LoginPage.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/Events.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/SideBar.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/HeaderBar.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/GoldenLayout.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/UserAccountPopOut.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/AccountSettingsModal.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/UsersPage.robot
 
 *** Keywords ***
 ### Test Cases ###
@@ -24,11 +23,11 @@ The user navigate to the events page
     SideBar.GotoEventsPage
 #    SideBar.VerifyPageLoad
 The user clicks on add new event button to create a new event
-    ActiveEventsPage.ClickCreateEvent
+    Events.ClickCreateEvent
 Enters valid values for the required fields  
-    CreateEventPage.InputIncidentName
-    CreateEventPage.SelectEventPlan
-    CreateEventPage.ClickSave&Enter
+    Events.InputIncidentName
+    Events.SelectEventPlan
+    Events.ClickSave&Enter
 A new event will be created
 #    HeaderBar.VerifyHeaderBarLoaded
     GoldenLayout.VerifyGoldenLayoutLoaded
@@ -43,12 +42,12 @@ A new event will be created
 #    LoginPage.Click  
 #    LoginPage.Verify
 #    SideBar.GotoEventsPage
-#    ActiveEventsPage.ClickCreateEvent
-#    CreateEventPage.InputIncidentName
-#    CreateEventPage.SelectEventPlan 
+#    Events.ClickCreateEvent
+#    Events.InputIncidentName
+#    Events.SelectEventPlan 
 #the user selects "Save & Enter"
-#    CreateEventPage.ClickCarrot
-#    CreateEventPage.ClickSave&Enter
+#    Events.ClickCarrot
+#    Events.ClickSave&Enter
 #the user will "create the event" and will be taken directly into the "SAC"
 #    HeaderBar.VerifyHeaderBarLoaded
 #    GoldenLayout.VerifyGoldenLayoutLoaded
@@ -73,8 +72,8 @@ a STRAX user successfully enters the SAC
     LoginPage.Verify
     SideBar.OpenSideBar
     SideBar.GotoEventsPage
-    ActiveEventsPage.VerifyPageLoad
-    ActiveEventsPage.JoinEvent
+    Events.VerifyPageLoad
+    Events.JoinEvent
 the "settings" menu is accessed
     HeaderBar.ClickEventSettings 
 there should not be a "Layers" menu option
@@ -91,12 +90,12 @@ a STRAX user successfully accesses the SAC
     LoginPage.Verify
     SideBar.OpenSideBar
     SideBar.GotoEventsPage
-    ActiveEventsPage.VerifyPageLoad
-    ActiveEventsPage.JoinEvent
-#    ActiveEventsPage.ClickCreateEvent
-#    CreateEventPage.SelectEventPlan    
-#    CreateEventPage.InputIncidentName
-#    CreateEventPage.ClickSave&Enter
+    Events.VerifyPageLoad
+    Events.JoinEvent
+#    Events.ClickCreateEvent
+#    Events.SelectEventPlan    
+#    Events.InputIncidentName
+#    Events.ClickSave&Enter
 the <Settings> menu is selected from the header bar
     HeaderBar.ClickEventSettings
 the "Edit Users" menu tab is no longer visible
@@ -111,37 +110,13 @@ Given The STRAX user is logged in
 When User clicks on the active event "<incidentName>" link to join
     SideBar.OpenSideBar
     SideBar.GotoEventsPage
-    ActiveEventsPage.JoinEvent
+    Events.JoinEvent
 Then User should be able to join the event successfully
 #    HeaderBar.VerifyHeaderBarLoaded
     GoldenLayout.VerifyGoldenLayoutLoaded
 And User should be able to end an active event "<incidentName>" successfully
     HeaderBar.ClickEventSettings
     HeaderBar.EndEvent    
-#
-#
-#* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *                                                                                                                    
-#* As a user with the permissions to see the Customer's Account information, I want a left menu item for account info that is independent of the Account icon (the current head that sits above the hamburger) so I can find things easier * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *                                            
-#* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-#a STRAX user successfully signs into the SRM
-#    LoginPage.Navigate
-#    LoginPage.Input
-#    LoginPage.Click  
-#    LoginPage.Verify 
-#the user selects the "Users Account" menu option
-#    SideBar.OpenSideBar
-#    SideBar.ClickUsersAccount
-#"Account" is not a visible submenu option
-#    UserAccountPopOut.AccountNotVisible
-#"Account Settings" is located at the bottom on the Main menu
-#    SideBar.VerifyAccountVisible
-#<Clicking> on "Account Settings" will open a modal window 
-#    SideBar.ClickAccountSettings
-#the "Account Settings" modal will contain contents of the current "Account" 
-#    AccountSettingsModal.VerifyModalLoads
-#    AccountSettingsModal.VerifyModalContents
-#
-#
 #* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *                                                                                                                     
 #* As a user I want to be able to find the Logout function easier so I can save time * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *                                            
 #* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 

@@ -3,6 +3,21 @@ Library   String
 Library   ExtendedSelenium2Library
 Library   SeleniumLibrary
 *** Variables ***
+#* * * * * * * * * * *
+#*     Universal     *
+#* * * * * * * * * * *
+
+#* * * * * * * * * * *
+#*     Profile       *
+#* * * * * * * * * * *
+
+#* * * * * * * * * * *
+#*    Preferences    *
+#* * * * * * * * * * *
+
+#* * * * * * * * * * *
+#*   Old Version     *
+#* * * * * * * * * * *
 @{USER_SETTINGS_CONTENTS} =  Call Sign  Change Password
 @{OLD_USER_SETTINGS_CONTENTS} =  Account
 ${USER_SETTINGS_POPOUT} =  xpath=//*[@id="menu_container_3"]
@@ -11,6 +26,27 @@ ${CALL_SIGN_BUTTON} =  xpath=//md-icon[@class="ng-scope material-icons"]
 ${CHANGE_PASSWORD_BUTTON} =  xpath=//button[@id="main-menu__button--change-password"]
 ${OLD_ACCOUNT_BUTTON} =  xpath=//a[@id="main-menu__button--open-account-dialog"]
 *** Keywords ***
+
+#* * * * * * * * * * *
+#*     Profile       *
+#* * * * * * * * * * *
+
+#* * * * * * * * * * *
+#*    Preferences    *
+#* * * * * * * * * * *
+
+#       * * * * * * * * * * *
+#       *      General      *
+#       * * * * * * * * * * *
+
+#* * * * * * * * * * *
+#*     Universal     *
+#* * * * * * * * * * *
+
+#* * * * * * * * * * *
+#*   Old Version     *
+#* * * * * * * * * * *
+
 AccountNotVisible
     Element Should Be Visible  ${CHANGE_PASSWORD_BUTTON}
     Element Should Be Visible  ${CALL_SIGN_BUTTON}
@@ -25,4 +61,3 @@ AccountNotVisible
 
 #    Element Should Not Be Visible  ${ACCOUNT_ICON} 
 #    Click Element  ${BACKDROP}
-    

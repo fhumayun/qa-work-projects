@@ -15,35 +15,38 @@ ${EVENT_SETTINGS} =  xpath=(//md-icon[@class="ng-binding ng-scope material-icons
 ${LEAVE_EVENT} =     xpath=(//md-icon[@class="ng-binding ng-scope material-icons"])[7]
 ${CONFIRM_LEAVE} =   xpath=//button[@id="confirm-dialog__button--save"]
 ${NOTIF_BELL} =      xpath=(//md-icon[@class="ng-binding ng-scope material-icons"])[8]
+#* * * * * * * * * * *
+#*     Universal     *
+#* * * * * * * * * * *
+
+
+
 #* * * * * * * * * * * * *
 #* Event Settings Modal  * 
 #* * * * * * * * * * * * * 
 ${END_EVENT_TAB} =      xpath=//*[@id="tab-item-36"]
 ${CONFIRM_END_EVENT} =  xpath=//*[@id="end-event__button"]
-#* * * * * * * * * *
-#* REMOVED OBJECTS *
-#* * * * * * * * * *
-${OLD_LAYERS_TAB} =      id=tab-item-50
-${OLD_EDIT_USERS_TAB} =  xpath=//*[@id="tab-item-69"]
 
 #${LEAVE_EVENT_BUTTON} =  css=body > div:nth-child(2) > strax-header > div > md-toolbar > div > md-list:nth-child(10) > button
 
 *** Keywords *** 
-#* * * * * * * * * *
-#*  SAC Header Bar *
-#* * * * * * * * * *
+#* * * * * * * * * * *
+#*  Event Header Bar *
+#* * * * * * * * * * *
 VerifyHeaderBarLoaded
     Page Should Contain Button  ${LEAVE_EVENT}
 
-
+#* * * * * * * * * * *
+#*  Event Settings   *
+#* * * * * * * * * * *
 
 ClickEventSettings
     Set Browser Implicit Wait  5.0
     Click Element  ${EVENT_SETTINGS}
 
- #  * * * * * * * * * * * * *
- #  * Event Settings Modal  * 
- #  * * * * * * * * * * * * * 
+ #      * * * * * * * * * * * * * *
+ #      *  Event Settings Modal   * 
+ #      * * * * * * * * * * * * * * 
 VerifyNoLayersTab
     Element Should Not Be Visible  ${OLD_LAYERS_TAB}
 
@@ -58,9 +61,7 @@ EndEvent
 
 
 
-#* * * * * * * * * *
-#*  SRM Header Bar *
-#* * * * * * * * * *
+
 
 
 
@@ -74,3 +75,9 @@ EndEvent
 #* * * * * * * * * *
 #*    Universal    *
 #* * * * * * * * * *
+
+#* * * * * * * * * *
+#* REMOVED OBJECTS *
+#* * * * * * * * * *
+${OLD_LAYERS_TAB} =      id=tab-item-50
+${OLD_EDIT_USERS_TAB} =  xpath=//*[@id="tab-item-69"]
