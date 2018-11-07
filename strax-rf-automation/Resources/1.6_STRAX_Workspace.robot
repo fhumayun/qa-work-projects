@@ -2,14 +2,15 @@
 Library   String
 Library   ExtendedSelenium2Library
 Library   SeleniumLibrary
-Resource  /Development/strax-qa/strax-rf-automation/Page/LoginPage.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/AccountSettings.robot
 Resource  /Development/strax-qa/strax-rf-automation/Page/Events.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/SideBar.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/HeaderBar.robot
 Resource  /Development/strax-qa/strax-rf-automation/Page/GoldenLayout.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/UserAccountPopOut.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/AccountSettingsModal.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/UsersPage.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/HeaderBar.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/LoginPage.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/SideBar.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/UserAccountSettings.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/Users.robot
+Resource  /Development/strax-qa/strax-rf-automation/Page/VideoFeeds.robot
 
 *** Keywords ***
 ### Test Cases ###
