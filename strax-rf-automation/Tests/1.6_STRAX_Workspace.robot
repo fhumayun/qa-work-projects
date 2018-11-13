@@ -23,24 +23,28 @@ User should be able to create a event
       And Enters valid values for the required fields
      Then A new event will be created
 
-#User can create and join event
-#    [Documentation]  Successfuly Create & Join a event
-#     [Tags]  Smoke
-#    Given a user with the correct permisions is trying to "create an event"
-#     When the user selects "Save & Enter"
-#     Then the user will "create the event" and will be taken directly into the "SAC"
+As a STRAX user I want to be able to access the SAC without issue
+    [Documentation]  User is able to access SAC
+     [Tags]  Smoke  New
+     Given a STRAX user logs into the SRM
+      When the user launches an event
+      Then the SAC page will load without error
 
-#STRAX saves last setting selected
-#    [Documentation]  STRAX saved last selected setting
-#    [Tags]  Smoke
-#Save & Enter:
-#    Given a user with the correct permissions last created an event using the "save & enter" <button>
-#     When the user creates a new event 
-#     Then the user will be shown the "save & enter" <button>
-#Save:    
-#    Given a user with the correct permissions last created an event using "save"
-#     When the user creates a new event
-#     Then the user will be shown the "save" <button>
+As a user i want to replace ESRI maps with Google Maps so that we can implement layers, icons and other mapping functions more efficiently
+    [Documentation]  Verify Google Maps Loads
+     [Tags]  Smoke  New
+     Given a user successfully logs into the SRM
+       And joins a event
+      When the SAC Loads without error
+      Then the user can confirm there is a google logo on the bottom of the map
+
+As a strax user I want the incident number/event name to appear in the title bar so that I can just look at title bar and know what the incident number/event name is.
+    [Documentation]  Event Name Appears in title bar
+     [Tags]  Smoke  
+    Given a strax user is logged into the SRM
+    When the user joins a "event"
+     And the SAC loads without error
+    Then the title bar should have the incident number/event name displayed in it
 
 As a STRAX user I don't want map layers to appear in the settings so that I can focus on using map layers in the new layout
     [Documentation]  Map Layers no longer in Settings Menu
@@ -64,16 +68,6 @@ User should be able to end a event
       Then User should be able to join the event successfully
        And User should be able to end an active event "<incidentName>" successfully
 
-#As a user with the permissions to see the Customer's Account information, I want a left menu item for account info that is independent of the Account icon (the current head that sits above the hamburger) so I can find things easier
-#    [Documentation]  Create new left menu item: Account Settings
-#     [Tags]  3  SRM  SMOKE
-#    Given a STRAX user successfully signs into the SRM
-#     When the user selects the "Users Account" menu option
-#     Then "Account" is not a visible submenu option
-#      And "Account Settings" is located at the bottom on the Main menu
-#      And <Clicking> on "Account Settings" will open a modal window 
-#      And the "Account Settings" modal will contain contents of the current "Account"
-
 As a user I want to be able to find the Logout function easier so I can save time.
     [Documentation]  Logout Button in Sidebar
      [Tags]  4  SRM  SMOKE  STX-1897
@@ -88,3 +82,36 @@ As a user entering call signs through STRAX, i want to convert lowercase letters
     Given a user with the correct permissions is creating a "new callsign"
      When the user enters a "callsign name" with <caps>
      Then the "callsign name" will be converted to <lowercase>
+
+
+
+#FUTURE TEST CASES (ADD THESE IN THE FUTURE)
+#
+#
+##User can create and join event
+#    [Documentation]  Successfuly Create & Join a event
+#     [Tags]  Smoke
+#    Given a user with the correct permisions is trying to "create an event"
+#     When the user selects "Save & Enter"
+#     Then the user will "create the event" and will be taken directly into the "SAC"
+
+#STRAX saves last setting selected
+#    [Documentation]  STRAX saved last selected setting
+#    [Tags]  Smoke
+#Save & Enter:
+#    Given a user with the correct permissions last created an event using the "save & enter" <button>
+#     When the user creates a new event 
+#     Then the user will be shown the "save & enter" <button>
+#Save:    
+#    Given a user with the correct permissions last created an event using "save"
+#     When the user creates a new event
+#     Then the user will be shown the "save" <button>
+#As a user with the permissions to see the Customer's Account information, I want a left menu item for account info that is independent of the Account icon (the current head that sits above the hamburger) so I can find things easier
+#    [Documentation]  Create new left menu item: Account Settings
+#     [Tags]  3  SRM  SMOKE
+#    Given a STRAX user successfully signs into the SRM
+#     When the user selects the "Users Account" menu option
+#     Then "Account" is not a visible submenu option
+#      And "Account Settings" is located at the bottom on the Main menu
+#      And <Clicking> on "Account Settings" will open a modal window 
+#      And the "Account Settings" modal will contain contents of the current "Account"

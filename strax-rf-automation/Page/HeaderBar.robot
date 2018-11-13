@@ -15,6 +15,7 @@ ${EVENT_SETTINGS} =  xpath=(//md-icon[@class="ng-binding ng-scope material-icons
 ${LEAVE_EVENT} =     xpath=(//md-icon[@class="ng-binding ng-scope material-icons"])[7]
 ${CONFIRM_LEAVE} =   xpath=//button[@id="confirm-dialog__button--save"]
 ${NOTIF_BELL} =      xpath=(//md-icon[@class="ng-binding ng-scope material-icons"])[8]
+${EVENTNAME_HEADER} =      xpath=/html/body/div[2]/strax-header
 #* * * * * * * * * * *
 #*     Universal     *
 #* * * * * * * * * * *
@@ -35,6 +36,9 @@ ${CONFIRM_END_EVENT} =  xpath=//*[@id="end-event__button"]
 #* * * * * * * * * * *
 VerifyHeaderBarLoaded
     Page Should Contain Button  ${LEAVE_EVENT}
+
+VerifyEventNameShown
+    Element Should Contain  ${EVENTNAME_HEADER}  ${EVENTNAME} ${EVENTNUMBER}
 
 #* * * * * * * * * * *
 #*  Event Settings   *
