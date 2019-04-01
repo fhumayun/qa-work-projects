@@ -66,7 +66,7 @@ public class VideoFeedAPIStepDefinition extends BaseService{
 		res = feed.deleteFeed(appTicket,feedName);
 	}
 	@Then("^The video feed API should update an existing feed and return status as 201$")
-	public void verifyUpdateFeedResponse() throws MalformedURLException {
+	public void verify UpdateFeedResponse() throws MalformedURLException {
 		res.then().statusCode(201);
 		res.getBody().asString();
 		//DatabaseConnection conn =  new DatabaseConnection();
