@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190401 11:50:09.150" generator="Robot 3.1.1 (Python 2.7.15 on darwin)">
+<suite source="/Users/Mack/Development/strax-qa/strax-rf-automation/SauceLabs/test_saucelabs_login.robot" id="s1" name="Test Saucelabs Login">
+<test id="s1-t1" name="Incorrect username or password">
+<kw type="setup" name="Open test browser" library="common">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>about:</arg>
+<arg>${BROWSER}</arg>
+<arg>remote_url=${REMOTE_URL}</arg>
+<arg>desired_capabilities=${DESIRED_CAPABILITIES}</arg>
+</arguments>
+<msg timestamp="20190401 11:50:09.333" level="INFO">Opening browser 'google chrome' to base url 'about:' through remote server at 'http://mmaney:ad0b6583-5d8f-46f9-8ca8-f32fc56bc2ba@ondemand.saucelabs.com:80/wd/hub'</msg>
+<status status="PASS" endtime="20190401 11:50:12.877" starttime="20190401 11:50:09.332"></status>
+</kw>
+<status status="PASS" endtime="20190401 11:50:12.878" starttime="20190401 11:50:09.331"></status>
+</kw>
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>https://demo.strax.co</arg>
+</arguments>
+<msg timestamp="20190401 11:50:12.879" level="INFO">Opening url 'https://demo.strax.co'</msg>
+<status status="PASS" endtime="20190401 11:50:14.924" starttime="20190401 11:50:12.878"></status>
+</kw>
+<kw name="Page Should Contain Element" library="Selenium2Library">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>id=login-page__user-email</arg>
+</arguments>
+<msg timestamp="20190401 11:50:15.149" level="INFO">Current page contains element 'id=login-page__user-email'.</msg>
+<status status="PASS" endtime="20190401 11:50:15.149" starttime="20190401 11:50:14.925"></status>
+</kw>
+<kw name="Page Should Contain Element" library="Selenium2Library">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>id=login-page__user-password</arg>
+</arguments>
+<msg timestamp="20190401 11:50:15.368" level="INFO">Current page contains element 'id=login-page__user-password'.</msg>
+<status status="PASS" endtime="20190401 11:50:15.368" starttime="20190401 11:50:15.149"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=login-page__user-email</arg>
+<arg>Mack@ee.io</arg>
+</arguments>
+<msg timestamp="20190401 11:50:15.369" level="INFO">Typing text 'Mack@ee.io' into text field 'id=login-page__user-email'</msg>
+<status status="PASS" endtime="20190401 11:50:16.562" starttime="20190401 11:50:15.369"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=login-page__user-password</arg>
+<arg>Password1@</arg>
+</arguments>
+<msg timestamp="20190401 11:50:16.563" level="INFO">Typing text 'Password1@' into text field 'id=login-page__user-password'</msg>
+<status status="PASS" endtime="20190401 11:50:17.414" starttime="20190401 11:50:16.563"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>id=login-page__login-button</arg>
+</arguments>
+<msg timestamp="20190401 11:50:17.414" level="INFO">Clicking element 'id=login-page__login-button'.</msg>
+<status status="PASS" endtime="20190401 11:50:17.955" starttime="20190401 11:50:17.414"></status>
+</kw>
+<kw name="Page Should Contain Element" library="Selenium2Library">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>${STRAX_LOGO}</arg>
+</arguments>
+<msg timestamp="20190401 11:50:18.176" level="INFO">Current page contains element 'xpath=(//div)'.</msg>
+<status status="PASS" endtime="20190401 11:50:18.177" starttime="20190401 11:50:17.955"></status>
+</kw>
+<kw type="teardown" name="Close test browser" library="common">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${REMOTE_URL}' != ''</arg>
+<arg>Report Sauce status</arg>
+<arg>${SUITE_NAME} | ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<kw name="Report Sauce Status" library="SauceLabs">
+<arguments>
+<arg>${SUITE_NAME} | ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<msg timestamp="20190401 11:50:18.624" html="yes" level="INFO">&lt;a href="https://assets.saucelabs.com/jobs/11ee5db6e1394a8f987bd573a8db505e/video.mp4"&gt;video.flv&lt;/a&gt;</msg>
+<status status="PASS" endtime="20190401 11:50:18.625" starttime="20190401 11:50:18.180"></status>
+</kw>
+<status status="PASS" endtime="20190401 11:50:18.625" starttime="20190401 11:50:18.178"></status>
+</kw>
+<kw name="Close All Browsers" library="Selenium2Library">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20190401 11:50:18.891" starttime="20190401 11:50:18.625"></status>
+</kw>
+<status status="PASS" endtime="20190401 11:50:18.891" starttime="20190401 11:50:18.177"></status>
+</kw>
+<tags>
+<tag>Login</tag>
+</tags>
+<status status="PASS" endtime="20190401 11:50:18.892" critical="yes" starttime="20190401 11:50:09.330"></status>
+</test>
+<status status="PASS" endtime="20190401 11:50:18.893" starttime="20190401 11:50:09.153"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">Login</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Test Saucelabs Login" pass="1">Test Saucelabs Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

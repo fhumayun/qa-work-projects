@@ -1,0 +1,31 @@
+{
+  "accessLevel": "4",
+  "accountDocId": "000000000000000000000002",
+  "address": {
+    "geo": {
+      "coordinates": []
+    }
+  },
+  "badgeNumber": "LL123",
+  "businessPhone": "",
+  "color": "#FF0000",
+  "failedLoginAttempts": 0,
+  "firstName": "API",
+  "forcePasswordReset": false,
+  "homePhone": "",
+  "isLocShared": true,
+  "isOnDuty": true,
+  "isOnline": false,
+  "lastName": "Tester",
+  "loginId": "Tester@ee.io",
+  "middleName": "M",
+  "mobilePhone": "+11231231231231",
+  "password": "$2a$13$6llBrh.G4XHsKGJ39vvw0edofCI.uePDPB2LKBsl0cT/tfTwQF7bS",
+  "resetPasswordExpires": "2018-08-23T20:27:23.071Z",
+  "roles": [],
+  "status": true,
+  "suffix": "",
+  "vertical": "eagleeye",
+  "vPwd": "udfsw7off6957u04uax1qfeilzlhxun",
+  "weakPassword": false
+}

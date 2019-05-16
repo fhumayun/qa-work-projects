@@ -1,2 +1,6 @@
 /target/
 
+*.class
+\metadata\
+\strax-qa\.metadata\
+strax-ui-automation/target/

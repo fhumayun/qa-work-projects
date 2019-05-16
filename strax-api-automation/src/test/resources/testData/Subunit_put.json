@@ -1,0 +1,16 @@
+{
+"accountDocId":"000000000000000000000002",
+"iconDocId":"5b350f224c71b0001eca6a74",
+"name":"QAAutomationSubUnit",
+"description":"Test",
+"participants":[{"accessLevel": "2",
+"color":"#000000",
+"email": "z-autotest23@ee.io",
+"firstName": "Auto23",
+"fullName": "Auto23 Test23",
+"lastName": "Test23",
+"status": true,
+"roles": [],
+"_id": "59c37cd7efabe50001795b20"
+}]
+}

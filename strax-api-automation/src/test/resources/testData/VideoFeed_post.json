@@ -1,0 +1,12 @@
+{
+"name":"QA-API-Feed",
+"live":"true",
+"frameRate":111,
+"capture":false,
+"account":"000000000000000000000002",
+"cameraType":"KLV",
+"feedType":"uav",
+"klv":"false",
+"klvPort":3355,
+"wowzaStreamPort":2255,
+}

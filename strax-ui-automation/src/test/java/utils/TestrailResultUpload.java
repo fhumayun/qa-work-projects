@@ -13,11 +13,11 @@ import utils.APIClient;
 import utils.APIException;
 
 public class TestrailResultUpload {
-	
+
 	static PropertiesFileReader prreader = new PropertiesFileReader();
 
 	public void uploadResult(Scenario scenario) throws MalformedURLException, IOException, APIException {
-		
+
 		APIClient client = new APIClient(prreader.getPropertyvalues("TestRailUrl"));
 		client.setUser(prreader.getPropertyvalues("TestRailUser"));
 		client.setPassword(prreader.getPropertyvalues("TestRailPassword"));
@@ -27,11 +27,12 @@ public class TestrailResultUpload {
 		int statusID = Integer.parseInt(testResultDetails.get(1));
 		List<String> eachteststep = new ArrayList<String>();
 		data.put("status_id", statusID);
-		data.put("comment", "Automation framework executed [Test case - "+caseID+"](https://eei.testrail.com/index.php?/cases/view/"+caseID+")");
-		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/123/" + caseID + "", data);
-		System.out.println(r);
+		data.put("comment", "Automation framework executed [Test case - " + caseID
+				+ "](https://eei.testrail.com/index.php?/cases/view/" + caseID + ")\n "
+				+ "Click on this link [SauceLabRecording](https://saucelabs.com/beta/dashboard/tests) to watch video recording of tests \n"
+				+ "Click on this link [BDD Report](https://ci.eagleeye.io/view/Nightlies/job/1.5%20Automated%20UI%20Test%20Run/allure/) to see detailed test results.");
+		JSONObject r = (JSONObject) client.sendPost("add_result_for_case/199/" + caseID + "", data);
 
-		
 	}
 
 	public List<String> getTestCaseIDAndStatus(Scenario scenario) {

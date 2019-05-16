@@ -1,55 +1,57 @@
 package test_runner;
 
-import java.io.File;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentXReporter;
-import com.cucumber.listener.ExtentProperties;
-import com.cucumber.listener.Reporter;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import page_objects.BaseClass;
+import utils.DatabaseConnection;
 import utils.PropertiesFileReader;
+import utils.UtilityMethods;
 
-
-@RunWith(Cucumber.class) 
-@CucumberOptions(
-format = {"progress", "html:target/cucumber"},
-plugin={"com.cucumber.listener.ExtentCucumberFormatter:output/report.html"},
-features = {"src/test/resources/features/"},
-glue = {"step_definitions"},
-tags = {"~@ignore"})
-public class runCukesTest {
-	static ExtentReports extent;
-	static ExtentXReporter extentxReporter;
-	static PropertiesFileReader prreader = new PropertiesFileReader();
-	@AfterClass
-	public static void tearDown()
-	{
-		//****** Extent Report setup configuration *****
-        Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
-        Reporter.setSystemInfo("user", System.getProperty("user.name"));
-        Reporter.setSystemInfo("Executed On Operating System", prreader.getPropertyvalues("Platform"));
-        Reporter.setTestRunnerOutput("Sample test runner output message");    
-        extent = Reporter.getExtentReport();
-        extent.setSystemInfo("Executed On Environment", prreader.getPropertyvalues("STRAXUrl"));
-        extent.setSystemInfo("Browser Used", prreader.getPropertyvalues("BrowserName"));
-        extent.setSystemInfo("Browser Version", prreader.getPropertyvalues("Version"));
- 
-    }
-	@BeforeClass
-	public static void setUp()
-	{
-        //****** ExtentX Server setup configuration *****
-        ExtentProperties extentProperties = ExtentProperties.INSTANCE;
-        extentProperties.setReportPath("output/report.html");
-        extentProperties.setExtentXServerUrl("http://localhost:1337");
-        extentProperties.setProjectName("STRAX QAT");
+@RunWith(Cucumber.class)
+@CucumberOptions(format = { "progress", "html:target/cucumber" }, plugin = {
+		"ru.yandex.qatools.allure.cucumberjvm.AllureReporter"}, features = {
+				"src/test/resources/features/" }, glue = { "step_definitions" }, tags = { "~@ignore" })
+public class runCukesTest extends UtilityMethods {
+	static DatabaseConnection con =  new DatabaseConnection();
+	public runCukesTest(BaseClass base) {
+		super(base);
 	}
-		
-	
-}
 
+	static PropertiesFileReader prreader = new PropertiesFileReader();
+	/*
+	 * Trial code for suite level stale test data cleanup
+	 */
+	@AfterClass
+	public static void suiteTearDown() {
+		
+	}
+
+
+	@BeforeClass
+	public static void setUp() {
+		for(int i=1;i<5;i++)
+		{
+		con.deleteEvent("AutomationTestIncident"+i);
+		}
+		for(int i=1;i<4;i++)
+		{
+		con.deleteUser("z-automationtestuser"+i+"@ee.io");
+		}
+		for(int i=1;i<4;i++)
+		{
+		con.deleteEventPlan("AutomationTestEventPlan"+i);
+		}
+		con.deleteEventPlan("TestEventPlanFromPrePlan11");
+		con.deleteEvent("AutomationTestEventFromEventPlan1");
+		con.deleteUAS("QA-Automation-UAS");
+		con.deleteVideoFeed("QA-Automation-Feed");
+		System.out.println("Deleted test data");
+	}
+
+	
+
+}

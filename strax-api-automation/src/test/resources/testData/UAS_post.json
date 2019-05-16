@@ -1,0 +1,12 @@
+{
+"status":true,
+"name":"QA-API-UAS",
+"feedId":"5b1802822c157e00104fd710",
+"make":"Lockheed Martin",
+"uniqueId":"007",
+"model":"Indago",
+"uasStatus":"AVAILABLE",
+"uasType":"Multi-copter",
+"accountDocId":"000000000000000000000002",
+"type":"UAS"
+}

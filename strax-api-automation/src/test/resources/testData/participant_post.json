@@ -1,0 +1,16 @@
+{
+    "accessLevel": "4",
+    "accountDocId": "000000000000000000000002",
+	"color": "#FF0000",
+	"vertical": "eagleeye",
+	"firstName": "API",
+	"lastName": "Test",
+	"loginId": "z-apitest@ee.io",
+    "password": "Password1@",
+    "suffix": "Sr.",
+    "mobilePhone": "+9860421177",
+    "homePhone": "+1234567890",
+    "businessPhone": "+9860421177",
+    "middleName": "XYZ",
+	"status": true
+}

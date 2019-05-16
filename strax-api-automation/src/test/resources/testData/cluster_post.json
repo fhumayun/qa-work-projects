@@ -1,0 +1,11 @@
+{
+	"fidgets":[],
+    "accountDocId": "000000000000000000000002",
+	"incident": "EventFromAPI1"
+	"clusterType":"DYNAMIC"
+	"description": "Event created by API Automation"
+	"participants":[],
+	"uasAssigned":false,
+	"caseNumber":[],
+	"createdBy":"59ad8d32070d610001e6bc7f"
+}
