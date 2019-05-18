@@ -11,3 +11,5 @@ Defaulted at Port 1337
 ### Datastore
 ![Mongo](mongodb.png)
 
+## Setting It Up
+[Getting Started](https://github.com/GroupCareTech/strax-qa/strax-aif-box/documentation/getting_started.md)
