@@ -1,0 +1,38 @@
+version: '3.3'
+
+#Table of Contents
+#Service                Line
+#strax-aif              11           
+#mongo-db               32
+
+services:
+
+#-------------------------------------------------------------------------------
+  strax-aif:
+    container_name: strax-aif
+    build:
+      context: ./strax-aif
+      dockerfile: ./src/Dockerfile
+    volumes:
+      - './strax-aif/mongodb/aifdb:/usr/src/mongodb/aifdb'
+      - './strax-aif/src:/usr/src/app'
+      - './strax-aif/src/package.json:/usr/src/package.json'
+      - './strax-aif/src/app.js:/usr/src/app.js'
+    ports:
+      - '1337:1337'
+    command: sails lift
+    depends_on:
+      - mongo-db
+    environment:
+      MONGO_HOST: 'mongo-db'
+      PORT: 1337
+      VERSION: dev
+
+#-------------------------------------------------------------------------------
+  mongo-db:
+    container_name: mongodb
+    image: eagleeyeintelligence/mongo:3.6
+    volumes:
+      - './data/db:/data/db'
+    ports:
+      - '27017:27017'
