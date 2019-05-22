@@ -1,7 +1,6 @@
 *** Settings ***
-Library   String
 Library   ExtendedSelenium2Library
-Library   SeleniumLibrary
+
 *** Variables ***
 ${EVENTS_PAGE_ICON} =            xpath=/html/body/div[2]/strax-sidebar/div/ul/li[3]/a/md-icon                 #OLD xpath=/html/body/div[2]/strax-sidebar/div/ul/li[4]/a/md-icon
 ${USER_ACCOUNT_BUTTON} =         xpath=/html/body/div[2]/strax-sidebar/div/ul/li[1]/div                       #OLD xpath=/html/body/div[2]/strax-sidebar/div/ul/li[1]/md-menu/div/div/md-icon      

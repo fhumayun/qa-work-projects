@@ -2,15 +2,15 @@
 Library   String
 Library   ExtendedSelenium2Library
 Library   SeleniumLibrary
-Resource  /Development/strax-qa/strax-rf-automation/Page/AccountSettings.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/Events.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/GoldenLayout.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/HeaderBar.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/LoginPage.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/SideBar.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/UserAccountSettings.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/Users.robot
-Resource  /Development/strax-qa/strax-rf-automation/Page/VideoFeeds.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/AccountSettings.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/Events.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/GoldenLayout.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/HeaderBar.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/LoginPage.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/SideBar.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/UserAccountSettings.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/Users.robot
+Resource  /Users/Mack/Development/strax-qa/strax-rf-automation/App/Page/VideoFeeds.robot
 
 *** Keywords ***
 ### Test Cases ###

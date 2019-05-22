@@ -1,190 +1,249 @@
 LOGIN PAGE:	
-	- id=login-page__user-email
-	- id=login-page__user-password
-	- id=login-page__login-button
-	- id=login-page__forgot-password   						<--[New]
+	- id=login-page__user-email										
+	- id=login-page__user-password								
+	- id=login-page__login-button									
+	- id=login-page__forgot-password   						
 
 SIDE BAR & Admin Pages:	
 	- Open Side Bar:	
-		- id="sidebar__open" 
+		- id="sidebar__open" 												
 	- Close Side Bar:		
-		- id="sidebar__close"
+		- id="sidebar__close"												
 	- User Preferences:	
-		- id=“menu-account__preferences”  					<--[New]
-			- Close Window:		
-				| id="button-account__close-window"								<--[New]
-			- First Name:		
-				| id="field-account__first-name"									<--[New]
-			- Last Name	:	
-				| id="field-account__last-name"										<--[New]
-			- Email:		
-				| id="field-account__email"												<--[New]
-			- Active event:		
-				| id="field-account__active-event"								<--[New]
-			- Role:		
-				| id="field-account__role"												<--[New]
-			- Callsign:		
-				| id="field-account__callsign"										<--[New]
-			- Badge:	
-				| id="field-account__badge"												<--[New]
-			- Mobile Phone:		
-				| id="field-account__mobile-phone"								<--[New]
-			- Home Phone:			
-				| id="field-account__home-phone"									<--[New]
-			- Business Phone:		
-				| id="field-account__business-phone"							<--[New]
-			- Default Icon:		
-				| id="button-account__default-icon"   						<--[New]
-			- Homepage:	
-				| id="field-account__hompage"											<--[New]
-			- Base Map:	
-				| id="field-account__base-map"										<--[New]
-	- Account Preferences (customer):	
-		- id=“menu-account__custoner-account”					<--[New]
-			- Website:	
-				| id="field-account__customer-website"						<--[New]
-			- Email:	
-				| id="field-account__customer-email"							<--[New]
-			- Phone:	
-				| id="field-account__customer-phone"							<--[New]
-			- Language:	
-				| id="field-account__customer-language"						<--[New]
-			- Description:	
-				| id="field-account__customer-description"				<--[New]
-			- Address/Location:	
-				| id="field-account__customer-address"						<--[New]
-			- Simultaneous Event Stream:	
-				| id="field-account__customer-streams							<--[New]
-			- Concurrent Users:				
-				| id="field-account__customer-users"							<--[New]
-			- Data Storage:				
-				| id="field-account__customer-storage							<--[New]
-			- Monthly Outbound Data Transfer:				
-				| id="field-account__customer-data								<--[New]
-			- Add Milestone:	 
-				| id="button-account__customer-add-milestone"			<--[New]
-			- Milestone Server:		
-				| id="button-account__customer-view-milestone"		<--[New]
-			- Delete Milestone Server:	
-				| id="button-account__customer-delete"						<--[New]
-			- Close Window:	
-				| id="button-account__customer-close-window"			<--[New]
+		- id=“menu__preferences”  					
+			- User Preferences Page:
+				- id="field__first-name"								
+				- id="field__last-name"												
+				- id="field__email"														
+				- id="field__active-event"								
+				- id="field__role"												
+					| id="field__role_1"
+					| id="field__role_2"										
+					| id="field__role_3"										
+					| id="field__role_4"											
+				- id="field__callsign"										
+				- id="field__badge"													
+				- id="field__mobile-phone"									
+				- id="field__home-phone"										
+				- id="field__business-phone"							   						
+				- id="field__homepage"
+					| id="field__homepage_1"
+					| id="field__homepage_2"
+					| id="field__homepage_3"
+					| id="field__homepage_4"
+					| id="field__homepage_5"
+					| id="field__homepage_6"
+					| id="field__homepage_7"
+					| id="field__homepage_8"
+					| id="field__homepage_9"
+				- id="field__base-map"	
+					| id="field__base-map_1"
+					| id="field__base-map_2"
+					| id="field__base-map_3"
+					| id="field__base-map_4"									
 	- Dashboard:	
-		- id=“menu-dashboard”													<--[New]
+		- id=“menu-dashboard”													
 	- Events:											
-		- id=“menu-events”														<--[New]
+		- id=“menu-events”													
+			- Events Page:
+				- id="field__incident"
+				- id="field__case-number"
+				- id="field__location"
+				- id="field__start-time"
+				- id="field__creator"
+				- id="field__event-plan"
+				- id="field__mission-type"
+					| id="field__mission-type_1"
+					| id="field__mission-type_2"
+					| id="field__mission-type_3"
+					| id="field__mission-type_4"
+				- id="field__uas"
+					| id="field__uas_1"
+					| id="field__uas_2"
+					| id="field__uas_3"
+					| id="field__uas_4"
+				- id="field__enter-event"
 	- Event Plans:											
-		- id=“menu-event-plans												<--[New]
+		- id=“menu-event-plans												
+			- Event Plans Page:
+				- id="field__plan-name"
+				- id="field__description"
+				- id="field__location"
+				- id="field__creator"
+				- id="field__mission-type"
+					| id="field__mission-type_1"
+					| id="field__mission-type_2"
+					| id="field__mission-type_3"
+					| id="field__mission-type_4"
+				- id="field__enter-plan"
 	- IER:											
-		- id=“menu-ier”																<--[New]
+		- id=“menu-ier”																
 	- Open Users Drop Down:		
 		- id="menu-users"
 	  		- Open Users Page:	
-					- id="menu-users__users"	
-						- Show Archived Users:	
-							| id="button-users__archived-users" 					<--[New]
-						- Show Active Users:		
-							| id="button-users__active-users"							<--[New]
-						- Create New User:							
-							| id="button-users__create-user"							<--[New]
-						- Close Window:							
-							| id="button-users__close-window"							<--[New]
-						- Archive User menu:					
-							| id="menu-users__archive-menu"								<--[New]	
-						- Archive User:							
-							| id="button-users__archive-user"							<--[New]
-						- First Name:						
-							| id="field-users__first-name"								<--[New]
-						- Last Nam:	
-							| id="field-users__last-name"									<--[New]
-						- Email:	
-							| id="field-users__email"											<--[New]
-						- Password:		
-							| id="field-users__password"									<--[New]
-						- Confirm  Password:	
-							| id="field-users__confirm-password"					<--[New]
-						- Active event:	
-							| id="field-users__active-event"							<--[New]
-						- Role:	
-							| id="field-users__role"											<--[New]
-						- Callsign:	
-							| id="field-users__callsign"									<--[New]
-						- Badge:	
-							| id="fieled-users__badge"										<--[New]
-						- Mobile Phone:	
-							| id="field-users__mobile-phone"							<--[New]
-						- Home Phone:	
-							| id="field-users__home-phone"								<--[New]
-						- Business Phone:	
-							| id="field-users__business-phone"						<--[New]
-						- Default Icon:	
-							| id="button-users__default-icon"   					<--[New]
+					- id="menu-users__users"							  
+						- Users Page:																																																			
+							- id="field__first-name"								
+							- id="field__last-name"									
+							- id="field__email"											
+							- id="field__password"									
+							- id="field__confirm-password"					
+							- id="field__active-event"							
+							- id="field__role"											
+							- id="field__callsign"									
+							- id="fieled__badge"										
+							- id="field__mobile-phone"							
+							- id="field__home-phone"								
+							- id="field__business-phone"						
+		   					
 	   		- Open Callsigns Page:
 					- id="menu-users__callsigns"
-						- Bulk Upload:	
-							| id="button-callsigns__upload"								<--[New]
-						- Show Archived Callsigns:
-							| id="button-callsigns__archived-callsigns" 	<--[New]
-						- Show Active Callsigns:
-							| id="button-callsigns__active-callsigns"			<--[New]
-						- Create New Callsign:
-							| id="button-callsigns__create-callsign"			<--[New]
-						- Close Window:
-							| id="button-callsigns__close-window"					<--[New]
-						- Archive Callsign Menu:
-							| id="menu-callsigns__archive-menu"						<--[New]	
-						- Archive Callsign:	
-							| id="button-callsigns__archive-callsign"			<--[New]
-						- Callsign:
-							| id="field-callsigns__callsign"							<--[New]
-						- User Assigned to Callsign:
-							| id="field-callsigns__user-assigned"					<--[New]
-						- Delete Callsign:
-							| id="button-callsign__delete"								<--[New]
-						- Publish Callsign:
-							| id="button-callsign__publish"								<--[New]
+						- Callsigns Page:
+							- id="button__upload"																							
+							- id="field__callsign"							
+							- id="field__user-assigned"					
+							- id="button__delete"								
+							- id="button__publish"								
 				- Open Subunits Page:	
 					- id="menu-users__subunits"
-						- Show Archived Subunits:
-							| id="button-subunit__archived-subunits" 			<--[New]
-						- Show Active Subunits:		
-							| id="button-subunit__active-subunits"				<--[New]
-						- Create New Subunit:
-							| id="button-subunit__create-subunit"					<--[New]
-						- Close Window:
-							| id="button-subunit__close-window"						<--[New]
-						- Subunit Name:
-							| id="field-subunit__name"										<--[New]
-						- Subunit Description:	
-							| id="field-subunit__description"							<--[New]
-						- Default Icon:
-					 		| id="field-subunit__default-icon"						<--[New]
-						- Delete Subunit:
-							| id="button-subunit__delete"									<--[New]
-						- Publish Subunit:
-							| id="button-subunit__publish"								<--[New]
+						- Subunits Page:										
+							- id="field__name"										
+							- id="field__description"							
+					 		- id="field__icon"						
+							- id="button__delete"									
+							- id="button__publish"								
 	- Map Layers:
-		- id=“menu-mapLayers"		 												<--[New]
+		- id=“menu-mapLayers"	 												
+			- Map Layers Page:
+				- id="field__name"
+				- id="field__type"
+					| id="field__type_1"
+				- id="field__info"
+				- id="field__description"
+				- id="field__created-at"
+				- id="button__favorite"
+				- id="field__file-size"
 	- Video Feeds:								
-		- id=“menu-videoFeeds"													<--[New]
-	- IER Factory:								
-		- id=“menu-ierFactory"													<--[New]
+		- id=“menu-videoFeeds"													
+			- Video Feeds Page:
+				- id="field__feed-name"
+				- id="field__feed-type"
+					|	id="field__feed-type_1"
+				- id="field__camera-type"
+					| id="field__camera-type_1"
+				- id="field__stream-url"
+				- id="field__locations"
+				- id="field__home-orientation"
+				- id="field__username"
+				- id="field__password"
+				- id="button__preview"
+				- id="button__start-sim"
+				- id="button__stop-sim"
+	- Support:
+		- id="menu-support"
+			- Account Preferences (customer):	
+				- id=“menu__customer-account”					
+					- Account Prefences Page (customer):	
+						- id="field__customer-website"						
+						- id="field__customer-email"							
+						- id="field__customer-phone"							
+						- id="field__customer-language"						
+						- id="field__customer-description"				
+						- id="field__customer-address"						
+						- id="field__customer-streams								
+						- id="field__customer-users"								
+						- id="field__customer-storage							
+						- id="field__customer-data							
+						- id="button__customer-add-milestone"		
+						- id="button__customer-view-milestone"	
+						- id="button__customer-delete"						
+			- IER Factory:								
+				- id=“menu-ierFactory"													
+					- IER Factory Page:
+						- id="field__trigger-name"
+						- id="field__trigger-description" 
+						- id="field__trigger-type"
+							|	id="field__trigger-type_1"
+							| id="field__trigger-type_2"
+							| id="field__trigger-type_3"
+							| id="field__trigger-type_4"
+						- id="field__trigger-operators"
+							|	id="field__trigger-operators_1"
+							| id="field__trigger-operators_2"
+							| id="field__trigger-operators_3"
+							| id="field__trigger-operators_4"
+							| id="field__trigger-operators_5"
 	- Logout:								
-		- id=“menu-logout”															<--[New]
+		- id=“menu-logout”															
 
 HEADER BAR:								
 	- Strax Logo:								
-		- id="header-homepage"													<--[New]
+		- id="header-homepage"													
 	- Default Layout:								
-		- id="header-default-layout"										<--[New]
+		- id="header-default-layout"										
 	- Map:								
-		- id="header-map"																<--[New]	
+		- id="header-map"																	
 	- White Board:									
-		- id="header-white-board"												<--[New]
+		- id="header-white-board"												
 	- Event Activity:								
-		- id="header-event-activity"										<--[New]
+		- id="header-event-activity"										
 	- Notification Bell:								
-		- id="header-notification-bell"									<--[New]
+		- id="header-notification-bell"									
 
+COMMON: (Some of the main admin pages use common ID's those can be found above, 
+	- Admin:
+		- id="button__archived"
+		- id="button__active"
+		- id="button__create"
+		- id="menu__archive-menu"
+		- id="button__archive"
+		- id="button__un-archive"
+		- id="button__default-icon"
 
+	- User Selection:
+		- id="button__users"
+			- id="field__user"
+			- id="field__user_1"
+			- id="field__user_2"
+	- Subunit Selection:
+		- id="button__subunits"
+			- id="field__subunit"
+			- id="field__subunit_1"
+			- id="field__subunit_2"
+	- Close Window:		
+			- id="button__close-window"								
+	- Search Field:
+		- id="field__search"
+	- Filters:
+		- Incident:
+			- id="button-filter__incident"
+		- Case Number:
+			- id="button-filter__case-number"
+		- Start Time:
+			- id="button-filter__start-time"
+		-	Plan Name:
+			- id="button-filter__plan-name"
+		- Address:
+			- id="button-filter__address"
+		- Plan Creator:
+			- id="button-filter__plan-creator"
+		- Name:
+			- id="button-filter__name"
+		- CallSign:
+			- id="button-filter__callsign"
+		- Event:
+			- id="button-filter__event"
+		- Status:
+			- id="button-filter__status"
+		- User: (Same as name?)
+			- id="button-filter__user"
+		- Subunit:
+			- id="button-filter__subunit"
+		- Type:
+			- id="button-filter__type"
+		- Author:
+			- id="button-filter__author"
+		- Description:
+			- id="button-filter__description"
+	
 	
