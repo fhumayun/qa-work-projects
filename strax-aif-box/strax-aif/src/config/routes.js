@@ -33,5 +33,13 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  //example route
+  'GET /foo' : 'GIController.foo',
+
+
+
+  'GET /gi/tests': 'GIController.getTests'
+
+
 
 };

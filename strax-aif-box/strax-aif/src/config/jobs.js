@@ -14,8 +14,8 @@ module.exports.jobs = {
   // for more details about configuration,
   // check https://github.com/rschmukler/agenda
   "db": {
-    "address"    : "mongodb:27017/jobs",
-    "collection" : "agendaJobs"
+    "address"    : "mongodb:27017/aifdb",
+    "collection" : "jobs"
   },
   "name": "process name",
   "processEvery": "10 seconds",
