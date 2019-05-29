@@ -18,4 +18,5 @@ PC - https://docs.docker.com/docker-for-windows/install/
 ### Check If It Is Running
 1. open browser and go to http://localhost:1337
 2. Should see ![Sails Home Page](sails_home.png)
+3. Yay
 
