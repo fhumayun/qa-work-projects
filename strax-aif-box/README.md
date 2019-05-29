@@ -4,12 +4,12 @@
 ## Services
 
 ### Sails 
-![Sails](../assets/logo_sails@2x.png)
+![Sails](./assets/logo_sails@2x.png)
 
 Defaulted to Port 1337
 
 ### Datastore
-![Mongo](../assets/mongodb.png)
+![Mongo](./assets/mongodb.png)
 Port: 27017
 
 ### Models
