@@ -1,0 +1,44 @@
+{
+  "alert_description": "payload for auto test",
+  "anonymous": false,
+  "create_datetime": 1558624204,
+  "do_not_contact": false,
+  "incident": {
+    "id": "e0595a90-889f-11e8-959e-235b14c27897",
+    "title": "Driving Under the Influence",
+    "incident_map_icon": "f40591c0-885a-11e8-b39d-dd2d4b00f27f/0/1531711383160.png",
+    "app_small_icon": "f40591c0-885a-11e8-b39d-dd2d4b00f27f/0/1531711383160.png",
+    "description": null
+  },
+  "incident_datetime": null,
+  "incident_datetime_type": 1,
+  "incident_geofence": {
+    "address": "1001 Broken Sound Pkwy NW, Boca Raton, FL 33487, USA",
+    "city": null,
+    "country": null,
+    "latitude": 26.401214,
+    "longitude": -80.1090382,
+    "pin": null,
+    "radius": 0,
+    "state": null
+  },
+  "individuals_info": [],
+  "location_city": "STRAX Boca Raton Office",
+  "location_name": "STRAX Boca Raton Office",
+  "location_logo": "d6fc1620-344a-11e9-b03c-a1c849dcc712/0/1550583227477.jpeg",
+  "media": [
+    {
+      "height": 512,
+      "localFilePath": "/storage/emulated/0/Android/data/com.ad.saferwatchstage/files/Pictures/VIDEO_20190523_110921_6440151784614529594.mp4",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1558624193553-41650df1-aa11-435e-b11d-aad9643bb3de-VIDEO_20190523_110921_6440151784614529594.mp4",
+      "selected": false,
+      "thumbnail_s3key": "15586241941561558624193941.jpg",
+      "type": 2,
+      "width": 288
+    }
+  ],
+  "organization_name": "STRAX Intelligence Group",
+  "organization_logo": "0/0/1550583125894.jpeg",
+  "report_id": 33509598,
+  "timeline_description": null
+}

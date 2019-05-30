@@ -1,0 +1,83 @@
+{
+  "alert_description": "suspicious guy with bag might have gun",
+  "anonymous": false,
+  "create_datetime": 1557347763,
+  "do_not_contact": false,
+  "incident": {
+    "id": "7d9d2520-c74d-11e8-86ec-7d16c964c4ac",
+    "title": "Shooting Threat",
+    "incident_map_icon": "0/0/1538599691818.png",
+    "app_small_icon": "0/0/1538599691818.png",
+    "description": null
+  },
+  "incident_datetime": null,
+  "incident_datetime_type": 1,
+  "incident_geofence": {
+    "address": "1001 Broken Sound Pkwy NW, Boca Raton, FL 33487, USA",
+    "city": null,
+    "country": null,
+    "latitude": 26.4011512,
+    "longitude": -80.1086491,
+    "pin": null,
+    "radius": 0,
+    "state": null
+  },
+  "individuals_info": [],
+  "location_city": "STRAX Boca Raton Office",
+  "location_name": "STRAX Boca Raton Office",
+  "location_logo": "d6fc1620-344a-11e9-b03c-a1c849dcc712/0/1550583227477.jpeg",
+  "media": [
+    {
+      "height": 540,
+      "localFilePath": "/storage/emulated/0/DCIM/HDCamera/IMG_20190508_162947.jpg",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1557347750079-e96ac09c-9ddd-4472-8850-ba9f70657bc4-IMG_20190508_162947.jpg",
+      "selected": true,
+      "type": 1,
+      "width": 720
+    },
+    {
+      "height": 540,
+      "localFilePath": "/storage/emulated/0/DCIM/HDCamera/IMG_20190508_162943.jpg",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1557347750137-8721a3a4-18ff-4a16-aa52-4ddf7789c79a-IMG_20190508_162943.jpg",
+      "selected": false,
+      "type": 1,
+      "width": 720
+    },
+    {
+      "height": 540,
+      "localFilePath": "/storage/emulated/0/DCIM/HDCamera/IMG_20190508_162940.jpg",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1557347750197-8432a6f7-c4b6-4e69-8cc1-9478890fb950-IMG_20190508_162940.jpg",
+      "selected": false,
+      "type": 1,
+      "width": 720
+    },
+    {
+      "height": 540,
+      "localFilePath": "/storage/emulated/0/DCIM/HDCamera/IMG_20190508_162802.jpg",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1557347750345-d9c21114-6eb1-43f0-9e05-347d1fea3cc2-IMG_20190508_162802.jpg",
+      "selected": false,
+      "type": 1,
+      "width": 720
+    },
+    {
+      "height": 540,
+      "localFilePath": "/storage/emulated/0/DCIM/HDCamera/IMG_20190508_162932.jpg",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1557347750260-c512b5e6-0757-46b6-8602-7723a9d0ef53-IMG_20190508_162932.jpg",
+      "selected": false,
+      "type": 1,
+      "width": 720
+    },
+    {
+      "height": 540,
+      "localFilePath": "/storage/emulated/0/DCIM/HDCamera/IMG_20190508_162758.jpg",
+      "s3key": "1b6fe3e0-344b-11e9-9e3e-79d73785bb57-1557347750418-6f9fe606-279c-4997-a094-2e84432ecaed-IMG_20190508_162758.jpg",
+      "selected": false,
+      "type": 1,
+      "width": 720
+    }
+  ],
+  "organization_name": "STRAX Intelligence Group",
+  "organization_logo": "0/0/1550583125894.jpeg",
+  "report_id": 92810263,
+  "timeline_description": null
+}

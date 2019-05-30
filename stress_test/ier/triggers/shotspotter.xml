@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IALRT04>
+   <id>00105165</id>
+   <latitude>37.4507997</latitude>
+   <longitude>-122.1538677</longitude>
+   <address>2399 Tiebout Avenue</address>
+   <rounds>3</rounds>
+   <shooter-speed>0</shooter-speed>
+   <shooter-direction>0</shooter-direction>
+   <shooter-direction-short-text>N</shooter-direction-short-text>
+   <num-shooters>1</num-shooters>
+   <source>BronxZ1Test</source>
+   <time>2015-09-09 20:52:35</time>
+   <gmt-offset>-04:00</gmt-offset>
+   <incident-type>01</incident-type>
+   <incident-workflow-status>UNR</incident-workflow-status>
+   <uri-count>03</uri-count>
+   <url-root />
+   <uris>
+      <uri-detail>
+         <mime>audio/x-mp3</mime>
+         <sensor>
+            <name>24</name>
+            <distance>409.899915</distance>
+            <distance-unit>meters</distance-unit>
+         </sensor>
+         <url>https://demo.shotspotter.net/audio/7186/7186-20838592913408000.mp3</url>
+         <audio-image>
+            <mime>image/png</mime>
+            <png-url>2015-09/2015-09-09/71331d3611ac3b17f352be47966027e1.png</png-url>
+         </audio-image>
+      </uri-detail>
+      <uri-detail>
+         <mime>audio/x-mp3</mime>
+         <sensor>
+            <name>22</name>
+            <distance>575.338761</distance>
+            <distance-unit>meters</distance-unit>
+         </sensor>
+         <url>https://demo.shotspotter.net/audio/7180/7180-196612.mp3</url>
+         <data>/+</data>
+         <audio-image>
+            <mime>image/png</mime>
+            <png-url>2015-09/2015-09-09/d5a9b1a30e58d52e39561b1f718e1111.png</png-url>
+         </audio-image>
+      </uri-detail>
+   </uris>
+   <comment>*** DO NOT DISPATCH ***: test incident</comment>
+</IALRT04>
