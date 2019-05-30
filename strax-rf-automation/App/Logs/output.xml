@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190402 14:48:03.885" generator="Robot 3.1.1 (Python 2.7.15 on darwin)">
+<suite source="/Users/Mack/Development/strax-qa/strax-rf-automation/App/Tests/2.0_Fe.robot" id="s1" name="2.0 Fe">
+<test id="s1-t1" name="Verify a STRAX user can Login with valid credentials">
+<kw type="setup" name="Open test browser" library="2.0_Common">
+<kw name="Open Browser" library="ExtendedSelenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>about:</arg>
+<arg>${BROWSER}</arg>
+<arg>remote_url=${REMOTE_URL}</arg>
+<arg>desired_capabilities=${DESIRED_CAPABILITIES}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:05.153" level="INFO">Opening browser 'google chrome' to base url 'about:'</msg>
+<status status="PASS" endtime="20190402 14:48:11.361" starttime="20190402 14:48:05.151"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:11.362" starttime="20190402 14:48:05.136"></status>
+</kw>
+<kw name="Given a STRAX user has opened the homepage" library="2.0_Resources">
+<kw name="Navigate" library="LoginPage">
+<kw name="Go To" library="ExtendedSelenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${ENV}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:11.366" level="INFO">Opening url 'https://demo.strax.co'</msg>
+<status status="PASS" endtime="20190402 14:48:18.520" starttime="20190402 14:48:11.365"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="ExtendedSelenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>Forgot your password?</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:18.637" starttime="20190402 14:48:18.521"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:18.637" starttime="20190402 14:48:11.364"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:18.637" starttime="20190402 14:48:11.363"></status>
+</kw>
+<kw name="When the USER inputs valid credentials" library="2.0_Resources">
+<kw name="Input" library="LoginPage">
+<kw name="Input Text" library="ExtendedSelenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${USERNAME_FIELD}</arg>
+<arg>${USER}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:18.640" level="INFO">Typing text 'mack@ee.io' into text field 'id=login-page__user-email'</msg>
+<status status="PASS" endtime="20190402 14:48:19.354" starttime="20190402 14:48:18.639"></status>
+</kw>
+<kw name="Input Text" library="ExtendedSelenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${PASSWORD_FIELD}</arg>
+<arg>${PASS}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:19.355" level="INFO">Typing text 'Password1@' into text field 'id=login-page__user-password'</msg>
+<status status="PASS" endtime="20190402 14:48:20.100" starttime="20190402 14:48:19.354"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:20.100" starttime="20190402 14:48:18.639"></status>
+</kw>
+<kw name="Click" library="LoginPage">
+<kw name="Click Button" library="ExtendedSelenium2Library">
+<doc>Clicks a button identified by ``locator``.</doc>
+<arguments>
+<arg>${LOGIN_BUTTON}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:20.102" level="INFO">Clicking button 'id=login-page__login-button'.</msg>
+<status status="PASS" endtime="20190402 14:48:26.119" starttime="20190402 14:48:20.101"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:26.120" starttime="20190402 14:48:20.101"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:26.120" starttime="20190402 14:48:18.638"></status>
+</kw>
+<kw name="Then the USER will be logged into STRAX" library="2.0_Resources">
+<kw name="Verify" library="LoginPage">
+<kw name="Set Browser Implicit Wait" library="ExtendedSelenium2Library">
+<doc>Sets current browser's implicit wait in seconds.</doc>
+<arguments>
+<arg>5.0</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:26.126" starttime="20190402 14:48:26.122"></status>
+</kw>
+<kw name="Page Should Contain Element" library="ExtendedSelenium2Library">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>${DASHBOARD_MAP}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:26.320" level="INFO">Current page contains element 'xpath=(//div)'.</msg>
+<status status="PASS" endtime="20190402 14:48:26.320" starttime="20190402 14:48:26.127"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:26.320" starttime="20190402 14:48:26.121"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:26.320" starttime="20190402 14:48:26.121"></status>
+</kw>
+<kw type="teardown" name="Close test browser" library="2.0_Common">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${REMOTE_URL}' != ''</arg>
+<arg>Report Sauce status</arg>
+<arg>${SUITE_NAME} | ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:26.323" starttime="20190402 14:48:26.322"></status>
+</kw>
+<kw name="Close All Browsers" library="ExtendedSelenium2Library">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20190402 14:48:26.482" starttime="20190402 14:48:26.323"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:26.483" starttime="20190402 14:48:26.321"></status>
+</kw>
+<doc>User can login to STRAX</doc>
+<tags>
+<tag>Login</tag>
+<tag>Smoke</tag>
+</tags>
+<status status="PASS" endtime="20190402 14:48:26.483" critical="yes" starttime="20190402 14:48:05.128"></status>
+</test>
+<test id="s1-t2" name="User should be able to create a event">
+<kw type="setup" name="Open test browser" library="2.0_Common">
+<kw name="Open Browser" library="ExtendedSelenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>about:</arg>
+<arg>${BROWSER}</arg>
+<arg>remote_url=${REMOTE_URL}</arg>
+<arg>desired_capabilities=${DESIRED_CAPABILITIES}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:26.488" level="INFO">Opening browser 'google chrome' to base url 'about:'</msg>
+<status status="PASS" endtime="20190402 14:48:31.665" starttime="20190402 14:48:26.487"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:31.666" starttime="20190402 14:48:26.486"></status>
+</kw>
+<kw name="Given a STRAX user is logged in" library="2.0_Resources">
+<kw name="Navigate" library="LoginPage">
+<kw name="Go To" library="ExtendedSelenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${ENV}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:31.669" level="INFO">Opening url 'https://demo.strax.co'</msg>
+<status status="PASS" endtime="20190402 14:48:37.950" starttime="20190402 14:48:31.669"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="ExtendedSelenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>Forgot your password?</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:38.078" starttime="20190402 14:48:37.951"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:38.078" starttime="20190402 14:48:31.668"></status>
+</kw>
+<kw name="Input" library="LoginPage">
+<kw name="Input Text" library="ExtendedSelenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${USERNAME_FIELD}</arg>
+<arg>${USER}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:38.080" level="INFO">Typing text 'mack@ee.io' into text field 'id=login-page__user-email'</msg>
+<status status="PASS" endtime="20190402 14:48:38.644" starttime="20190402 14:48:38.079"></status>
+</kw>
+<kw name="Input Text" library="ExtendedSelenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${PASSWORD_FIELD}</arg>
+<arg>${PASS}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:38.646" level="INFO">Typing text 'Password1@' into text field 'id=login-page__user-password'</msg>
+<status status="PASS" endtime="20190402 14:48:39.426" starttime="20190402 14:48:38.645"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:39.428" starttime="20190402 14:48:38.078"></status>
+</kw>
+<kw name="Click" library="LoginPage">
+<kw name="Click Button" library="ExtendedSelenium2Library">
+<doc>Clicks a button identified by ``locator``.</doc>
+<arguments>
+<arg>${LOGIN_BUTTON}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:39.430" level="INFO">Clicking button 'id=login-page__login-button'.</msg>
+<status status="PASS" endtime="20190402 14:48:45.146" starttime="20190402 14:48:39.429"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:45.147" starttime="20190402 14:48:39.429"></status>
+</kw>
+<kw name="Verify" library="LoginPage">
+<kw name="Set Browser Implicit Wait" library="ExtendedSelenium2Library">
+<doc>Sets current browser's implicit wait in seconds.</doc>
+<arguments>
+<arg>5.0</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:45.150" starttime="20190402 14:48:45.148"></status>
+</kw>
+<kw name="Page Should Contain Element" library="ExtendedSelenium2Library">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>${DASHBOARD_MAP}</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="ExtendedSelenium2Library">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<msg timestamp="20190402 14:48:45.164" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.3 x86_64)
+</msg>
+<status status="FAIL" endtime="20190402 14:48:45.164" starttime="20190402 14:48:45.153"></status>
+</kw>
+<msg timestamp="20190402 14:48:45.164" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.3 x86_64)
+</msg>
+<msg timestamp="20190402 14:48:45.172" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.3 x86_64)
+</msg>
+<status status="FAIL" endtime="20190402 14:48:45.172" starttime="20190402 14:48:45.150"></status>
+</kw>
+<status status="FAIL" endtime="20190402 14:48:45.173" starttime="20190402 14:48:45.147"></status>
+</kw>
+<status status="FAIL" endtime="20190402 14:48:45.173" starttime="20190402 14:48:31.667"></status>
+</kw>
+<kw type="teardown" name="Close test browser" library="2.0_Common">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${REMOTE_URL}' != ''</arg>
+<arg>Report Sauce status</arg>
+<arg>${SUITE_NAME} | ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:45.176" starttime="20190402 14:48:45.175"></status>
+</kw>
+<kw name="Close All Browsers" library="ExtendedSelenium2Library">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20190402 14:48:45.286" starttime="20190402 14:48:45.177"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:45.286" starttime="20190402 14:48:45.174"></status>
+</kw>
+<doc>Successful Event Creation</doc>
+<tags>
+<tag>Smoke</tag>
+</tags>
+<status status="FAIL" endtime="20190402 14:48:45.287" critical="yes" starttime="20190402 14:48:26.485">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.3 x86_64)
+</status>
+</test>
+<test id="s1-t3" name="As a STRAX user I want to be able to access the SAC without issue">
+<kw type="setup" name="Open test browser" library="2.0_Common">
+<kw name="Open Browser" library="ExtendedSelenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>about:</arg>
+<arg>${BROWSER}</arg>
+<arg>remote_url=${REMOTE_URL}</arg>
+<arg>desired_capabilities=${DESIRED_CAPABILITIES}</arg>
+</arguments>
+<msg timestamp="20190402 14:48:45.291" level="INFO">Opening browser 'google chrome' to base url 'about:'</msg>
+<kw name="Capture Page Screenshot" library="ExtendedSelenium2Library">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<status status="FAIL" endtime="20190402 14:48:50.449" starttime="20190402 14:48:50.448"></status>
+</kw>
+<msg timestamp="20190402 14:48:50.449" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Execution terminated by signal</msg>
+<status status="FAIL" endtime="20190402 14:48:50.450" starttime="20190402 14:48:45.290"></status>
+</kw>
+<status status="FAIL" endtime="20190402 14:48:50.451" starttime="20190402 14:48:45.290"></status>
+</kw>
+<kw type="teardown" name="Close test browser" library="2.0_Common">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${REMOTE_URL}' != ''</arg>
+<arg>Report Sauce status</arg>
+<arg>${SUITE_NAME} | ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<status status="PASS" endtime="20190402 14:48:50.454" starttime="20190402 14:48:50.453"></status>
+</kw>
+<kw name="Close All Browsers" library="ExtendedSelenium2Library">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<msg timestamp="20190402 14:48:50.456" level="WARN">Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x10a866050&gt;: Failed to establish a new connection: [Errno 61] Connection refused',)': /session/3c5f39c16f5361f526cabcc1f7d1d268</msg>
+<msg timestamp="20190402 14:48:50.459" level="WARN">Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x10a866410&gt;: Failed to establish a new connection: [Errno 61] Connection refused',)': /session/3c5f39c16f5361f526cabcc1f7d1d268</msg>
+<msg timestamp="20190402 14:48:50.461" level="WARN">Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x10a8663d0&gt;: Failed to establish a new connection: [Errno 61] Connection refused',)': /session/3c5f39c16f5361f526cabcc1f7d1d268</msg>
+<status status="PASS" endtime="20190402 14:48:50.465" starttime="20190402 14:48:50.454"></status>
+</kw>
+<status status="PASS" endtime="20190402 14:48:50.466" starttime="20190402 14:48:50.452"></status>
+</kw>
+<doc>User is able to access SAC</doc>
+<tags>
+<tag>Smoke</tag>
+</tags>
+<status status="FAIL" endtime="20190402 14:48:50.466" critical="yes" starttime="20190402 14:48:45.288">Setup failed:
+Execution terminated by signal</status>
+</test>
+<doc>Front End Test Suite
+
+Strax Version: 2.0
+
+Included Librarys
+- ExtendedSelenium2Library
+- ExtendedRequestsLibrary (Used For Clearing Database Entries)
+
+Additional Docs: /strax-rf-automation/Documentation
+
+Run On LocalHost CMD: robot -d ../Logs 2.0_Fe.robot
+Run On SauceLabs CMD: robot -v REMOTE_URL:http://mmaney:ad0b6583-5d8f-46f9-8ca8-f32fc56bc2ba@ondemand.saucelabs.com:80/wd/hub 2.0_Fe.robot</doc>
+<status status="FAIL" endtime="20190402 14:48:50.468" starttime="20190402 14:48:03.889"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="1">Critical Tests</stat>
+<stat fail="2" pass="1">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">Login</stat>
+<stat fail="2" pass="1">Smoke</stat>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="2.0 Fe" pass="1">2.0 Fe</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20190402 14:48:45.164" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.3 x86_64)
+</msg>
+<msg timestamp="20190402 14:48:50.449" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Execution terminated by signal</msg>
+<msg timestamp="20190402 14:48:50.456" level="WARN">Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x10a866050&gt;: Failed to establish a new connection: [Errno 61] Connection refused',)': /session/3c5f39c16f5361f526cabcc1f7d1d268</msg>
+<msg timestamp="20190402 14:48:50.459" level="WARN">Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x10a866410&gt;: Failed to establish a new connection: [Errno 61] Connection refused',)': /session/3c5f39c16f5361f526cabcc1f7d1d268</msg>
+<msg timestamp="20190402 14:48:50.461" level="WARN">Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x10a8663d0&gt;: Failed to establish a new connection: [Errno 61] Connection refused',)': /session/3c5f39c16f5361f526cabcc1f7d1d268</msg>
+</errors>
+</robot>

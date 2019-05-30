@@ -1,7 +1,7 @@
 *** Settings ***
 Resource    /Users/Mack/Development/strax-qa/strax-rf-automation/SauceLabs/common.robot
 
-Library  Selenium2Library
+Library  ExtendedSelenium2Library
 Library  SauceLabs.py
 
 Test Setup  Open test browser

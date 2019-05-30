@@ -1,7 +1,7 @@
 *** Settings ***
 Library   String
 Library   ExtendedSelenium2Library
-Library   SeleniumLibrary
+
 *** Keywords ***
 Begin Web Test
     Set Library Search Order    String  ExtendedSelenium2Library  SeleniumLibrary
