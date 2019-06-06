@@ -6,6 +6,15 @@
 
 ### Why do we use GIT? 
 
+<details><summary>Answer</summary>
+<p>
+
+#### Here is the answer.
+
+</p>
+</details>
+
+
 ### What does git clone do?
 
 ### What does git pull do? 
