@@ -1,4 +1,4 @@
-# Lesson 1:
+# Lesson 1
 
 ## GIT
 	
@@ -13,21 +13,35 @@ help setup create QA gitflow
 
 ### Commands:
 
-#### git clone
-git clone
+#### Git Clone
+TODO: EXPLAIN
+##### Command: `git clone`
 
-##### What does git clone do? 
-Git clone url where the repo is
+#### Git Fetch
+TODO: EXPLAIN
+##### Command: `git fetch`
 
-#### Git fetch
-git fetch
+#### Git Branch
+TODO: EXPLAIN
+##### Command: `git checkout <branch>`
 
-#### Git pull
-git pull
+#### Git Checkout 
+TODO: EXPLAIN
+##### Command: `git checkout <branch>`
+
+#### Git Pull
+TODO: EXPLAIN
+##### Command: `git pull`
 
 #### Git Push
-git push
+TODO: EXPLAIN
+##### Command: `git push`
 
 #### Pull Requests
 Pull requests let you tell others about changes you've pushed to a GitHub repository. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary. 
-##### Credit to https://yangsu.github.io/pull-request-tutorial/
+[Source](https://yangsu.github.io/pull-request-tutorial/)
+
+### Homework
+
+#### [Homework1](https://github.com/GroupCareTech/strax-qa/blob/lb-strax-aif/strax-aif-box/documentation/homework/homework1.md)
+
