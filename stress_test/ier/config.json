@@ -1,0 +1,10 @@
+{
+    "loop": 2,
+    "delay": 5,
+    "triggers": [
+      "saferwatch_arson_audio.json",
+      "saferwatch_driving_under_the_influence_video.json",
+      "saferwatch_shooting_threat_image.json",
+     "shotspotter.xml"
+    ] 
+}

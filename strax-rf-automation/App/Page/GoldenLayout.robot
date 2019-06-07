@@ -1,7 +1,6 @@
 *** Settings ***
-Library   String
+
 Library   ExtendedSelenium2Library
-Library   SeleniumLibrary
 
 *** Variables ***
 ${GOOGLE_MAPS} =  id=tabbedLayout

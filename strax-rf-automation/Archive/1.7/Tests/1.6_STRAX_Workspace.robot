@@ -1,15 +1,15 @@
 *** Settings ***
 Documentation  1.6 UI Changes
-Resource  /Development/strax-qa/strax-rf-automation/Resources/Common.robot
-Resource  /Development/strax-qa/strax-rf-automation/Resources/1.6_STRAX_Workspace.robot
-Library        AllureReportLibrary
-Test Setup     Begin Web Test
-Test Teardown  End Web Test
+Resource    /Users/Mack/Development/strax-qa/strax-rf-automation/SauceLabs/Common.robot
+Resource    /Users/Mack/Development/strax-qa/strax-rf-automation/App/Resources/1.6_STRAX_Workspace.robot
+Library        SauceLabs.py
+Test Setup     Open test browser
+Test Teardown  Close test browser
 
 *** Variables ***
 ${BROWSER} =  gc
-${ENV} =   https://staging.strax.co  
-${USER} =  Robot-c@sig.io  
+${ENV} =   https://demo.strax.co  
+${USER} =  mack@ee.io  
 ${PASS} =  Password1@
 ${EVENTNUMBER} =  21
 ${EVENTNAME} =    RF-Automation

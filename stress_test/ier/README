@@ -1,0 +1,11 @@
+Before running for the first time do the following:
+npm install
+
+To run:
+node index.js
+
+All the requests are stored in the triggers directory.  A
+All triggers that are to be used in the test are configured in the config.json file.
+The number of iterations to be performed are specified by the loop variable in the config file.
+The delay between sending blocks of triggers is configured in the config file.
+

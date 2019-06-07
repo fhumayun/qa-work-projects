@@ -1,0 +1,38 @@
+{
+  "alert_description": "gcgbc",
+  "anonymous": false,
+  "create_datetime": 1553879713,
+  "do_not_contact": false,
+  "incident": {
+    "id": "4945f820-889f-11e8-92ae-41202d9050ff",
+    "title": "Arson",
+    "incident_map_icon": "f40591c0-885a-11e8-b39d-dd2d4b00f27f/0/1531710761155.png",
+    "app_small_icon": "f40591c0-885a-11e8-b39d-dd2d4b00f27f/0/1531710761155.png",
+    "description": null
+  },
+  "incident_datetime": null,
+  "incident_datetime_type": 1,
+  "incident_geofence": {
+    "address": "1001 Broken Sound Pkwy NW, Boca Raton, FL 33487, USA",
+    "latitude": 26.4010719,
+    "longitude": -80.10902,
+    "radius": 0
+  },
+  "individuals_info": [],
+  "location_city": "STRAX Boca Raton Office",
+  "location_name": "STRAX Boca Raton Office",
+  "location_logo": "d6fc1620-344a-11e9-b03c-a1c849dcc712/0/1550583227477.jpeg",
+  "media": [
+    {
+      "duration": "00:07",
+      "localFilePath": "/storage/emulated/0/1067955178094.wav",
+      "s3key": "15538797051311067955178094.wav",
+      "selected": false,
+      "type": 3
+    }
+  ],
+  "organization_name": "STRAX Intelligence Group",
+  "organization_logo": "0/0/1550583125894.jpeg",
+  "report_id": 74453709,
+  "timeline_description": null
+}
