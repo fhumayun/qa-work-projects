@@ -1,13 +1,15 @@
 *** Settings ***
-Library   String
+# Libraries #
 Library   ExtendedSelenium2Library
-Library   SeleniumLibrary
+
 
 *** Variables ***
-${USERNAME_FIELD} =  id=login-page__user-email
-${PASSWORD_FIELD} =  id=login-page__user-password
-${LOGIN_BUTTON} =  id=login-page__login-button
-
+${USER}              mack@ee.io  
+${PASS}              Password1@
+${USERNAME_FIELD}    id=login-page__user-email
+${PASSWORD_FIELD}    id=login-page__user-password
+${LOGIN_BUTTON}      id=login-page__login-button
+${DASHBOARD_MAP}     xpath=(//div)
 *** Keywords ***
 Navigate
     Go To  ${ENV}
@@ -22,4 +24,4 @@ Click
 
 Verify
     Set Browser Implicit Wait  5.0
-    Page Should Contain Element  xpath=//md-icon[@class="ng-binding ng-scope material-icons"]   #Notification Bell
+    Page Should Contain Element     ${DASHBOARD_MAP}
