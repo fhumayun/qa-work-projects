@@ -4,7 +4,14 @@ const mqtt = require('mqtt');
 // const mqtt = require('mqtt')
 
 // WebSocket connect url
-const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
+//Change for env switching
+/*
+ENV 
+Staging             'wss://staging.strax.co/mqtt'
+CD                  'wss://cd.strax.co/mqtt'
+Sandbox             'wss://sandbox.strax.co/mqtt'
+*/
+const WebSocket_URL = 'wss://staging.strax.co/mqtt';
 
 // TCP/TLS connect url
 const TCP_URL = 'mqtt://localhost:1883'
