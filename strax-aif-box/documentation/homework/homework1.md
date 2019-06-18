@@ -1,10 +1,20 @@
 # Homework 1
-
+### Split into multiple quizes
+[Flexiquiz](https://www.flexiquiz.com)
 ### Use whatever resources necessary
 
 ## GIT
 
 ### Why do we use GIT? 
+
+<details><summary>Answer</summary>
+<p>
+
+#### Here is the answer.
+
+</p>
+</details>
+
 
 ### What does git clone do?
 
