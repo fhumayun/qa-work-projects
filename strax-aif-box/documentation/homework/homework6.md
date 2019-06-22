@@ -28,6 +28,7 @@
 ### Calculate Previous Fibonacci Number
 You will need this:
 Take your time to read what this function does
+
     function calculatePrev(num){
     //goal of this function is to find the previous fibonacci number by calculating the current fibonacci number (num)
 
@@ -81,7 +82,7 @@ Take your time to read what this function does
     "fibonacci": 21
 }`
 #### PUT
-- request: PUT http://localhost:1337/fibonacci/21
+- request: PUT http://localhost:1337/fibonacci
 - response: `{
     "fibonacci": 34
 }`
@@ -100,7 +101,7 @@ Take your time to read what this function does
 }`
 
 #### PUT
-- request: PUT http://localhost:1337/fibonacci/21
+- request: PUT http://localhost:1337/fibonacci
 - response: `{
     "fibonacci": 21
 }`
