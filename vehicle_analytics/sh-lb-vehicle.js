@@ -11,8 +11,8 @@ Staging             'wss://staging.strax.co/mqtt'
 CD                  'wss://cd.strax.co/mqtt'
 Sandbox             'wss://sandbox.strax.co/mqtt'
 */
-// const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
-const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
+const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
+// const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
 
 // TCP/TLS connect url
 const TCP_URL = 'mqtt://localhost:1883'
@@ -25,7 +25,7 @@ const options = {
   connectTimeout: 4000,
 
   // Authentication
-  clientId: 'strax-ier-service-lbs111',
+  clientId: 'strax-ier-service-lbs112',
   username: 'admin',
   password: 'public',
   keepalive: 60,
@@ -48,7 +48,10 @@ let hit = [{
   ],
   feeds: [],
   triggerType: "vehicle",
-  source: "5d0286df0f406f00299d3412",
+  // source: "5d0286df0f406f00299d3412", //uav
+  // source: "5cc0d1eeec485700294b3b6a", //rear office camera
+  source: "5ce5685332da7f002bc14a64", //sandbox - Rear Office Direct
+  
   displayData: {
     modelScore: 0.9941408038139343
   },
