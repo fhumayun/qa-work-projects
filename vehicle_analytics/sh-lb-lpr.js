@@ -11,8 +11,8 @@ Staging             'wss://staging.strax.co/mqtt'
 CD                  'wss://cd.strax.co/mqtt'
 Sandbox             'wss://sandbox.strax.co/mqtt'
 */
-const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
-// const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
+// const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
+const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
 
 // TCP/TLS connect url
 const TCP_URL = 'mqtt://localhost:1883'
@@ -44,8 +44,8 @@ let hit = [ { lpScore: 0.6981093287467957,
     triggerType: 'lpr',
     displayData: { lprScore: 0.6981093287467957 },
     y: 171,
-    // source: '5ce5685332da7f002bc14a64' } //logan - local videofeed
-    source: '5ce5685332da7f002bc14a64' } //sandbox feed
+    source: '5cc0d1eeec485700294b3b6a' } //logan - local videofeed
+    // source: '5ce5685332da7f002bc14a64' } //sandbox feed
   ]
 
 // after connect
