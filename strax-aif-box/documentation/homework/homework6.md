@@ -14,7 +14,7 @@
   - Remember parameters. 
   - You can assume correct input. For example I will not be passing in 4, an incorrect fibonacci number. 
   - Return the fibonacci number
-- The DELETE will reset the fibonacci number back to 0.
+- The DELETE will reset the fibonacci number back to 1.
   - Return the fibonacci number
 
 ## Curriculum
@@ -89,7 +89,7 @@ Take your time to read what this function does
 #### DELETE
 - request: DELETE http://localhost:1337/fibonacci
 - response: `{
-    "fibonacci": 0
+    "fibonacci": 1
 }`
 
 ### Run 2

@@ -11,7 +11,8 @@ Staging             'wss://staging.strax.co/mqtt'
 CD                  'wss://cd.strax.co/mqtt'
 Sandbox             'wss://sandbox.strax.co/mqtt'
 */
-const WebSocket_URL = 'wss://cd01.strax.co/mqtt';
+// const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
+const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
 
 // TCP/TLS connect url
 const TCP_URL = 'mqtt://localhost:1883'
@@ -46,4 +47,5 @@ client.on('message', (topic, message) => {
   for (let i=0; i<message.length; i++) {
     console.log(`${message[i].triggerType} ${JSON.stringify(message[i].keywords)}  ${new Date(message[i].time*1000)}`);
   }
+
 });
