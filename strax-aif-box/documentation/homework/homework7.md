@@ -40,13 +40,22 @@ then shows them on a character page.
 character page: ________________
 
 ### Characters
+Base character structure
 Character {
-  name: string
+  name: string,
   attributes: {
-    health: number
-    attack: number
-    defense: number
-    mana: number
+    health: number,
+    attack: number,
+    defense: number,
+    mana: number,
+  },
+  armor: {
+    head: object,
+    chest: object,
+    legs: object,
+    gauntlets: object,
+    rings: object,
+    boots: object,
   }
 }
 
@@ -61,10 +70,10 @@ Maximize Attack.
 
 Starting values include: 
   attributes: {
-    health: 10
-    attack: 10
-    defense: 10
-    mana: 10
+    health: 10,
+    attack: 10,
+    defense: 10,
+    mana: 10,
   }
 
 #### Knight
@@ -72,10 +81,10 @@ Plate wearer.
 Maximize Attack and Defense
 
   attributes: {
-    health: 15
-    attack: 10
-    defense: 10
-    mana: 5
+    health: 15,
+    attack: 10,
+    defense: 10,
+    mana: 5,
   }
 
 #### Spellcaster
@@ -83,10 +92,10 @@ Cloth wearer.
 Maximize Mana
 
   attributes: {
-    health: 10
-    attack: 10
-    defense: 5
-    mana: 15
+    health: 10,
+    attack: 10,
+    defense: 5,
+    mana: 15,
   }
 
 #### Warrior
@@ -94,12 +103,26 @@ Plate wearer.
 Maximize Health and Defense
 
   attributes: {
-    health: 15
-    attack: 5
-    defense: 15
-    mana: 5
+    health: 15,
+    attack: 5,
+    defense: 15,
+    mana: 5,
   }
 
+### Items
+{
+  name: string,
+  slot: string,
+  attributes: {
+    health: number,
+    attack: number,
+    defense: number,
+    mana: number,
+  }
+}
+
+possible slot values:
+head, chest, legs, gauntlets, rings, boots
 
 This project will broken into parts.
 
@@ -136,9 +159,11 @@ This project will broken into parts.
 - Shows output on next api (LOGAN)
 
 #### Possible Tips
-There aren't any as of right now.
-Example Number game is a helper.
-
+- Example Number game is a helper.
+- Use logging
+- Error checking slots
+  - Chestpiece cannot go in helmet slot
+- Read the writeup multiple times
 
 #### Final Thoughts
-This will get you "geared" for SAIF
+This will get you "geared" for SAIF. Make sure you read it over.
