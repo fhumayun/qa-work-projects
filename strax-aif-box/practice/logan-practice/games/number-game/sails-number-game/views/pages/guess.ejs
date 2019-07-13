@@ -1,0 +1,17 @@
+<p>Guess</p>
+<p>Guess: <%=guess%></p>
+<p>Statement: <%=statement%></p>
+
+<% if(!newGame) { %>
+<p>
+  <form action="/guess" method="post">
+    <label for="guess">Enter guess: </label>
+    <input id="guess" type="text" name="guess" value="">
+    <input type="submit" value="OK">
+  </form>
+</p>
+<% } else { %>
+<form action="/newgame" method="post">
+  <input type="submit" value="Start New Game">
+</form>
+<% } %>
