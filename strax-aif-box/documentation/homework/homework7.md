@@ -43,6 +43,7 @@ character page: ________________
 Base character structure
 Character {
   name: string,
+  class: string
   attributes: {
     health: number,
     attack: number,
@@ -165,5 +166,11 @@ This project will broken into parts.
   - Chestpiece cannot go in helmet slot
 - Read the writeup multiple times
 
+### Mock up
+![Mockup](../../assets/charactercreationapp.png)
+
+
 #### Final Thoughts
 This will get you "geared" for SAIF. Make sure you read it over.
+
+
