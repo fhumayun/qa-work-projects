@@ -43,6 +43,7 @@ character page: ________________
 Base character structure
 Character {
   name: string,
+  class: string
   attributes: {
     health: number,
     attack: number,
