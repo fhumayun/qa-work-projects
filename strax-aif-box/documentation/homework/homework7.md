@@ -15,7 +15,7 @@
   - Optimizing items
   - statistics
 
-### RPG Create Character Task
+## RPG Create Character Task
 Using Sails, create a program that will take in input 
 and fetch from an outside api.
 The app will then decide the optimal items for the character.
@@ -23,7 +23,7 @@ Then (save the character) output the character to a database
 and sends the character to another API 
 then shows them on a character page.
 
-### Tasks
+## Overview Tasks
 - Creat a sails app - name it whatever you see relevant to a character creation app
   `sails new CreateCreation`
 - Create front page in ejs
@@ -39,28 +39,28 @@ then shows them on a character page.
 - view the character page
 character page: ________________ (logan needs to fill)
 
-### Characters
+## Characters
 
 Base character structure
 
-Character {
-  name: string,
-  class: string,
-  attributes: {
-    health: number,
-    attack: number,
-    defense: number,
-    mana: number,
-  },
-  gear: {
-    head: object,
-    chest: object,
-    legs: object,
-    gauntlets: object,
-    rings: array of objects,
-    boots: object,
-  }
-}
+    Character {
+      name: string,
+      class: string,
+      attributes: {
+        health: number,
+        attack: number,
+        defense: number,
+        mana: number,
+      },
+      gear: {
+        head: object,
+        chest: object,
+        legs: object,
+        gauntlets: object,
+        rings: array of objects,
+        boots: object,
+      }
+    }
 
 Added in data types. 
 Attributes are sums of the items the character is wearing. Plus the initial starting values.
@@ -72,62 +72,68 @@ Cloth and Leather wearer.
 Maximize Attack.
 
 Starting values include: 
-  attributes: {
-    health: 10,
-    attack: 10,
-    defense: 10,
-    mana: 10,
-  }
+
+    attributes: {
+      health: 10,
+      attack: 10,
+      defense: 10,
+      mana: 10,
+    }
 
 #### Knight
 Plate wearer.
 Maximize Attack and Defense
 
-  attributes: {
-    health: 15,
-    attack: 10,
-    defense: 10,
-    mana: 5,
-  }
+    attributes: {
+      health: 15,
+      attack: 10,
+      defense: 10,
+      mana: 5,
+    }
 
 #### Spellcaster
 Cloth wearer.
 Maximize Mana
 
-  attributes: {
-    health: 10,
-    attack: 10,
-    defense: 5,
-    mana: 15,
-  }
+    attributes: {
+      health: 10,
+      attack: 10,
+      defense: 5,
+      mana: 15,
+    }
 
 #### Warrior
 Plate wearer.
 Maximize Health and Defense
 
-  attributes: {
-    health: 15,
-    attack: 5,
-    defense: 15,
-    mana: 5,
-  }
+    attributes: {
+      health: 15,
+      attack: 5,
+      defense: 15,
+      mana: 5,
+    }
 
-### Items
-{
-  name: string,
-  slot: string,
-  attributes: {
-    health: number,
-    attack: number,
-    defense: number,
-    mana: number,
-  }
-}
+## Items
+
+### Structure: 
+
+    {
+      name: string,
+      slot: string,
+      attributes: {
+        health: number,
+        attack: number,
+        defense: number,
+        mana: number,
+      }
+    }
 
 Slot values:
 head, chest, legs, gauntlets, rings, boots
 
 This project will broken into parts.
+
+## Tasks
 
 ### Part 1 Sails
 - Create Sails app
@@ -210,7 +216,7 @@ This project will broken into parts.
 ### Part 8
 - dockerize
 
-#### Possible Tips
+## Tips
 - Example Number game is a helper.
 - Use logging
 - Error checking slots
@@ -222,7 +228,7 @@ This project will broken into parts.
 <!-- ![Mockup v1.1]() -->
 Mockup v1.1 TODO
 
-#### Final Thoughts
+## Final Thoughts
 This will get you "geared" for SAIF. Make sure you read it over.
 
 
