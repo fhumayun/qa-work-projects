@@ -37,25 +37,27 @@ then shows them on a character page.
 - Call Outside API ________________ (logan needs to fill)
   - POST Character
 - view the character page
-character page: ________________
+character page: ________________ (logan needs to fill)
 
 ### Characters
+
 Base character structure
+
 Character {
   name: string,
-  class: string
+  class: string,
   attributes: {
     health: number,
     attack: number,
     defense: number,
     mana: number,
   },
-  armor: {
+  gear: {
     head: object,
     chest: object,
     legs: object,
     gauntlets: object,
-    rings: object,
+    rings: array of objects,
     boots: object,
   }
 }
@@ -122,30 +124,75 @@ Maximize Health and Defense
   }
 }
 
-possible slot values:
+Slot values:
 head, chest, legs, gauntlets, rings, boots
 
 This project will broken into parts.
 
-### Part 1a Sails
+### Part 1 Sails
 - Create Sails app
-  - design routes
-- Take Input
-  - look up html buttons
-    - forms
-- going to fetch gear for certain class
+  - learn the structure
+  - comment out some designs
 
-### Part 1b Mongo
+### Part 2 Sails
+  - create a controller 
+    - `CreateCharacterController.js`
+  - design routes in `routes.js`
+  - lookover the ejs in the views folder
+    - design some forms
+      - don't code them!
+        - Design!
+
+### Part 3 Initial Routes
+- Create Getting Started route
+  - can be a POST
+    - similar to the number game start game
+  - should lead you to the homepage
+    - don't need homepage right now
+      - doesn't hurt to lead you to another view tho
+- Call API (LOGAN)
+  - GET route to url: ________
+  - should log out items
+- Create `Optimize` route 
+  - should have a character parameter
+- Create `create character` route
+  - this will be used later
+    - POST to the other outside API
+    - url: _______
+
+#### Route Path
+1. Getting Started on the homepage 
+2. Dashboard 
+   1. Get Items
+   2. Get Characters
+3. Create Character
+   1. take in input
+      1. name
+      2. class
+4. Optimize Character
+   1. take in character input
+      1. character should be stored in db
+      2. without gear
+   2. result should be character geared
+5. Send final Character
+   1. post the character
+
+### Part 4 Mongo
 - Setup Mongo
   - locally
-    - donwload from here: https://docs.mongodb.com/manual/installation/
+    - download from here: https://docs.mongodb.com/manual/installation/
+- Connect Sails to Mongo https://sailsjs.com/documentation/tutorials/using-mongo-db
+- Store Items in to mongo
 
-### Part 2 
-- Call API (LOGAN)
-- Store items retrieved from API <-database
-- Write to database 
+### Part 5 Input
+- Take Input for creating the character
+  - name
+  - class
+- look up html buttons
+  - form for this
 
-### Part 3 
+### Part 6
+- Call the optimize route
 - Optimize items logic
   - Each Class
     - Assassin
@@ -153,11 +200,15 @@ This project will broken into parts.
     - Spellcaster
     - Warrior
 - Write the character to the database
+  - Create new character collection
 
-### Part 4
+### Part 7
 - Send data to next api
   - Send the created character
 - Shows output on next api (LOGAN)
+
+### Part 8
+- dockerize
 
 #### Possible Tips
 - Example Number game is a helper.
@@ -167,8 +218,9 @@ This project will broken into parts.
 - Read the writeup multiple times
 
 ### Mock up
-![Mockup](../../assets/charactercreationapp.png)
-
+![Mockup v1.0](../../assets/charactercreationapp.png)
+<!-- ![Mockup v1.1]() -->
+Mockup v1.1 TODO
 
 #### Final Thoughts
 This will get you "geared" for SAIF. Make sure you read it over.

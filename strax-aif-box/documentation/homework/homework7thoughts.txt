@@ -1,0 +1,33 @@
+//FINAL form
+
+start: lift up 
+
+access it at that port 1337
+
+show you a homepage
+welcome to character creation
+
+click here to get started
+
+leads you to another page. dashboard
+That page will fetch the items
+That page will also fetch characters in your database. 
+
+Another form that will ask to create another character.
+Fill in form for new character
+that will lead you back to the dashboard with 
+items
+characters
+
+on this page the list of characters will give you an option to optimize 
+and send to the final api
+
+
+
+get items
+
+
+dashboard
+
+input form for new character
+also show you past characters 
