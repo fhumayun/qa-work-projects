@@ -13,9 +13,9 @@ Staging             'wss://staging.strax.co/mqtt'
 CD                  'wss://cd.strax.co/mqtt'
 Sandbox             'wss://sandbox.strax.co/mqtt'
 */
-// const WebSocket_URL = "wss://sandbox.strax.co/mqtt";
+const WebSocket_URL = "wss://sandbox.strax.co/mqtt"; //sandbox
 // const WebSocket_URL = 'wss://cd.strax.co/mqtt';//cd
-const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
+// const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
 // const WebSocket_URL = "wss://staging.strax.co/mqtt"; //staging
 
 // TCP/TLS connect url
