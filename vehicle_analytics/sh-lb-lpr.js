@@ -45,7 +45,7 @@ let hit = [ { lpScore: 0.6981093287467957,
     displayData: { lprScore: 0.6981093287467957 },
     y: 171,
     source: '5cc0d1eeec485700294b3b6a' } //logan - local videofeed
-    // source: '5ce5685332da7f002bc14a64' } //sandbox feed
+    // source: '5d2a41dbc5aae400299970a5' } //sandbox feed
   ]
 
 // after connect
