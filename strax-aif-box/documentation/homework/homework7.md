@@ -137,6 +137,7 @@ This project will broken into parts.
 
 ### Part 1 Sails
 - Create Sails app
+  - Select the raw Sails App - Option 2
   - learn the structure
   - comment out some designs
 
@@ -153,9 +154,12 @@ This project will broken into parts.
 - Create Getting Started route
   - can be a POST
     - similar to the number game start game
-  - should lead you to the homepage
-    - don't need homepage right now
+  - should lead you to the dashboard - a view of characters
+    - don't need dashboard right now
       - doesn't hurt to lead you to another view tho
+  - most likely call a controller function
+    - get items
+    - get characters
 - Call API (LOGAN)
   - GET route to url: ________
   - should log out items
@@ -198,15 +202,23 @@ This project will broken into parts.
   - form for this
 
 ### Part 6
-- Call the optimize route
+- 1st phase would be to grab random items for character
+  - ignore specs
+  - ignore armor type
+- Write the character to the database
+  - Create new character collection
+  - Call the optimize route
+
 - Optimize items logic
   - Each Class
     - Assassin
     - Knight
     - Spellcaster
     - Warrior
+- taking into account specs
 - Write the character to the database
   - Create new character collection
+  - Call the optimize route
 
 ### Part 7
 - Send data to next api
