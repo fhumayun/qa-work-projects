@@ -30,7 +30,7 @@ Flow - Homepage leads to the entry page where you make your initial guess. This 
 To get to the entry page, user needs to be routed to the entry page
 a simple `/entry` works. However, that won't be good enough for the user. 
 
-What am are we missing? Well, if my game has a different random number to guess each time, user will need to go through a controller function to calculate that random number. 
+What are we missing? Well, if my game has a different random number to guess each time, user will need to go through a controller function to calculate that random number. 
 
 Create a `/newgame` route, this calls a function that sets the number to be guessed to something random. Then routes the user to the `entry` page
 
@@ -84,6 +84,10 @@ POST `/guess` with `request.body.guess`
   - takes in data (guess) 
     - checks if the guess is high, low, or correct
   - routes user to `guess` page
+    - pass the data
+      - statement
+      - guess
+    - if correct show button to newgame
 
 ### Controller
 GameController
