@@ -142,13 +142,40 @@ This project will broken into parts.
   - comment out some designs
 
 ### Part 2 Sails
-  - create a controller 
+Design what you need
+- Controllers?
+- Models? 
+- Routes?
+- Pages? (HTML)
+
+Models: Characters, Items
+
+Use the api command
+
+`sails new api characters`
+
+`sails new api items`
+
+when you lift up with the api
+![Sails Alter Prompt](../../assets/sailsalter.png)
+
+You can avoid this by uncommenting the line
+`migrate: 'alter'` in the models.js file
+
+ - create a controller - Main controller for the app
     - `CreateCharacterController.js`
   - design routes in `routes.js`
   - lookover the ejs in the views folder
     - design some forms
       - don't code them!
-        - Design!
+        - Design! -->
+
+Example: Homepage
+![Homepage](../../assets/homepage.png)
+
+Example: Dashboard
+![Dashboard](../../assets/dashboard1.png)
+Characters should be shown underneath
 
 ### Part 3 Initial Routes
 - Create Getting Started route
@@ -161,8 +188,8 @@ This project will broken into parts.
     - get items
     - get characters
 - Call API (LOGAN)
-  - GET route to url: ________
-  - should log out items
+  - GET route to url: https://create-character-items.herokuapp.com/items
+  - test the route by logging out the items
 - Create `Optimize` route 
   - should have a character parameter
 - Create `create character` route
@@ -236,9 +263,18 @@ This project will broken into parts.
 - Read the writeup multiple times
 
 ### Mock up
+Old mockup: Left here for design thoughts
 ![Mockup v1.0](../../assets/charactercreationapp.png)
 <!-- ![Mockup v1.1]() -->
-Mockup v1.1 TODO
+Parts 1 and 2
+![Mockup v1.1](../../assets/charactercreationapp2.png)
+
+Parts 3
+![Mockup v1.2](../../assets/charactercreationapp3.png)
+
+Parts 4
+
+
 
 ## Final Thoughts
 This will get you "geared" for SAIF. Make sure you read it over.
