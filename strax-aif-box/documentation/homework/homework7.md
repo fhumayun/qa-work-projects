@@ -28,11 +28,12 @@ then shows them on a character page.
   `sails new CreateCreation`
 - Create front page in ejs
   - Input for each character class
-- Call Outside API _______________ (logan needs to fill)
-  - GET Items
+- Call Outside API `https://create-character-items.herokuapp.com/items`
+  - GET Items 
 - Store Items in database
 - Optimize logic
   - Loops
+  - Arrays
 - Create the Character with the items
 - Call Outside API ________________ (logan needs to fill)
   - POST Character
@@ -185,14 +186,36 @@ Characters should be shown underneath
     - don't need dashboard right now
       - doesn't hurt to lead you to another view tho
   - most likely call a controller function
-    - get items
+    - get items 
+      - created with blueprint if `sails generate api items` was used
     - get characters
+      - created with blueprint if `sails generate api characters` was used
+    - sails blueprints
+      - https://sailsjs.com/documentation/concepts/blueprints
+      - https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes
+      - 
 - Call API (LOGAN)
   - GET route to url: https://create-character-items.herokuapp.com/items
   - test the route by logging out the items
+  - hard code this route
+    - most likely in the function
 - Create `Optimize` route 
   - should have a character parameter
+    - like an id
 - Create `create character` route
+  - On the dashboard to create the character
+  - POST
+    - create a characer to the database
+    - return to the dashboard with the updated character list
+  - In Sails if you use the `sails generate api characters` you already have this route
+    - POST /characters
+      - request body should include the necessary things
+        - name
+        - charClass 
+      - However, you will have to override the character route in order to route back to the dashboard 
+        - create a function in the Characters Controller
+          - called `create`
+- Create `finalize character` route
   - this will be used later
     - POST to the other outside API
     - url: _______
@@ -205,14 +228,18 @@ Characters should be shown underneath
 3. Create Character
    1. take in input
       1. name
-      2. class
+      2. charClass
+         1. radio button
+   2. In sails, you use the blueprint, 
+      1. POST to /characters
 4. Optimize Character
    1. take in character input
       1. character should be stored in db
       2. without gear
    2. result should be character geared
 5. Send final Character
-   1. post the character
+   1. finalize character route
+   2. post the character
 
 ### Part 4 Mongo
 - Setup Mongo
@@ -224,7 +251,7 @@ Characters should be shown underneath
 ### Part 5 Input
 - Take Input for creating the character
   - name
-  - class
+  - charClass
 - look up html buttons
   - form for this
 
