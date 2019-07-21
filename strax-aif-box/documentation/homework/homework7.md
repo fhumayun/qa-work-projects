@@ -28,11 +28,12 @@ then shows them on a character page.
   `sails new CreateCreation`
 - Create front page in ejs
   - Input for each character class
-- Call Outside API _______________ (logan needs to fill)
-  - GET Items
+- Call Outside API `https://create-character-items.herokuapp.com/items`
+  - GET Items 
 - Store Items in database
 - Optimize logic
   - Loops
+  - Arrays
 - Create the Character with the items
 - Call Outside API ________________ (logan needs to fill)
   - POST Character
@@ -142,13 +143,40 @@ This project will broken into parts.
   - comment out some designs
 
 ### Part 2 Sails
-  - create a controller 
+Design what you need
+- Controllers?
+- Models? 
+- Routes?
+- Pages? (HTML)
+
+Models: Characters, Items
+
+Use the api command
+
+`sails new api characters`
+
+`sails new api items`
+
+when you lift up with the api
+![Sails Alter Prompt](../../assets/sailsalter.png)
+
+You can avoid this by uncommenting the line
+`migrate: 'alter'` in the models.js file
+
+ - create a controller - Main controller for the app
     - `CreateCharacterController.js`
   - design routes in `routes.js`
   - lookover the ejs in the views folder
     - design some forms
       - don't code them!
-        - Design!
+        - Design! -->
+
+Example: Homepage
+![Homepage](../../assets/homepage.png)
+
+Example: Dashboard
+![Dashboard](../../assets/dashboard1.png)
+Characters should be shown underneath
 
 ### Part 3 Initial Routes
 - Create Getting Started route
@@ -158,14 +186,36 @@ This project will broken into parts.
     - don't need dashboard right now
       - doesn't hurt to lead you to another view tho
   - most likely call a controller function
-    - get items
+    - get items 
+      - created with blueprint if `sails generate api items` was used
     - get characters
+      - created with blueprint if `sails generate api characters` was used
+    - sails blueprints
+      - https://sailsjs.com/documentation/concepts/blueprints
+      - https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes
+      - 
 - Call API (LOGAN)
-  - GET route to url: ________
-  - should log out items
+  - GET route to url: https://create-character-items.herokuapp.com/items
+  - test the route by logging out the items
+  - hard code this route
+    - most likely in the function
 - Create `Optimize` route 
   - should have a character parameter
+    - like an id
 - Create `create character` route
+  - On the dashboard to create the character
+  - POST
+    - create a characer to the database
+    - return to the dashboard with the updated character list
+  - In Sails if you use the `sails generate api characters` you already have this route
+    - POST /characters
+      - request body should include the necessary things
+        - name
+        - charClass 
+      - However, you will have to override the character route in order to route back to the dashboard 
+        - create a function in the Characters Controller
+          - called `create`
+- Create `finalize character` route
   - this will be used later
     - POST to the other outside API
     - url: _______
@@ -178,14 +228,18 @@ This project will broken into parts.
 3. Create Character
    1. take in input
       1. name
-      2. class
+      2. charClass
+         1. radio button
+   2. In sails, you use the blueprint, 
+      1. POST to /characters
 4. Optimize Character
    1. take in character input
       1. character should be stored in db
       2. without gear
    2. result should be character geared
 5. Send final Character
-   1. post the character
+   1. finalize character route
+   2. post the character
 
 ### Part 4 Mongo
 - Setup Mongo
@@ -197,7 +251,7 @@ This project will broken into parts.
 ### Part 5 Input
 - Take Input for creating the character
   - name
-  - class
+  - charClass
 - look up html buttons
   - form for this
 
@@ -236,9 +290,18 @@ This project will broken into parts.
 - Read the writeup multiple times
 
 ### Mock up
+Old mockup: Left here for design thoughts
 ![Mockup v1.0](../../assets/charactercreationapp.png)
 <!-- ![Mockup v1.1]() -->
-Mockup v1.1 TODO
+Parts 1 and 2
+![Mockup v1.1](../../assets/charactercreationapp2.png)
+
+Parts 3
+![Mockup v1.2](../../assets/charactercreationapp3.png)
+
+Parts 4
+
+
 
 ## Final Thoughts
 This will get you "geared" for SAIF. Make sure you read it over.
