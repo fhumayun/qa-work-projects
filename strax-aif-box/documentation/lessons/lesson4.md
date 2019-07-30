@@ -19,6 +19,15 @@ Sails is the most popular MVC framework for Node.js, designed to emulate the fam
 
 ### Anatomy
 
+#### Controllers Folder
+Controllers lie here. The functions.
+
+#### Models Folder
+Schemas are place here
+
+#### Config Folder
+Access variables from sails.config.globals
+
 ### Sails Commands 
 #### Create new sails app.
  - `sails new <app name>`
