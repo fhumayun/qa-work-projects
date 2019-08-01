@@ -17,6 +17,7 @@
     </form>
   </div>
 </div>
+<br>
 <div>
   <form action="/todo" method="post">
     <label for="todo">Enter Todo: </label>
@@ -24,11 +25,10 @@
     <input type="submit" value="OK">
   </form>
 </div>
-
 <div>
   <ul>
     <% todos.forEach(function(todo) { %>
-      <li>
+      <!-- <li> -->
         <div><span><%= todo.todo %>
 
           <form action="/updateTodo/<%=todo.id%>" method="post">
@@ -49,7 +49,7 @@
           </form>
         </span>
         </div>
-        </li>
+        <!-- </li> -->
     <% }); %>
   </ul>
 </div>
