@@ -35,6 +35,7 @@ module.exports.routes = {
 
   
   'POST /updateTodo/:id': "TodoController.updateTodo",
+  'POST /updateTodo': "TodoController.updateTodo", //mass update
   'POST /deleteTodo/:id': "TodoController.deleteTodo",
-  'POST /clearCompleted': "TodoController.clearCompleted"
+  'POST /deleteTodo': "TodoController.deleteTodo", //mass delete
 };

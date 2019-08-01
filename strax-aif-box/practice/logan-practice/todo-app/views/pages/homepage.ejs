@@ -2,7 +2,17 @@
 
 <div>
   <div>
-    <form action="/clearCompleted" method="post">
+    <form action="/updateTodo?completed=true" method="post">
+      <input type="submit" value="Complete All">
+    </form>
+  </div>
+  <div>
+    <form action="/updateTodo?completed=false" method="post">
+      <input type="submit" value="Undo Complete All">
+    </form>
+  </div>
+  <div>
+    <form action="/deleteTodo?completed=true" method="post">
       <input type="submit" value="Clear Completed">
     </form>
   </div>
@@ -27,11 +37,11 @@
           </form>
           <% if(!todo.completed) { %>
           <form id="formNameComplete" action="/updateTodo/<%=todo.id%>?completed=true" method="post">
-            <input type ="checkbox" name="complete" value = "" onchange="document.getElementById('formNameComplete').submit()">Complete</input>
+            <input type ="checkbox" name="completed" value = "" onchange="document.getElementById('formNameComplete').submit()">Complete</input>
           </form>
           <% } else { %>
           <form id="formNameUndo" action="/updateTodo/<%=todo.id%>?completed=false" method="post">
-            <input type ="checkbox" name="complete" value = "" onchange="document.getElementById('formNameUndo').submit()" checked>Complete</input>
+            <input type ="checkbox" name="completed" value = "" onchange="document.getElementById('formNameUndo').submit()" checked>Complete</input>
           </form>
           <% } %>
           <form action="/deleteTodo/<%=todo.id%>" method="post">
