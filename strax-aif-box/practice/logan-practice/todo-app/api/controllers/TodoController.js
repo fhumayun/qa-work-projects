@@ -8,8 +8,6 @@
 module.exports = {
   homepage: async function(req, res, next) {
     Todo.find({}).then(todos => {
-      sails.log("todos", todos);
-
       res.view("pages/homepage", { todos: todos });
     });
   },
@@ -21,9 +19,23 @@ module.exports = {
       .then(() => {
         return Todo.find({});
       })
-      .then(todos => {
-        res.redirect("/")
+      .then(() => {
+        res.redirect("/");
         // res.view("pages/homepage", { todos: todos });
       });
+  },
+  deleteTodo: async function(req, res, next) {
+    sails.log("destroying", req.params.id);
+
+    Todo.destroy({ id: req.params.id })
+      .then(() => {
+        return Todo.find({});
+      })
+      .then(() => {
+        res.redirect("/");
+      });
+  },
+  updateTodo: async function(req, res, next) {
+    res.redirect("/");
   }
 };
