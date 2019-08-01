@@ -1,7 +1,4 @@
-<h1>Hi</h1>
-<div>
-  Todos
-</div>
+<h1>My Todos</h1>
 <div>
   <form action="/todo" method="post">
     <label for="todo">Enter Todo: </label>
@@ -13,7 +10,14 @@
 <div>
   <ul>
     <% todos.forEach(function(todo) { %>
-      <li><%= todo.todo %></li>
+      <li>
+        <div><span><%= todo.todo %> <%= todo.id %>
+          <form action="/deleteTodo/<%=todo.id%>" method="post">
+            <input type="submit" value="DELETE">
+          </form>
+        </span>
+        </div>
+        </li>
     <% }); %>
   </ul>
 </div>
