@@ -22,7 +22,6 @@ module.exports.routes = {
   // '/': { view: 'pages/homepage' },
   '/': "TodoController.homepage",
 
-
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
@@ -34,7 +33,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/deleteTodo/:id': "TodoController.deleteTodo",
-  '/updateTodo/:id': "TodoController.updateTodo"
-
+  
+  'POST /updateTodo/:id': "TodoController.updateTodo",
+  'POST /deleteTodo/:id': "TodoController.deleteTodo",
+  'POST /clearCompleted': "TodoController.clearCompleted"
 };

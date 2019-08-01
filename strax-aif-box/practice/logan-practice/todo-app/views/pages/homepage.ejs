@@ -1,4 +1,12 @@
 <h1>My Todos</h1>
+
+<div>
+  <div>
+    <form action="/clearCompleted" method="post">
+      <input type="submit" value="Clear Completed">
+    </form>
+  </div>
+</div>
 <div>
   <form action="/todo" method="post">
     <label for="todo">Enter Todo: </label>
@@ -12,8 +20,22 @@
     <% todos.forEach(function(todo) { %>
       <li>
         <div><span><%= todo.todo %>
+
+          <form action="/updateTodo/<%=todo.id%>" method="post">
+            <input id="todo" type="text" name="todo" value="">
+            <input type="submit" value="Update">
+          </form>
+          <% if(!todo.completed) { %>
+          <form id="formNameComplete" action="/updateTodo/<%=todo.id%>?completed=true" method="post">
+            <input type ="checkbox" name="complete" value = "" onchange="document.getElementById('formNameComplete').submit()">Complete</input>
+          </form>
+          <% } else { %>
+          <form id="formNameUndo" action="/updateTodo/<%=todo.id%>?completed=false" method="post">
+            <input type ="checkbox" name="complete" value = "" onchange="document.getElementById('formNameUndo').submit()" checked>Complete</input>
+          </form>
+          <% } %>
           <form action="/deleteTodo/<%=todo.id%>" method="post">
-            <input type="submit" value="DELETE">
+            <input type="submit" value="Delete">
           </form>
         </span>
         </div>
