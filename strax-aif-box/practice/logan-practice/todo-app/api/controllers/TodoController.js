@@ -47,10 +47,10 @@ module.exports = {
   },
 
   deleteTodo: async function(req, res, next) {
-    sails.log("destroying", req.params.id);
-
+    
     let query = {};
     if (req.params.id) {
+      sails.log("destroying", req.params.id);
       query.id = req.params.id;
     }
 
