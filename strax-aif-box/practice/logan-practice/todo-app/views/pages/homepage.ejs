@@ -1,0 +1,19 @@
+<h1>Hi</h1>
+<div>
+  Todos
+</div>
+<div>
+  <form action="/todo" method="post">
+    <label for="todo">Enter Todo: </label>
+    <input id="todo" type="text" name="todo" value="">
+    <input type="submit" value="OK">
+  </form>
+</div>
+
+<div>
+  <ul>
+    <% todos.forEach(function(todo) { %>
+      <li><%= todo.todo %></li>
+    <% }); %>
+  </ul>
+</div>
