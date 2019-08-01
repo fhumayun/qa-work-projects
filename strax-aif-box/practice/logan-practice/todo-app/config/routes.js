@@ -34,5 +34,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  '/deleteTodo/:id': "TodoController.deleteTodo",
+  '/updateTodo/:id': "TodoController.updateTodo"
 
 };
