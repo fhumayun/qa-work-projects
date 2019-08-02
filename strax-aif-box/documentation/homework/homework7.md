@@ -70,7 +70,6 @@ Attributes are sums of the items the character is wearing. Plus the initial star
 
 #### Assassin
 Cloth and Leather wearer.
-Maximize Attack.
 
 Starting values include: 
 
@@ -83,7 +82,6 @@ Starting values include:
 
 #### Knight
 Plate wearer.
-Maximize Attack and Defense
 
     attributes: {
       health: 15,
@@ -94,7 +92,6 @@ Maximize Attack and Defense
 
 #### Spellcaster
 Cloth wearer.
-Maximize Mana
 
     attributes: {
       health: 10,
@@ -105,7 +102,6 @@ Maximize Mana
 
 #### Warrior
 Plate wearer.
-Maximize Health and Defense
 
     attributes: {
       health: 15,
@@ -264,12 +260,18 @@ Characters should be shown underneath
   - Call the optimize route
 
 - Optimize items logic
-  - Each Class
+  - Input Class
     - Assassin
     - Knight
     - Spellcaster
     - Warrior
-- taking into account specs
+  - Input optimization option
+    - max health
+    - max attack
+    - max mana
+    - max defense
+  - can pick 2
+  - checkboxes?
 - Write the character to the database
   - Create new character collection
   - Call the optimize route
