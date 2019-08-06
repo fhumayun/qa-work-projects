@@ -1,7 +1,23 @@
-<h1>Hi</h1>
+<h1>My Todos</h1>
+
 <div>
-  Todos
+  <div>
+    <form action="/updateTodo?completed=true" method="post">
+      <input type="submit" value="Complete All">
+    </form>
+  </div>
+  <div>
+    <form action="/updateTodo?completed=false" method="post">
+      <input type="submit" value="Undo Complete All">
+    </form>
+  </div>
+  <div>
+    <form action="/deleteTodo?completed=true" method="post">
+      <input type="submit" value="Clear Completed">
+    </form>
+  </div>
 </div>
+<br>
 <div>
   <form action="/todo" method="post">
     <label for="todo">Enter Todo: </label>
@@ -9,11 +25,31 @@
     <input type="submit" value="OK">
   </form>
 </div>
-
 <div>
   <ul>
     <% todos.forEach(function(todo) { %>
-      <li><%= todo.todo %></li>
+      <!-- <li> -->
+        <div><span><%= todo.todo %>
+
+          <form action="/updateTodo/<%=todo.id%>" method="post">
+            <input id="todo" type="text" name="todo" value="">
+            <input type="submit" value="Update">
+          </form>
+          <% if(!todo.completed) { %>
+          <form id="formNameComplete" action="/updateTodo/<%=todo.id%>?completed=true" method="post">
+            <input type ="checkbox" name="completed" value = "" onchange="document.getElementById('formNameComplete').submit()">Complete</input>
+          </form>
+          <% } else { %>
+          <form id="formNameUndo" action="/updateTodo/<%=todo.id%>?completed=false" method="post">
+            <input type ="checkbox" name="completed" value = "" onchange="document.getElementById('formNameUndo').submit()" checked>Complete</input>
+          </form>
+          <% } %>
+          <form action="/deleteTodo/<%=todo.id%>" method="post">
+            <input type="submit" value="Delete">
+          </form>
+        </span>
+        </div>
+        <!-- </li> -->
     <% }); %>
   </ul>
 </div>
