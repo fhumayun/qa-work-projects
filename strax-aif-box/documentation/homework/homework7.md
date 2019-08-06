@@ -31,14 +31,18 @@ then shows them on a character page.
 - Call Outside API `https://create-character-items.herokuapp.com/items`
   - GET Items 
 - Store Items in database
+- Create Character
+  - initially no items
+    - optimize button for the character
 - Optimize logic
   - Loops
   - Arrays
-- Create the Character with the items
-- Call Outside API ________________ (logan needs to fill)
-  - POST Character
+- Update the Character with the items
+- Finalize creating the character by sending to character page
+  - Call Outside API ________________ (logan needs to fill)
+    - POST with Character
 - view the character page
-character page: ________________ (logan needs to fill)
+  - character page: ________________ (logan needs to fill)
 
 ## Characters
 
@@ -117,6 +121,7 @@ Plate wearer.
     {
       name: string,
       slot: string,
+      type: string,
       attributes: {
         health: number,
         attack: number,
@@ -127,6 +132,11 @@ Plate wearer.
 
 Slot values:
 head, chest, legs, gauntlets, rings, boots
+
+Type values:
+cloth, leather, plate
+
+Rings do not have type
 
 This project will broken into parts.
 
@@ -167,6 +177,8 @@ You can avoid this by uncommenting the line
       - don't code them!
         - Design! -->
 
+Choose when to override the blueprints
+
 Example: Homepage
 ![Homepage](../../assets/homepage.png)
 
@@ -196,8 +208,10 @@ Characters should be shown underneath
   - hard code this route
     - most likely in the function
 - Create `Optimize` route 
-  - should have a character parameter
-    - like an id
+  - parameters
+    - id of character
+    - specs
+  - return back to dashboard
 - Create `create character` route
   - On the dashboard to create the character
   - POST
@@ -211,6 +225,7 @@ Characters should be shown underneath
       - However, you will have to override the character route in order to route back to the dashboard 
         - create a function in the Characters Controller
           - called `create`
+  - return back to dashboard
 - Create `finalize character` route
   - this will be used later
     - POST to the other outside API
@@ -218,9 +233,15 @@ Characters should be shown underneath
 
 #### Route Path
 1. Getting Started on the homepage 
+   1. button to advance to dashboard
 2. Dashboard 
    1. Get Items
+      1. this is used to sync the items with your database
    2. Get Characters
+      1. get list of characters
+   3. Dashboard page of characters
+      1. options
+         1. optimize
 3. Create Character
    1. take in input
       1. name
@@ -228,10 +249,17 @@ Characters should be shown underneath
          1. radio button
    2. In sails, you use the blueprint, 
       1. POST to /characters
+      2. return back to dashboard
 4. Optimize Character
-   1. take in character input
-      1. character should be stored in db
-      2. without gear
+   1. take in input
+      1. character
+         1. character should be stored in db
+         2. without gear
+      2. what attributes to optimize
+         1. health
+         2. attack
+         3. defense
+         4. mana
    2. result should be character geared
 5. Send final Character
    1. finalize character route
@@ -243,20 +271,31 @@ Characters should be shown underneath
     - download from here: https://docs.mongodb.com/manual/installation/
 - Connect Sails to Mongo https://sailsjs.com/documentation/tutorials/using-mongo-db
 - Store Items in to mongo
+  - each time you click on getting started to go to dashboard
+    - retrieve items and sync
+    - make sure the items from the server match the items that your app has
 
 ### Part 5 Input
 - Take Input for creating the character
   - name
   - charClass
-- look up html buttons
-  - form for this
+- form
+  - button 
+    - submit
+      - similar to the getting started
+  - input
+    - typing character name
+  - look up radio button
+    - can only select 1 class
+- Write the character to the database
+  - make sure character collection exists
+    - Characters
+  - Create new character collection if you don't have one
+    - before you run the app
 
 ### Part 6
-- 1st phase would be to grab random items for character
-  - ignore specs
-  - ignore armor type
-- Write the character to the database
-  - Create new character collection
+- Character has no items
+- Character on the dashboard has option for optimize
   - Call the optimize route
 
 - Optimize items logic
@@ -272,23 +311,47 @@ Characters should be shown underneath
     - max defense
   - can pick 2
   - checkboxes?
-- Write the character to the database
-  - Create new character collection
-  - Call the optimize route
+  
+- Update the character in the database
+- return to the dashoard
 
 ### Part 7
-- Send data to next api
-  - Send the created character
-- Shows output on next api (LOGAN)
+- Create button for outputting character to the character page
+  - Send data to next api
+    - Send the created character
+  - POST
+    - finds character you selected
+    - calls next api
+      - request body of character
+  - return back to dashboard
+- View output on next api (LOGAN)
 
 ### Part 8
-- dockerize
+- Dockerize
+  - local docker
 
 ## Tips
 - Example Number game is a helper.
+- Todo app you guys made is a helper.
 - Use logging
-- Error checking slots
-  - Chestpiece cannot go in helmet slot
+  - captains log
+    - different types of logging
+      - silly
+      - verbose
+      - info
+      - error
+      - warn
+      - debug
+- Error checking 
+  - input
+    - check for valid input
+      - character route should expect a character
+        - if not then return
+      - optimize route
+        - expects attributes
+          - if none then return
+  - slots
+    - Chestpiece cannot go in helmet slot
 - Read the writeup multiple times
 
 ### Mock up
@@ -301,8 +364,10 @@ Parts 1 and 2
 Parts 3
 ![Mockup v1.2](../../assets/charactercreationapp3.png)
 
-Parts 4
+Parts 6
 
+![Mockup v1.3](../../assets/charactercreationapp4.png)
+Added in optimize options
 
 
 ## Final Thoughts
