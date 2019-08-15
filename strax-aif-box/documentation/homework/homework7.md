@@ -1,6 +1,42 @@
-# Homework 7 - RPG Character Creation Sails Project
+# Homework 7 - RPG Create Character Sails Project
 
-## Curriculum: 
+## Table of Contents
+
+<div align="center">
+
+[Curriculum](#curriculum) 
+| [RPG Create Character Task](#RPG-Create-Character-Task)
+| [Overview Tasks](#overview-tasks)
+
+[Characters](#characters)
+
+[Character Classes](#character-classes) 
+
+[Assassin](#assassin)
+| [Knight](#knight)
+| [Spellcaster](#spellcaster)
+| [Warrior](#warrior)
+
+[Items](#items)
+
+[Tasks](#tasks)
+
+ [Part 1: Sails](#part-1-initialize-sails)
+| [Part 2: Sails](#part-2-continue-sails)
+| [Part 3: Routes](#part-3-initial-routes)
+| [Part 4: Mongo](#part-4-mongo)
+| [Part 5: Input](#part-5-input)
+| [Part 6: Optimize](#part-6-optimize)
+| [Part 7: Finalize Character](#part-7-finalize-character)
+| [Part 8: Docker](#part-8-docker)
+
+ [Tips](#tips)
+| [Mock Ups](#mock-up)
+| [Final Thoughts](#final-thoughts)
+
+</div>
+
+## Curriculum
 - Sails App
   - Ejs frontend
     - input
@@ -138,17 +174,23 @@ cloth, leather, plate
 
 Rings do not have type
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 This project will broken into parts.
 
 ## Tasks
 
-### Part 1 Sails
+### Part 1 Initialize Sails
 - Create Sails app
   - Select the raw Sails App - Option 2
   - learn the structure
   - comment out some designs
 
-### Part 2 Sails
+### Part 2 Continue Sails
 Design what you need
 - Controllers?
 - Models? 
@@ -293,7 +335,7 @@ Characters should be shown underneath
   - Create new character collection if you don't have one
     - before you run the app
 
-### Part 6
+### Part 6 Optimize
 - Character has no items
 - Character on the dashboard has option for optimize
   - Call the optimize route
@@ -315,7 +357,7 @@ Characters should be shown underneath
 - Update the character in the database
 - return to the dashoard
 
-### Part 7
+### Part 7 Finalize Character
 - Create button for outputting character to the character page
   - Send data to next api
     - Send the created character
@@ -326,7 +368,7 @@ Characters should be shown underneath
   - return back to dashboard
 - View output on next api (LOGAN)
 
-### Part 8
+### Part 8 Docker
 - Dockerize
   - local docker
 
