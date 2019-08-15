@@ -23,7 +23,7 @@
 
  [Part 1: Sails](#part-1-initialize-sails)
 | [Part 2: Sails](#part-2-continue-sails)
-| [Part 3: Routes](#part-3-initial-routes)
+| [Part 3: Routes](#part-3-initial-routes) | [Route Path](#route-path)
 | [Part 4: Mongo](#part-4-mongo)
 | [Part 5: Input](#part-5-input)
 | [Part 6: Optimize](#part-6-optimize)
@@ -59,6 +59,12 @@ Then (save the character) output the character to a database
 and sends the character to another API 
 then shows them on a character page.
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 ## Overview Tasks
 - Creat a sails app - name it whatever you see relevant to a character creation app
   `sails new CreateCreation`
@@ -79,6 +85,12 @@ then shows them on a character page.
     - POST with Character
 - view the character page
   - character page: ________________ (logan needs to fill)
+
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 ## Characters
 
@@ -190,6 +202,12 @@ This project will broken into parts.
   - learn the structure
   - comment out some designs
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 ### Part 2 Continue Sails
 Design what you need
 - Controllers?
@@ -227,6 +245,12 @@ Example: Homepage
 Example: Dashboard
 ![Dashboard](../../assets/dashboard1.png)
 Characters should be shown underneath
+
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 ### Part 3 Initial Routes
 - Create Getting Started route
@@ -273,6 +297,12 @@ Characters should be shown underneath
     - POST to the other outside API
     - url: _______
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 #### Route Path
 1. Getting Started on the homepage 
    1. button to advance to dashboard
@@ -307,6 +337,12 @@ Characters should be shown underneath
    1. finalize character route
    2. post the character
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 ### Part 4 Mongo
 - Setup Mongo
   - locally
@@ -316,6 +352,12 @@ Characters should be shown underneath
   - each time you click on getting started to go to dashboard
     - retrieve items and sync
     - make sure the items from the server match the items that your app has
+
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 ### Part 5 Input
 - Take Input for creating the character
@@ -334,6 +376,12 @@ Characters should be shown underneath
     - Characters
   - Create new character collection if you don't have one
     - before you run the app
+
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 ### Part 6 Optimize
 - Character has no items
@@ -357,6 +405,12 @@ Characters should be shown underneath
 - Update the character in the database
 - return to the dashoard
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 ### Part 7 Finalize Character
 - Create button for outputting character to the character page
   - Send data to next api
@@ -368,9 +422,21 @@ Characters should be shown underneath
   - return back to dashboard
 - View output on next api (LOGAN)
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 ### Part 8 Docker
 - Dockerize
   - local docker
+
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 ## Tips
 - Example Number game is a helper.
@@ -396,6 +462,12 @@ Characters should be shown underneath
     - Chestpiece cannot go in helmet slot
 - Read the writeup multiple times
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
+
 ### Mock up
 Old mockup: Left here for design thoughts
 ![Mockup v1.0](../../assets/charactercreationapp.png)
@@ -411,8 +483,17 @@ Parts 6
 ![Mockup v1.3](../../assets/charactercreationapp4.png)
 Added in optimize options
 
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
 
 ## Final Thoughts
 This will get you "geared" for SAIF. Make sure you read it over.
 
-
+<br/>
+<div align="right">
+    <b><a href="#----">↥ back to top</a></b>
+</div>
+<br/>
