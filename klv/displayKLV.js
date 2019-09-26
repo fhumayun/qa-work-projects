@@ -13,7 +13,8 @@ Sandbox             'wss://sandbox.strax.co/mqtt'
 PBSO 20             'wss://pbso20.strax.co/mqtt'
 */
 // const WebSocket_URL = 'wss://cd01.strax.co/mqtt';
-const WebSocket_URL = 'wss://staging.strax.co/mqtt';
+// const WebSocket_URL = 'wss://staging.strax.co/mqtt';
+const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
 
 // TCP/TLS connect url
 const TCP_URL = 'mqtt://localhost:1883'
