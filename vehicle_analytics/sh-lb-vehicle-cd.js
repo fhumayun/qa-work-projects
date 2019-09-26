@@ -12,8 +12,8 @@ CD                  'wss://cd.strax.co/mqtt'
 Sandbox             'wss://sandbox.strax.co/mqtt'
 */
 // const WebSocket_URL = 'wss://sandbox.strax.co/mqtt'; //sandbox
-// const WebSocket_URL = 'wss://cd.strax.co/mqtt'; //cd
-const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
+const WebSocket_URL = 'wss://cd.strax.co/mqtt'; //cd
+// const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
 
 
 // TCP/TLS connect url
@@ -51,11 +51,10 @@ let hit = [{
   feeds: [],
   triggerType: "vehicle",
   // source: "5d0286df0f406f00299d3412", //uav
-  source: "5d8119096ef1f500206b1d03", //rear office camera - local
+  source: "5cc0d1eeec485700294b3b6a", //rear office camera - local
   // source: "5cdd9ef4c7ef0f002b6aac9f", //rear office camera - cd
   // source: "5ce5685332da7f002bc14a64", //sandbox - Rear Office Direct
-  //Copy from NoSQLBooster for MongoDB free edition. This message does not appear if you are using a registered version.
-
+  
   displayData: {
     modelScore: 0.9941408038139343
   },
