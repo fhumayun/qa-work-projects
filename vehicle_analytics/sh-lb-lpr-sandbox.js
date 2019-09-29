@@ -11,10 +11,8 @@ Staging             'wss://staging.strax.co/mqtt'
 CD                  'wss://cd.strax.co/mqtt'
 Sandbox             'wss://sandbox.strax.co/mqtt'
 */
-// const WebSocket_URL = 'wss://sandbox.strax.co/mqtt'; //sandbox
-// const WebSocket_URL = 'wss://cd.strax.co/mqtt'; //cd
-const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
-
+const WebSocket_URL = 'wss://sandbox.strax.co/mqtt';
+// const WebSocket_URL = "ws://localhost:8083/mqtt"; //local
 
 // TCP/TLS connect url
 const TCP_URL = 'mqtt://localhost:1883'
@@ -27,7 +25,7 @@ const options = {
   connectTimeout: 4000,
 
   // Authentication
-  clientId: 'strax-ier-service-lbs112',
+  clientId: 'strax-ier-service-lbs111',
   username: 'admin',
   password: 'public',
   keepalive: 60,
@@ -38,34 +36,25 @@ const client = mqtt.connect(WebSocket_URL, options);
 
 //Copy from NoSQLBooster for MongoDB free edition. This message does not appear if you are using a registered version.
 
-let hit = [{ 
-  keywords: [
-    {
-      color: "silver/grey",
-      makemodel: "ram pickup truck"
-    }
-  ],
-  keys: [
-    "ierhit/5d0286df0f406f00299d3412/1560976007604.jpeg"
-  ],
-  feeds: [],
-  triggerType: "vehicle",
-  // source: "5d0286df0f406f00299d3412", //uav
-  source: "5d8119096ef1f500206b1d03", //rear office camera - local
-  // source: "5cdd9ef4c7ef0f002b6aac9f", //rear office camera - cd
-  // source: "5ce5685332da7f002bc14a64", //sandbox - Rear Office Direct
-  //Copy from NoSQLBooster for MongoDB free edition. This message does not appear if you are using a registered version.
-
-  displayData: {
-    modelScore: 0.9941408038139343
-  },
-  location: null
-}]
+//Faisals car
+let hit = [ { lpScore: 0.6981093287467957,
+    time: 1561648358,
+    keys: [ 'ierhit/5ce5685332da7f002bc14a64/1561648357544.jpeg' ],
+    x: 1029,
+    keywords: [{"lpr":"ABC123"}],
+    triggerType: 'lpr',
+    displayData: { lprScore: 0.6981093287467957 },
+    y: 171,
+    // source: '5cf961bfa22ecd316bc66390'} //STRAX Rear Parking Lot - staging 
+    // source: '5d0cd9468ce014002543eb16' } //logan - local videofeed - uav - eric-rtmp
+    // source: '5cc0d1eeec485700294b3b6a' } //logan - local videofeed - ip camera
+    source: '5d2a3b0a2676b75da8ba9906' } //sandbox feed - rear parking lot
+  ]
 
 // after connect
 client.on('connect', () => {
 
-  // hit.timeStamp = new Date();
+  hit.timeStamp = new Date();
 
   client.publish(CAPTURE_TOPIC, JSON.stringify(hit))
   console.log('published')
