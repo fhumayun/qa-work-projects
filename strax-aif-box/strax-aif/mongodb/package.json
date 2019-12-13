@@ -28,7 +28,7 @@
     "joi-objectid": "^2.0.0",
     "json-mongoose": "^0.3.5",
     "mongodb": "^2.1.18",
-    "mongoose": "5.0.12",
+    "mongoose": "5.7.5",
     "node-encrypt": "1.1.0"
   }
 }
